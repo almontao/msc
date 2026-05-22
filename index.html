@@ -82,137 +82,292 @@
 
       <div class="content-area single-page-area">
         <div class="single-page-content">
+
           <article class="post">
+
             <div class="post-thumbnail">
-              <img src="img/blog/blog_post_1_full.jpg" alt="image">
+              <!-- Sugerencia: Usa una imagen de un cerebro con tractos o código computacional -->
+              <img src="img/blog/tesis_neuro_full.jpg" alt="Voxelwise Modeling of the Human Brain">
             </div>
 
             <div class="post-content">
+              <!-- /Entry header -->
               <header class="entry-header">
+                <!-- Entry meta -->
                 <div class="entry-meta entry-meta-top">
-                  <span><a href="#" rel="category tag">Lingüística</a></span>
+                  <span><a href="#" rel="category tag">Neurociencia Computacional</a></span>
+                  <span><a href="#" rel="category tag">Neurolingüística</a></span>
                 </div>
-                <h2 class="entry-title">Cerebro, tiempo gramatical y los modelos de codificación voxel a voxel</h2>
-              </header>
+                <!-- /Entry meta -->
 
+                <h2 class="entry-title">Decodificando el tiempo: ¿cómo el cerebro separa el "cuándo" del "qué"?</h2>
+              </header>
+              <!-- /Entry header -->
+
+              <!-- Entry content -->
               <div class="entry-content">
                 <div class="row">
                   <div class=" col-xs-12 col-sm-12 ">
                     <div class="col-inner">
-                      <p>Representaciones Corticales del tiempo morfológico durante la comprensión de
-                        habla naturalista: un enfoque computacional Bbsado en modelos de codificación voxelwise.<br><br>
-
-                        fuente de imagen es: https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM
-
-                        Selecciona un participante para explorar su mapa de varianza (R² único):<br><br></p>
+                      <p>
+                        Cuando decimos "caminé" en lugar de "camino", nuestro cerebro realiza un cálculo asombroso. No
+                        solo procesa el significado de la acción (la semántica), sino que extrae una etiqueta temporal
+                        incrustada en la estructura misma de la palabra (la morfología). Como lingüistas, sabemos que el
+                        inglés codifica el tiempo lingüístico de forma binaria: <b>Pasado vs. No-Pasado</b>. Pero, ¿cómo
+                        se ve esto reflejado físicamente en la corteza cerebral? ¿Tiene el cerebro áreas dedicadas
+                        exclusivamente a procesar el tiempo gramatical, independientes del significado de la palabra y
+                        de su sonido?
+                      </p>
+                      <p>
+                        Esta fue la pregunta central de mi tesis de maestría. Para responderla, construí un puente entre
+                        la lingüística descriptiva, la inteligencia artificial y la neurociencia de vanguardia.
+                      </p>
                       <br>
-                      <p align="right">—<br>
-                        Reporte visual por <a class="url fn n" href="https://www.almontao.com" target="_blank"
-                          rel="author">Alejandro Montenegro Taborda</a><br>
+
+                      <h3>El paradigma naturalista y el <i>Voxelwise Modeling</i></h3>
+                      <p>
+                        Históricamente, la neurociencia del lenguaje utilizaba experimentos muy controlados: hacer que
+                        una persona leyera oraciones aisladas en una pantalla mientras estaba en un escáner de
+                        resonancia magnética funcional (fMRI). Sin embargo, el cerebro evolucionó para procesar lenguaje
+                        en contextos ricos y continuos.
+                      </p>
+                      <p>
+                        Para esta investigación, utilicé un enfoque impulsado por el <b>Gallant Lab de UC Berkeley</b>
+                        llamado <i>Voxelwise Modeling</i> (Modelado Vóxel por Vóxel). Como explican los investigadores
+                        de este laboratorio, las tareas naturales (como escuchar un podcast) activan múltiples sistemas
+                        cognitivos jerárquicos a la vez. El <i>Voxelwise Modeling</i> es un marco computacional poderoso
+                        que nos permite construir modelos predictivos matemáticos explícitos para cada unidad
+                        volumétrica tridimensional del cerebro (vóxel). En lugar de preguntarle al cerebro "¿dónde está
+                        el lenguaje?", le entregamos al modelo computacional el audio que el sujeto escuchó y le pedimos
+                        predecir, milisegundo a milisegundo, los cambios en el flujo sanguíneo de la corteza.
+                      </p>
+                      <br>
+
+                      <h3>El reto metodológico: Aislar el tiempo morfológico</h3>
+                      <p>
+                        El peligro de analizar el tiempo verbal en el cerebro es la colinealidad. Si un modelo detecta
+                        actividad al escuchar "caminé", ¿esa zona del cerebro está procesando el concepto de caminar, el
+                        sonido /t/ final, o el tiempo pasado? Para demostrar que el cerebro reacciona a la morfología
+                        pura, tuve que aislarla matemáticamente aplicando "Partición de Varianza" (Variance
+                        Partitioning) a través de modelos de <i>Banded Ridge Regression</i>.
+                      </p>
+                      <p>
+                        Para ello, utilicé algoritmos de Procesamiento de Lenguaje Natural (NLP) basados en
+                        arquitecturas <i>Transformer</i> (spaCy trf) sobre transcripciones alineadas temporalmente,
+                        creando un espacio de características estricto de <b>Pasado vs. No-Pasado</b>. Luego, obligué a
+                        este modelo a competir contra tres filtros de "ruido":
+                      </p>
+                      <ul>
+                        <li><b>Control Acústico (Phone Rate):</b> Densidad fonética por segundo, para evitar que la
+                          corteza auditiva confundiera los sufijos regulares con simple ruido físico.</li>
+                        <li><b>Carga Cognitiva (Word Rate):</b> Control del volumen general del habla.</li>
+                        <li><b>Control Semántico (English1000sm):</b> Un espacio semántico de 985 dimensiones
+                          desarrollado por el Gallant Lab, que captura el significado de las palabras ignorando su
+                          estructura sintáctica.</li>
+                      </ul>
+                      <br>
+
+                      <h3>El cómputo en la nube y el rigor estadístico</h3>
+                      <p>
+                        Cruzar decenas de miles de vóxeles con miles de características semánticas retrasadas en el
+                        tiempo para simular la respuesta hemodinámica del cerebro es una tarea titánica. Tras llevar al
+                        límite la memoria RAM de mi equipo local, el procesamiento tuvo que ser migrado a la
+                        infraestructura de Google Cloud Platform (GCP). Utilizando máquinas virtuales de alta memoria
+                        (128 GB RAM y 16 vCPUs), ejecuté regresiones masivas y realicé un testeo de permutaciones
+                        empíricas con <b>3,000 iteraciones</b> para asegurar el máximo rigor en los valores p
+                        (corregidos por la Tasa de Falsos Descubrimientos - FDR).
+                      </p>
+                      <br>
+
+                      <h3>Los Resultados: El cerebro sí separa el "cuándo" del "qué"</h3>
+
+                      <!-- OPCIÓN 1: TEXTO EN PROSA (Puedes borrar este bloque si prefieres la tabla) -->
+                      <p>
+                        Los resultados fueron contundentes. Tras procesar los datos de 8 participantes válidos (un
+                        sujeto, UTS04, fue excluido por presentar singularidades matriciales y datos BOLD corruptos), se
+                        encontró una sintonía morfológica significativa y bilateral. En promedio, entre 700 y 1,600
+                        vóxeles por participante (aproximadamente entre el 1% y el 1.5% del volumen cortical analizado)
+                        mostraron una codificación exclusiva para el tiempo morfológico. La varianza única explicada
+                        (aquélla que el modelo semántico fue incapaz de predecir) alcanzó picos de hasta el <b>3.73%</b>
+                        en los mejores participantes. En resonancia magnética funcional naturalista, donde gran parte de
+                        la señal es ruido fisiológico, aislar este porcentaje de varianza pura utilizando solo dos
+                        variables morfológicas es un hallazgo excepcionalmente robusto.
+                      </p>
+                      <!-- FIN OPCIÓN 1 -->
+
+                      <!-- OPCIÓN 2: FORMATO TABLA (Puedes borrar este bloque si prefieres la prosa) -->
+                      <p>Los resultados revelaron una sintonía morfológica robusta a lo largo de 8 participantes (un
+                        noveno sujeto, UTS04, fue excluido rigurosamente del análisis debido a una singularidad
+                        matricial en el registro fMRI). En la siguiente tabla se detalla la cantidad de vóxeles
+                        corticales que respondieron significativamente a la morfología (p &lt; 0.05, FDR) y su Varianza
+                        Única máxima (el porcentaje de actividad cerebral que los modelos de significado puro no
+                        pudieron explicar):</p>
+
+                      <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                          <thead style="background-color: #f8f9fa;">
+                            <tr>
+                              <th>Participante</th>
+                              <th>Vóxeles Significativos</th>
+                              <th>% del Cerebro</th>
+                              <th>Varianza Única Pico (R²)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>UTS01</td>
+                              <td>822</td>
+                              <td>1.01%</td>
+                              <td>2.16%</td>
+                            </tr>
+                            <tr>
+                              <td>UTS02</td>
+                              <td>938</td>
+                              <td>1.00%</td>
+                              <td>1.48%</td>
+                            </tr>
+                            <tr>
+                              <td>UTS03</td>
+                              <td>1,482</td>
+                              <td>1.55%</td>
+                              <td>3.73%</td>
+                            </tr>
+                            <tr>
+                              <td>UTS05</td>
+                              <td>955</td>
+                              <td>0.96%</td>
+                              <td>2.88%</td>
+                            </tr>
+                            <tr>
+                              <td>UTS06</td>
+                              <td>1,018</td>
+                              <td>1.10%</td>
+                              <td>1.72%</td>
+                            </tr>
+                            <tr>
+                              <td>UTS07</td>
+                              <td>981</td>
+                              <td>1.04%</td>
+                              <td>2.09%</td>
+                            </tr>
+                            <tr>
+                              <td>UTS08</td>
+                              <td>736</td>
+                              <td>0.76%</td>
+                              <td>1.52%</td>
+                            </tr>
+                            <tr>
+                              <td>UTS09</td>
+                              <td>953</td>
+                              <td>0.97%</td>
+                              <td>0.68%</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- FIN OPCIÓN 2 -->
+
+                      <br>
+                      <p>
+                        A nivel espacial, el análisis desafió ciertas nociones clásicas. La mayor actividad no se
+                        concentró exclusivamente en el Área de Broca (Giro Frontal Inferior), sino que los clústeres de
+                        máxima varianza se localizaron en las regiones temporales posteriores y la Unión Temporoparietal
+                        (pSTS/TPJ). Esta zona funciona como la verdadera <b>interfaz léxico-fonológica</b>. Esto nos
+                        indica que, durante el habla natural, el cerebro realiza el cómputo de las características
+                        morfológicas temporales ("desempaquetar" el sufijo del pasado de la raíz del verbo) de manera
+                        distribuida, respetando el silenciamiento de la corteza auditiva primaria inducido por nuestros
+                        controles matemáticos.
+                      </p>
+                      <br>
+
+                      <h3>Explora los cerebros de los participantes (Interactivo 2D)</h3>
+                      <p>
+                        A continuación, puedes interactuar directamente con los resultados. He desplegado los mapas
+                        cerebrales 3D desarrollados con <i>Pycortex</i>. En estos Colormaps 2D, el color indica la
+                        preferencia lingüística del vóxel (<b>Rojo</b> para el Pasado, <b>Azul</b> para el No-Pasado), y
+                        la opacidad/brillo indica la precisión del modelo (la varianza única). Te invito a navegar por
+                        la corteza de cada participante:
                       </p>
 
+                      <!-- Botones interactivos -->
+                      <div class="interactive-brains"
+                        style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+                        <button onclick="window.open('UTS01/index.html', '_blank');"
+                          style="padding: 10px 15px; border: 1px solid #ccc; background-color: #f1f1f1; cursor: pointer; border-radius: 4px;">Sujeto
+                          UTS01</button>
+                        <button onclick="window.open('UTS02/index.html', '_blank');"
+                          style="padding: 10px 15px; border: 1px solid #ccc; background-color: #f1f1f1; cursor: pointer; border-radius: 4px;">Sujeto
+                          UTS02</button>
+                        <button onclick="window.open('UTS03/index.html', '_blank');"
+                          style="padding: 10px 15px; border: 1px solid #ccc; background-color: #f1f1f1; cursor: pointer; border-radius: 4px;">Sujeto
+                          UTS03</button>
+                        <button onclick="window.open('UTS05/index.html', '_blank');"
+                          style="padding: 10px 15px; border: 1px solid #ccc; background-color: #f1f1f1; cursor: pointer; border-radius: 4px;">Sujeto
+                          UTS05</button>
+                        <button onclick="window.open('UTS06/index.html', '_blank');"
+                          style="padding: 10px 15px; border: 1px solid #ccc; background-color: #f1f1f1; cursor: pointer; border-radius: 4px;">Sujeto
+                          UTS06</button>
+                        <button onclick="window.open('UTS07/index.html', '_blank');"
+                          style="padding: 10px 15px; border: 1px solid #ccc; background-color: #f1f1f1; cursor: pointer; border-radius: 4px;">Sujeto
+                          UTS07</button>
+                        <button onclick="window.open('UTS08/index.html', '_blank');"
+                          style="padding: 10px 15px; border: 1px solid #ccc; background-color: #f1f1f1; cursor: pointer; border-radius: 4px;">Sujeto
+                          UTS08</button>
+                        <button onclick="window.open('UTS09/index.html', '_blank');"
+                          style="padding: 10px 15px; border: 1px solid #ccc; background-color: #f1f1f1; cursor: pointer; border-radius: 4px;">Sujeto
+                          UTS09</button>
+                      </div>
+                      <p><small><i>Nota: El sujeto UTS04 fue excluido del análisis debido a inestabilidades detectadas
+                            en la señal BOLD originaria del dataset.</i></small></p>
+
+                      <br>
+                      <!-- Fun Facts / Agradecimientos -->
                       <div class="row">
                         <div class="col-xs-12 col-sm-12">
                           <div class="block-title">
-                            <h3>Selección de <span>participantes</span></h3>
+                            <h3>Agradecimientos y <span>Recursos</span></h3>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
-
                         <div class="col-xs-12 col-sm-6">
                           <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Mapa cerebral</div>
+                            <div class="fw-default-row">Agradecimiento Especial</div>
                             <div class="fw-heading-row">
-                              <span><a href="UTS01/index.html" target="_blank">UTS01</a></span>
+                              <span><a href="https://gallantlab.org/" target="_blank">Gallant Lab</a></span>
                             </div>
-                            <span class="fun-fact-block-text"></span>
+                            <span class="fun-fact-block-text">Por el desarrollo de los marcos teóricos de <i>Voxelwise
+                                Modeling</i>, la publicación de sus herramientas de código abierto (Himalaya y Pycortex)
+                              y la democratización de la ciencia.</span>
                           </div>
                         </div>
 
                         <div class="col-xs-12 col-sm-6">
                           <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Mapa cerebral</div>
+                            <div class="fw-default-row">Datos Origines</div>
                             <div class="fw-heading-row">
-                              <span><a href="UTS02/index.html" target="_blank">UTS02</a></span>
+                              <span><a href="https://openneuro.org/datasets/ds003020/" target="_blank">OpenNeuro
+                                  ds003020</a></span>
                             </div>
-                            <span class="fun-fact-block-text"></span>
+                            <span class="fun-fact-block-text">LeBel, A., Wagner, L., Jain, S. et al. A natural language
+                              fMRI dataset for voxelwise encoding models. Sci Data 10, 555 (2023).</span>
                           </div>
                         </div>
-
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Mapa cerebral</div>
-                            <div class="fw-heading-row">
-                              <span><a href="UTS03/index.html" target="_blank">UTS03</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Mapa cerebral</div>
-                            <div class="fw-heading-row">
-                              <span><a href="UTS05/index.html" target="_blank">UTS05</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Mapa cerebral</div>
-                            <div class="fw-heading-row">
-                              <span><a href="UTS06/index.html" target="_blank">UTS06</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Mapa cerebral</div>
-                            <div class="fw-heading-row">
-                              <span><a href="UTS07/index.html" target="_blank">UTS07</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Mapa cerebral</div>
-                            <div class="fw-heading-row">
-                              <span><a href="UTS08/index.html" target="_blank">UTS08</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Mapa cerebral</div>
-                            <div class="fw-heading-row">
-                              <span><a href="UTS09/index.html" target="_blank">UTS09</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
-
-                      </div> <!-- End of Fun Facts row -->
+                      </div>
+                      <!-- End of Fun Facts -->
 
                     </div>
                   </div>
                 </div>
               </div>
+              <!-- /Entry content -->
 
               <div class="entry-meta entry-meta-bottom">
                 <div class="date-author">
                   <span class="entry-date">
                     <a href="#" rel="bookmark">
-                      <i class="far fa-clock"></i> <span class="entry-date"> Febrero 05, 2020</span>
+                      <i class="far fa-clock"></i> <span class="entry-date"> Mayo 22, 2026</span>
                     </a>
                   </span>
                   <span class="author vcard">
@@ -224,9 +379,10 @@
 
               <div class="post-tags">
                 <div class="tags">
-                  <a href="#" rel="tag">Traducción</a>
-                  <a href="#" rel="tag">Lingüística</a>
-                  <a href="#" rel="tag">Lingüistas</a>
+                  <a href="#" rel="tag">Investigación</a>
+                  <a href="#" rel="tag">fMRI</a>
+                  <a href="#" rel="tag">Machine Learning</a>
+                  <a href="#" rel="tag">Pycortex</a>
                 </div>
               </div>
             </div>
