@@ -355,8 +355,33 @@
                       <!-- Prueba de integración Mermaid -->
                       <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
                         flowchart LR
-                        A e1@--> B
-                        e1@{ animation: fast }
+                          A[Estímulo Naturalista] e1@--> B[Acústica: Mel-Spectrogram]
+                          A e2@--> C[Léxico: Word & Verb Rate]
+                          A e3@--> D[Semántica: Embeddings ± PCA]
+                          A e4@--> E[Morfología: Pasado vs No-Pasado]
+
+                          B e5@--> F[ColumnKernelizer: Bloques]
+                          C e6@--> F
+                          D e7@--> F
+                          E e8@--> F
+
+                          F e9@--> G[Banded Ridge Regression]
+                          G e10@--> H[Variance Partitioning]
+                          H e11@--> I[Permutaciones Cíclicas y FDR]
+                          I e12@--> J[Mapas de Varianza Única]
+
+                          e1@{ animation: fast }
+                          e2@{ animation: fast }
+                          e3@{ animation: fast }
+                          e4@{ animation: fast }
+                          e5@{ animation: fast }
+                          e6@{ animation: fast }
+                          e7@{ animation: fast }
+                          e8@{ animation: fast }
+                          e9@{ animation: fast }
+                          e10@{ animation: fast }
+                          e11@{ animation: fast }
+                          e12@{ animation: fast }
                       </div>
 
                       <h3>Agradecimientos institucional</h3>
