@@ -354,7 +354,7 @@
 
                       <!-- Prueba de integración Mermaid -->
                       <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
-                        flowchart LR
+                        flowchart
                         A[Estímulo Naturalista] e1@--> B[Acústica: Mel-Spectrogram]
                         A e2@--> C[Léxico: Word & Verb Rate]
                         A e3@--> D[Semántica: Embeddings ± PCA]
@@ -385,103 +385,198 @@
                       </div>
 
                       <p>
-                        <b>Ramas iniciales:</b> El estímulo narrativo se divide matemáticamente en tus cuatro espacios de
+                        <b>Ramas iniciales:</b> El estímulo narrativo se divide matemáticamente en tus cuatro espacios
+                        de
                         características respetando las subdisciplinas lingüísticas y acústicas.<br>
-                        <b>ColumnKernelizer:</b> El embudo crítico donde le dices a Python "estas matrices son distintas,
+                        <b>ColumnKernelizer:</b> El embudo crítico donde le dices a Python "estas matrices son
+                        distintas,
                         trátalas con regularizaciones independientes".<br>
-                        <b>Banded Ridge & Partición:</b> El corazón de la evaluación, donde mides el modelo completo (Full) y
+                        <b>Banded Ridge & Partición:</b> El corazón de la evaluación, donde mides el modelo completo
+                        (Full) y
                         le restas el modelo de control (Nuisance).<br>
-                        <b>Final:</b> La evaluación estadística que determinará si se ilumina la corteza o si se aprueba la
+                        <b>Final:</b> La evaluación estadística que determinará si se ilumina la corteza o si se aprueba
+                        la
                         hipótesis nula.
                       </p>
 
-                      <h3>Agradecimientos institucional</h3>
-                      <blockquote>
-                        Agradecimiento Institucional al Gallant Lab por el desarrollo de los marcos de Voxelwise
-                        Modeling, la publicación de sus herramientas de código abierto (Himalaya y Pycortex) y la
-                        invaluable democratización del conocimiento.
-                      </blockquote>
+                      <h3>Pasos a seguir</h3>
 
-                      <br>
-                      <p align="right">—
-                        <br>
-                        Redacción por <a class="url fn n" href="https://www.almontao.com" target="_blank"
-                          rel="author">Alejandro Montenegro Taborda</a>
-                        <br>
-                        <i>(Asistida por Inteligencia Artificial Generativa)</i>
-                        <br>
-                      </p>
+                      <p>
+                        Basado en tu implementación actual y en los estándares del estado del arte
+                        para 2026 en Voxelwise Encoding, aquí tienes tu Hoja de Ruta Metodológica.
+                        Guárdala y úsala como checklist para tus próximas iteraciones de código.
 
-                      <!-- Fun Facts | Recursos usados -->
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-12">
+                        ITERACIÓN 1: Refinamiento de los Espacios de Características (Feature Spaces)
 
-                          <div class="block-title">
-                            <h3>Recursos <span>usados</span></h3>
-                          </div>
-                        </div>
-                      </div>
+                        1. Control de Categoría Léxica (¡Urgente!)
 
-                      <div class="row">
+                        - Problema actual: Solo cuentas past_count y non_past_count. Si le restas solo
+                        el word_rate (tasa de palabras), tu varianza única está mezclando "el tiempo
+                        verbal" con "el hecho de ser un verbo" frente a sustantivos o adjetivos.
+                        - Acción: En tu pipeline de NLP (Celda 3), añade una variable verb_count (o
+                        verb_rate).
+                        - Objetivo: El modelo nuisance (de control) debe saber cuándo hay un verbo.
+                        Así, la varianza de la morfología (Pasado/No-Pasado) será puramente el
+                        efecto del tiempo gramatical, no de la categoría léxica.
 
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Software de código abierto por</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://gallantlab.org/" target="_blank">Gallant Lab</a></span>
-                              espcíficamente:
-                              <span><a href="https://github.com/gallantlab/himalaya" target="_blank">Himalaya</a></span>
-                              y
-                              <span><a href="https://github.com/gallantlab/pycortex" target="_blank">Pycortex</a></span>
+                        2. Mejora del Filtro Acústico
+
+                        - Problema actual: Usar solo phone_rate (conteo de fonemas) es un control
+                        acústico muy débil para una revista de alto impacto.
+                        - Acción: Como mencionaste, implementa la extracción de un espectrograma Mel
+                        (o al menos características espectrales básicas / densidad de consonantes).
+                        Tendrás que alinear este espectrograma a la frecuencia de muestreo de tu TR
+                        (TR = 2.0s) usando una ventana de convolución temporal (HRF) o delays FIR.
+
+                        ITERACIÓN 2: Arquitectura del Modelo (El salto al Banded Ridge)
+
+                        3. Abandonar el RidgeCV estándar
+
+                        - Problema actual: Al usar np.hstack para unir Acústica, Semántica y
+                        Morfología bajo un solo RidgeCV, el hiperparámetro de penalización (alpha)
+                        "aplasta" tu señal morfológica (que es un vector ralo de conteos)
+                        favoreciendo a la semántica (que es densa).
+                        - Acción: Implementa Banded Ridge Regression. Ya importaste
+                        MultipleKernelRidgeCV y ColumnKernelizer de himalaya en tu Celda 1. ¡Úsalos!
+                        - Implementación: Configura el ColumnKernelizer para agrupar tus datos:
+                        - Bloque 1: Acústico (Mel / Phone rate)
+                        - Bloque 2: Léxico (word_rate + verb_count)
+                        - Bloque 3: Semántico (Embeddings de Google)
+                        - Bloque 4: Morfológico (past vs non_past) El algoritmo optimizará un
+                        alpha distinto para cada bloque, protegiendo tu señal morfológica.
+
+                        4. Resolver el dilema del PCA Semántico
+
+                        - Acción a evaluar: Ahora que usarás Banded Ridge (que maneja miles de
+                        dimensiones sin problema de RAM), haz la prueba empírica: ¿qué pasa si pasas
+                        el embedding crudo de 985 dimensiones en lugar del PCA de 50?
+                        - Decisión: Si el embedding crudo sigue absorbiendo el tiempo verbal (fuga
+                        semántico-sintáctica), mantén tu PCA y justifícalo formalmente como
+                        "mitigación de colinealidad representacional". Si el Banded Ridge logra
+                        separar las señales sin ayuda del PCA, quita el PCA. (Esto es hacer ciencia
+                        exploratoria de verdad).
+
+                        ITERACIÓN 3: Inferencia Estadística y Partición de Varianza
+
+                        5. Ajuste del Variance Partitioning
+
+                        - Modelo Nuisance: Deberá entrenarse con Acústica + Léxico + Semántica.
+                        - Modelo Completo: Deberá entrenarse con Acústica + Léxico + Semántica +
+                        Morfología.
+                        - Acción: La Varianza Única será R2_Full - R2_Nuisance. Asegúrate de que este
+                        cálculo se haga sobre un conjunto de prueba (Test Story) estrictamente
+                        separado, tal cual lo tienes programado ahora.
+
+                        6. Validar las Permutaciones Cíclicas
+
+                        - Acción: Tu lógica actual de hacer un np.roll() (shift cíclico) en el test
+                        set para generar las distribuciones nulas es muy inteligente para ahorrar
+                        poder de cómputo. Mantén esto, pero asegúrate de que el np.roll() solo
+                        altere el bloque Morfológico, rompiendo su alineación con el cerebro,
+                        mientras los espacios nuisance permanecen estables. Así validas si el R²
+                        único es producto del azar o de una verdadera sintonía temporal.
+
+                        Resumen para tu "To-Do List":
+
+                        - [ ] Añadir verb_count al NLP.
+                        - [ ] Reemplazar/Aumentar phone_rate por un Espectrograma Mel.
+                        - [ ] Reemplazar RidgeCV por MultipleKernelRidgeCV (Banded Ridge).
+                        - [ ] Configurar ColumnKernelizer para separar los bloques de variables.
+                        - [ ] Probar Empíricamente: Semántica cruda vs. PCA de 50 componentes bajo el
+                        nuevo Banded Ridge.
+                        - [ ] Mantener el shift cíclico de permutaciones para el cálculo del valor-p
+                        (FDR < 0.05). </p>
+
+                          <h3>Agradecimientos institucional</h3>
+                          <blockquote>
+                            Agradecimiento Institucional al Gallant Lab por el desarrollo de los marcos de Voxelwise
+                            Modeling, la publicación de sus herramientas de código abierto (Himalaya y Pycortex) y la
+                            invaluable democratización del conocimiento.
+                          </blockquote>
+
+                          <br>
+                          <p align="right">—
+                            <br>
+                            Redacción por <a class="url fn n" href="https://www.almontao.com" target="_blank"
+                              rel="author">Alejandro Montenegro Taborda</a>
+                            <br>
+                            <i>(Asistida por Inteligencia Artificial Generativa)</i>
+                            <br>
+                          </p>
+
+                          <!-- Fun Facts | Recursos usados -->
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+
+                              <div class="block-title">
+                                <h3>Recursos <span>usados</span></h3>
+                              </div>
                             </div>
-                            <span class="fun-fact-block-text"></span>
                           </div>
-                        </div>
 
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Datos ds003020 por</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel,
-                                  A., Wagner, L., Jain, S. et al.</a></span>
-                              en
-                              <span><a href="https://openneuro.org/datasets/ds003020/"
-                                  target="_blank">OpenNeuro</a></span>
+                          <div class="row">
+
+                            <div class="col-xs-12 col-sm-6">
+                              <div class="fun-fact gray-default">
+                                <div class="fw-default-row">Software de código abierto por</div>
+                                <div class="fw-heading-row">
+                                  <span><a href="https://gallantlab.org/" target="_blank">Gallant Lab</a></span>
+                                  espcíficamente:
+                                  <span><a href="https://github.com/gallantlab/himalaya"
+                                      target="_blank">Himalaya</a></span>
+                                  y
+                                  <span><a href="https://github.com/gallantlab/pycortex"
+                                      target="_blank">Pycortex</a></span>
+                                </div>
+                                <span class="fun-fact-block-text"></span>
+                              </div>
                             </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
 
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Fotografía por</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://unsplash.com/es/@whisperingshiba" target="_blank">Shawn
-                                  Day</a></span>
-                              en
-                              <span><a
-                                  href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM"
-                                  target="_blank">Unsplash</a></span>
+                            <div class="col-xs-12 col-sm-6">
+                              <div class="fun-fact gray-default">
+                                <div class="fw-default-row">Datos ds003020 por</div>
+                                <div class="fw-heading-row">
+                                  <span><a href="https://www.nature.com/articles/s41597-023-02437-z"
+                                      target="_blank">LeBel,
+                                      A., Wagner, L., Jain, S. et al.</a></span>
+                                  en
+                                  <span><a href="https://openneuro.org/datasets/ds003020/"
+                                      target="_blank">OpenNeuro</a></span>
+                                </div>
+                                <span class="fun-fact-block-text"></span>
+                              </div>
                             </div>
-                            <span class="fun-fact-block-text"></span>
+
+                            <div class="col-xs-12 col-sm-6">
+                              <div class="fun-fact gray-default">
+                                <div class="fw-default-row">Fotografía por</div>
+                                <div class="fw-heading-row">
+                                  <span><a href="https://unsplash.com/es/@whisperingshiba" target="_blank">Shawn
+                                      Day</a></span>
+                                  en
+                                  <span><a
+                                      href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM"
+                                      target="_blank">Unsplash</a></span>
+                                </div>
+                                <span class="fun-fact-block-text"></span>
+                              </div>
+                            </div>
+
                           </div>
-                        </div>
+                          <!-- End of Fun Facts | Recursos usados -->
 
-                      </div>
-                      <!-- End of Fun Facts | Recursos usados -->
-
-                      <!-- Fun Facts | Agradecimientos -->
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-12">
-                          <div class="block-title">
-                            <h3>Agradecimientos y <span>Recursos</span></h3>
+                          <!-- Fun Facts | Agradecimientos -->
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-12">
+                              <div class="block-title">
+                                <h3>Agradecimientos y <span>Recursos</span></h3>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
 
-                      <div class="row">
+                          <div class="row">
 
-                        <!-- <div class="col-xs-12 col-sm-6">
+                            <!-- <div class="col-xs-12 col-sm-6">
                           <div class="fun-fact gray-default">
                             <div class="fw-default-row">Agradecimiento Institucional</div>
                             <div class="fw-heading-row">
@@ -493,7 +588,7 @@
                           </div>
                         </div> -->
 
-                        <!-- <div class="col-xs-12 col-sm-6">
+                            <!-- <div class="col-xs-12 col-sm-6">
                           <div class="fun-fact gray-default">
                             <div class="fw-default-row">Datos Origines (fMRI)</div>
                             <div class="fw-heading-row">
@@ -505,8 +600,8 @@
                           </div>
                         </div> -->
 
-                      </div>
-                      <!-- End of Fun Facts | Agradecimientos -->
+                          </div>
+                          <!-- End of Fun Facts | Agradecimientos -->
 
                     </div>
                   </div>
