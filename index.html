@@ -354,22 +354,54 @@
 
                       <!-- Prueba de integración Mermaid -->
                       <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
-                        flowchart
-                        A[Estímulo Naturalista] e1@--> B[Acústica: Mel-Spectrogram]
-                        A e2@--> C[Léxico: Word & Verb Rate]
-                        A e3@--> D[Semántica: Embeddings ± PCA]
-                        A e4@--> E[Morfología: Pasado vs No-Pasado]
+                        flowchart TD
+                        STIM([Estímulo Naturalista: Habla Continua])
 
-                        B e5@--> F[ColumnKernelizer: Bloques]
-                        C e6@--> F
-                        D e7@--> F
-                        E e8@--> F
+                        subgraph FeatureSpaces [1. Extracción de Niveles Lingüísticos]
+                        direction TB
+                        PHO[phonological_features<br>Rasgos Articulatorios]
+                        LEX[lexical_features<br>Tasa de Palabras]
+                        SYN[syntactic_features<br>Complejidad de Dependencias]
+                        SEM[semantic_features<br>english1000 completo]
+                        MOR[morphological_features<br>Finitud: Pasado vs No-Pasado]
+                        end
 
-                        F e9@--> G[Banded Ridge Regression]
-                        G e10@--> H[Variance Partitioning]
-                        H e11@--> I[Permutaciones Cíclicas y FDR]
-                        I e12@--> J[Mapas de Varianza Única]
+                        STIM e1@--> PHO
+                        STIM e2@--> LEX
+                        STIM e3@--> SYN
+                        STIM e4@--> SEM
+                        STIM e5@--> MOR
 
+                        subgraph Modeling [2. Partición de Varianza y Modelado]
+                        direction TB
+                        NUIS[Matriz de Control Nuisance<br>Phono + Lex + Synt + Sem]
+                        FULL[Matriz de Modelo Completo<br>Nuisance + Morph]
+                        RIDGE[Banded Ridge Regression<br>MultipleKernelRidgeCV]
+                        end
+
+                        PHO e6@--> NUIS
+                        LEX e7@--> NUIS
+                        SYN e8@--> NUIS
+                        SEM e9@--> NUIS
+
+                        MOR e10@--> FULL
+                        NUIS e11@--> FULL
+
+                        NUIS e12@--> RIDGE
+                        FULL e13@--> RIDGE
+
+                        subgraph Validation [3. Inferencia Estadística y Resultados]
+                        direction TB
+                        VAR[Cálculo de Varianza Única<br>R² Completo - R² Control]
+                        PERM[Distribuciones Nulas Empíricas<br>Shift Testing + FDR]
+                        MAPS([Mapas Corticales de Sintonía Morfológica])
+                        end
+
+                        RIDGE e14@--> VAR
+                        VAR e15@--> PERM
+                        PERM e16@--> MAPS
+
+                        %% Animaciones Rápidas de Flujo
                         e1@{ animation: fast }
                         e2@{ animation: fast }
                         e3@{ animation: fast }
@@ -382,6 +414,10 @@
                         e10@{ animation: fast }
                         e11@{ animation: fast }
                         e12@{ animation: fast }
+                        e13@{ animation: fast }
+                        e14@{ animation: fast }
+                        e15@{ animation: fast }
+                        e16@{ animation: fast }
                       </div>
 
                       <p>
