@@ -355,53 +355,56 @@
                       <!-- Prueba de integración Mermaid -->
                       <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
                         flowchart
-                        STIM([Estímulo Naturalista: Habla Continua])
+                        %% Datos de Entrada
+                        DATA@{ shape: cyl, label: "Datos Experimentales:<br>fMRI y Audio Naturalista (ds003020)" }
 
-                        subgraph FeatureSpaces [1. Extracción de Niveles Lingüísticos]
+                        %% 1. Extracción
+                        subgraph Espacios [1. Extracción de Espacios de Características]
                         direction TB
-                        PHO[phonological_features<br>Rasgos Articulatorios]
-                        LEX[lexical_features<br>Tasa de Palabras]
-                        SYN[syntactic_features<br>Complejidad de Dependencias]
-                        SEM[semantic_features<br>english1000 completo]
-                        MOR[morphological_features<br>Finitud: Pasado vs No-Pasado]
+                        ACU[Nivel Acústico:<br>Tasa de Fonemas por TR]
+                        LEX[Nivel Léxico:<br>Conteo de Palabras por TR]
+                        SEM[Nivel Semántico:<br>Vectores Continuos de Significado]
+                        MOR[Nivel Morfológico:<br>Conteo de Verbos Pasado vs. No-Pasado]
                         end
 
-                        STIM e1@--> PHO
-                        STIM e2@--> LEX
-                        STIM e3@--> SYN
-                        STIM e4@--> SEM
-                        STIM e5@--> MOR
-
-                        subgraph Modeling [2. Partición de Varianza y Modelado]
+                        %% 2. Modelado
+                        subgraph Modelado [2. Alineación Temporal y Modelado Voxelwise]
                         direction TB
-                        NUIS[Matriz de Control Nuisance<br>Phono + Lex + Synt + Sem]
-                        FULL[Matriz de Modelo Completo<br>Nuisance + Morph]
-                        RIDGE[Banded Ridge Regression<br>MultipleKernelRidgeCV]
+                        FIR{{Alineación FIR:<br>Retardos para capturar el rezago BOLD}}
+
+                        BASE[Modelo de Control Base:<br>Acústica + Léxica + Semántica]
+                        FULL[Modelo Completo:<br>Control Base + Morfología]
+
+                        FIR e6@--> BASE
+                        FIR e7@--> FULL
                         end
 
-                        PHO e6@--> NUIS
-                        LEX e7@--> NUIS
-                        SYN e8@--> NUIS
-                        SEM e9@--> NUIS
-
-                        MOR e10@--> FULL
-                        NUIS e11@--> FULL
-
-                        NUIS e12@--> RIDGE
-                        FULL e13@--> RIDGE
-
-                        subgraph Validation [3. Inferencia Estadística y Resultados]
+                        %% 3. Inferencia
+                        subgraph Inferencia [3. Inferencia Estadística y Resultados]
                         direction TB
-                        VAR[Cálculo de Varianza Única<br>R² Completo - R² Control]
-                        PERM[Distribuciones Nulas Empíricas<br>Shift Testing + FDR]
-                        MAPS([Mapas Corticales de Sintonía Morfológica])
+                        VAR[Aislamiento de Señal:<br>Varianza Única Morfológica]
+                        PERM[Significancia Estadística:<br>Permutaciones Circulares y FDR]
+                        MAPS@{ shape: procs, label: "Mapas Corticales:<br>Sintonía hacia el Pasado/No-Pasado" }
+
+                        VAR e10@--> PERM
+                        PERM e11@--> MAPS
                         end
 
-                        RIDGE e14@--> VAR
-                        VAR e15@--> PERM
-                        PERM e16@--> MAPS
+                        %% Conexiones Macro Animadas
+                        DATA e1@--> ACU
+                        DATA e12@--> LEX
+                        DATA e13@--> SEM
+                        DATA e14@--> MOR
 
-                        %% Animaciones Rápidas de Flujo
+                        ACU e2@--> FIR
+                        LEX e3@--> FIR
+                        SEM e4@--> FIR
+                        MOR e5@--> FIR
+
+                        BASE e8@--> VAR
+                        FULL e9@--> VAR
+
+                        %% Configuración de Animaciones
                         e1@{ animation: fast }
                         e2@{ animation: fast }
                         e3@{ animation: fast }
@@ -416,8 +419,6 @@
                         e12@{ animation: fast }
                         e13@{ animation: fast }
                         e14@{ animation: fast }
-                        e15@{ animation: fast }
-                        e16@{ animation: fast }
                       </div>
 
                       <br>
