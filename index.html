@@ -106,7 +106,7 @@
               <!-- Entry content -->
               <div class="entry-content">
                 <div class="row">
-                  <div class=" col-xs-12 col-sm-12 ">
+                  <div class="col-xs-12 col-sm-12">
                     <div class="col-inner">
 
                       <p>
@@ -141,92 +141,112 @@
                         Para resolver esta limitación, se implementó un marco computacional de vanguardia conocido como
                         <b>Voxelwise Modeling</b> (Modelado Vóxel por Vóxel). En lugar de buscar una única "área del
                         lenguaje", este enfoque expone a los participantes a estímulos naturalistas —como escuchar horas
-                        de narrativas en un podcast— y construye un modelo matemático predictivo para <i>cada uno</i> de
-                        los miles de vóxeles (píxeles tridimensionales) que componen el cerebro. La gran ventaja de este
-                        método es su validez ecológica: permite observar cómo interactúan redes cerebrales complejas en
-                        situaciones de la vida real. No obstante, su principal desventaja radica en el inmenso costo
-                        computacional que exige y en la dificultad para separar las múltiples variables que ocurren
-                        simultáneamente en un relato natural.
+                        de narrativas ininterrumpidas en un podcast— y construye un modelo matemático predictivo para
+                        <i>cada uno</i> de los miles de vóxeles (los "píxeles" tridimensionales) que componen el
+                        cerebro. La gran ventaja de este método es su validez ecológica: permite observar cómo
+                        interactúan las redes cerebrales complejas en situaciones de la vida real. No obstante, su
+                        principal desventaja radica en el inmenso costo computacional que exige y en la dificultad
+                        metodológica para separar las múltiples variables lingüísticas que ocurren de forma simultánea
+                        en un relato natural.
                       </p>
                       <br>
 
-                      <h3>Inteligencia Artificial para aislar la señal</h3>
+                      <h3>Extracción de Espacios de Características e Inteligencia Artificial</h3>
                       <p>
                         El mayor peligro metodológico al estudiar el tiempo verbal en el cerebro es la
                         <i>colinealidad</i>. Si el cerebro se activa al escuchar la palabra "caminé", es imperativo
-                        demostrar matemáticamente que esa activación responde al tiempo pasado y no simplemente al hecho
-                        de que el verbo termina en un sonido explosivo (/d/ o /t/), o al significado conceptual de la
-                        acción.
+                        demostrar matemáticamente que esa activación responde a la categoría gramatical del pasado y no
+                        simplemente al hecho de que el verbo termina en un sonido explosivo, o al concepto de "caminar".
                       </p>
                       <p>
-                        Para extraer la categoría gramatical de los datos de audio, se utilizaron arquitecturas de
-                        Inteligencia Artificial conocidas como <b>Transformers</b>. A diferencia de los diccionarios
-                        tradicionales, los Transformers analizan el contexto completo de una oración, permitiendo
-                        diferenciar un sustantivo de un verbo incluso cuando la palabra es idéntica, asignando etiquetas
-                        morfológicas precisas de "Pasado" o "No-Pasado" con un nivel de exactitud equiparable al humano.
+                        Para lograr esto, se construyó un flujo de trabajo computacional (<b>véase el diagrama
+                          metodológico en la Figura 1</b>) que descompone el audio de las historias en cuatro niveles o
+                        "espacios de características" distintos:
                       </p>
-                      <p>
-                        Posteriormente, para aislar esta señal morfológica, se diseñaron controles matemáticos
-                        rigurosos. En primer lugar, se aplicó un <b>control acústico de densidad fonética</b> que
-                        cuantifica cuántos sonidos ingresan al oído por segundo, evitando que la corteza auditiva
-                        primaria confunda un sufijo gramatical con simple ruido físico. En segundo lugar, se implementó
-                        un <b>control de carga cognitiva</b> para medir el volumen total del habla. Finalmente, se
-                        integró un <b>control semántico masivo</b> (denominado <i>English1000sm</i>), el cual modela el
-                        significado abstracto de las historias, asegurando así que la representación conceptual de las
-                        palabras no se mezcle con su estructura gramatical.
-                      </p>
+                      <ul>
+                        <li><b>Nivel Acústico (Control de Sonido):</b> Se calculó la <i>tasa de fonemas</i> (cuántos
+                          sonidos elementales ingresan al oído por segundo). Esto evita que la corteza auditiva primaria
+                          confunda un sufijo gramatical con simple ruido físico.</li>
+                        <li><b>Nivel Léxico (Control de Carga Cognitiva):</b> Se cuantificó la <i>tasa de palabras</i>
+                          por segundo, lo que permite controlar el volumen global del habla que el sujeto debe procesar.
+                        </li>
+                        <li><b>Nivel Semántico (Control de Significado):</b> Se integró un modelo masivo de vectores de
+                          significado (denominado <i>English1000sm</i>) comprimido computacionalmente mediante Análisis
+                          de Componentes Principales (PCA). Esto asegura que la representación puramente conceptual de
+                          las historias no se mezcle con la estructura gramatical.</li>
+                        <li><b>Nivel Morfológico (El Objetivo):</b> Utilizando arquitecturas de Inteligencia Artificial
+                          (Procesamiento de Lenguaje Natural avanzado), se analizó el contexto de cada oración para
+                          diferenciar verbos de sustantivos, realizando un conteo estricto de apariciones de verbos en
+                          "Pasado" y "No-Pasado" con un nivel de exactitud equiparable al humano.</li>
+                      </ul>
                       <br>
 
-                      <h3>La técnica de Partición de Varianza</h3>
+                      <h3>Alineación Temporal FIR y Partición de Varianza</h3>
                       <p>
-                        Con todos estos datos preparados, se utilizó una técnica estadística avanzada conocida como
-                        <b>Partición de Varianza</b> (<i>Variance Partitioning</i>). En términos sencillos, esta técnica
-                        funciona como un ingeniero de sonido que intenta aislar el volumen de una flauta dentro de una
-                        grabación de orquesta completa. Primero, se entrena un algoritmo masivo (Regresión Ridge
-                        Penalizada) utilizando todas las variables disponibles: acústica, significado y gramática.
-                        Luego, se entrena un segundo modelo al cual se le oculta deliberadamente la información
-                        gramatical. Al restar la precisión predictiva del segundo modelo al primero, el residuo
-                        resultante es la <b>Varianza Única</b>: el porcentaje de actividad cerebral que única y
-                        exclusivamente se puede explicar por el tiempo gramatical.
+                        Una vez extraídas estas características, el modelo se enfrenta a un desafío biológico
+                        fundamental: el habla es rápida (ocurre en milisegundos), pero el flujo sanguíneo del cerebro
+                        que mide el fMRI (señal BOLD) es lento y tarda varios segundos en alcanzar su pico máximo tras
+                        escuchar una palabra. Para corregir este desfase, se aplicó una <b>Alineación Temporal FIR
+                          (Respuesta de Impulso Finito)</b>, retrasando matemáticamente los estímulos lingüísticos para
+                        sincronizarlos con la respuesta hemodinámica de la sangre.
                       </p>
-
                       <p>
-                        Como señala el equipo de investigación en la formulación del diseño experimental:
+                        Con los tiempos alineados, se utilizó una técnica estadística avanzada conocida como
+                        <b>Partición de Varianza</b> (<i>Variance Partitioning</i>). En términos sencillos, funciona
+                        como un ingeniero de sonido que intenta aislar el volumen de un solo instrumento dentro de una
+                        orquesta completa. El proceso consiste en entrenar dos grandes algoritmos predictivos mediante
+                        Regresión Ridge:
                       </p>
-
+                      <ol>
+                        <li><b>Modelo de Control Base:</b> Se entrena <i>solo</i> con la información Acústica, Léxica y
+                          Semántica (ocultando deliberadamente la gramática).</li>
+                        <li><b>Modelo Completo:</b> Se entrena sumando la morfología (Pasado/No-Pasado) al modelo base.
+                        </li>
+                      </ol>
+                      <p>
+                        Al restar la precisión del Modelo Base a la del Modelo Completo, el residuo resultante es la
+                        <b>Varianza Única</b>: el porcentaje de actividad cerebral que única y exclusivamente es
+                        explicado por la sintonía del cerebro hacia el tiempo gramatical de las palabras. Como señala el
+                        equipo de investigación original de la base de datos utilizada para justificar este diseño
+                        experimental:
+                      </p>
                       <blockquote>
                         <i>"This is done by comparing responses across repeats of the test story,
                           task-wheretheressmoke."</i> (LeBel et al., 2023).
                       </blockquote>
                       <p>
-                        De este modo, esta historia narrativa específica se estableció obligatoriamente como el estándar
-                        estricto de evaluación en todos los análisis.
+                        De este modo, una historia narrativa específica (reservada y nunca antes vista por el modelo) se
+                        estableció como el estándar estricto de evaluación para confirmar si el algoritmo realmente
+                        había aprendido a leer la mente del sujeto.
                       </p>
                       <br>
 
-                      <h3>Computación en la nube y permutaciones empíricas</h3>
+                      <h3>Computación en la nube y Auditoría Neurolingüística</h3>
                       <p>
                         Procesar matrices matemáticas que cruzan casi 100.000 vóxeles cerebrales con miles de variables
                         retrasadas en el tiempo genera un estrés computacional extremo. Por esta razón, el modelado
                         requirió el aprovisionamiento de infraestructura de alto rendimiento en Google Cloud Platform,
-                        utilizando máquinas virtuales con 128 GB de memoria RAM.
+                        utilizando máquinas virtuales con alta capacidad de memoria.
                       </p>
                       <p>
-                        Para asegurar que los hallazgos no fuesen producto del azar estadístico, se ejecutaron <b>3000
-                          iteraciones de permutación empírica</b>. Este riguroso proceso consiste en desordenar
-                        aleatoriamente los datos de tiempo miles de veces para crear distribuciones nulas de control,
-                        garantizando, mediante correcciones de Tasa de Falsos Descubrimientos (FDR), que la activación
-                        reportada es biológicamente genuina.
+                        Para asegurar que los hallazgos no fuesen producto de un accidente matemático o del azar, se
+                        ejecutaron <b>3000 iteraciones de permutación empírica</b> (<i>shift-testing</i> circular). Este
+                        riguroso proceso desordena aleatoriamente los datos miles de veces para crear distribuciones
+                        nulas de control. Finalmente, se aplicó un filtro de Tasa de Falsos Descubrimientos (FDR) y una
+                        estricta auditoría de calidad que excluyó vóxeles con anomalías matemáticas, garantizando que la
+                        activación reportada fuese biológicamente genuina.
                       </p>
                       <br>
 
                       <h3>Resultados cuantitativos y hallazgos neurobiológicos</h3>
                       <p>
                         Los datos revelaron una sintonía morfológica robusta a lo largo de 8 participantes (un noveno
-                        sujeto fue excluido bajo criterios matemáticos estrictos tras detectarse una singularidad
-                        matricial originaria del escáner). A continuación, se presenta la tabla descriptiva que ilustra
-                        la cantidad de vóxeles que superaron los filtros estadísticos y la varianza única máxima
-                        encontrada en cada corteza.
+                        sujeto, UTS04, fue excluido bajo los criterios matemáticos estrictos mencionados tras detectarse
+                        una colinealidad originaria de los datos del escáner).
+                      </p>
+                      <p>
+                        A continuación, se presenta la tabla descriptiva que ilustra la cantidad de vóxeles que
+                        superaron los filtros estadísticos y la varianza única máxima encontrada en cada corteza:
                       </p>
 
                       <!-- Contenedor con overflow automático para móviles -->
@@ -297,220 +317,225 @@
                       <p>
                         En la neuroimagen funcional, dadas las inmensas proporciones de ruido sistémico y fisiológico,
                         lograr aislar proporciones de varianza única de hasta el <b>3.73 %</b> a partir de tan solo dos
-                        dimensiones morfológicas constituye una evidencia biológica excepcionalmente sólida.
+                        dimensiones morfológicas (Pasado/No-Pasado) constituye una evidencia biológica excepcionalmente
+                        sólida para un estímulo naturalista.
                       </p>
                       <p>
-                        A nivel topográfico, se observó que la máxima especialización no se restringe al histórico Giro
-                        Frontal Inferior (conocido como el Área de Broca). Por el contrario, los picos de activación se
-                        extendieron de forma consistente hacia el <b>Giro Temporal Superior posterior y la Unión
-                          Temporoparietal (pSTS/TPJ)</b>. Estas áreas actúan como la verdadera interfaz
-                        fonológico-léxica, lo cual sugiere que, durante la comprensión del lenguaje continuo, la
-                        decodificación de la información gramatical del tiempo se da en redes corticales ampliamente
-                        distribuidas que separan eficazmente el "cuándo" de la semántica general del mensaje.
-                      </p>
-                      <br>
-
-                      <h3>Visualización de mapas corticales tridimensionales</h3>
-                      <p>
-                        A continuación, se ofrecen los accesos a los mapas bidimensionales construidos mediante la
-                        librería <i>Pycortex</i>.
+                        A nivel topográfico, los mapas corticales resultantes revelaron algo fascinante: la máxima
+                        especialización para el procesamiento del tiempo no se restringe al histórico Giro Frontal
+                        Inferior (clásicamente conocido como el Área de Broca). Por el contrario, los picos de
+                        activación se extendieron de forma consistente hacia el <b>Giro Temporal Superior posterior y la
+                          Unión Temporoparietal (pSTS/TPJ)</b>. Estas áreas actúan como la verdadera interfaz
+                        fonológico-léxica, sugiriendo que, durante la fluidez del lenguaje continuo, la decodificación
+                        del tiempo gramatical recae en redes corticales ampliamente distribuidas que trabajan en
+                        conjunto para extraer el "cuándo" de la semántica general del mensaje.
                       </p>
 
-                      <!-- Botones interactivos con el diseño solicitado -->
-                      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;">
-                        <div class="fw-button-row">
-                          <a href="UTS01/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-1-button">Participante UTS01</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS02/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-2-button">Participante UTS02</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS03/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-3-button">Participante UTS03</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS05/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-5-button">Participante UTS05</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS06/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-6-button">Participante UTS06</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS07/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-7-button">Participante UTS07</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS08/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-8-button">Participante UTS08</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS09/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-9-button">Participante UTS09</a>
-                        </div>
-                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-                      <!-- Prueba de integración Mermaid -->
-                      <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
-                        flowchart
-                        %% Datos de Entrada
-                        DATA@{ shape: cyl, label: "Datos Experimentales:<br>fMRI y Audio Naturalista (ds003020)" }
+              <h3>Visualización de mapas corticales tridimensionales</h3>
+              <p>
+                A continuación, se ofrecen los accesos a los mapas bidimensionales construidos mediante la
+                librería <i>Pycortex</i>.
+              </p>
 
-                        %% 1. Extracción
-                        subgraph Espacios [1. Extracción de Espacios de Características]
-                        direction TB
-                        ACU[Nivel Acústico:<br>Tasa de Fonemas por TR]
-                        LEX[Nivel Léxico:<br>Conteo de Palabras por TR]
-                        SEM[Nivel Semántico:<br>Vectores Continuos de Significado]
-                        MOR[Nivel Morfológico:<br>Conteo de Verbos Pasado vs. No-Pasado]
-                        end
+              <!-- Botones interactivos con el diseño solicitado -->
+              <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;">
+                <div class="fw-button-row">
+                  <a href="UTS01/index.html" target="_blank" class="btn btn-primary" id="resource-1-button">Participante
+                    UTS01</a>
+                </div>
+                <div class="fw-button-row">
+                  <a href="UTS02/index.html" target="_blank" class="btn btn-primary" id="resource-2-button">Participante
+                    UTS02</a>
+                </div>
+                <div class="fw-button-row">
+                  <a href="UTS03/index.html" target="_blank" class="btn btn-primary" id="resource-3-button">Participante
+                    UTS03</a>
+                </div>
+                <div class="fw-button-row">
+                  <a href="UTS05/index.html" target="_blank" class="btn btn-primary" id="resource-5-button">Participante
+                    UTS05</a>
+                </div>
+                <div class="fw-button-row">
+                  <a href="UTS06/index.html" target="_blank" class="btn btn-primary" id="resource-6-button">Participante
+                    UTS06</a>
+                </div>
+                <div class="fw-button-row">
+                  <a href="UTS07/index.html" target="_blank" class="btn btn-primary" id="resource-7-button">Participante
+                    UTS07</a>
+                </div>
+                <div class="fw-button-row">
+                  <a href="UTS08/index.html" target="_blank" class="btn btn-primary" id="resource-8-button">Participante
+                    UTS08</a>
+                </div>
+                <div class="fw-button-row">
+                  <a href="UTS09/index.html" target="_blank" class="btn btn-primary" id="resource-9-button">Participante
+                    UTS09</a>
+                </div>
+              </div>
 
-                        %% 2. Modelado
-                        subgraph Modelado [2. Alineación Temporal y Modelado Voxelwise]
-                        direction TB
-                        FIR{{Alineación FIR:<br>Retardos para capturar el rezago BOLD}}
+              <!-- Prueba de integración Mermaid -->
+              <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
+                flowchart
+                %% Datos de Entrada
+                DATA@{ shape: cyl, label: "Datos Experimentales:<br>fMRI y Audio Naturalista (ds003020)" }
 
-                        BASE[Modelo de Control Base:<br>Acústica + Léxica + Semántica]
-                        FULL[Modelo Completo:<br>Control Base + Morfología]
+                %% 1. Extracción
+                subgraph Espacios [1. Extracción de Espacios de Características]
+                direction TB
+                ACU[Nivel Acústico:<br>Tasa de Fonemas por TR]
+                LEX[Nivel Léxico:<br>Conteo de Palabras por TR]
+                SEM[Nivel Semántico:<br>Vectores Continuos de Significado]
+                MOR[Nivel Morfológico:<br>Conteo de Verbos Pasado vs. No-Pasado]
+                end
 
-                        FIR e6@--> BASE
-                        FIR e7@--> FULL
-                        end
+                %% 2. Modelado
+                subgraph Modelado [2. Alineación Temporal y Modelado Voxelwise]
+                direction TB
+                FIR{{Alineación FIR:<br>Retardos para capturar el rezago BOLD}}
 
-                        %% 3. Inferencia
-                        subgraph Inferencia [3. Inferencia Estadística y Resultados]
-                        direction TB
-                        VAR[Aislamiento de Señal:<br>Varianza Única Morfológica]
-                        PERM[Significancia Estadística:<br>Permutaciones Circulares y FDR]
-                        MAPS@{ shape: procs, label: "Mapas Corticales:<br>Sintonía hacia el Pasado/No-Pasado" }
+                BASE[Modelo de Control Base:<br>Acústica + Léxica + Semántica]
+                FULL[Modelo Completo:<br>Control Base + Morfología]
 
-                        VAR e10@--> PERM
-                        PERM e11@--> MAPS
-                        end
+                FIR e6@--> BASE
+                FIR e7@--> FULL
+                end
 
-                        %% Conexiones Macro Animadas
-                        DATA e1@--> ACU
-                        DATA e12@--> LEX
-                        DATA e13@--> SEM
-                        DATA e14@--> MOR
+                %% 3. Inferencia
+                subgraph Inferencia [3. Inferencia Estadística y Resultados]
+                direction TB
+                VAR[Aislamiento de Señal:<br>Varianza Única Morfológica]
+                PERM[Significancia Estadística:<br>Permutaciones Circulares y FDR]
+                MAPS@{ shape: procs, label: "Mapas Corticales:<br>Sintonía hacia el Pasado/No-Pasado" }
 
-                        ACU e2@--> FIR
-                        LEX e3@--> FIR
-                        SEM e4@--> FIR
-                        MOR e5@--> FIR
+                VAR e10@--> PERM
+                PERM e11@--> MAPS
+                end
 
-                        BASE e8@--> VAR
-                        FULL e9@--> VAR
+                %% Conexiones Macro Animadas
+                DATA e1@--> ACU
+                DATA e12@--> LEX
+                DATA e13@--> SEM
+                DATA e14@--> MOR
 
-                        %% Configuración de Animaciones
-                        e1@{ animation: fast }
-                        e2@{ animation: fast }
-                        e3@{ animation: fast }
-                        e4@{ animation: fast }
-                        e5@{ animation: fast }
-                        e6@{ animation: fast }
-                        e7@{ animation: fast }
-                        e8@{ animation: fast }
-                        e9@{ animation: fast }
-                        e10@{ animation: fast }
-                        e11@{ animation: fast }
-                        e12@{ animation: fast }
-                        e13@{ animation: fast }
-                        e14@{ animation: fast }
-                      </div>
+                ACU e2@--> FIR
+                LEX e3@--> FIR
+                SEM e4@--> FIR
+                MOR e5@--> FIR
 
-                      <br>
-                      <br>
+                BASE e8@--> VAR
+                FULL e9@--> VAR
 
-                      <h3>Agradecimientos institucional</h3>
-                      <blockquote>
-                        Agradecimiento Institucional al Gallant Lab por el desarrollo de los marcos de Voxelwise
-                        Modeling, la publicación de sus herramientas de código abierto (Himalaya y Pycortex) y la
-                        invaluable democratización del conocimiento.
-                      </blockquote>
+                %% Configuración de Animaciones
+                e1@{ animation: fast }
+                e2@{ animation: fast }
+                e3@{ animation: fast }
+                e4@{ animation: fast }
+                e5@{ animation: fast }
+                e6@{ animation: fast }
+                e7@{ animation: fast }
+                e8@{ animation: fast }
+                e9@{ animation: fast }
+                e10@{ animation: fast }
+                e11@{ animation: fast }
+                e12@{ animation: fast }
+                e13@{ animation: fast }
+                e14@{ animation: fast }
+              </div>
 
-                      <br>
-                      <p align="right">—
-                        <br>
-                        Redacción por <a class="url fn n" href="https://www.almontao.com" target="_blank"
-                          rel="author">Alejandro Montenegro Taborda</a>
-                        <br>
-                        <i>(Asistida por Inteligencia Artificial Generativa)</i>
-                        <br>
-                      </p>
+              <br>
+              <br>
 
-                      <!-- Fun Facts | Recursos usados -->
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-12">
+              <h3>Agradecimientos institucional</h3>
+              <blockquote>
+                Agradecimiento Institucional al Gallant Lab por el desarrollo de los marcos de Voxelwise
+                Modeling, la publicación de sus herramientas de código abierto (Himalaya y Pycortex) y la
+                invaluable democratización del conocimiento.
+              </blockquote>
 
-                          <div class="block-title">
-                            <h3>Recursos <span>usados</span></h3>
-                          </div>
-                        </div>
-                      </div>
+              <br>
+              <p align="right">—
+                <br>
+                Redacción por <a class="url fn n" href="https://www.almontao.com" target="_blank" rel="author">Alejandro
+                  Montenegro Taborda</a>
+                <br>
+                <i>(Asistida por Inteligencia Artificial Generativa)</i>
+                <br>
+              </p>
 
-                      <div class="row">
+              <!-- Fun Facts | Recursos usados -->
+              <div class="row">
+                <div class="col-xs-12 col-sm-12">
 
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Software de código abierto por</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://gallantlab.org/" target="_blank">Gallant Lab</a></span>
-                              espcíficamente:
-                              <span><a href="https://github.com/gallantlab/himalaya" target="_blank">Himalaya</a></span>
-                              y
-                              <span><a href="https://github.com/gallantlab/pycortex" target="_blank">Pycortex</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
+                  <div class="block-title">
+                    <h3>Recursos <span>usados</span></h3>
+                  </div>
+                </div>
+              </div>
 
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Datos ds003020 por</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel,
-                                  A., Wagner, L., Jain, S. et al.</a></span>
-                              en
-                              <span><a href="https://openneuro.org/datasets/ds003020/"
-                                  target="_blank">OpenNeuro</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
+              <div class="row">
 
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Fotografía por</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://unsplash.com/es/@whisperingshiba" target="_blank">Shawn
-                                  Day</a></span>
-                              en
-                              <span><a
-                                  href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM"
-                                  target="_blank">Unsplash</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="fun-fact gray-default">
+                    <div class="fw-default-row">Software de código abierto por</div>
+                    <div class="fw-heading-row">
+                      <span><a href="https://gallantlab.org/" target="_blank">Gallant Lab</a></span>
+                      espcíficamente:
+                      <span><a href="https://github.com/gallantlab/himalaya" target="_blank">Himalaya</a></span>
+                      y
+                      <span><a href="https://github.com/gallantlab/pycortex" target="_blank">Pycortex</a></span>
+                    </div>
+                    <span class="fun-fact-block-text"></span>
+                  </div>
+                </div>
 
-                      </div>
-                      <!-- End of Fun Facts | Recursos usados -->
+                <div class="col-xs-12 col-sm-6">
+                  <div class="fun-fact gray-default">
+                    <div class="fw-default-row">Datos ds003020 por</div>
+                    <div class="fw-heading-row">
+                      <span><a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel,
+                          A., Wagner, L., Jain, S. et al.</a></span>
+                      en
+                      <span><a href="https://openneuro.org/datasets/ds003020/" target="_blank">OpenNeuro</a></span>
+                    </div>
+                    <span class="fun-fact-block-text"></span>
+                  </div>
+                </div>
 
-                      <!-- Fun Facts | Agradecimientos -->
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-12">
-                          <div class="block-title">
-                            <h3>Agradecimientos y <span>Recursos</span></h3>
-                          </div>
-                        </div>
-                      </div>
+                <div class="col-xs-12 col-sm-6">
+                  <div class="fun-fact gray-default">
+                    <div class="fw-default-row">Fotografía por</div>
+                    <div class="fw-heading-row">
+                      <span><a href="https://unsplash.com/es/@whisperingshiba" target="_blank">Shawn
+                          Day</a></span>
+                      en
+                      <span><a
+                          href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM"
+                          target="_blank">Unsplash</a></span>
+                    </div>
+                    <span class="fun-fact-block-text"></span>
+                  </div>
+                </div>
 
-                      <div class="row">
+              </div>
+              <!-- End of Fun Facts | Recursos usados -->
 
-                        <!-- <div class="col-xs-12 col-sm-6">
+              <!-- Fun Facts | Agradecimientos -->
+              <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                  <div class="block-title">
+                    <h3>Agradecimientos y <span>Recursos</span></h3>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+
+                <!-- <div class="col-xs-12 col-sm-6">
                           <div class="fun-fact gray-default">
                             <div class="fw-default-row">Agradecimiento Institucional</div>
                             <div class="fw-heading-row">
@@ -522,7 +547,7 @@
                           </div>
                         </div> -->
 
-                        <!-- <div class="col-xs-12 col-sm-6">
+                <!-- <div class="col-xs-12 col-sm-6">
                           <div class="fun-fact gray-default">
                             <div class="fw-default-row">Datos Origines (fMRI)</div>
                             <div class="fw-heading-row">
@@ -534,43 +559,43 @@
                           </div>
                         </div> -->
 
-                      </div>
-                      <!-- End of Fun Facts | Agradecimientos -->
-
-                    </div>
-                  </div>
-                </div>
               </div>
-              <!-- /Entry content -->
+              <!-- End of Fun Facts | Agradecimientos -->
 
-              <div class="entry-meta entry-meta-bottom">
-                <div class="date-author">
-                  <span class="entry-date">
-                    <a href="#" rel="bookmark">
-                      <i class="far fa-clock"></i> <span class="entry-date"> Junio 10, 2026</span>
-                    </a>
-                  </span>
-                  <span class="author vcard">
-                    <a class="url fn n" href="https://www.almontao.com" rel="author"> <i class="fas fa-user"></i>
-                      Alejandro Montenegro Taborda</a>
-                  </span>
-                </div>
-              </div>
-
-              <div class="post-tags">
-                <div class="tags">
-                  <a href="#" rel="tag">Investigación</a>
-                  <a href="#" rel="tag">fMRI</a>
-                  <a href="#" rel="tag">Voxelwise</a>
-                  <a href="#" rel="tag">Pycortex</a>
-                </div>
-              </div>
             </div>
-          </article>
-
         </div>
       </div>
     </div>
+    <!-- /Entry content -->
+
+    <div class="entry-meta entry-meta-bottom">
+      <div class="date-author">
+        <span class="entry-date">
+          <a href="#" rel="bookmark">
+            <i class="far fa-clock"></i> <span class="entry-date"> Junio 10, 2026</span>
+          </a>
+        </span>
+        <span class="author vcard">
+          <a class="url fn n" href="https://www.almontao.com" rel="author"> <i class="fas fa-user"></i>
+            Alejandro Montenegro Taborda</a>
+        </span>
+      </div>
+    </div>
+
+    <div class="post-tags">
+      <div class="tags">
+        <a href="#" rel="tag">Investigación</a>
+        <a href="#" rel="tag">fMRI</a>
+        <a href="#" rel="tag">Voxelwise</a>
+        <a href="#" rel="tag">Pycortex</a>
+      </div>
+    </div>
+  </div>
+  </article>
+
+  </div>
+  </div>
+  </div>
   </div>
 
   <script src="js/jquery-2.1.3.min.js"></script>
