@@ -99,7 +99,8 @@
                 </div>
                 <!-- /Entry meta -->
 
-                <h2 class="entry-title">Decodificando el tiempo: Cómo el cerebro separa el "cuándo" del "qué"</h2>
+                <h2 class="entry-title">Aislando la Gramática del Ruido: Un Enfoque Computacional del Tiempo Verbal en
+                  la Corteza Cerebral</h2>
               </header>
               <!-- /Entry header -->
 
@@ -110,143 +111,97 @@
                     <div class="col-inner">
 
                       <p>
-                        Cuando una persona afirma "caminé" en lugar de "camino", el cerebro humano realiza un cálculo
-                        algorítmico asombroso en cuestión de milisegundos. No solo procesa el concepto semántico de la
-                        acción motora, sino que extrae una etiqueta temporal incrustada en la estructura misma de la
-                        palabra. A este fenómeno se le conoce en lingüística como <b>morfología flexiva</b>: la
-                        capacidad de alterar la forma de una palabra para añadir información gramatical sin cambiar su
-                        significado base.
+                        Cada vez que escuchamos una historia, nuestro cerebro se enfrenta a un torrente continuo de
+                        ondas sonoras que debe fragmentar, decodificar y dotar de significado en fracciones de segundo.
+                        Dentro de este caos acústico, existe una operación computacional sutil pero fundamental: la
+                        extracción del tiempo. Cuando escuchamos el verbo en inglés <i>"walked"</i> en lugar de
+                        <i>"walk"</i>, una simple inflexión morfológica en la estructura de la palabra nos transporta
+                        instantáneamente al pasado.
                       </p>
 
                       <p>
-                        Desde la lingüística descriptiva, se comprende que el idioma inglés no posee un tiempo futuro a
-                        nivel morfológico; el futuro se construye sintácticamente agrupando palabras (por ejemplo,
-                        añadiendo el auxiliar <i>"will"</i>). Por consiguiente, la dicotomía temporal real a nivel de la
-                        estructura de la palabra en inglés se reduce estrictamente a dos categorías: <b>Pasado frente a
-                          No-Pasado</b>. Partiendo de esta premisa, la presente investigación de maestría se planteó un
-                        interrogante fundamental: ¿Existen áreas en la corteza cerebral dedicadas exclusivamente a
-                        procesar el tiempo gramatical, independientemente del significado de la palabra y del sonido que
-                        la compone?
+                        A nivel lingüístico, el inglés carece de un tiempo futuro puramente morfológico (se construye
+                        sintácticamente con auxiliares como <i>"will"</i>), por lo que la dicotomía temporal a nivel de
+                        palabra se reduce a dos ejes de flexión: <b>Pasado vs. No-Pasado</b>. La pregunta que ha
+                        intrigado a la neurobiología del lenguaje durante décadas es: ¿Existen poblaciones neuronales
+                        específicas dedicadas a computar esta etiqueta gramatical, o el tiempo se procesa como un
+                        subproducto del significado general de la oración? Para responder a esto, tuvimos que abandonar
+                        los métodos tradicionales y adentrarnos en el modelado computacional de alta dimensión.
                       </p>
                       <br>
 
-                      <h3>El paradigma naturalista y el <i>Voxelwise Modeling</i></h3>
+                      <h3>El fin del paradigma reduccionista: <i>Voxelwise Encoding</i></h3>
                       <p>
-                        Históricamente, la neurociencia del lenguaje dependía de diseños experimentales altamente
-                        artificiales, en los cuales se le pedía a un sujeto leer oraciones aisladas y repetitivas dentro
-                        de un escáner de resonancia magnética funcional (fMRI). Sin embargo, el cerebro humano
-                        evolucionó para decodificar lenguaje en contextos ricos, dinámicos y continuos.
+                        Clásicamente, la neurociencia estudiaba el lenguaje aislando a los sujetos en un escáner de
+                        resonancia magnética funcional (fMRI) y pidiéndoles que leyeran oraciones desconectadas o listas
+                        de verbos. Aunque útil, este diseño carece de validez ecológica. El cerebro evolucionó para
+                        procesar narrativas dinámicas y ricas en contexto, no palabras aisladas en una pantalla.
                       </p>
                       <p>
-                        Para resolver esta limitación, se implementó un marco computacional de vanguardia conocido como
-                        <b>Voxelwise Modeling</b> (Modelado Vóxel por Vóxel). En lugar de buscar una única "área del
-                        lenguaje", este enfoque expone a los participantes a estímulos naturalistas —como escuchar horas
-                        de narrativas ininterrumpidas en un podcast— y construye un modelo matemático predictivo para
-                        <i>cada uno</i> de los miles de vóxeles (los "píxeles" tridimensionales) que componen el
-                        cerebro. La gran ventaja de este método es su validez ecológica: permite observar cómo
-                        interactúan las redes cerebrales complejas en situaciones de la vida real. No obstante, su
-                        principal desventaja radica en el inmenso costo computacional que exige y en la dificultad
-                        metodológica para separar las múltiples variables lingüísticas que ocurren de forma simultánea
-                        en un relato natural.
+                        Para capturar esta complejidad, adoptamos un marco analítico del estado del arte: los <b>Modelos
+                          de Codificación Voxelwise</b> (<i>Voxelwise Encoding Models</i>). Utilizando el conjunto de
+                        datos abiertos ds003020, analizamos la actividad cerebral de sujetos expuestos a horas de
+                        historias naturalistas continuas (podcasts). En este paradigma predictivo, no buscamos "dónde se
+                        ilumina el cerebro", sino que construimos un algoritmo matemático para cada uno de los
+                        aproximadamente 100,000 vóxeles (píxeles tridimensionales) de la corteza, intentando predecir su
+                        actividad fluctuante basándonos puramente en las características del lenguaje escuchado.
                       </p>
                       <br>
 
-                      <h3>Extracción de Espacios de Características e Inteligencia Artificial</h3>
+                      <h3>El problema de la Colinealidad y la extracción de características</h3>
                       <p>
-                        El mayor peligro metodológico al estudiar el tiempo verbal en el cerebro es la
-                        <i>colinealidad</i>. Si el cerebro se activa al escuchar la palabra "caminé", es imperativo
-                        demostrar matemáticamente que esa activación responde a la categoría gramatical del pasado y no
-                        simplemente al hecho de que el verbo termina en un sonido explosivo, o al concepto de "caminar".
-                      </p>
-                      <p>
-                        Para lograr esto, se construyó un flujo de trabajo computacional (<b>véase el diagrama
-                          metodológico en la Figura 1</b>) que descompone el audio de las historias en cuatro niveles o
-                        "espacios de características" distintos:
+                        El gran obstáculo del habla naturalista es que todo ocurre al mismo tiempo. Si un vóxel
+                        reacciona al escuchar "caminé", ¿cómo sabemos si responde a la fricción acústica de la palabra,
+                        al concepto semántico de moverse, o a la morfología gramatical del pasado? Para desentrañar esta
+                        <i>colinealidad</i> matemática, diseñamos un flujo de trabajo que descompuso el audio en cuatro
+                        espacios de características independientes:
                       </p>
                       <ul>
-                        <li><b>Nivel Acústico (Control de Sonido):</b> Se calculó la <i>tasa de fonemas</i> (cuántos
-                          sonidos elementales ingresan al oído por segundo). Esto evita que la corteza auditiva primaria
-                          confunda un sufijo gramatical con simple ruido físico.</li>
-                        <li><b>Nivel Léxico (Control de Carga Cognitiva):</b> Se cuantificó la <i>tasa de palabras</i>
-                          por segundo, lo que permite controlar el volumen global del habla que el sujeto debe procesar.
-                        </li>
-                        <li><b>Nivel Semántico (Control de Significado):</b> Se integró un modelo masivo de vectores de
-                          significado (denominado <i>English1000sm</i>) comprimido computacionalmente mediante Análisis
-                          de Componentes Principales (PCA). Esto asegura que la representación puramente conceptual de
-                          las historias no se mezcle con la estructura gramatical.</li>
-                        <li><b>Nivel Morfológico (El Objetivo):</b> Utilizando arquitecturas de Inteligencia Artificial
-                          (Procesamiento de Lenguaje Natural avanzado), se analizó el contexto de cada oración para
-                          diferenciar verbos de sustantivos, realizando un conteo estricto de apariciones de verbos en
-                          "Pasado" y "No-Pasado" con un nivel de exactitud equiparable al humano.</li>
+                        <li><b>Espacio Acústico:</b> Extraído como la <i>tasa de fonemas</i> por segundo. Sirve como
+                          control para que el modelo no confunda un sufijo gramatical (como la terminación /t/ o /d/ en
+                          inglés) con simple actividad de la corteza auditiva primaria.</li>
+                        <li><b>Espacio Léxico:</b> Definido por la <i>tasa de palabras</i>, actuando como un control de
+                          densidad y carga cognitiva.</li>
+                        <li><b>Espacio Semántico:</b> Se implementó un modelo de incrustaciones distribucionales masivo
+                          (<i>English1000sm</i>) y se comprimió en 50 dimensiones continuas mediante Análisis de
+                          Componentes Principales (PCA). Esto asegura que se filtre el "significado" puro de la
+                          historia.</li>
+                        <li><b>Espacio Morfológico:</b> Utilizando modelos de Procesamiento de Lenguaje Natural
+                          (Transformers), etiquetamos de forma automatizada y precisa la carga de verbos en
+                          <i>Pasado</i> y <i>No-Pasado</i>, nuestra variable de interés.</li>
                       </ul>
                       <br>
 
-                      <h3>Alineación Temporal FIR y Partición de Varianza</h3>
+                      <h3>Hemodinámica y el paradigma de la Partición de Varianza</h3>
                       <p>
-                        Una vez extraídas estas características, el modelo se enfrenta a un desafío biológico
-                        fundamental: el habla es rápida (ocurre en milisegundos), pero el flujo sanguíneo del cerebro
-                        que mide el fMRI (señal BOLD) es lento y tarda varios segundos en alcanzar su pico máximo tras
-                        escuchar una palabra. Para corregir este desfase, se aplicó una <b>Alineación Temporal FIR
-                          (Respuesta de Impulso Finito)</b>, retrasando matemáticamente los estímulos lingüísticos para
-                        sincronizarlos con la respuesta hemodinámica de la sangre.
+                        Alinear la rapidez del habla con la lentitud del flujo sanguíneo cerebral requiere ingeniería
+                        matemática. Por ello, aplicamos un <b>Modelo de Respuesta de Impulso Finito (FIR)</b>,
+                        introduciendo retardos escalonados en nuestras variables lingüísticas para sincronizarlas con el
+                        rezago natural de la señal BOLD del fMRI.
                       </p>
                       <p>
-                        Con los tiempos alineados, se utilizó una técnica estadística avanzada conocida como
-                        <b>Partición de Varianza</b> (<i>Variance Partitioning</i>). En términos sencillos, funciona
-                        como un ingeniero de sonido que intenta aislar el volumen de un solo instrumento dentro de una
-                        orquesta completa. El proceso consiste en entrenar dos grandes algoritmos predictivos mediante
-                        Regresión Ridge:
-                      </p>
-                      <ol>
-                        <li><b>Modelo de Control Base:</b> Se entrena <i>solo</i> con la información Acústica, Léxica y
-                          Semántica (ocultando deliberadamente la gramática).</li>
-                        <li><b>Modelo Completo:</b> Se entrena sumando la morfología (Pasado/No-Pasado) al modelo base.
-                        </li>
-                      </ol>
-                      <p>
-                        Al restar la precisión del Modelo Base a la del Modelo Completo, el residuo resultante es la
-                        <b>Varianza Única</b>: el porcentaje de actividad cerebral que única y exclusivamente es
-                        explicado por la sintonía del cerebro hacia el tiempo gramatical de las palabras. Como señala el
-                        equipo de investigación original de la base de datos utilizada para justificar este diseño
-                        experimental:
-                      </p>
-                      <blockquote>
-                        <i>"This is done by comparing responses across repeats of the test story,
-                          task-wheretheressmoke."</i> (LeBel et al., 2023).
-                      </blockquote>
-                      <p>
-                        De este modo, una historia narrativa específica (reservada y nunca antes vista por el modelo) se
-                        estableció como el estándar estricto de evaluación para confirmar si el algoritmo realmente
-                        había aprendido a leer la mente del sujeto.
+                        Con los tiempos sincronizados, el verdadero poder analítico recae en la técnica de <b>Partición
+                          de Varianza</b>. Su premisa es elegante: para demostrar que el cerebro procesa la morfología,
+                        entrenamos un <i>Modelo de Control Base</i> (utilizando solo la acústica, el léxico y la
+                        semántica). Luego, entrenamos un <i>Modelo Completo</i> que añade la información morfológica. Al
+                        restar la precisión predictiva del modelo base al modelo completo en datos no vistos por el
+                        algoritmo, obtenemos la <b>Varianza Única</b>: la proporción exacta de actividad cerebral que
+                        solo puede explicarse por el procesamiento del tiempo gramatical.
                       </p>
                       <br>
 
-                      <h3>Computación en la nube y Auditoría Neurolingüística</h3>
+                      <h3>Auditoría Neurolingüística y Resultados</h3>
                       <p>
-                        Procesar matrices matemáticas que cruzan casi 100.000 vóxeles cerebrales con miles de variables
-                        retrasadas en el tiempo genera un estrés computacional extremo. Por esta razón, el modelado
-                        requirió el aprovisionamiento de infraestructura de alto rendimiento en Google Cloud Platform,
-                        utilizando máquinas virtuales con alta capacidad de memoria.
+                        Para evitar falsos positivos derivados del ruido del escáner, el modelado masivo de regresión
+                        Ridge se ejecutó sobre clústeres en la nube (GCP). Sometimos los resultados a <b>3,000
+                          permutaciones empíricas circulares</b> (destruyendo aleatoriamente la alineación temporal para
+                        crear una distribución nula) y aplicamos filtros de corrección FDR. Incluso implementamos
+                        estrictas auditorías de control de calidad, lo que llevó a la exclusión metódica de un
+                        participante (UTS04) por anomalías matriciales de colinealidad intrínsecas a sus datos fMRI.
                       </p>
                       <p>
-                        Para asegurar que los hallazgos no fuesen producto de un accidente matemático o del azar, se
-                        ejecutaron <b>3000 iteraciones de permutación empírica</b> (<i>shift-testing</i> circular). Este
-                        riguroso proceso desordena aleatoriamente los datos miles de veces para crear distribuciones
-                        nulas de control. Finalmente, se aplicó un filtro de Tasa de Falsos Descubrimientos (FDR) y una
-                        estricta auditoría de calidad que excluyó vóxeles con anomalías matemáticas, garantizando que la
-                        activación reportada fuese biológicamente genuina.
-                      </p>
-                      <br>
-
-                      <h3>Resultados cuantitativos y hallazgos neurobiológicos</h3>
-                      <p>
-                        Los datos revelaron una sintonía morfológica robusta a lo largo de 8 participantes (un noveno
-                        sujeto, UTS04, fue excluido bajo los criterios matemáticos estrictos mencionados tras detectarse
-                        una colinealidad originaria de los datos del escáner).
-                      </p>
-                      <p>
-                        A continuación, se presenta la tabla descriptiva que ilustra la cantidad de vóxeles que
-                        superaron los filtros estadísticos y la varianza única máxima encontrada en cada corteza:
+                        Los resultados cuantitativos en los 8 sujetos retenidos revelaron una arquitectura cortical
+                        sorprendentemente robusta para la sintonía morfológica:
                       </p>
 
                       <!-- Contenedor con overflow automático para móviles -->
@@ -315,20 +270,19 @@
                       </div>
 
                       <p>
-                        En la neuroimagen funcional, dadas las inmensas proporciones de ruido sistémico y fisiológico,
-                        lograr aislar proporciones de varianza única de hasta el <b>3.73 %</b> a partir de tan solo dos
-                        dimensiones morfológicas (Pasado/No-Pasado) constituye una evidencia biológica excepcionalmente
-                        sólida para un estímulo naturalista.
+                        En el ruidoso universo de la neuroimagen funcional evaluada bajo paradigmas naturalistas, aislar
+                        picos de varianza única de hasta un <b>3.73 %</b> atribuidos puramente a una flexión gramatical
+                        representa una señal biológica profunda.
                       </p>
                       <p>
-                        A nivel topográfico, los mapas corticales resultantes revelaron algo fascinante: la máxima
-                        especialización para el procesamiento del tiempo no se restringe al histórico Giro Frontal
-                        Inferior (clásicamente conocido como el Área de Broca). Por el contrario, los picos de
-                        activación se extendieron de forma consistente hacia el <b>Giro Temporal Superior posterior y la
-                          Unión Temporoparietal (pSTS/TPJ)</b>. Estas áreas actúan como la verdadera interfaz
-                        fonológico-léxica, sugiriendo que, durante la fluidez del lenguaje continuo, la decodificación
-                        del tiempo gramatical recae en redes corticales ampliamente distribuidas que trabajan en
-                        conjunto para extraer el "cuándo" de la semántica general del mensaje.
+                        A nivel topográfico, este enfoque computacional desafía el dogma neurolingüístico clásico. La
+                        máxima sintonía hacia el tiempo morfológico no se encapsuló exclusivamente en el Giro Frontal
+                        Inferior (el tradicional "Área de Broca"). En su lugar, proyectamos una arquitectura de
+                        procesamiento distribuida, con fuertes anclajes en el <b>Giro Temporal Superior posterior y la
+                          Unión Temporoparietal (pSTS/TPJ)</b>. Estos hallazgos sugieren que el cerebro humano no guarda
+                        la gramática en un compartimento aislado, sino que utiliza extensas redes de integración
+                        asociativa para abstraer, en tiempo real, el <i>cuándo</i> de una acción por encima de la densa
+                        marea acústica y semántica del lenguaje natural.
                       </p>
 
                     </div>
