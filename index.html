@@ -310,7 +310,7 @@
                       </p>
                       <br>
 
-                      <h3>Interactúa con los modelos tridimensionales</h3>
+                      <h3>Visualización de mapas corticales tridimensionales</h3>
                       <p>
                         A continuación, se ofrecen los accesos a los mapas bidimensionales construidos mediante la
                         librería <i>Pycortex</i>.
@@ -355,141 +355,53 @@
                       <!-- Prueba de integración Mermaid -->
                       <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
                         flowchart
-                        %% Uso de sintaxis moderna explícita para las figuras iniciales
-                        STIM@{ shape: cyl, label: "Estímulo Naturalista:<br>Habla Continua" }
-                        DERIV@{ shape: lin-cyl, label: "Datos Derivados:<br>TextGrid, fMRI preprocesado, Mapas
-                        Anatómicos, etc." }
-
-                        %% Conexión primaria
-                        STIM e5@--> DERIV
+                        STIM([Estímulo Naturalista: Habla Continua])
 
                         subgraph FeatureSpaces [1. Extracción de Niveles Lingüísticos]
                         direction TB
-
-                        subgraph PHO_SUB [Espacio Fonológico]
-                        direction TB
-                        PHO_1[Transcripción Fonética ARPABET]
-                        PHO_2[14 Rasgos Articulatorios Distintivos]
-                        PHO_1 e1@--> PHO_2
+                        PHO[phonological_features<br>Rasgos Articulatorios]
+                        LEX[lexical_features<br>Tasa de Palabras]
+                        SYN[syntactic_features<br>Complejidad de Dependencias]
+                        SEM[semantic_features<br>english1000 completo]
+                        MOR[morphological_features<br>Finitud: Pasado vs No-Pasado]
                         end
 
-                        subgraph LEX_SUB [Espacio Léxico]
-                        direction TB
-                        LEX_1[Tasa de Palabras]
-                        LEX_2[Logaritmo de Frecuencia Léxica]
-                        end
-
-                        subgraph SYN_SUB [Espacio Sintáctico]
-                        direction TB
-                        SYN_1[Analizador de Dependencias spaCy]
-                        SYN_2[Profundidad Máxima del Árbol Sintáctico]
-                        SYN_1 e2@--> SYN_2
-                        end
-
-                        subgraph SEM_SUB [Espacio Semántico]
-                        direction TB
-                        SEM_1[Modelo Distribucional english1000]
-                        SEM_2[985 Dimensiones Continuas]
-                        SEM_3[Sin Reducción PCA]
-                        SEM_1 e3@--> SEM_2
-                        SEM_2 e4@--> SEM_3
-                        end
-
-                        subgraph MOR_SUB [Espacio Morfológico: Locus de Finitud]
-                        direction TB
-                        MOR_1[Pasado Regular Concatenativo]
-                        MOR_2[Pasado Irregular Léxico]
-                        MOR_3[No-Pasado Marcado]
-                        MOR_4[No-Pasado No Marcado]
-                        end
-                        end
-
-                        %% Conexiones animadas desde los DATOS DERIVADOS hacia los subgrafos
-                        DERIV e6@--> PHO_SUB
-                        DERIV e7@--> LEX_SUB
-                        DERIV e8@--> SYN_SUB
-                        DERIV e9@--> SEM_SUB
-                        DERIV e10@--> MOR_SUB
-
-                        subgraph Temporal [Alineación Temporal]
-                        direction TB
-                        HRF{{Convolución Canónica HRF}}
-                        DOWN{{Submuestreo Temporal al TR}}
-                        HRF e16@--> DOWN
-                        end
-
-                        %% Conexiones animadas hacia la convolución
-                        PHO_SUB e11@--> HRF
-                        LEX_SUB e12@--> HRF
-                        SYN_SUB e13@--> HRF
-                        SEM_SUB e14@--> HRF
-                        MOR_SUB e15@--> HRF
+                        STIM e1@--> PHO
+                        STIM e2@--> LEX
+                        STIM e3@--> SYN
+                        STIM e4@--> SEM
+                        STIM e5@--> MOR
 
                         subgraph Modeling [2. Partición de Varianza y Modelado]
                         direction TB
-
-                        %% Desglose individual de cada nivel lingüístico tras el submuestreo
-                        F_PHO[Características Fonológicas Alineadas]
-                        F_LEX[Características Léxicas Alineadas]
-                        F_SYN[Características Sintácticas Alineadas]
-                        F_SEM[Características Semánticas Alineadas]
-                        F_MOR[Características Morfológicas Alineadas]
-
-                        %% Matrices receptoras
-                        MAT_NUIS[[Matriz del Modelo de Control Base]]
-                        MAT_FULL[[Matriz del Modelo Completo]]
-
-                        %% Modelos Estadísticos
-                        RIDGE_N[Regresión del Modelo de Control Base<br>MultipleKernelRidgeCV]
-                        RIDGE_F[Regresión del Modelo Completo<br>MultipleKernelRidgeCV]
+                        NUIS[Matriz de Control Nuisance<br>Phono + Lex + Synt + Sem]
+                        FULL[Matriz de Modelo Completo<br>Nuisance + Morph]
+                        RIDGE[Banded Ridge Regression<br>MultipleKernelRidgeCV]
                         end
 
-                        %% Flujo del submuestreo hacia los nodos individuales de características
-                        DOWN e17@--> F_PHO
-                        DOWN e18@--> F_LEX
-                        DOWN e19@--> F_SYN
-                        DOWN e20@--> F_SEM
-                        DOWN e21@--> F_MOR
+                        PHO e6@--> NUIS
+                        LEX e7@--> NUIS
+                        SYN e8@--> NUIS
+                        SEM e9@--> NUIS
 
-                        %% Construcción explícita de la Matriz Base (4 niveles)
-                        F_PHO e22@--> MAT_NUIS
-                        F_LEX e23@--> MAT_NUIS
-                        F_SYN e24@--> MAT_NUIS
-                        F_SEM e25@--> MAT_NUIS
+                        MOR e10@--> FULL
+                        NUIS e11@--> FULL
 
-                        %% Construcción explícita de la Matriz Completa (5 niveles)
-                        F_PHO e26@--> MAT_FULL
-                        F_LEX e27@--> MAT_FULL
-                        F_SYN e28@--> MAT_FULL
-                        F_SEM e29@--> MAT_FULL
-                        F_MOR e30@--> MAT_FULL
-
-                        %% Flujo hacia los algoritmos de Ridge en bandas
-                        MAT_NUIS e31@--> RIDGE_N
-                        MAT_FULL e32@--> RIDGE_F
+                        NUIS e12@--> RIDGE
+                        FULL e13@--> RIDGE
 
                         subgraph Validation [3. Inferencia Estadística y Resultados]
                         direction TB
-                        CV[Evaluación de Modelos<br>Cálculo de R² en Validación Cruzada]
-                        SUBTRACT[Resta de Rendimiento<br>R² Completo - R² Base]
-                        VAR[Varianza Única Aislada<br>Proporción de Señal Morfológica Pura]
-                        PERM_TEST[Pruebas de Permutación Circulares<br>Shift-Testing Empírico de Alineación]
-                        NULL_DIST[Distribuciones Nulas Empíricas<br>Estimación de p-valores y Corrección FDR]
-
-                        %% Nodo Mapas usando sintaxis de shape explícita
-                        MAPS@{ shape: procs, label: "Mapas Corticales Exploratorios<br>de Sintonía Morfológica" }
+                        VAR[Cálculo de Varianza Única<br>R² Completo - R² Control]
+                        PERM[Distribuciones Nulas Empíricas<br>Shift Testing + FDR]
+                        MAPS([Mapas Corticales de Sintonía Morfológica])
                         end
 
-                        %% Flujo de Inferencia Estadística y Validación
-                        RIDGE_N e33@--> CV
-                        RIDGE_F e34@--> CV
-                        CV e35@--> SUBTRACT
-                        SUBTRACT e36@--> VAR
-                        VAR e37@--> PERM_TEST
-                        PERM_TEST e38@--> NULL_DIST
-                        NULL_DIST e39@--> MAPS
+                        RIDGE e14@--> VAR
+                        VAR e15@--> PERM
+                        PERM e16@--> MAPS
 
-                        %% Aplicación estricta de las 39 animaciones rápidas de Mermaid
+                        %% Animaciones Rápidas de Flujo
                         e1@{ animation: fast }
                         e2@{ animation: fast }
                         e3@{ animation: fast }
@@ -506,131 +418,8 @@
                         e14@{ animation: fast }
                         e15@{ animation: fast }
                         e16@{ animation: fast }
-                        e17@{ animation: fast }
-                        e18@{ animation: fast }
-                        e19@{ animation: fast }
-                        e20@{ animation: fast }
-                        e21@{ animation: fast }
-                        e22@{ animation: fast }
-                        e23@{ animation: fast }
-                        e24@{ animation: fast }
-                        e25@{ animation: fast }
-                        e26@{ animation: fast }
-                        e27@{ animation: fast }
-                        e28@{ animation: fast }
-                        e29@{ animation: fast }
-                        e30@{ animation: fast }
-                        e31@{ animation: fast }
-                        e32@{ animation: fast }
-                        e33@{ animation: fast }
-                        e34@{ animation: fast }
-                        e35@{ animation: fast }
-                        e36@{ animation: fast }
-                        e37@{ animation: fast }
-                        e38@{ animation: fast }
-                        e39@{ animation: fast }
                       </div>
-                      <p>
-                        <b>Claridad Epistemológica:</b> separa visualmente qué variables conforman la "matriz de
-                        control" (que apaga el ruido de fondo del cerebro) y cómo tu variable de interés
-                        (morphological_features) se suma después para crear el "modelo completo".<br>
-                        <b>Flujo causal:</b> muestra que la Regresión Ridge en Bandas (MultipleKernelRidgeCV) recibe de
-                        manera paralela ambos modelos para calcular sus puntuaciones de manera independiente antes de
-                        restarlas en el cálculo de la varianza única.<br>
-                      </p>
 
-                      <h3>Plan de Optimización en Voxelwise Encoding</h3>
-
-                      <p>Basado en los estándares del estado del arte para 2026 en Voxelwise Encoding, aquí tienes tu
-                        Hoja de Ruta Metodológica. Guárdala y úsala como checklist para tus próximas iteraciones de
-                        código.</p>
-
-                      <p><strong>ITERACIÓN 1: Refinamiento de los Espacios de Características (Feature Spaces)</strong>
-                      </p>
-
-                      <p><strong>1. Control de Categoría Léxica (¡Urgente!)</strong></p>
-                      <ul>
-                        <li>Problema actual: Solo cuentas past_count y non_past_count. Si le restas solo el word_rate
-                          (tasa de palabras), tu varianza única está mezclando "el tiempo verbal" con "el hecho de ser
-                          un verbo" frente a sustantivos o adjetivos.</li>
-                        <li>Acción: En tu pipeline de NLP (Celda 3), añade una variable verb_count (o verb_rate).</li>
-                        <li>Objetivo: El modelo nuisance (de control) debe saber cuándo hay un verbo. Así, la varianza
-                          de la morfología (Pasado/No-Pasado) será puramente el efecto del tiempo gramatical, no de la
-                          categoría léxica.</li>
-                      </ul>
-
-                      <p><strong>2. Mejora del Filtro Acústico</strong></p>
-                      <ul>
-                        <li>Problema actual: Usar solo phone_rate (conteo de fonemas) es un control acústico muy débil
-                          para una revista de alto impacto.</li>
-                        <li>Acción: Como mencionaste, implementa la extracción de un espectrograma Mel (o al menos
-                          características espectrales básicas / densidad de consonantes). Tendrás que alinear este
-                          espectrograma a la frecuencia de muestreo de tu TR (TR = 2.0s) usando una ventana de
-                          convolución temporal (HRF) o delays FIR.</li>
-                      </ul>
-
-                      <p><strong>ITERACIÓN 2: Arquitectura del Modelo (El salto al Banded Ridge)</strong></p>
-
-                      <p><strong>3. Abandonar el RidgeCV estándar</strong></p>
-                      <ul>
-                        <li>Problema actual: Al usar np.hstack para unir Acústica, Semántica y Morfología bajo un solo
-                          RidgeCV, el hiperparámetro de penalización (alpha) "aplasta" tu señal morfológica (que es un
-                          vector ralo de conteos) favoreciendo a la semántica (que es densa).</li>
-                        <li>Acción: Implementa Banded Ridge Regression. Ya importaste MultipleKernelRidgeCV y
-                          ColumnKernelizer de himalaya en tu Celda 1. ¡Úsalos!</li>
-                        <li>Implementación: Configura el ColumnKernelizer para agrupar tus datos:
-                          <ul>
-                            <li>Bloque 1: Acústico (Mel / Phone rate)</li>
-                            <li>Bloque 2: Léxico (word_rate + verb_count)</li>
-                            <li>Bloque 3: Semántico (Embeddings de Google)</li>
-                            <li>Bloque 4: Morfológico (past vs non_past)</li>
-                          </ul>
-                          El algoritmo optimizará un alpha distinto para cada bloque, protegiendo tu señal morfológica.
-                        </li>
-                      </ul>
-
-                      <p><strong>4. Resolver el dilema del PCA Semántico</strong></p>
-                      <ul>
-                        <li>Acción a evaluar: Ahora que usarás Banded Ridge (que maneja miles de dimensiones sin
-                          problema de RAM), haz la prueba empírica: ¿qué pasa si pasas el embedding crudo de 985
-                          dimensiones en lugar del PCA de 50?</li>
-                        <li>Decisión: Si el embedding crudo sigue absorbiendo el tiempo verbal (fuga
-                          semántico-sintáctica), mantén tu PCA y justifícalo formalmente como "mitigación de
-                          colinealidad representacional". Si el Banded Ridge logra separar las señales sin ayuda del
-                          PCA, quita el PCA. (Esto es hacer ciencia exploratoria de verdad).</li>
-                      </ul>
-
-                      <p><strong>ITERACIÓN 3: Inferencia Estadística y Partición de Varianza</strong></p>
-
-                      <p><strong>5. Ajuste del Variance Partitioning</strong></p>
-                      <ul>
-                        <li>Modelo Nuisance: Deberá entrenarse con Acústica + Léxico + Semántica.</li>
-                        <li>Modelo Completo: Deberá entrenarse con Acústica + Léxico + Semántica + Morfología.</li>
-                        <li>Acción: La Varianza Única será R2_Full - R2_Nuisance. Asegúrate de que este cálculo se haga
-                          sobre un conjunto de prueba (Test Story) estrictamente separado, tal cual lo tienes programado
-                          ahora.</li>
-                      </ul>
-
-                      <p><strong>6. Validar las Permutaciones Cíclicas</strong></p>
-                      <ul>
-                        <li>Acción: Tu lógica actual de hacer un np.roll() (shift cíclico) en el test set para generar
-                          las distribuciones nulas es muy inteligente para ahorrar poder de cómputo. Mantén esto, pero
-                          asegúrate de que el np.roll() solo altere el bloque Morfológico, rompiendo su alineación con
-                          el cerebro, mientras los espacios nuisance permanecen estables. Así validas si el R² único es
-                          producto del azar o de una verdadera sintonía temporal.</li>
-                      </ul>
-
-                      <p><strong>Resumen para tu "To-Do List":</strong></p>
-                      <ul>
-                        <li>[ ] Añadir verb_count al NLP.</li>
-                        <li>[ ] Reemplazar/Aumentar phone_rate por un Espectrograma Mel.</li>
-                        <li>[ ] Reemplazar RidgeCV por MultipleKernelRidgeCV (Banded Ridge).</li>
-                        <li>[ ] Configurar ColumnKernelizer para separar los bloques de variables.</li>
-                        <li>[ ] Probar Empíricamente: Semántica cruda vs. PCA de 50 componentes bajo el nuevo Banded
-                          Ridge.</li>
-                        <li>[ ] Mantener el shift cíclico de permutaciones para el cálculo del valor-p (FDR &lt; 0.05).
-                        </li>
-                      </ul>
                       <br>
                       <br>
 
