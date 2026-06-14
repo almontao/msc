@@ -1,0 +1,3 @@
+[submodule "breezycv_base"]
+	path = breezycv_base
+	url = https://github.com/almontao/breezycv_base.git
