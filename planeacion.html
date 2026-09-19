@@ -275,6 +275,182 @@
                           MODELADO VOXELWISE]</i></p>
                       <br>
 
+                      <h3>El desfase biológico: La función de respuesta hemodinámica</h3>
+                      <p>
+                        Al proyectar las características lingüísticas sobre un eje temporal, surge un obstáculo
+                        neurofisiológico fundamental. El estímulo narrativo fluctúa en fracciones de segundo
+                        (milisegundos), pero el escáner fMRI no mide la actividad eléctrica directa de las neuronas;
+                        mide la señal BOLD (<i>Blood-Oxygen-Level-Dependent</i>), es decir, los cambios en la
+                        oxigenación de la sangre.
+                      </p>
+
+                      <p>
+                        El flujo sanguíneo cerebral obedece a una dinámica mecánica mucho más lenta que el disparo
+                        neuronal. Para que un modelo matemático pueda relacionar una variable lingüística con la señal
+                        del escáner, es imperativo someter los datos del lenguaje a una transformación computacional que
+                        simule este retardo biológico. En neurociencia computacional, este proceso se realiza mediante
+                        la convolución de las características con una <b>Función de Respuesta Hemodinámica (HRF)
+                          canónica de doble gamma</b>.
+                      </p>
+
+                      <!-- Interacción 1: Línea de tiempo de la HRF -->
+                      <div
+                        style="margin: 30px 0; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #fafafa;">
+                        <h4
+                          style="margin-top: 0; font-size: 16px; color: #333; border-bottom: 2px solid #007bff; display: inline-block; padding-bottom: 5px;">
+                          Cronología de la Señal BOLD</h4>
+                        <p style="font-size: 14px; color: #666; margin-bottom: 20px;">Interactúa con los paneles para
+                          comprender cómo el modelo matemático retrasa artificialmente las variables lingüísticas para
+                          sincronizarlas con la biología del cerebro.</p>
+
+                        <details
+                          style="margin-bottom: 10px; background: #fff; border: 1px solid #ddd; border-radius: 4px;">
+                          <summary
+                            style="padding: 12px; cursor: pointer; font-weight: 600; color: #222; outline: none;">
+                            Segundo 0: El Estímulo Lingüístico
+                          </summary>
+                          <div style="padding: 15px; border-top: 1px solid #ddd; font-size: 14px; color: #444;">
+                            El participante escucha una forma verbal finita (ej. <i>"walked"</i>). Las neuronas
+                            auditivas y las redes del lenguaje procesan la información casi instantáneamente (en
+                            cuestión de milisegundos), desencadenando una demanda metabólica de oxígeno.
+                          </div>
+                        </details>
+
+                        <details
+                          style="margin-bottom: 10px; background: #fff; border: 1px solid #ddd; border-radius: 4px;">
+                          <summary
+                            style="padding: 12px; cursor: pointer; font-weight: 600; color: #222; outline: none;">
+                            Segundo 6: El Pico Hemodinámico
+                          </summary>
+                          <div style="padding: 15px; border-top: 1px solid #ddd; font-size: 14px; color: #444;">
+                            El sistema vascular responde enviando un exceso de sangre oxigenada a la región cortical
+                            activa. Este es el punto máximo de la señal BOLD. Computacionalmente, nuestro modelo sabe
+                            que la correlación más fuerte con la palabra escuchada en el segundo 0 se encontrará en la
+                            resonancia del segundo 6.
+                          </div>
+                        </details>
+
+                        <details style="background: #fff; border: 1px solid #ddd; border-radius: 4px;">
+                          <summary
+                            style="padding: 12px; cursor: pointer; font-weight: 600; color: #222; outline: none;">
+                            Segundo 16: El Valle (Undershoot)
+                          </summary>
+                          <div style="padding: 15px; border-top: 1px solid #ddd; font-size: 14px; color: #444;">
+                            El flujo sanguíneo disminuye, cayendo ligeramente por debajo de su línea base antes de
+                            estabilizarse. La HRF de doble gamma modela matemáticamente esta caída para evitar
+                            predicciones residuales erróneas en los instantes posteriores del relato.
+                          </div>
+                        </details>
+                      </div>
+
+                      <p>
+                        Una vez transformada, la matriz lingüística se submuestrea para coincidir exactamente con el
+                        Tiempo de Repetición (TR) del escáner funcional. El resultado es una matriz de diseño donde la
+                        ortografía y la sintaxis han sido traducidas al idioma hemodinámico del cerebro.
+                      </p>
+                      <br>
+
+                      <h3>Modelado Vóxel a Vóxel y Partición de Varianza</h3>
+                      <p>
+                        El cerebro humano está parcelado computacionalmente en decenas de miles de unidades volumétricas
+                        denominadas <b>vóxeles</b> (equivalentes a los píxeles de una fotografía, pero en tres
+                        dimensiones). El objetivo del paradigma <i>Voxelwise Encoding</i> es entrenar un algoritmo
+                        independiente para cada uno de estos vóxeles, capaz de predecir sus fluctuaciones basándose en
+                        la matriz lingüística.
+                      </p>
+
+                      <p>
+                        Sin embargo, el lenguaje naturalista presenta un alto grado de colinealidad. La semántica, la
+                        sintaxis y el tiempo gramatical ocurren simultáneamente. Para evitar la inestabilidad matemática
+                        al estimar los pesos predictivos, se implementa una técnica de regularización conocida como
+                        <b>Regresión de Cresta Estándar</b> (<i>Standard Ridge Regression</i>), la cual penaliza los
+                        coeficientes desproporcionados.
+                      </p>
+
+                      <p>
+                        Para aislar exclusivamente el procesamiento del tiempo gramatical, la arquitectura del estudio
+                        estimó dos modelos predictivos contrastantes, aplicando el principio de partición de varianza:
+                      </p>
+
+                      <!-- Interacción 2: Visualización conceptual de la Partición de Varianza -->
+                      <div
+                        style="margin: 30px 0; font-family: monospace; font-size: 14px; background-color: #2c3e50; color: #ecf0f1; padding: 20px; border-radius: 8px; overflow-x: auto;">
+                        <div style="margin-bottom: 15px;">
+                          <span style="color: #3498db; font-weight: bold;">Modelo Global</span> = [Acústica + Léxica +
+                          Categorial + Sintaxis + Semántica + <span style="color: #e74c3c;">Tiempo Gramatical</span>]
+                          <br>
+                          <span style="color: #95a5a6;">// Contiene las 43 características (6 espacios)</span>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                          <span style="color: #2ecc71; font-weight: bold;">Modelo Restringido</span> = [Acústica +
+                          Léxica + Categorial + Sintaxis + Semántica]
+                          <br>
+                          <span style="color: #95a5a6;">// Contiene solo las 39 características de control</span>
+                        </div>
+
+                        <div style="border-top: 1px dashed #7f8c8d; padding-top: 15px;">
+                          <span style="color: #f1c40f; font-weight: bold;">ΔR² (Varianza Única)</span> = <span
+                            style="color: #3498db;">Precisión Modelo Global</span> - <span
+                            style="color: #2ecc71;">Precisión Modelo Restringido</span>
+                          <br>
+                          <span style="color: #95a5a6;">// Si ΔR² es positivo, el tiempo gramatical aporta información
+                            predictiva indispensable que ningún otro nivel lingüístico pudo suplir.</span>
+                        </div>
+                      </div>
+
+                      <p>
+                        El desempeño fuera de muestra (generalización sobre historias no vistas durante el entrenamiento
+                        del algoritmo) se evalúa mediante el coeficiente de determinación (R²). La diferencia (ΔR²)
+                        revela si la representación explícita del contraste entre pasado y no pasado mejora la capacidad
+                        de predecir la señal, descontando todo el andamiaje semántico y acústico previo.
+                      </p>
+                      <br>
+
+                      <h3>El tribunal estadístico: Desplazamientos circulares y FDR</h3>
+                      <p>
+                        Encontrar un vóxel donde el Modelo Global supere al Modelo Restringido (ΔR² > 0) no es
+                        suficiente. En series temporales complejas como las neuroimágenes, el ruido del escáner o el
+                        azar pueden generar falsas mejoras predictivas.
+                      </p>
+
+                      <p>
+                        Para comprobar la legitimidad neurobiológica del hallazgo, se debe destruir el alineamiento
+                        temporal. Esto se logra mediante <b>desplazamientos circulares exhaustivos</b> (<i>circular
+                          shifts</i>). Se toman las predicciones del modelo y se rotan artificialmente en el tiempo,
+                        desincronizándolas del estímulo real, para calcular miles de veces la diferencia de desempeño en
+                        un escenario nulo. Si el ΔR² original no es estadísticamente superior a esta distribución de
+                        ruido, el hallazgo se descarta.
+                      </p>
+
+                      <p>
+                        Además, dado que este proceso se repite para miles de vóxeles de manera simultánea, se aplica el
+                        procedimiento de Benjamini-Hochberg para controlar la <b>Tasa de Falsos Descubrimientos
+                          (FDR)</b>. Solo aquellos vóxeles cuyo valor <i>p</i> ajustado es inferior a 0.05 sobreviven al
+                        rigor del análisis.
+                      </p>
+
+                      <br>
+                      <!-- MARCADOR MERMAID -->
+                      <p><i>[AQUÍ VA GRÁFICO MERMAID SOBRE EL FLUJO ESTADÍSTICO Y LA INFERENCIA]</i></p>
+                      <br>
+
+                      <h3>Alcance e interpretación del límite del conocimiento</h3>
+                      <p>
+                        Las implicaciones de este marco analítico son profundas, pero requieren una cautela
+                        epistemológica estricta. Si un vóxel supera la corrección FDR, esto <b>no</b> demuestra el
+                        descubrimiento de un "módulo cerebral aislado" para la conjugación de verbos. Las propiedades
+                        lingüísticas coexisten y se retroalimentan.
+                      </p>
+
+                      <p>
+                        Lo que demuestra es que la red cortical procesa la categoría gramatical del tiempo como una
+                        señal informativa <i>adicional e independiente</i> de la identidad semántica abstracta y del
+                        sonido físico de las palabras. Nos permite cartografiar cómo el cerebro humano logra desenredar
+                        el caos acústico del habla naturalista para extraer coordenadas precisas, situando las acciones
+                        del relato en el tejido del tiempo.
+                      </p>
+
                       <!-- Contenedor con overflow automático para móviles -->
                       <div
                         style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; border: 1px solid #eee;">
