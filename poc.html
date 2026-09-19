@@ -2638,7 +2638,73 @@
             </p>
 
 
+            <div class="mermaid" style="text-align: center; margin-bottom: 25px;">
+              flowchart
+              %% Datos de Entrada
+              DATA@{ shape: cyl, label: "Datos Experimentales:<br>fMRI y Audio Naturalista (ds003020)" }
 
+              %% 1. Extracción
+              subgraph Espacios [1. Extracción de Espacios de Características]
+              direction TB
+              ACU[Nivel Acústico:<br>Tasa de Fonemas por TR]
+              LEX[Nivel Léxico:<br>Conteo de Palabras por TR]
+              SEM[Nivel Semántico:<br>Vectores Continuos de Significado]
+              MOR[Nivel Morfológico:<br>Conteo de Verbos Pasado vs. No-Pasado]
+              end
+
+              %% 2. Modelado
+              subgraph Modelado [2. Alineación Temporal y Modelado Voxelwise]
+              direction TB
+              FIR{{Alineación FIR:<br>Retardos para capturar el rezago BOLD}}
+
+              BASE[Modelo de Control Base:<br>Acústica + Léxica + Semántica]
+              FULL[Modelo Completo:<br>Control Base + Morfología]
+
+              FIR e6@--> BASE
+              FIR e7@--> FULL
+              end
+
+              %% 3. Inferencia
+              subgraph Inferencia [3. Inferencia Estadística y Resultados]
+              direction TB
+              VAR[Aislamiento de Señal:<br>Varianza Única Morfológica]
+              PERM[Significancia Estadística:<br>Permutaciones Circulares y FDR]
+              MAPS@{ shape: procs, label: "Mapas Corticales:<br>Sintonía hacia el Pasado/No-Pasado" }
+
+              VAR e10@--> PERM
+              PERM e11@--> MAPS
+              end
+
+              %% Conexiones Macro Animadas
+              DATA e1@--> ACU
+              DATA e12@--> LEX
+              DATA e13@--> SEM
+              DATA e14@--> MOR
+
+              ACU e2@--> FIR
+              LEX e3@--> FIR
+              SEM e4@--> FIR
+              MOR e5@--> FIR
+
+              BASE e8@--> VAR
+              FULL e9@--> VAR
+
+              %% Configuración de Animaciones
+              e1@{ animation: fast }
+              e2@{ animation: fast }
+              e3@{ animation: fast }
+              e4@{ animation: fast }
+              e5@{ animation: fast }
+              e6@{ animation: fast }
+              e7@{ animation: fast }
+              e8@{ animation: fast }
+              e9@{ animation: fast }
+              e10@{ animation: fast }
+              e11@{ animation: fast }
+              e12@{ animation: fast }
+              e13@{ animation: fast }
+              e14@{ animation: fast }
+            </div>
 
 
 
