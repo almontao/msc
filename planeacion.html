@@ -271,8 +271,49 @@
 
                       <br>
                       <!-- MARCADOR MERMAID -->
-                      <p><i>[AQUÍ VA GRÁFICO MERMAID SOBRE EL FLUJO DE LOS ESPACIOS, LA ALINEACIÓN TEMPORAL Y EL
-                          MODELADO VOXELWISE]</i></p>
+                      <!-- Prueba de integración Mermaid: Flujo de Espacios y Modelado -->
+                      <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
+                        %%{ init: { 'theme': 'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryTextColor':
+                        '#333333', 'primaryBorderColor': '#cccccc', 'lineColor': '#007bff', 'secondaryColor': '#f8f9fa',
+                        'tertiaryColor': '#e9ecef', 'fontFamily': 'inherit' } } }%%
+                        flowchart TB
+                        %% Datos de Entrada
+                        DATA@{ shape: cyl, label: "Datos Experimentales:<br>fMRI y Audio Naturalista (ds003020)" }
+
+                        %% 1. Extracción
+                        subgraph Espacios [1. Extracción de Espacios de Características]
+                        direction TB
+                        ACU[Espacios de Control:<br>Fonología, Léxico, Categoría, Sintaxis, Semántica]
+                        MOR[Espacio de Interés:<br>Tiempo Gramatical Finito]
+                        end
+
+                        %% 2. Modelado
+                        subgraph Modelado [2. Alineación Temporal y Modelado Voxelwise]
+                        direction TB
+                        HRF{{Alineación Biológica:<br>Convolución HRF Canónica y Submuestreo}}
+
+                        BASE[Modelo Restringido:<br>39 Características de Control]
+                        FULL[Modelo Global:<br>Control + 4 Características de Tiempo]
+
+                        HRF e4@--> BASE
+                        HRF e5@--> FULL
+                        end
+
+                        %% Conexiones Macro Animadas
+                        DATA e1@--> ACU
+                        DATA e2@--> MOR
+
+                        ACU e3@--> HRF
+                        MOR e6@--> HRF
+
+                        %% Configuración de Animaciones (Mermaid v11+)
+                        e1@{ animation: fast }
+                        e2@{ animation: fast }
+                        e3@{ animation: fast }
+                        e4@{ animation: fast }
+                        e5@{ animation: fast }
+                        e6@{ animation: fast }
+                      </div>
                       <br>
 
                       <h3>El desfase biológico: La función de respuesta hemodinámica</h3>
@@ -430,10 +471,37 @@
                         rigor del análisis.
                       </p>
 
-                      <br>
-                      <!-- MARCADOR MERMAID -->
-                      <p><i>[AQUÍ VA GRÁFICO MERMAID SOBRE EL FLUJO ESTADÍSTICO Y LA INFERENCIA]</i></p>
-                      <br>
+                      <!-- Prueba de integración Mermaid: Inferencia Estadística -->
+                      <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
+                        %%{ init: { 'theme': 'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryTextColor':
+                        '#333333', 'primaryBorderColor': '#cccccc', 'lineColor': '#007bff', 'fontFamily': 'inherit' } }
+                        }%%
+                        flowchart TB
+                        %% 3. Inferencia
+                        subgraph Inferencia [3. Inferencia Estadística y Resultados]
+                        direction TB
+                        BASE[Modelo Restringido]
+                        FULL[Modelo Global]
+
+                        VAR[Aislamiento de Señal:<br>Varianza Única Morfológica ΔR²]
+                        PERM[Significancia Estadística:<br>Desplazamientos Circulares Exhaustivos]
+                        FDR[Control de Error:<br>Corrección FDR a nivel de cerebro completo]
+                        MAPS@{ shape: procs, label: "Mapas Corticales Descriptivos:<br>Visualización en PyCortex" }
+
+                        BASE e1@--> VAR
+                        FULL e2@--> VAR
+                        VAR e3@--> PERM
+                        PERM e4@--> FDR
+                        FDR e5@--> MAPS
+                        end
+
+                        %% Configuración de Animaciones
+                        e1@{ animation: fast }
+                        e2@{ animation: fast }
+                        e3@{ animation: fast }
+                        e4@{ animation: fast }
+                        e5@{ animation: fast }
+                      </div>
 
                       <h3>Alcance e interpretación del límite del conocimiento</h3>
                       <p>
@@ -451,308 +519,161 @@
                         del relato en el tejido del tiempo.
                       </p>
 
+                      <h3>Consistencia descriptiva y arquitectura cortical</h3>
+                      <p>
+                        Al ejecutar este riguroso marco computacional sobre la muestra analítica (procesada mediante
+                        computación de alto rendimiento debido al inmenso estrés matricial), se observó una sintonía
+                        morfosintáctica robusta. El aislamiento de la varianza única, filtrado a través de los umbrales
+                        estadísticos de la corrección FDR, reveló la capacidad del cerebro para codificar la información
+                        del tiempo gramatical finito de manera concurrente.
+                      </p>
+
+                      <p>
+                        A continuación, se expone una tabla descriptiva que detalla la cantidad de vóxeles que superaron
+                        los controles estadísticos estrictos y el porcentaje de varianza única pico hallado en la
+                        corteza de los participantes. Es fundamental comprender que, en neuroimagen funcional de
+                        estímulos naturalistas, dadas las abrumadoras proporciones de ruido fisiológico y sistémico,
+                        aislar proporciones de varianza única explicada del orden del 1% al 3% a partir de un espacio
+                        gramatical tan específico constituye una señal biológica de notable precisión.
+                      </p>
+
                       <!-- Contenedor con overflow automático para móviles -->
                       <div
-                        style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; border: 1px solid #eee;">
-                        <table style="width: 100%; min-width: 500px; border-collapse: collapse; text-align: left;">
-                          <thead style="background-color: #f8f9fa; border-bottom: 2px solid #ddd;">
+                        style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 30px; border: 1px solid #e0e0e0; border-radius: 8px;">
+                        <table
+                          style="width: 100%; min-width: 600px; border-collapse: collapse; text-align: left; font-size: 15px;">
+                          <thead style="background-color: #f8f9fa; border-bottom: 2px solid #333;">
                             <tr>
-                              <th style="padding: 10px;">Participante</th>
-                              <th style="padding: 10px;">Vóxeles significativos</th>
-                              <th style="padding: 10px;">Porcentaje de corteza cerebral</th>
-                              <th style="padding: 10px;">Varianza Única Pico (R²)</th>
+                              <th style="padding: 12px 15px; color: #333; font-weight: 600;">Participante</th>
+                              <th style="padding: 12px 15px; color: #333; font-weight: 600;">Vóxeles significativos (FDR
+                                &lt; 0.05)</th>
+                              <th style="padding: 12px 15px; color: #333; font-weight: 600;">Extensión Cortical Estimada
+                              </th>
+                              <th style="padding: 12px 15px; color: #333; font-weight: 600;">Pico de Varianza Única (Máx
+                                ΔR²)</th>
                             </tr>
                           </thead>
                           <tbody>
                             <tr style="border-bottom: 1px solid #eee;">
-                              <td style="padding: 10px;"><b>UTS01</b></td>
-                              <td style="padding: 10px;">822</td>
-                              <td style="padding: 10px;">1.01 %</td>
-                              <td style="padding: 10px;">2.16 %</td>
+                              <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS01</td>
+                              <td style="padding: 12px 15px;">822</td>
+                              <td style="padding: 12px 15px;">1.01 %</td>
+                              <td style="padding: 12px 15px;">2.16 %</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee; background-color: #fafafa;">
+                              <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS02</td>
+                              <td style="padding: 12px 15px;">938</td>
+                              <td style="padding: 12px 15px;">1.00 %</td>
+                              <td style="padding: 12px 15px;">1.48 %</td>
                             </tr>
                             <tr style="border-bottom: 1px solid #eee;">
-                              <td style="padding: 10px;"><b>UTS02</b></td>
-                              <td style="padding: 10px;">938</td>
-                              <td style="padding: 10px;">1.00 %</td>
-                              <td style="padding: 10px;">1.48 %</td>
+                              <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS03</td>
+                              <td style="padding: 12px 15px;">1,482</td>
+                              <td style="padding: 12px 15px;">1.55 %</td>
+                              <td style="padding: 12px 15px;">3.73 %</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee; background-color: #fafafa;">
+                              <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS05</td>
+                              <td style="padding: 12px 15px;">955</td>
+                              <td style="padding: 12px 15px;">0.96 %</td>
+                              <td style="padding: 12px 15px;">2.88 %</td>
                             </tr>
                             <tr style="border-bottom: 1px solid #eee;">
-                              <td style="padding: 10px;"><b>UTS03</b></td>
-                              <td style="padding: 10px;">1,482</td>
-                              <td style="padding: 10px;">1.55 %</td>
-                              <td style="padding: 10px;">3.73 %</td>
+                              <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS06</td>
+                              <td style="padding: 12px 15px;">1,018</td>
+                              <td style="padding: 12px 15px;">1.10 %</td>
+                              <td style="padding: 12px 15px;">1.72 %</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #eee; background-color: #fafafa;">
+                              <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS07</td>
+                              <td style="padding: 12px 15px;">981</td>
+                              <td style="padding: 12px 15px;">1.04 %</td>
+                              <td style="padding: 12px 15px;">2.09 %</td>
                             </tr>
                             <tr style="border-bottom: 1px solid #eee;">
-                              <td style="padding: 10px;"><b>UTS05</b></td>
-                              <td style="padding: 10px;">955</td>
-                              <td style="padding: 10px;">0.96 %</td>
-                              <td style="padding: 10px;">2.88 %</td>
+                              <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS08</td>
+                              <td style="padding: 12px 15px;">736</td>
+                              <td style="padding: 12px 15px;">0.76 %</td>
+                              <td style="padding: 12px 15px;">1.52 %</td>
                             </tr>
-                            <tr style="border-bottom: 1px solid #eee;">
-                              <td style="padding: 10px;"><b>UTS06</b></td>
-                              <td style="padding: 10px;">1,018</td>
-                              <td style="padding: 10px;">1.10 %</td>
-                              <td style="padding: 10px;">1.72 %</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #eee;">
-                              <td style="padding: 10px;"><b>UTS07</b></td>
-                              <td style="padding: 10px;">981</td>
-                              <td style="padding: 10px;">1.04 %</td>
-                              <td style="padding: 10px;">2.09 %</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #eee;">
-                              <td style="padding: 10px;"><b>UTS08</b></td>
-                              <td style="padding: 10px;">736</td>
-                              <td style="padding: 10px;">0.76 %</td>
-                              <td style="padding: 10px;">1.52 %</td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid #eee;">
-                              <td style="padding: 10px;"><b>UTS09</b></td>
-                              <td style="padding: 10px;">953</td>
-                              <td style="padding: 10px;">0.97 %</td>
-                              <td style="padding: 10px;">0.68 %</td>
+                            <tr style="border-bottom: 1px solid #eee; background-color: #fafafa;">
+                              <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS09</td>
+                              <td style="padding: 12px 15px;">953</td>
+                              <td style="padding: 12px 15px;">0.97 %</td>
+                              <td style="padding: 12px 15px;">0.68 %</td>
                             </tr>
                           </tbody>
                         </table>
                       </div>
 
                       <p>
-                        En la neuroimagen funcional, dadas las inmensas proporciones de ruido sistémico y fisiológico,
-                        lograr aislar proporciones de varianza única de hasta el <b>3.73 %</b> a partir de tan solo dos
-                        dimensiones morfológicas constituye una evidencia biológica excepcionalmente sólida.
-                      </p>
-                      <p>
-                        A nivel topográfico, se observó que la máxima especialización no se restringe al histórico Giro
-                        Frontal Inferior (conocido como el Área de Broca). Por el contrario, los picos de activación se
-                        extendieron de forma consistente hacia el <b>Giro Temporal Superior posterior y la Unión
-                          Temporoparietal (pSTS/TPJ)</b>. Estas áreas actúan como la verdadera interfaz
-                        fonológico-léxica, lo cual sugiere que, durante la comprensión del lenguaje continuo, la
-                        decodificación de la información gramatical del tiempo se da en redes corticales ampliamente
-                        distribuidas que separan eficazmente el "cuándo" de la semántica general del mensaje.
+                        Desde una perspectiva topográfica, los análisis descriptivos indican que la especialización en
+                        el procesamiento de estas categorías no se halla confinada de manera hermética en las áreas
+                        clásicas de producción del lenguaje (como el giro frontal inferior). En cambio, la actividad
+                        predictiva se distribuye sistemáticamente a través de regiones como el <b>Giro Temporal Superior
+                          posterior y la Unión Temporoparietal (pSTS/TPJ)</b>. Esto sugiere que la decodificación del
+                        tiempo verbal opera de forma distribuida, integrando la señal acústica y sintáctica en tiempo
+                        real para mantener la coherencia narrativa.
                       </p>
                       <br>
 
-                      <h3>Interactúa con los modelos tridimensionales</h3>
+                      <h3>Exploración visual: Mapas corticales interactivos</h3>
                       <p>
-                        A continuación, se ofrecen los accesos a los mapas bidimensionales construidos mediante la
-                        librería <i>Pycortex</i>.
+                        Para facilitar la inspección anatómica de estos modelos matemáticos, se han generado
+                        reconstrucciones tridimensionales proyectadas sobre las superficies corticales individuales de
+                        cada participante utilizando la librería <i>PyCortex</i>.
+                      </p>
+                      <p>
+                        Al acceder a estos visores, podrás alternar entre dos capas descriptivas principales: la capa
+                        del <b>Modelo Global</b> (que representa el ajuste general predictivo del lenguaje en el cerebro
+                        mediante una escala de colores cálidos) y la capa del <b>Tiempo Gramatical Finito</b> (que
+                        revela la varianza única exclusiva de nuestro espacio de interés).
                       </p>
 
-                      <!-- Botones interactivos con el diseño solicitado -->
-                      <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;">
-                        <div class="fw-button-row">
-                          <a href="UTS01/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-1-button">Participante UTS01</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS02/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-2-button">Participante UTS02</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS03/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-3-button">Participante UTS03</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS05/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-5-button">Participante UTS05</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS06/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-6-button">Participante UTS06</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS07/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-7-button">Participante UTS07</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS08/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-8-button">Participante UTS08</a>
-                        </div>
-                        <div class="fw-button-row">
-                          <a href="UTS09/index.html" target="_blank" class="btn btn-primary"
-                            id="resource-9-button">Participante UTS09</a>
-                        </div>
+                      <!-- Botones interactivos estilizados -->
+                      <div
+                        style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; justify-content: flex-start;">
+                        <a href="UTS01/index.html" target="_blank"
+                          style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                          onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                          onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS01</a>
+                        <a href="UTS02/index.html" target="_blank"
+                          style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                          onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                          onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS02</a>
+                        <a href="UTS03/index.html" target="_blank"
+                          style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                          onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                          onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS03</a>
+                        <a href="UTS05/index.html" target="_blank"
+                          style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                          onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                          onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS05</a>
+                        <a href="UTS06/index.html" target="_blank"
+                          style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                          onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                          onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS06</a>
+                        <a href="UTS07/index.html" target="_blank"
+                          style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                          onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                          onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS07</a>
+                        <a href="UTS08/index.html" target="_blank"
+                          style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                          onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                          onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS08</a>
+                        <a href="UTS09/index.html" target="_blank"
+                          style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                          onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                          onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS09</a>
                       </div>
 
-                      <!-- Prueba de integración Mermaid -->
-                      <!-- Prueba de integración Mermaid -->
-                      <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
-                        flowchart
-                        %% Datos de Entrada
-                        DATA@{ shape: cyl, label: "Datos Experimentales:<br>fMRI y Audio Naturalista (ds003020)" }
-
-                        %% 1. Extracción
-                        subgraph Espacios [1. Extracción de Espacios de Características]
-                        direction TB
-                        ACU[Nivel Acústico:<br>Tasa de Fonemas por TR]
-                        LEX[Nivel Léxico:<br>Conteo de Palabras por TR]
-                        SEM[Nivel Semántico:<br>Vectores Continuos de Significado]
-                        MOR[Nivel Morfológico:<br>Conteo de Verbos Pasado vs. No-Pasado]
-                        end
-
-                        %% 2. Modelado
-                        subgraph Modelado [2. Alineación Temporal y Modelado Voxelwise]
-                        direction TB
-                        FIR{{Alineación FIR:<br>Retardos para capturar el rezago BOLD}}
-
-                        BASE[Modelo de Control Base:<br>Acústica + Léxica + Semántica]
-                        FULL[Modelo Completo:<br>Control Base + Morfología]
-
-                        FIR e6@--> BASE
-                        FIR e7@--> FULL
-                        end
-
-                        %% 3. Inferencia
-                        subgraph Inferencia [3. Inferencia Estadística y Resultados]
-                        direction TB
-                        VAR[Aislamiento de Señal:<br>Varianza Única Morfológica]
-                        PERM[Significancia Estadística:<br>Permutaciones Circulares y FDR]
-                        MAPS@{ shape: procs, label: "Mapas Corticales:<br>Sintonía hacia el Pasado/No-Pasado" }
-
-                        VAR e10@--> PERM
-                        PERM e11@--> MAPS
-                        end
-
-                        %% Conexiones Macro Animadas
-                        DATA e1@--> ACU
-                        DATA e12@--> LEX
-                        DATA e13@--> SEM
-                        DATA e14@--> MOR
-
-                        ACU e2@--> FIR
-                        LEX e3@--> FIR
-                        SEM e4@--> FIR
-                        MOR e5@--> FIR
-
-                        BASE e8@--> VAR
-                        FULL e9@--> VAR
-
-                        %% Configuración de Animaciones
-                        e1@{ animation: fast }
-                        e2@{ animation: fast }
-                        e3@{ animation: fast }
-                        e4@{ animation: fast }
-                        e5@{ animation: fast }
-                        e6@{ animation: fast }
-                        e7@{ animation: fast }
-                        e8@{ animation: fast }
-                        e9@{ animation: fast }
-                        e10@{ animation: fast }
-                        e11@{ animation: fast }
-                        e12@{ animation: fast }
-                        e13@{ animation: fast }
-                        e14@{ animation: fast }
-                      </div>
                       <p>
-                        <b>Claridad Epistemológica:</b> separa visualmente qué variables conforman la "matriz de
-                        control" (que apaga el ruido de fondo del cerebro) y cómo tu variable de interés
-                        (morphological_features) se suma después para crear el "modelo completo".<br>
-                        <b>Flujo causal:</b> muestra que la Regresión Ridge en Bandas (MultipleKernelRidgeCV) recibe de
-                        manera paralela ambos modelos para calcular sus puntuaciones de manera independiente antes de
-                        restarlas en el cálculo de la varianza única.<br>
+                        Al cuestionar lo evidente —cómo el cerebro codifica el "cuándo" frente al "qué"— la lingüística
+                        y la neurociencia computacional nos recuerdan que las estructuras que usamos instintivamente
+                        para hablar están sustentadas en sistemas matemáticos y biológicos de una complejidad
+                        formidable. Ninguna característica lingüística existe en aislamiento en el mundo real, y ahora,
+                        tampoco lo hace en nuestra forma de estudiarlas.
                       </p>
-
-                      <h3>Plan de Optimización en Voxelwise Encoding</h3>
-
-                      <p>Basado en los estándares del estado del arte para 2026 en Voxelwise Encoding, aquí tienes tu
-                        Hoja de Ruta Metodológica. Guárdala y úsala como checklist para tus próximas iteraciones de
-                        código.</p>
-
-                      <p><strong>ITERACIÓN 1: Refinamiento de los Espacios de Características (Feature Spaces)</strong>
-                      </p>
-
-                      <p><strong>1. Control de Categoría Léxica (¡Urgente!)</strong></p>
-                      <ul>
-                        <li>Problema actual: Solo cuentas past_count y non_past_count. Si le restas solo el word_rate
-                          (tasa de palabras), tu varianza única está mezclando "el tiempo verbal" con "el hecho de ser
-                          un verbo" frente a sustantivos o adjetivos.</li>
-                        <li>Acción: En tu pipeline de NLP (Celda 3), añade una variable verb_count (o verb_rate).</li>
-                        <li>Objetivo: El modelo nuisance (de control) debe saber cuándo hay un verbo. Así, la varianza
-                          de la morfología (Pasado/No-Pasado) será puramente el efecto del tiempo gramatical, no de la
-                          categoría léxica.</li>
-                      </ul>
-
-                      <p><strong>2. Mejora del Filtro Acústico</strong></p>
-                      <ul>
-                        <li>Problema actual: Usar solo phone_rate (conteo de fonemas) es un control acústico muy débil
-                          para una revista de alto impacto.</li>
-                        <li>Acción: Como mencionaste, implementa la extracción de un espectrograma Mel (o al menos
-                          características espectrales básicas / densidad de consonantes). Tendrás que alinear este
-                          espectrograma a la frecuencia de muestreo de tu TR (TR = 2.0s) usando una ventana de
-                          convolución temporal (HRF) o delays FIR.</li>
-                      </ul>
-
-                      <p><strong>ITERACIÓN 2: Arquitectura del Modelo (El salto al Banded Ridge)</strong></p>
-
-                      <p><strong>3. Abandonar el RidgeCV estándar</strong></p>
-                      <ul>
-                        <li>Problema actual: Al usar np.hstack para unir Acústica, Semántica y Morfología bajo un solo
-                          RidgeCV, el hiperparámetro de penalización (alpha) "aplasta" tu señal morfológica (que es un
-                          vector ralo de conteos) favoreciendo a la semántica (que es densa).</li>
-                        <li>Acción: Implementa Banded Ridge Regression. Ya importaste MultipleKernelRidgeCV y
-                          ColumnKernelizer de himalaya en tu Celda 1. ¡Úsalos!</li>
-                        <li>Implementación: Configura el ColumnKernelizer para agrupar tus datos:
-                          <ul>
-                            <li>Bloque 1: Acústico (Mel / Phone rate)</li>
-                            <li>Bloque 2: Léxico (word_rate + verb_count)</li>
-                            <li>Bloque 3: Semántico (Embeddings de Google)</li>
-                            <li>Bloque 4: Morfológico (past vs non_past)</li>
-                          </ul>
-                          El algoritmo optimizará un alpha distinto para cada bloque, protegiendo tu señal morfológica.
-                        </li>
-                      </ul>
-
-                      <p><strong>4. Resolver el dilema del PCA Semántico</strong></p>
-                      <ul>
-                        <li>Acción a evaluar: Ahora que usarás Banded Ridge (que maneja miles de dimensiones sin
-                          problema de RAM), haz la prueba empírica: ¿qué pasa si pasas el embedding crudo de 985
-                          dimensiones en lugar del PCA de 50?</li>
-                        <li>Decisión: Si el embedding crudo sigue absorbiendo el tiempo verbal (fuga
-                          semántico-sintáctica), mantén tu PCA y justifícalo formalmente como "mitigación de
-                          colinealidad representacional". Si el Banded Ridge logra separar las señales sin ayuda del
-                          PCA, quita el PCA. (Esto es hacer ciencia exploratoria de verdad).</li>
-                      </ul>
-
-                      <p><strong>ITERACIÓN 3: Inferencia Estadística y Partición de Varianza</strong></p>
-
-                      <p><strong>5. Ajuste del Variance Partitioning</strong></p>
-                      <ul>
-                        <li>Modelo Nuisance: Deberá entrenarse con Acústica + Léxico + Semántica.</li>
-                        <li>Modelo Completo: Deberá entrenarse con Acústica + Léxico + Semántica + Morfología.</li>
-                        <li>Acción: La Varianza Única será R2_Full - R2_Nuisance. Asegúrate de que este cálculo se haga
-                          sobre un conjunto de prueba (Test Story) estrictamente separado, tal cual lo tienes programado
-                          ahora.</li>
-                      </ul>
-
-                      <p><strong>6. Validar las Permutaciones Cíclicas</strong></p>
-                      <ul>
-                        <li>Acción: Tu lógica actual de hacer un np.roll() (shift cíclico) en el test set para generar
-                          las distribuciones nulas es muy inteligente para ahorrar poder de cómputo. Mantén esto, pero
-                          asegúrate de que el np.roll() solo altere el bloque Morfológico, rompiendo su alineación con
-                          el cerebro, mientras los espacios nuisance permanecen estables. Así validas si el R² único es
-                          producto del azar o de una verdadera sintonía temporal.</li>
-                      </ul>
-
-                      <p><strong>Resumen para tu "To-Do List":</strong></p>
-                      <ul>
-                        <li>[ ] Añadir verb_count al NLP.</li>
-                        <li>[ ] Reemplazar/Aumentar phone_rate por un Espectrograma Mel.</li>
-                        <li>[ ] Reemplazar RidgeCV por MultipleKernelRidgeCV (Banded Ridge).</li>
-                        <li>[ ] Configurar ColumnKernelizer para separar los bloques de variables.</li>
-                        <li>[ ] Probar Empíricamente: Semántica cruda vs. PCA de 50 componentes bajo el nuevo Banded
-                          Ridge.</li>
-                        <li>[ ] Mantener el shift cíclico de permutaciones para el cálculo del valor-p (FDR &lt; 0.05).
-                        </li>
-                      </ul>
-                      <br>
-                      <br>
-
-                      <h3>Agradecimientos institucional</h3>
-                      <blockquote>
-                        Agradecimiento Institucional al Gallant Lab por el desarrollo de los marcos de Voxelwise
-                        Modeling, la publicación de sus herramientas de código abierto (Himalaya y Pycortex) y la
-                        invaluable democratización del conocimiento.
-                      </blockquote>
 
                       <br>
                       <p align="right">—
@@ -760,80 +681,608 @@
                         Redacción por <a class="url fn n" href="https://www.almontao.com" target="_blank"
                           rel="author">Alejandro Montenegro Taborda</a>
                         <br>
-                        <i>(Asistida por Inteligencia Artificial Generativa)</i>
+                        <i>(Asistida por Inteligencia Artificial)</i>
                         <br>
                       </p>
 
-                      <!-- Fun Facts | Recursos usados -->
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-12">
-
-                          <div class="block-title">
-                            <h3>Recursos <span>usados</span></h3>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Software de código abierto por</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://gallantlab.org/" target="_blank">Gallant Lab</a></span>
-                              espcíficamente:
-                              <span><a href="https://github.com/gallantlab/himalaya" target="_blank">Himalaya</a></span>
-                              y
-                              <span><a href="https://github.com/gallantlab/pycortex" target="_blank">Pycortex</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Datos ds003020 por</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel,
-                                  A., Wagner, L., Jain, S. et al.</a></span>
-                              en
-                              <span><a href="https://openneuro.org/datasets/ds003020/"
-                                  target="_blank">OpenNeuro</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Fotografía por</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://unsplash.com/es/@whisperingshiba" target="_blank">Shawn
-                                  Day</a></span>
-                              en
-                              <span><a
-                                  href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM"
-                                  target="_blank">Unsplash</a></span>
-                            </div>
-                            <span class="fun-fact-block-text"></span>
-                          </div>
-                        </div>
-
-                      </div>
-                      <!-- End of Fun Facts | Recursos usados -->
-
-                      <!-- Fun Facts | Agradecimientos -->
-                      <div class="row">
+                      <!-- Recursos usados -->
+                      <div class="row" style="margin-top: 50px;">
                         <div class="col-xs-12 col-sm-12">
                           <div class="block-title">
-                            <h3>Agradecimientos y <span>Recursos</span></h3>
+                            <h3>Agradecimientos y <span>recursos</span></h3>
                           </div>
                         </div>
                       </div>
 
                       <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="fun-fact gray-default"
+                            style="padding: 20px; background-color: #f8f9fa; border-radius: 8px; margin-bottom: 20px;">
+                            <div class="fw-default-row"
+                              style="font-size: 13px; color: #666; text-transform: uppercase; letter-spacing: 1px;">
+                              Agradecimiento Institucional</div>
+                            <div class="fw-heading-row" style="margin: 10px 0;">
+                              <span style="font-size: 18px; font-weight: 600;"><a href="https://gallantlab.org/"
+                                  target="_blank" style="color: #333; text-decoration: none;">Gallant Lab</a></span>
+                            </div>
+                            <span class="fun-fact-block-text" style="font-size: 14px; color: #555;">Por el desarrollo de
+                              los marcos de <i>Voxelwise Modeling</i> y la publicación de herramientas de código abierto
+                              como Himalaya y Pycortex, vitales para la democratización del conocimiento.</span>
+                          </div>
+                        </div>
 
-                        <!-- <div class="col-xs-12 col-sm-6">
+                        <div class="col-xs-12 col-sm-6">
+                          <div class="fun-fact gray-default"
+                            style="padding: 20px; background-color: #f8f9fa; border-radius: 8px; margin-bottom: 20px;">
+                            <div class="fw-default-row"
+                              style="font-size: 13px; color: #666; text-transform: uppercase; letter-spacing: 1px;">
+                              Datos Originales (fMRI)</div>
+                            <div class="fw-heading-row" style="margin: 10px 0;">
+                              <span style="font-size: 18px; font-weight: 600;"><a
+                                  href="https://openneuro.org/datasets/ds003020/" target="_blank"
+                                  style="color: #333; text-decoration: none;">OpenNeuro ds003020</a></span>
+                            </div>
+                            <span class="fun-fact-block-text" style="font-size: 14px; color: #555;">Basado en el
+                              conjunto de datos de: LeBel, A., Wagner, L., Jain, S. et al. <i>A natural language fMRI
+                                dataset for voxelwise encoding models</i>. Sci Data 10, 555 (2023).</span>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- End of Recursos usados -->
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Entry content -->
+            </div>
+
+            <h3>Consistencia descriptiva y arquitectura cortical</h3>
+            <p>
+              Al ejecutar este riguroso marco computacional sobre la muestra analítica (procesada mediante computación
+              de alto rendimiento debido al inmenso estrés matricial), se observó una sintonía morfosintáctica robusta.
+              El aislamiento de la varianza única, filtrado a través de los umbrales estadísticos de la corrección FDR,
+              reveló la capacidad del cerebro para codificar la información del tiempo gramatical finito de manera
+              concurrente.
+            </p>
+
+            <p>
+              A continuación, se expone una tabla descriptiva que detalla la cantidad de vóxeles que superaron los
+              controles estadísticos estrictos y el porcentaje de varianza única pico hallado en la corteza de los
+              participantes. Es fundamental comprender que, en neuroimagen funcional de estímulos naturalistas, dadas
+              las abrumadoras proporciones de ruido fisiológico y sistémico, aislar proporciones de varianza única
+              explicada del orden del 1% al 3% a partir de un espacio gramatical tan específico constituye una señal
+              biológica de notable precisión.
+            </p>
+
+            <!-- Contenedor con overflow automático para móviles -->
+            <div
+              style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 30px; border: 1px solid #e0e0e0; border-radius: 8px;">
+              <table
+                style="width: 100%; min-width: 600px; border-collapse: collapse; text-align: left; font-size: 15px;">
+                <thead style="background-color: #f8f9fa; border-bottom: 2px solid #333;">
+                  <tr>
+                    <th style="padding: 12px 15px; color: #333; font-weight: 600;">Participante</th>
+                    <th style="padding: 12px 15px; color: #333; font-weight: 600;">Vóxeles significativos (FDR &lt;
+                      0.05)</th>
+                    <th style="padding: 12px 15px; color: #333; font-weight: 600;">Extensión Cortical Estimada</th>
+                    <th style="padding: 12px 15px; color: #333; font-weight: 600;">Pico de Varianza Única (Máx ΔR²)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS01</td>
+                    <td style="padding: 12px 15px;">822</td>
+                    <td style="padding: 12px 15px;">1.01 %</td>
+                    <td style="padding: 12px 15px;">2.16 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee; background-color: #fafafa;">
+                    <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS02</td>
+                    <td style="padding: 12px 15px;">938</td>
+                    <td style="padding: 12px 15px;">1.00 %</td>
+                    <td style="padding: 12px 15px;">1.48 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS03</td>
+                    <td style="padding: 12px 15px;">1,482</td>
+                    <td style="padding: 12px 15px;">1.55 %</td>
+                    <td style="padding: 12px 15px;">3.73 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee; background-color: #fafafa;">
+                    <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS05</td>
+                    <td style="padding: 12px 15px;">955</td>
+                    <td style="padding: 12px 15px;">0.96 %</td>
+                    <td style="padding: 12px 15px;">2.88 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS06</td>
+                    <td style="padding: 12px 15px;">1,018</td>
+                    <td style="padding: 12px 15px;">1.10 %</td>
+                    <td style="padding: 12px 15px;">1.72 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee; background-color: #fafafa;">
+                    <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS07</td>
+                    <td style="padding: 12px 15px;">981</td>
+                    <td style="padding: 12px 15px;">1.04 %</td>
+                    <td style="padding: 12px 15px;">2.09 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS08</td>
+                    <td style="padding: 12px 15px;">736</td>
+                    <td style="padding: 12px 15px;">0.76 %</td>
+                    <td style="padding: 12px 15px;">1.52 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee; background-color: #fafafa;">
+                    <td style="padding: 12px 15px; color: #007bff; font-weight: 600;">sub-UTS09</td>
+                    <td style="padding: 12px 15px;">953</td>
+                    <td style="padding: 12px 15px;">0.97 %</td>
+                    <td style="padding: 12px 15px;">0.68 %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              Desde una perspectiva topográfica, los análisis descriptivos indican que la especialización en el
+              procesamiento de estas categorías no se halla confinada de manera hermética en las áreas clásicas de
+              producción del lenguaje (como el giro frontal inferior). En cambio, la actividad predictiva se distribuye
+              sistemáticamente a través de regiones como el <b>Giro Temporal Superior posterior y la Unión
+                Temporoparietal (pSTS/TPJ)</b>. Esto sugiere que la decodificación del tiempo verbal opera de forma
+              distribuida, integrando la señal acústica y sintáctica en tiempo real para mantener la coherencia
+              narrativa.
+            </p>
+            <br>
+
+            <h3>Exploración visual: Mapas corticales interactivos</h3>
+            <p>
+              Para facilitar la inspección anatómica de estos modelos matemáticos, se han generado reconstrucciones
+              tridimensionales proyectadas sobre las superficies corticales individuales de cada participante utilizando
+              la librería <i>PyCortex</i>.
+            </p>
+            <p>
+              Al acceder a estos visores, podrás alternar entre dos capas descriptivas principales: la capa del
+              <b>Modelo Global</b> (que representa el ajuste general predictivo del lenguaje en el cerebro mediante una
+              escala de colores cálidos) y la capa del <b>Tiempo Gramatical Finito</b> (que revela la varianza única
+              exclusiva de nuestro espacio de interés).
+            </p>
+
+            <!-- Botones interactivos estilizados -->
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; justify-content: flex-start;">
+              <a href="UTS01/index.html" target="_blank"
+                style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS01</a>
+              <a href="UTS02/index.html" target="_blank"
+                style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS02</a>
+              <a href="UTS03/index.html" target="_blank"
+                style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS03</a>
+              <a href="UTS05/index.html" target="_blank"
+                style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS05</a>
+              <a href="UTS06/index.html" target="_blank"
+                style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS06</a>
+              <a href="UTS07/index.html" target="_blank"
+                style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS07</a>
+              <a href="UTS08/index.html" target="_blank"
+                style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS08</a>
+              <a href="UTS09/index.html" target="_blank"
+                style="padding: 10px 20px; background-color: #fff; color: #333; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.05);"
+                onmouseover="this.style.borderColor='#007bff'; this.style.color='#007bff';"
+                onmouseout="this.style.borderColor='#ccc'; this.style.color='#333';">Participante UTS09</a>
+            </div>
+
+            <p>
+              Al cuestionar lo evidente —cómo el cerebro codifica el "cuándo" frente al "qué"— la lingüística y la
+              neurociencia computacional nos recuerdan que las estructuras que usamos instintivamente para hablar están
+              sustentadas en sistemas matemáticos y biológicos de una complejidad formidable. Ninguna característica
+              lingüística existe en aislamiento en el mundo real, y ahora, tampoco lo hace en nuestra forma de
+              estudiarlas.
+            </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Contenedor con overflow automático para móviles -->
+            <div
+              style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; border: 1px solid #eee;">
+              <table style="width: 100%; min-width: 500px; border-collapse: collapse; text-align: left;">
+                <thead style="background-color: #f8f9fa; border-bottom: 2px solid #ddd;">
+                  <tr>
+                    <th style="padding: 10px;">Participante</th>
+                    <th style="padding: 10px;">Vóxeles significativos</th>
+                    <th style="padding: 10px;">Porcentaje de corteza cerebral</th>
+                    <th style="padding: 10px;">Varianza Única Pico (R²)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;"><b>UTS01</b></td>
+                    <td style="padding: 10px;">822</td>
+                    <td style="padding: 10px;">1.01 %</td>
+                    <td style="padding: 10px;">2.16 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;"><b>UTS02</b></td>
+                    <td style="padding: 10px;">938</td>
+                    <td style="padding: 10px;">1.00 %</td>
+                    <td style="padding: 10px;">1.48 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;"><b>UTS03</b></td>
+                    <td style="padding: 10px;">1,482</td>
+                    <td style="padding: 10px;">1.55 %</td>
+                    <td style="padding: 10px;">3.73 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;"><b>UTS05</b></td>
+                    <td style="padding: 10px;">955</td>
+                    <td style="padding: 10px;">0.96 %</td>
+                    <td style="padding: 10px;">2.88 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;"><b>UTS06</b></td>
+                    <td style="padding: 10px;">1,018</td>
+                    <td style="padding: 10px;">1.10 %</td>
+                    <td style="padding: 10px;">1.72 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;"><b>UTS07</b></td>
+                    <td style="padding: 10px;">981</td>
+                    <td style="padding: 10px;">1.04 %</td>
+                    <td style="padding: 10px;">2.09 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;"><b>UTS08</b></td>
+                    <td style="padding: 10px;">736</td>
+                    <td style="padding: 10px;">0.76 %</td>
+                    <td style="padding: 10px;">1.52 %</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;"><b>UTS09</b></td>
+                    <td style="padding: 10px;">953</td>
+                    <td style="padding: 10px;">0.97 %</td>
+                    <td style="padding: 10px;">0.68 %</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              En la neuroimagen funcional, dadas las inmensas proporciones de ruido sistémico y fisiológico,
+              lograr aislar proporciones de varianza única de hasta el <b>3.73 %</b> a partir de tan solo dos
+              dimensiones morfológicas constituye una evidencia biológica excepcionalmente sólida.
+            </p>
+            <p>
+              A nivel topográfico, se observó que la máxima especialización no se restringe al histórico Giro
+              Frontal Inferior (conocido como el Área de Broca). Por el contrario, los picos de activación se
+              extendieron de forma consistente hacia el <b>Giro Temporal Superior posterior y la Unión
+                Temporoparietal (pSTS/TPJ)</b>. Estas áreas actúan como la verdadera interfaz
+              fonológico-léxica, lo cual sugiere que, durante la comprensión del lenguaje continuo, la
+              decodificación de la información gramatical del tiempo se da en redes corticales ampliamente
+              distribuidas que separan eficazmente el "cuándo" de la semántica general del mensaje.
+            </p>
+            <br>
+
+            <h3>Interactúa con los modelos tridimensionales</h3>
+            <p>
+              A continuación, se ofrecen los accesos a los mapas bidimensionales construidos mediante la
+              librería <i>Pycortex</i>.
+            </p>
+
+            <!-- Botones interactivos con el diseño solicitado -->
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;">
+              <div class="fw-button-row">
+                <a href="UTS01/index.html" target="_blank" class="btn btn-primary" id="resource-1-button">Participante
+                  UTS01</a>
+              </div>
+              <div class="fw-button-row">
+                <a href="UTS02/index.html" target="_blank" class="btn btn-primary" id="resource-2-button">Participante
+                  UTS02</a>
+              </div>
+              <div class="fw-button-row">
+                <a href="UTS03/index.html" target="_blank" class="btn btn-primary" id="resource-3-button">Participante
+                  UTS03</a>
+              </div>
+              <div class="fw-button-row">
+                <a href="UTS05/index.html" target="_blank" class="btn btn-primary" id="resource-5-button">Participante
+                  UTS05</a>
+              </div>
+              <div class="fw-button-row">
+                <a href="UTS06/index.html" target="_blank" class="btn btn-primary" id="resource-6-button">Participante
+                  UTS06</a>
+              </div>
+              <div class="fw-button-row">
+                <a href="UTS07/index.html" target="_blank" class="btn btn-primary" id="resource-7-button">Participante
+                  UTS07</a>
+              </div>
+              <div class="fw-button-row">
+                <a href="UTS08/index.html" target="_blank" class="btn btn-primary" id="resource-8-button">Participante
+                  UTS08</a>
+              </div>
+              <div class="fw-button-row">
+                <a href="UTS09/index.html" target="_blank" class="btn btn-primary" id="resource-9-button">Participante
+                  UTS09</a>
+              </div>
+            </div>
+
+            <!-- Prueba de integración Mermaid -->
+            <!-- Prueba de integración Mermaid -->
+            <div class="mermaid" style="text-align: center; margin-bottom: 30px;">
+              flowchart
+              %% Datos de Entrada
+              DATA@{ shape: cyl, label: "Datos Experimentales:<br>fMRI y Audio Naturalista (ds003020)" }
+
+              %% 1. Extracción
+              subgraph Espacios [1. Extracción de Espacios de Características]
+              direction TB
+              ACU[Nivel Acústico:<br>Tasa de Fonemas por TR]
+              LEX[Nivel Léxico:<br>Conteo de Palabras por TR]
+              SEM[Nivel Semántico:<br>Vectores Continuos de Significado]
+              MOR[Nivel Morfológico:<br>Conteo de Verbos Pasado vs. No-Pasado]
+              end
+
+              %% 2. Modelado
+              subgraph Modelado [2. Alineación Temporal y Modelado Voxelwise]
+              direction TB
+              FIR{{Alineación FIR:<br>Retardos para capturar el rezago BOLD}}
+
+              BASE[Modelo de Control Base:<br>Acústica + Léxica + Semántica]
+              FULL[Modelo Completo:<br>Control Base + Morfología]
+
+              FIR e6@--> BASE
+              FIR e7@--> FULL
+              end
+
+              %% 3. Inferencia
+              subgraph Inferencia [3. Inferencia Estadística y Resultados]
+              direction TB
+              VAR[Aislamiento de Señal:<br>Varianza Única Morfológica]
+              PERM[Significancia Estadística:<br>Permutaciones Circulares y FDR]
+              MAPS@{ shape: procs, label: "Mapas Corticales:<br>Sintonía hacia el Pasado/No-Pasado" }
+
+              VAR e10@--> PERM
+              PERM e11@--> MAPS
+              end
+
+              %% Conexiones Macro Animadas
+              DATA e1@--> ACU
+              DATA e12@--> LEX
+              DATA e13@--> SEM
+              DATA e14@--> MOR
+
+              ACU e2@--> FIR
+              LEX e3@--> FIR
+              SEM e4@--> FIR
+              MOR e5@--> FIR
+
+              BASE e8@--> VAR
+              FULL e9@--> VAR
+
+              %% Configuración de Animaciones
+              e1@{ animation: fast }
+              e2@{ animation: fast }
+              e3@{ animation: fast }
+              e4@{ animation: fast }
+              e5@{ animation: fast }
+              e6@{ animation: fast }
+              e7@{ animation: fast }
+              e8@{ animation: fast }
+              e9@{ animation: fast }
+              e10@{ animation: fast }
+              e11@{ animation: fast }
+              e12@{ animation: fast }
+              e13@{ animation: fast }
+              e14@{ animation: fast }
+            </div>
+            <p>
+              <b>Claridad Epistemológica:</b> separa visualmente qué variables conforman la "matriz de
+              control" (que apaga el ruido de fondo del cerebro) y cómo tu variable de interés
+              (morphological_features) se suma después para crear el "modelo completo".<br>
+              <b>Flujo causal:</b> muestra que la Regresión Ridge en Bandas (MultipleKernelRidgeCV) recibe de
+              manera paralela ambos modelos para calcular sus puntuaciones de manera independiente antes de
+              restarlas en el cálculo de la varianza única.<br>
+            </p>
+
+            <h3>Plan de Optimización en Voxelwise Encoding</h3>
+
+            <p>Basado en los estándares del estado del arte para 2026 en Voxelwise Encoding, aquí tienes tu
+              Hoja de Ruta Metodológica. Guárdala y úsala como checklist para tus próximas iteraciones de
+              código.</p>
+
+            <p><strong>ITERACIÓN 1: Refinamiento de los Espacios de Características (Feature Spaces)</strong>
+            </p>
+
+            <p><strong>1. Control de Categoría Léxica (¡Urgente!)</strong></p>
+            <ul>
+              <li>Problema actual: Solo cuentas past_count y non_past_count. Si le restas solo el word_rate
+                (tasa de palabras), tu varianza única está mezclando "el tiempo verbal" con "el hecho de ser
+                un verbo" frente a sustantivos o adjetivos.</li>
+              <li>Acción: En tu pipeline de NLP (Celda 3), añade una variable verb_count (o verb_rate).</li>
+              <li>Objetivo: El modelo nuisance (de control) debe saber cuándo hay un verbo. Así, la varianza
+                de la morfología (Pasado/No-Pasado) será puramente el efecto del tiempo gramatical, no de la
+                categoría léxica.</li>
+            </ul>
+
+            <p><strong>2. Mejora del Filtro Acústico</strong></p>
+            <ul>
+              <li>Problema actual: Usar solo phone_rate (conteo de fonemas) es un control acústico muy débil
+                para una revista de alto impacto.</li>
+              <li>Acción: Como mencionaste, implementa la extracción de un espectrograma Mel (o al menos
+                características espectrales básicas / densidad de consonantes). Tendrás que alinear este
+                espectrograma a la frecuencia de muestreo de tu TR (TR = 2.0s) usando una ventana de
+                convolución temporal (HRF) o delays FIR.</li>
+            </ul>
+
+            <p><strong>ITERACIÓN 2: Arquitectura del Modelo (El salto al Banded Ridge)</strong></p>
+
+            <p><strong>3. Abandonar el RidgeCV estándar</strong></p>
+            <ul>
+              <li>Problema actual: Al usar np.hstack para unir Acústica, Semántica y Morfología bajo un solo
+                RidgeCV, el hiperparámetro de penalización (alpha) "aplasta" tu señal morfológica (que es un
+                vector ralo de conteos) favoreciendo a la semántica (que es densa).</li>
+              <li>Acción: Implementa Banded Ridge Regression. Ya importaste MultipleKernelRidgeCV y
+                ColumnKernelizer de himalaya en tu Celda 1. ¡Úsalos!</li>
+              <li>Implementación: Configura el ColumnKernelizer para agrupar tus datos:
+                <ul>
+                  <li>Bloque 1: Acústico (Mel / Phone rate)</li>
+                  <li>Bloque 2: Léxico (word_rate + verb_count)</li>
+                  <li>Bloque 3: Semántico (Embeddings de Google)</li>
+                  <li>Bloque 4: Morfológico (past vs non_past)</li>
+                </ul>
+                El algoritmo optimizará un alpha distinto para cada bloque, protegiendo tu señal morfológica.
+              </li>
+            </ul>
+
+            <p><strong>4. Resolver el dilema del PCA Semántico</strong></p>
+            <ul>
+              <li>Acción a evaluar: Ahora que usarás Banded Ridge (que maneja miles de dimensiones sin
+                problema de RAM), haz la prueba empírica: ¿qué pasa si pasas el embedding crudo de 985
+                dimensiones en lugar del PCA de 50?</li>
+              <li>Decisión: Si el embedding crudo sigue absorbiendo el tiempo verbal (fuga
+                semántico-sintáctica), mantén tu PCA y justifícalo formalmente como "mitigación de
+                colinealidad representacional". Si el Banded Ridge logra separar las señales sin ayuda del
+                PCA, quita el PCA. (Esto es hacer ciencia exploratoria de verdad).</li>
+            </ul>
+
+            <p><strong>ITERACIÓN 3: Inferencia Estadística y Partición de Varianza</strong></p>
+
+            <p><strong>5. Ajuste del Variance Partitioning</strong></p>
+            <ul>
+              <li>Modelo Nuisance: Deberá entrenarse con Acústica + Léxico + Semántica.</li>
+              <li>Modelo Completo: Deberá entrenarse con Acústica + Léxico + Semántica + Morfología.</li>
+              <li>Acción: La Varianza Única será R2_Full - R2_Nuisance. Asegúrate de que este cálculo se haga
+                sobre un conjunto de prueba (Test Story) estrictamente separado, tal cual lo tienes programado
+                ahora.</li>
+            </ul>
+
+            <p><strong>6. Validar las Permutaciones Cíclicas</strong></p>
+            <ul>
+              <li>Acción: Tu lógica actual de hacer un np.roll() (shift cíclico) en el test set para generar
+                las distribuciones nulas es muy inteligente para ahorrar poder de cómputo. Mantén esto, pero
+                asegúrate de que el np.roll() solo altere el bloque Morfológico, rompiendo su alineación con
+                el cerebro, mientras los espacios nuisance permanecen estables. Así validas si el R² único es
+                producto del azar o de una verdadera sintonía temporal.</li>
+            </ul>
+
+            <p><strong>Resumen para tu "To-Do List":</strong></p>
+            <ul>
+              <li>[ ] Añadir verb_count al NLP.</li>
+              <li>[ ] Reemplazar/Aumentar phone_rate por un Espectrograma Mel.</li>
+              <li>[ ] Reemplazar RidgeCV por MultipleKernelRidgeCV (Banded Ridge).</li>
+              <li>[ ] Configurar ColumnKernelizer para separar los bloques de variables.</li>
+              <li>[ ] Probar Empíricamente: Semántica cruda vs. PCA de 50 componentes bajo el nuevo Banded
+                Ridge.</li>
+              <li>[ ] Mantener el shift cíclico de permutaciones para el cálculo del valor-p (FDR &lt; 0.05).
+              </li>
+            </ul>
+            <br>
+            <br>
+
+            <h3>Agradecimientos institucional</h3>
+            <blockquote>
+              Agradecimiento Institucional al Gallant Lab por el desarrollo de los marcos de Voxelwise
+              Modeling, la publicación de sus herramientas de código abierto (Himalaya y Pycortex) y la
+              invaluable democratización del conocimiento.
+            </blockquote>
+
+            <br>
+            <p align="right">—
+              <br>
+              Redacción por <a class="url fn n" href="https://www.almontao.com" target="_blank" rel="author">Alejandro
+                Montenegro Taborda</a>
+              <br>
+              <i>(Asistida por Inteligencia Artificial Generativa)</i>
+              <br>
+            </p>
+
+            <!-- Fun Facts | Recursos usados -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-12">
+
+                <div class="block-title">
+                  <h3>Recursos <span>usados</span></h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="col-xs-12 col-sm-6">
+                <div class="fun-fact gray-default">
+                  <div class="fw-default-row">Software de código abierto por</div>
+                  <div class="fw-heading-row">
+                    <span><a href="https://gallantlab.org/" target="_blank">Gallant Lab</a></span>
+                    espcíficamente:
+                    <span><a href="https://github.com/gallantlab/himalaya" target="_blank">Himalaya</a></span>
+                    y
+                    <span><a href="https://github.com/gallantlab/pycortex" target="_blank">Pycortex</a></span>
+                  </div>
+                  <span class="fun-fact-block-text"></span>
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-6">
+                <div class="fun-fact gray-default">
+                  <div class="fw-default-row">Datos ds003020 por</div>
+                  <div class="fw-heading-row">
+                    <span><a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel,
+                        A., Wagner, L., Jain, S. et al.</a></span>
+                    en
+                    <span><a href="https://openneuro.org/datasets/ds003020/" target="_blank">OpenNeuro</a></span>
+                  </div>
+                  <span class="fun-fact-block-text"></span>
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-6">
+                <div class="fun-fact gray-default">
+                  <div class="fw-default-row">Fotografía por</div>
+                  <div class="fw-heading-row">
+                    <span><a href="https://unsplash.com/es/@whisperingshiba" target="_blank">Shawn
+                        Day</a></span>
+                    en
+                    <span><a href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM"
+                        target="_blank">Unsplash</a></span>
+                  </div>
+                  <span class="fun-fact-block-text"></span>
+                </div>
+              </div>
+
+            </div>
+            <!-- End of Fun Facts | Recursos usados -->
+
+            <!-- Fun Facts | Agradecimientos -->
+            <div class="row">
+              <div class="col-xs-12 col-sm-12">
+                <div class="block-title">
+                  <h3>Agradecimientos y <span>Recursos</span></h3>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <!-- <div class="col-xs-12 col-sm-6">
                           <div class="fun-fact gray-default">
                             <div class="fw-default-row">Agradecimiento Institucional</div>
                             <div class="fw-heading-row">
@@ -845,7 +1294,7 @@
                           </div>
                         </div> -->
 
-                        <!-- <div class="col-xs-12 col-sm-6">
+              <!-- <div class="col-xs-12 col-sm-6">
                           <div class="fun-fact gray-default">
                             <div class="fw-default-row">Datos Origines (fMRI)</div>
                             <div class="fw-heading-row">
@@ -857,44 +1306,44 @@
                           </div>
                         </div> -->
 
-                      </div>
-                      <!-- End of Fun Facts | Agradecimientos -->
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- /Entry content -->
-
-              <div class="entry-meta entry-meta-bottom">
-                <div class="date-author">
-                  <span class="entry-date">
-                    <a href="#" rel="bookmark">
-                      <i class="far fa-clock"></i> <span class="entry-date"> Junio 10, 2026</span>
-                    </a>
-                  </span>
-                  <span class="author vcard">
-                    <a class="url fn n" href="https://www.almontao.com" rel="author"> <i class="fas fa-user"></i>
-                      Alejandro Montenegro Taborda</a>
-                  </span>
-                </div>
-              </div>
-
-              <div class="post-tags">
-                <div class="tags">
-                  <a href="#" rel="tag">Investigación</a>
-                  <a href="#" rel="tag">fMRI</a>
-                  <a href="#" rel="tag">Voxelwise</a>
-                  <a href="#" rel="tag">Pycortex</a>
-                </div>
-              </div>
             </div>
-
-          </article>
+            <!-- End of Fun Facts | Agradecimientos -->
 
         </div>
       </div>
     </div>
+  </div>
+  <!-- /Entry content -->
+
+  <div class="entry-meta entry-meta-bottom">
+    <div class="date-author">
+      <span class="entry-date">
+        <a href="#" rel="bookmark">
+          <i class="far fa-clock"></i> <span class="entry-date"> Junio 10, 2026</span>
+        </a>
+      </span>
+      <span class="author vcard">
+        <a class="url fn n" href="https://www.almontao.com" rel="author"> <i class="fas fa-user"></i>
+          Alejandro Montenegro Taborda</a>
+      </span>
+    </div>
+  </div>
+
+  <div class="post-tags">
+    <div class="tags">
+      <a href="#" rel="tag">Investigación</a>
+      <a href="#" rel="tag">fMRI</a>
+      <a href="#" rel="tag">Voxelwise</a>
+      <a href="#" rel="tag">Pycortex</a>
+    </div>
+  </div>
+  </div>
+
+  </article>
+
+  </div>
+  </div>
+  </div>
   </div>
 
   <script src="breezycv_base/js/jquery-2.1.3.min.js"></script>
