@@ -802,15 +802,12 @@
                           </div>
 
                           <p>
-                            Este es el corazón de nuestra pregunta de investigación. Como establecimos en la Sección 2,
-                            agrupa las
+                            Este es el núcleo de nuestra pregunta de investigación; ya que agrupa las
                             cuatro realizaciones concretas de la finitud temporal en el inglés: <b>pasado regular</b>
-                            (<i>walked</i>),
-                            <b>pasado irregular</b> (<i>went, was, had</i>), <b>no-pasado marcado en tercera persona
-                              singular</b> (<i>makes, is, has</i>)
-                            y <b>no-pasado no marcado</b> (<i>go, think, am</i>). Cada vez que una forma finita aparece
-                            en la historia, se
-                            enciende su respectivo canal binario durante su duración exacta.
+                            (<i>walked</i>), <b>pasado irregular</b> (<i>went, was, had</i>), <b>no-pasado marcado en
+                              tercera persona singular</b> (<i>makes, is, has</i>) y <b>no-pasado no marcado</b> (<i>go,
+                              think, am</i>). Cada vez que una forma finita aparece
+                            en la historia, se enciende su respectivo canal binario durante su duración exacta.
                           </p>
 
                           <!-- Gráfica 2: Zoom-in detallado de las 43 características -->
@@ -1235,7 +1232,7 @@
 
                               var rawHrf = t_total.map(computeHrf);
                               var maxVal = Math.max.apply(null, rawHrf);
-                              var hrfFull = rawHrf.map(function (v) { return Number((v / maxVal).toFixed(4)); });
+                              var hrfFull = rawHrf.map(function (v) {return Number((v / maxVal).toFixed(4));});
 
                               // Puntos fijos de adquisición de TR (cada 2 segundos hasta 32s)
                               var tr_times = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32];
@@ -1267,9 +1264,9 @@
                                 frames.push({
                                   name: s.toString(),
                                   data: [
-                                    { x: sub_t, y: sub_stim },
-                                    { x: sub_t, y: sub_hrf },
-                                    { x: current_tr_x, y: current_tr_y }
+                                    {x: sub_t, y: sub_stim},
+                                    {x: sub_t, y: sub_hrf},
+                                    {x: current_tr_x, y: current_tr_y}
                                   ]
                                 });
 
@@ -1278,8 +1275,8 @@
                                   method: 'animate',
                                   args: [[s.toString()], {
                                     mode: 'immediate',
-                                    frame: { duration: 100, redraw: true },
-                                    transition: { duration: 0 }
+                                    frame: {duration: 100, redraw: true},
+                                    transition: {duration: 0}
                                   }]
                                 });
                               }
@@ -1290,7 +1287,7 @@
                                 y: [1.0],
                                 mode: 'lines',
                                 name: 'Estímulo (Impulso)',
-                                line: { color: '#6c757d', width: 2, dash: 'dot' },
+                                line: {color: '#6c757d', width: 2, dash: 'dot'},
                                 fill: 'tozeroy',
                                 fillcolor: 'rgba(108, 117, 125, 0.12)'
                               };
@@ -1300,7 +1297,7 @@
                                 y: [0],
                                 mode: 'lines',
                                 name: 'Respuesta BOLD continua',
-                                line: { color: '#007bff', width: 2.5 }
+                                line: {color: '#007bff', width: 2.5}
                               };
 
                               var traceSamples = {
@@ -1308,12 +1305,12 @@
                                 y: [0],
                                 mode: 'markers',
                                 name: 'Muestras fMRI (TR = 2s)',
-                                marker: { color: '#dc3545', size: 8, symbol: 'circle' }
+                                marker: {color: '#dc3545', size: 8, symbol: 'circle'}
                               };
 
                               var layout = {
                                 autosize: true,
-                                margin: { l: 50, r: 25, t: 55, b: 90 },
+                                margin: {l: 50, r: 25, t: 55, b: 90},
                                 xaxis: {
                                   title: 'Tiempo transcurrido (segundos)',
                                   range: [-0.5, 32.8],
@@ -1333,7 +1330,7 @@
                                   orientation: 'h',
                                   y: -0.32,
                                   x: 0.05,
-                                  font: { size: 11, color: '#555' }
+                                  font: {size: 11, color: '#555'}
                                 },
                                 hovermode: 'closest',
                                 updatemenus: [{
@@ -1344,14 +1341,14 @@
                                   showactive: false,
                                   direction: 'left',
                                   type: 'buttons',
-                                  pad: { t: 0, r: 8, b: 0, l: 0 },
+                                  pad: {t: 0, r: 8, b: 0, l: 0},
                                   buttons: [
                                     {
                                       method: 'animate',
                                       args: [null, {
                                         fromcurrent: true,
-                                        frame: { duration: 120, redraw: true },
-                                        transition: { duration: 0 }
+                                        frame: {duration: 120, redraw: true},
+                                        transition: {duration: 0}
                                       }],
                                       label: 'Reproducir'
                                     },
@@ -1359,20 +1356,20 @@
                                       method: 'animate',
                                       args: [[null], {
                                         mode: 'immediate',
-                                        frame: { duration: 0, redraw: false },
-                                        transition: { duration: 0 }
+                                        frame: {duration: 0, redraw: false},
+                                        transition: {duration: 0}
                                       }],
                                       label: 'Pausar'
                                     }
                                   ]
                                 }],
                                 sliders: [{
-                                  pad: { l: 0, t: 20, b: 0 },
+                                  pad: {l: 0, t: 20, b: 0},
                                   currentvalue: {
                                     visible: true,
                                     prefix: 'Tiempo simulado: ',
                                     xanchor: 'right',
-                                    font: { size: 11, color: '#555' }
+                                    font: {size: 11, color: '#555'}
                                   },
                                   steps: sliderSteps
                                 }]
@@ -2880,7 +2877,7 @@
   <!-- Inicialización de Mermaid.js -->
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@12/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({ startOnLoad: true });
+    mermaid.initialize({startOnLoad: true});
   </script>
 
 </body>
