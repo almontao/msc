@@ -267,67 +267,91 @@
                             </span>
 
                             <div class="mermaid" style="text-align: center; margin-bottom: 25px;">
-                              flowchart TB
-                              %% 0. Datos de Entrada
-                              subgraph DATOS ["Datos Experimentales"]
-                              direction TB
-                              RAW@{ shape: cyl, label: "OpenNeuro ds003020:<br>Audios, TextGrids y fMRI" }
-                              DERIV@{ shape: folder, label: "derivatives/:<br>Series BOLD Preprocesadas<br>y TextGrids
-                              Validados" }
-                              RAW --> DERIV
+                              flowchart
+                              %% Datos de Entrada
+                              DATA@{ shape: cyl, label: "OpenNeuro ds003020" }
+
+                              subgraph 0. Preliminares
+                              DERIVATIVES@{ shape: lin-cyl, label: "Datos BIDS" }
+                              AUDIT@{ shape: rounded, label: "Auditoria lingüística" }
+                              PREPROC@{ shape: rounded, label: "Preprocesamiento" }
+
                               end
 
-                              %% 1. Extracción de los 6 Espacios
-                              subgraph ESPACIOS ["1. Extracción de Espacios de Características (100 Hz)"]
-                              direction TB
-                              FON["Espacio Fonético-Fonológico<br>(Forma sonora y articulación)"]
-                              LEX_EST["Espacio Léxico-Estadístico<br>(Frecuencia, longitud y duración)"]
-                              LEX_CAT["Espacio Léxico-Categorial<br>(Categorías morfosintácticas)"]
-                              SINT["Espacio Sintáctico<br>(Dependencias y jerarquía)"]
-                              SEM["Espacio Léxico-Semántico<br>(Significado temático latente)"]
-                              TEMP["Espacio de Tiempo Gramatical Finito<br>(Contraste Pasado vs. No-Pasado)"]
+                              %% 1. Extracción
+                              subgraph Espacios [1. Extracción de Espacios de Características]
+
+                              FON@{ shape: rounded, label: "Espacio fonético-fonológico"}
+                              EST@{ shape: rounded, label: "Espacio léxico-estadístico"}
+                              CAT@{ shape: rounded, label: "Espacio léxico-categorial"}
+
+                              SIN@{ shape: rounded, label: "Espacio sintáctico"}
+                              SEM@{ shape: rounded, label: "Espacio léxico-semántico"}
+                              TEN@{ shape: rounded, label: "Espacio de tiempo gramatical finito"}
+
+                              classDef decTEN fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+
+                              FON ~~~ SIN
+                              EST ~~~ SEM
+                              CAT ~~~ TEN:::decTEN
                               end
 
-                              %% 2. Transformación y Modelado VEM
-                              subgraph MODELADO ["2. Transformación Hemodinámica y Modelado VEM"]
+                              %% 2. Modelado
+                              subgraph Modelado [2. Alineación Temporal y Modelado Voxelwise]
                               direction TB
-                              HRF_CONV{{"Convolución HRF Canónica:<br>Filtro temporal a 100 Hz"}}
-                              RESAMP["Remuestreo al TR:<br>Sincronización a 0.5 Hz (2 segundos)"]
+                              HRF@{ shape: hex, label: "Convolución HRF canónica" }
+                              REM@{ shape: rounded, label: "Remuestreo al TR"}
 
-                              BASE["Modelo Restringido:<br>5 Espacios de Control"]
-                              FULL["Modelo Global:<br>6 Espacios Completos"]
+                              RESTRICT@{ shape: subproc, label: "Modelo <br>restringido" }
+                              GLOBAL@{ shape: subproc, label: "Modelo <br>global" }
 
-                              HRF_CONV --> RESAMP
-                              RESAMP --> BASE
-                              RESAMP --> FULL
+                              REM e6@--> RESTRICT
+                              REM e7@--> GLOBAL
+                              HRF e13@--> REM
                               end
 
-                              %% 3. Inferencia y Cartografía
-                              subgraph INFERENCIA ["3. Inferencia Estadística y Proyección Cortical"]
+                              %% 3. Inferencia
+                              subgraph Inferencia [3. Inferencia Estadística y Resultados]
                               direction TB
-                              DELTA["Aislamiento de Señal:<br>Delta de los Modelos (ΔR²)"]
-                              PERM["Test de Permutación Temporal:<br>Desplazamientos Circulares Exhaustivos"]
-                              FDR["Control Estadístico Riguroso:<br>Corrección FDR Benjamini-Hochberg"]
-                              MAPS@{ shape: procs, label: "Mapas Corticales en PyCortex:<br>Inspección Anatómica
-                              Individual" }
+                              VAR@{ shape: rounded, label: "Aislamiento de señal"}
+                              PERM@{ shape: rounded, label: "Pruebas de permutación temporal"}
+                              HOCH@{ shape: rounded, label: "Control estadístico"}
+                              MAPS@{ shape: procs, label: "Mapas corticales individuales" }
 
-                              DELTA --> PERM
-                              PERM --> FDR
-                              FDR --> MAPS
+                              VAR e10@--> PERM
+                              PERM e11@--> HOCH
+                              HOCH e14@--> MAPS
                               end
 
-                              %% Conexiones Macro
-                              DERIV --> ESPACIOS
+                              %% Conexiones Macro Animadas
+                              DATA e4@==> DERIVATIVES
+                              DERIVATIVES e3@--> AUDIT
+                              DERIVATIVES e5@--> PREPROC
 
-                              FON --> HRF_CONV
-                              LEX_EST --> HRF_CONV
-                              LEX_CAT --> HRF_CONV
-                              SINT --> HRF_CONV
-                              SEM --> HRF_CONV
-                              TEMP --> HRF_CONV
+                              DERIVATIVES e1@--> Espacios
+                              PREPROC e12@--> Espacios
 
-                              BASE --> DELTA
-                              FULL --> DELTA
+
+                              Espacios e2@--> HRF
+
+                              RESTRICT e8@--> VAR
+                              GLOBAL e9@--> VAR
+
+                              %% Configuración de Animaciones
+                              e1@{ animation: fast }
+                              e2@{ animation: fast }
+                              e3@{ animation: fast }
+                              e4@{ animation: fast }
+                              e5@{ animation: fast }
+                              e6@{ animation: fast }
+                              e7@{ animation: fast }
+                              e8@{ animation: fast }
+                              e9@{ animation: fast }
+                              e10@{ animation: fast }
+                              e11@{ animation: fast }
+                              e12@{ animation: fast }
+                              e13@{ animation: fast }
+                              e14@{ animation: fast }
                             </div>
                           </div>
 
