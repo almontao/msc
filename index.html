@@ -1203,7 +1203,7 @@
                             (cada 2 s).
                           </p>
 
-                          <!-- Recurso interactivo con Plotly.js Animado (Autoplay por defecto + Paleta BreezyCV) -->
+                          <!-- Recurso interactivo con Plotly.js Animado (Alineado con src/config.py y src/features/hemodynamics.py) -->
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 12px; clear: both;">
                             <h4 style="font-size: 1.1em; color: #333;">
                               Simulación interactiva: Evolución temporal del BOLD y remuestreo al TR
@@ -1211,10 +1211,10 @@
                           </div>
 
                           <p style="font-size: 0.95em; color: #555; margin-bottom: 20px;">
-                            La simulación se reproduce automáticamente en bucle infinito. Puedes interactuar con los
-                            controles (<b>▶</b> reproducir, <b>⏸</b> pausar, <b>⏹</b> reiniciar a 0s) o desplazar
-                            manualmente la barra temporal para examinar cualquier instante del ciclo hemodinámico de 32
-                            segundos:
+                            Simulación en bucle continuo de la <b>HRF canónica de doble gamma</b> (Friston et al., 1998;
+                            ventana de 32 segundos a 100 Hz) y su remuestreo al escáner fMRI (TR = 2.0 s / 0.5 Hz). El
+                            pico de aporte oxigenado se alcanza hacia los 5.1 s, el cruce por cero ocurre a los 10.8 s y
+                            el valle de desoxigenación residual (<i>undershoot</i>) se produce hacia los 15.5 s:
                           </p>
 
                           <!-- Contenedor blindado con diseño card BreezyCV -->
@@ -1224,61 +1224,69 @@
                             </div>
                           </div>
 
-                          <!-- Script Plotly: Autoplay + Bucle Infinito + Colores BreezyCV -->
+                          <!-- Script Plotly: Matemáticas de src/features/hemodynamics.py + Botonera Optimizada -->
                           <script>
                             (function () {
                               var chartDiv = document.getElementById('plotly-hrf-simulation');
                               if (!chartDiv) return;
 
-                              // Ventana temporal de 32 segundos con paso de 0.1s (320 muestras)
+                              // 1. Parámetros neurobiológicos exactos de src/config.py y src/features/hemodynamics.py
+                              var HRF_LENGTH_SEC = 32.0;
+                              var HIGH_RES_FS = 100;
+                              var TR_FMRI = 2.0;
+
+                              // Malla continua a 100 Hz (paso de 0.01s = 10 ms, 321 muestras)
+                              var total_samples_high_res = Math.round(HRF_LENGTH_SEC * HIGH_RES_FS);
                               var t_total = [];
-                              for (var i = 0; i <= 320; i++) {
-                                t_total.push(Number((i * 0.1).toFixed(1)));
+                              for (var i = 0; i <= total_samples_high_res; i++) {
+                                t_total.push(Number((i / HIGH_RES_FS).toFixed(2)));
                               }
 
-                              // Función canónica SPM / Glover normalizada
-                              function computeHrf(t) {
-                                if (t <= 0) return 0;
-                                var a1 = 6, b1 = 1;
-                                var a2 = 16, b2 = 1;
-                                var c = 0.166667;
-                                var gamma1 = 120;
-                                var gamma2 = 1307674368000;
+                              // 2. Implementación exacta de generate_double_gamma_hrf()
+                              function computeHrfDoubleGamma(t) {
+                                if (t < 0) return 0;
+                                var a1 = 6.0, b1 = 1.0;
+                                var a2 = 16.0, b2 = 1.0;
+                                var c = 1.0 / 6.0;
 
-                                var d1 = (Math.pow(t, a1 - 1) * Math.exp(-t * b1)) / gamma1;
-                                var d2 = (Math.pow(t, a2 - 1) * Math.exp(-t * b2)) / gamma2;
-                                return (d1 - c * d2);
+                                // Factoriales: Gamma(6) = 120, Gamma(16) = 1307674368000
+                                var gamma_a1 = 120;
+                                var gamma_a2 = 1307674368000;
+
+                                var peak = (Math.pow(t, a1 - 1) * Math.exp(-t / b1)) / (Math.pow(b1, a1) * gamma_a1);
+                                var undershoot = (Math.pow(t, a2 - 1) * Math.exp(-t / b2)) / (Math.pow(b2, a2) * gamma_a2);
+                                return (peak - (c * undershoot));
                               }
 
-                              var rawHrf = t_total.map(computeHrf);
+                              var rawHrf = t_total.map(computeHrfDoubleGamma);
                               var maxVal = Math.max.apply(null, rawHrf);
+                              // Normalización a pico unitario para visualización clara
                               var hrfFull = rawHrf.map(function (v) { return Number((v / maxVal).toFixed(4)); });
 
-                              // Puntos de adquisición fMRI (TR = 2.0 segundos)
-                              var tr_times = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32];
+                              // Puntos discretos de adquisición de TR (cada 2.0s hasta 32.0s)
+                              var tr_times = [];
+                              for (var tr_t = 0; tr_t <= HRF_LENGTH_SEC; tr_t += TR_FMRI) {
+                                tr_times.push(tr_t);
+                              }
 
-                              // Construcción de frames y pasos del slider
+                              // 3. Construcción de fotogramas de animación (1 por cada segundo de 0 a 32s)
                               var frames = [];
                               var sliderSteps = [];
                               var allFrameNames = [];
 
-                              for (var s = 0; s <= 32; s++) {
-                                var sub_t = [];
-                                var sub_hrf = [];
-                                var sub_stim = [];
-
-                                for (var j = 0; j <= s * 10; j++) {
-                                  sub_t.push(t_total[j]);
-                                  sub_hrf.push(hrfFull[j]);
-                                  sub_stim.push((t_total[j] <= 0.6) ? 1.0 : 0.0);
-                                }
+                              for (var s = 0; s <= HRF_LENGTH_SEC; s++) {
+                                var current_idx = Math.round(s * HIGH_RES_FS);
+                                var sub_t = t_total.slice(0, current_idx + 1);
+                                var sub_hrf = hrfFull.slice(0, current_idx + 1);
+                                var sub_stim = sub_t.map(function (t) { return (t <= 0.35) ? 1.0 : 0.0; });
 
                                 var current_tr_x = [];
                                 var current_tr_y = [];
                                 for (var k = 0; k < tr_times.length; k++) {
                                   if (tr_times[k] <= s) {
                                     current_tr_x.push(tr_times[k]);
-                                    current_tr_y.push(hrfFull[tr_times[k] * 10]);
+                                    var idx_tr = Math.round(tr_times[k] * HIGH_RES_FS);
+                                    current_tr_y.push(hrfFull[idx_tr]);
                                   }
                                 }
 
@@ -1305,48 +1313,49 @@
                                 });
                               }
 
-                              // 1. Estímulo lingüístico inicial (Gris pizarra)
+                              // 4. Trazos con estética BreezyCV y tooltips estructurados
                               var traceImpulse = {
                                 x: [0],
                                 y: [1.0],
                                 mode: 'lines',
-                                name: 'Estímulo (Impulso)',
+                                name: 'Estímulo (Impulso 100 Hz)',
                                 line: { color: '#6c757d', width: 2, dash: 'dot' },
                                 fill: 'tozeroy',
-                                fillcolor: 'rgba(108, 117, 125, 0.12)'
+                                fillcolor: 'rgba(108, 117, 125, 0.12)',
+                                hovertemplate: '<b>Estímulo</b>: %{x:.2f} s<extra></extra>'
                               };
 
-                              // 2. Curva BOLD continua (Azul primario BreezyCV + sombreado suave)
                               var traceHrf = {
                                 x: [0],
                                 y: [0],
                                 mode: 'lines',
-                                name: 'Respuesta BOLD continua',
+                                name: 'Respuesta BOLD continua (HRF)',
                                 line: { color: '#007bff', width: 2.8, shape: 'spline' },
                                 fill: 'tozeroy',
-                                fillcolor: 'rgba(0, 123, 255, 0.08)'
+                                fillcolor: 'rgba(0, 123, 255, 0.08)',
+                                hovertemplate: '<b>Respuesta BOLD</b><br>Tiempo: %{x:.2f} s<br>Amplitud: %{y:.3f}<extra></extra>'
                               };
 
-                              // 3. Muestras fMRI en TR = 2s (Coral/carmesí con anillo blanco)
                               var traceSamples = {
                                 x: [0],
                                 y: [0],
                                 mode: 'markers',
-                                name: 'Muestras fMRI (TR = 2s)',
+                                name: 'Muestras fMRI (TR = 2.0 s / 0.5 Hz)',
                                 marker: {
                                   color: '#e63946',
                                   size: 8.5,
                                   symbol: 'circle',
                                   line: { color: '#ffffff', width: 1.5 }
-                                }
+                                },
+                                hovertemplate: '<b>Volumen fMRI</b><br>TR: %{x} s<br>Valor registrado: %{y:.3f}<extra></extra>'
                               };
 
-                              // Layout con estética minimalista de BreezyCV
+                              // 5. Layout optimizado: Botonera con flujo horizontal izquierda -> derecha
                               var layout = {
                                 autosize: true,
                                 paper_bgcolor: '#ffffff',
                                 plot_bgcolor: '#ffffff',
-                                margin: { l: 50, r: 25, t: 60, b: 90 },
+                                margin: { l: 50, r: 25, t: 65, b: 90 },
                                 xaxis: {
                                   title: {
                                     text: 'Tiempo transcurrido (segundos)',
@@ -1360,10 +1369,10 @@
                                 },
                                 yaxis: {
                                   title: {
-                                    text: 'Amplitud normalizada',
+                                    text: 'Amplitud hemodinámica normalizada',
                                     font: { size: 11.5, color: '#495057' }
                                   },
-                                  range: [-0.3, 1.18],
+                                  range: [-0.25, 1.18],
                                   dtick: 0.2,
                                   gridcolor: '#f1f3f5',
                                   zeroline: true,
@@ -1374,20 +1383,20 @@
                                 legend: {
                                   orientation: 'h',
                                   y: -0.32,
-                                  x: 0.03,
+                                  x: 0.02,
                                   font: { size: 11, color: '#495057' },
                                   bgcolor: 'rgba(255, 255, 255, 0.9)'
                                 },
                                 hovermode: 'closest',
                                 updatemenus: [{
                                   x: 0.0,
-                                  y: 1.16,
+                                  y: 1.18,
                                   yanchor: 'top',
                                   xanchor: 'left',
                                   showactive: false,
-                                  direction: 'left',
+                                  direction: 'right', // Orden natural: [ ▶ ]  [ ⏸ ]  [ ⏹ ]
                                   type: 'buttons',
-                                  pad: { t: 0, r: 6, b: 0, l: 0 },
+                                  pad: { t: 0, r: 8, b: 0, l: 0 },
                                   bgcolor: '#f8f9fa',
                                   bordercolor: '#dee2e6',
                                   borderwidth: 1,
@@ -1400,7 +1409,7 @@
                                         frame: { duration: 100, redraw: true },
                                         transition: { duration: 0 }
                                       }],
-                                      label: '▶'
+                                      label: '  ▶  '
                                     },
                                     {
                                       method: 'animate',
@@ -1409,7 +1418,7 @@
                                         frame: { duration: 0, redraw: false },
                                         transition: { duration: 0 }
                                       }],
-                                      label: '⏸'
+                                      label: '  ⏸  '
                                     },
                                     {
                                       method: 'animate',
@@ -1418,7 +1427,7 @@
                                         frame: { duration: 0, redraw: true },
                                         transition: { duration: 0 }
                                       }],
-                                      label: '⏹'
+                                      label: '  ⏹  '
                                     }
                                   ]
                                 }],
@@ -1426,7 +1435,7 @@
                                   pad: { l: 0, t: 22, b: 0 },
                                   currentvalue: {
                                     visible: true,
-                                    prefix: 'Tiempo simulado: ',
+                                    prefix: 'Tiempo simulado (HRF 32s): ',
                                     xanchor: 'right',
                                     font: { size: 11, color: '#007bff' }
                                   },
@@ -1442,7 +1451,6 @@
                                 displayModeBar: false
                               };
 
-                              // Estado inicial: Autoplay activo por defecto
                               var isPlaying = true;
                               var restartTimeout = null;
 
@@ -1451,7 +1459,7 @@
                                   return Plotly.addFrames(chartDiv, frames);
                                 })
                                 .then(function () {
-                                  // Disparo automático inmediato de la animación al cargar
+                                  // Autoplay inmediato
                                   Plotly.animate(chartDiv, allFrameNames, {
                                     mode: 'immediate',
                                     fromcurrent: true,
@@ -1459,10 +1467,10 @@
                                     transition: { duration: 0 }
                                   });
 
-                                  // Escucha de botones
+                                  // Gestión de estado de botones
                                   chartDiv.on('plotly_buttonclicked', function (e) {
                                     if (e && e.button) {
-                                      var lbl = e.button.label;
+                                      var lbl = e.button.label.trim();
                                       if (lbl === '▶') {
                                         isPlaying = true;
                                       } else {
@@ -1472,7 +1480,7 @@
                                     }
                                   });
 
-                                  // Bucle infinito al alcanzar el segundo 32
+                                  // Bucle infinito al alcanzar el segundo 32 (HRF_LENGTH_SEC)
                                   chartDiv.on('plotly_sliderchange', function (e) {
                                     if (e && e.step && (e.step.label === '32s' || e.step.value === '32')) {
                                       if (isPlaying) {
@@ -1491,7 +1499,7 @@
                                     }
                                   });
 
-                                  // Respaldo de continuidad por evento plotly_animated
+                                  // Salvaguarda de continuidad por evento de fin de animación
                                   chartDiv.on('plotly_animated', function () {
                                     var currentStep = chartDiv._fullLayout && chartDiv._fullLayout.sliders && chartDiv._fullLayout.sliders[0] && chartDiv._fullLayout.sliders[0].active;
                                     if (isPlaying && currentStep === 32) {
