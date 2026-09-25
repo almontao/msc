@@ -1203,7 +1203,7 @@
                             (cada 2 s).
                           </p>
 
-                          <!-- Recurso interactivo con Plotly.js Animado (Bucle infinito + Controles con Iconos) -->
+                          <!-- Recurso interactivo con Plotly.js Animado (Autoplay por defecto + Paleta BreezyCV) -->
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 12px; clear: both;">
                             <h4 style="font-size: 1.1em; color: #333;">
                               Simulación interactiva: Evolución temporal del BOLD y remuestreo al TR
@@ -1211,27 +1211,26 @@
                           </div>
 
                           <p style="font-size: 0.95em; color: #555; margin-bottom: 20px;">
-                            Utiliza los controles (<b>▶</b> reproducir en bucle, <b>⏸</b> pausar, <b>⏹</b> reiniciar a
-                            0s) o desplaza la barra temporal para observar la ventana biológica canónica de 32 segundos:
-                            el estímulo ocurre en el segundo 0, el pico hemodinámico se alcanza a los 6 segundos, el
-                            valle posestímulo (<i>undershoot</i>) se produce hacia el segundo 16 y el escáner registra
-                            una muestra cada 2 segundos (TR = 2s):
+                            La simulación se reproduce automáticamente en bucle infinito. Puedes interactuar con los
+                            controles (<b>▶</b> reproducir, <b>⏸</b> pausar, <b>⏹</b> reiniciar a 0s) o desplazar
+                            manualmente la barra temporal para examinar cualquier instante del ciclo hemodinámico de 32
+                            segundos:
                           </p>
 
-                          <!-- Contenedor blindado -->
+                          <!-- Contenedor blindado con diseño card BreezyCV -->
                           <div style="width: 100%; clear: both; margin: 20px 0 35px 0;">
                             <div id="plotly-hrf-simulation"
-                              style="width: 100%; height: 500px; border: 1px solid #e5e5e5; border-radius: 6px; background-color: #ffffff; position: relative; overflow: hidden;">
+                              style="width: 100%; height: 500px; border: 1px solid #e9ecef; border-radius: 8px; background-color: #ffffff; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); position: relative; overflow: hidden;">
                             </div>
                           </div>
 
-                          <!-- Script Plotly con Bucle Infinito y Controles con Iconos -->
+                          <!-- Script Plotly: Autoplay + Bucle Infinito + Colores BreezyCV -->
                           <script>
                             (function () {
                               var chartDiv = document.getElementById('plotly-hrf-simulation');
                               if (!chartDiv) return;
 
-                              // Ventana temporal de 32 segundos con paso de 0.1s (320 muestras continuas)
+                              // Ventana temporal de 32 segundos con paso de 0.1s (320 muestras)
                               var t_total = [];
                               for (var i = 0; i <= 320; i++) {
                                 t_total.push(Number((i * 0.1).toFixed(1)));
@@ -1258,7 +1257,7 @@
                               // Puntos de adquisición fMRI (TR = 2.0 segundos)
                               var tr_times = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32];
 
-                              // Construcción de frames y pasos de slider
+                              // Construcción de frames y pasos del slider
                               var frames = [];
                               var sliderSteps = [];
                               var allFrameNames = [];
@@ -1306,7 +1305,7 @@
                                 });
                               }
 
-                              // Trazos iniciales (segundo 0)
+                              // 1. Estímulo lingüístico inicial (Gris pizarra)
                               var traceImpulse = {
                                 x: [0],
                                 y: [1.0],
@@ -1317,45 +1316,67 @@
                                 fillcolor: 'rgba(108, 117, 125, 0.12)'
                               };
 
+                              // 2. Curva BOLD continua (Azul primario BreezyCV + sombreado suave)
                               var traceHrf = {
                                 x: [0],
                                 y: [0],
                                 mode: 'lines',
                                 name: 'Respuesta BOLD continua',
-                                line: { color: '#007bff', width: 2.5 }
+                                line: { color: '#007bff', width: 2.8, shape: 'spline' },
+                                fill: 'tozeroy',
+                                fillcolor: 'rgba(0, 123, 255, 0.08)'
                               };
 
+                              // 3. Muestras fMRI en TR = 2s (Coral/carmesí con anillo blanco)
                               var traceSamples = {
                                 x: [0],
                                 y: [0],
                                 mode: 'markers',
                                 name: 'Muestras fMRI (TR = 2s)',
-                                marker: { color: '#dc3545', size: 8, symbol: 'circle' }
+                                marker: {
+                                  color: '#e63946',
+                                  size: 8.5,
+                                  symbol: 'circle',
+                                  line: { color: '#ffffff', width: 1.5 }
+                                }
                               };
 
+                              // Layout con estética minimalista de BreezyCV
                               var layout = {
                                 autosize: true,
+                                paper_bgcolor: '#ffffff',
+                                plot_bgcolor: '#ffffff',
                                 margin: { l: 50, r: 25, t: 60, b: 90 },
                                 xaxis: {
-                                  title: 'Tiempo transcurrido (segundos)',
+                                  title: {
+                                    text: 'Tiempo transcurrido (segundos)',
+                                    font: { size: 11.5, color: '#495057' }
+                                  },
                                   range: [-0.5, 32.8],
                                   dtick: 2,
-                                  gridcolor: '#f0f0f0',
-                                  zeroline: false
+                                  gridcolor: '#f1f3f5',
+                                  zeroline: false,
+                                  tickfont: { size: 10, color: '#6c757d' }
                                 },
                                 yaxis: {
-                                  title: 'Amplitud normalizada',
-                                  range: [-0.3, 1.15],
+                                  title: {
+                                    text: 'Amplitud normalizada',
+                                    font: { size: 11.5, color: '#495057' }
+                                  },
+                                  range: [-0.3, 1.18],
                                   dtick: 0.2,
-                                  gridcolor: '#f0f0f0',
+                                  gridcolor: '#f1f3f5',
                                   zeroline: true,
-                                  zerolinecolor: '#e5e5e5'
+                                  zerolinecolor: '#ced4da',
+                                  zerolinewidth: 1.5,
+                                  tickfont: { size: 10, color: '#6c757d' }
                                 },
                                 legend: {
                                   orientation: 'h',
                                   y: -0.32,
-                                  x: 0.05,
-                                  font: { size: 11, color: '#555' }
+                                  x: 0.03,
+                                  font: { size: 11, color: '#495057' },
+                                  bgcolor: 'rgba(255, 255, 255, 0.9)'
                                 },
                                 hovermode: 'closest',
                                 updatemenus: [{
@@ -1368,9 +1389,9 @@
                                   type: 'buttons',
                                   pad: { t: 0, r: 6, b: 0, l: 0 },
                                   bgcolor: '#f8f9fa',
-                                  bordercolor: '#d0d7de',
+                                  bordercolor: '#dee2e6',
                                   borderwidth: 1,
-                                  font: { size: 13, color: '#333' },
+                                  font: { size: 13, color: '#212529' },
                                   buttons: [
                                     {
                                       method: 'animate',
@@ -1402,13 +1423,16 @@
                                   ]
                                 }],
                                 sliders: [{
-                                  pad: { l: 0, t: 20, b: 0 },
+                                  pad: { l: 0, t: 22, b: 0 },
                                   currentvalue: {
                                     visible: true,
                                     prefix: 'Tiempo simulado: ',
                                     xanchor: 'right',
-                                    font: { size: 11, color: '#555' }
+                                    font: { size: 11, color: '#007bff' }
                                   },
+                                  activecolor: '#007bff',
+                                  tickcolor: '#ced4da',
+                                  font: { size: 9, color: '#6c757d' },
                                   steps: sliderSteps
                                 }]
                               };
@@ -1418,7 +1442,8 @@
                                 displayModeBar: false
                               };
 
-                              var isPlaying = false;
+                              // Estado inicial: Autoplay activo por defecto
+                              var isPlaying = true;
                               var restartTimeout = null;
 
                               Plotly.newPlot(chartDiv, [traceImpulse, traceHrf, traceSamples], layout, config)
@@ -1426,7 +1451,15 @@
                                   return Plotly.addFrames(chartDiv, frames);
                                 })
                                 .then(function () {
-                                  // Control del estado al presionar botones
+                                  // Disparo automático inmediato de la animación al cargar
+                                  Plotly.animate(chartDiv, allFrameNames, {
+                                    mode: 'immediate',
+                                    fromcurrent: true,
+                                    frame: { duration: 100, redraw: true },
+                                    transition: { duration: 0 }
+                                  });
+
+                                  // Escucha de botones
                                   chartDiv.on('plotly_buttonclicked', function (e) {
                                     if (e && e.button) {
                                       var lbl = e.button.label;
@@ -1439,7 +1472,7 @@
                                     }
                                   });
 
-                                  // Detección del final del ciclo para reiniciar el bucle automáticamente
+                                  // Bucle infinito al alcanzar el segundo 32
                                   chartDiv.on('plotly_sliderchange', function (e) {
                                     if (e && e.step && (e.step.label === '32s' || e.step.value === '32')) {
                                       if (isPlaying) {
@@ -1458,7 +1491,7 @@
                                     }
                                   });
 
-                                  // Respaldo de continuidad mediante plotly_animated
+                                  // Respaldo de continuidad por evento plotly_animated
                                   chartDiv.on('plotly_animated', function () {
                                     var currentStep = chartDiv._fullLayout && chartDiv._fullLayout.sliders && chartDiv._fullLayout.sliders[0] && chartDiv._fullLayout.sliders[0].active;
                                     if (isPlaying && currentStep === 32) {
