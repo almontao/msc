@@ -247,22 +247,25 @@
 
                             <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
                               flowchart
-                              DATA@{ shape: cyl, label: "OpenNeuro ds003020 v4.0.0" }
+                              DATA@{ shape: cyl, label: "OpenNeuro ds003020" }
+                              DERIVATIVES@{ shape: lin-cyl, label: "Datos BIDS" }
 
-                              subgraph Preliminares ["0. Preparación, Rescate y Auditoría"]
-                              DERIVATIVES@{ shape: lin-cyl, label: "Datos BIDS (fMRI + Audio + TextGrids)" }
-                              TGFIX@{ shape: rounded, label: "Reparación de TextGrids cronológicos<br>(subconjunto reparado sin tocar el crudo)" }
-                              AUDIT@{ shape: rounded, label: "Auditoría cruzada de sesiones<br>y repeticiones internas HDF5" }
-                              LSA_FIT@{ shape: rounded, label: "Entrenamiento del modelo LSA<br>(solo en historias de ajuste)" }
+                              subgraph Preliminares ["0. Preliminares"]
+                              PREPROC@{ shape: rounded, label: "Preprocesamiento" }
+                              DB_TG@{ shape: cyl, label: "TextGrids<br>normalizados" }
+                              AUDIT@{ shape: rounded, label: "Auditorías del corpus" }
+                              DB_META@{ shape: cyl, label: "Metadatos del corpus<br>y sesiones" }
+                              SEM_MODEL@{ shape: subproc, label: "Modelo<br>semántico" }
                               end
 
-                              subgraph Espacios ["1. Extracción de Espacios de Características (100 Hz)"]
-                              FON@{ shape: rounded, label: "Espacio fonético-fonológico (14)"}
-                              EST@{ shape: rounded, label: "Espacio léxico-estadístico (4)"}
-                              CAT@{ shape: rounded, label: "Espacio léxico-categorial (8)"}
-                              SIN@{ shape: rounded, label: "Espacio sintáctico (3)"}
-                              SEM@{ shape: rounded, label: "Espacio léxico-semántico (10)"}
-                              TEN@{ shape: rounded, label: "Espacio de tiempo gramatical (4)"}
+                              subgraph Espacios ["1. Extracción de Espacios de Características"]
+                              FON@{ shape: rounded, label: "Espacio fonético-fonológico" }
+                              EST@{ shape: rounded, label: "Espacio léxico-estadístico" }
+                              CAT@{ shape: rounded, label: "Espacio léxico-categorial" }
+
+                              SIN@{ shape: rounded, label: "Espacio sintáctico" }
+                              SEM@{ shape: rounded, label: "Espacio léxico-semántico" }
+                              TEN@{ shape: rect, label: "Espacio de tiempo gramatical" }
 
                               FON ~~~ SIN
                               EST ~~~ SEM
@@ -271,11 +274,12 @@
 
                               subgraph Modelado ["2. Alineación Temporal y Modelado a Nivel de Vóxel"]
                               direction TB
-                              HRF@{ shape: hex, label: "Convolución FFT con HRF canónica (32 s)" }
-                              REM@{ shape: rounded, label: "Remuestreo polifásico al TR (0.5 Hz) y Z-score"}
+                              HRF@{ shape: hex, label: "Convolución HRF canónica" }
+                              REM@{ shape: rounded, label: "Remuestreo polifásico al TR" }
                               CV@{ shape: rounded, label: "Validación cruzada agrupada por historia<br>(selección de penalización Ridge)" }
-                              RESTRICT@{ shape: subproc, label: "Modelo restringido<br>(39 controles)" }
-                              GLOBAL@{ shape: subproc, label: "Modelo global<br>(43 predictores)" }
+
+                              RESTRICT@{ shape: subproc, label: "Modelo<br>restringido" }
+                              GLOBAL@{ shape: subproc, label: "Modelo<br>global" }
 
                               HRF e13@--> REM
                               REM e6@--> CV
@@ -283,27 +287,37 @@
                               CV e16@--> GLOBAL
                               end
 
-                              subgraph Inferencia ["3. Techo de Ruido, Inferencia Estadística y Resultados"]
+                              subgraph Inferencia ["3. Inferencia Estadística y Resultados"]
                               direction TB
-                              CEIL_NODE@{ shape: rounded, label: "Techo de ruido por vóxel<br>(5 a 10 repeticiones BOLD)" }
-                              VAR@{ shape: rounded, label: "Aislamiento de señal (ΔR² bruto y normalizado)"}
-                              PERM@{ shape: rounded, label: "Desplazamientos circulares exhaustivos<br>(271 rotaciones base / 260 sensibilidad)" }
-                              HOCH@{ shape: rounded, label: "Control FDR Benjamini-Hochberg (q < 0.05)"}
-                              MAPS@{ shape: procs, label: "Mapas corticales individuales en PyCortex" }
+                              CEIL@{ shape: rounded, label: "Estimación de techo de ruido" }
+                              VAR@{ shape: rounded, label: "Aislamiento de señal" }
+                              PERM@{ shape: rounded, label: "Desplazamientos circulares exhaustivos" }
+                              HOCH@{ shape: rounded, label: "Control estadístico FDR" }
+                              MAPS@{ shape: procs, label: "Mapas corticales individuales" }
 
-                              CEIL_NODE e17@--> VAR
+                              CEIL e17@--> VAR
                               VAR e10@--> PERM
                               PERM e11@--> HOCH
                               HOCH e14@--> MAPS
                               end
 
                               DATA e4@==> DERIVATIVES
-                              DERIVATIVES e3@--> TGFIX
-                              TGFIX e15@--> AUDIT
-                              AUDIT e5@--> LSA_FIT
-                              AUDIT e1@--> Espacios
-                              LSA_FIT e12@--> Espacios
+                              DERIVATIVES e3@--> PREPROC
+                              PREPROC e15@--> DB_TG
+                              DERIVATIVES e5@--> AUDIT
+                              DB_TG e18@--> AUDIT
+                              AUDIT e19@--> DB_META
+
+                              DB_TG e1@--> Espacios
+                              DB_TG e22@--> SEM_MODEL
+                              DB_META e12@--> SEM_MODEL
+                              SEM_MODEL e20@--> SEM
+
+                              DB_META e21@--> CV
+                              DB_META e23@--> CEIL
+
                               Espacios e2@--> HRF
+
                               RESTRICT e8@--> VAR
                               GLOBAL e9@--> VAR
 
@@ -329,6 +343,12 @@
                               e15@{ animation: fast }
                               e16@{ animation: fast }
                               e17@{ animation: fast }
+                              e18@{ animation: fast }
+                              e19@{ animation: fast }
+                              e20@{ animation: fast }
+                              e21@{ animation: fast }
+                              e22@{ animation: fast }
+                              e23@{ animation: fast }
                             </div>
                           </div>
 
