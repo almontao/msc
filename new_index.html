@@ -1028,65 +1028,257 @@
                             de suma total de pasado o no-pasado, que se reservan para reportes descriptivos).
                           </p>
 
-                          <!-- Gráfica 4: Zoom-in detallado de las 43 características en Mermaid -->
-                          <div style="margin: 30px 0 10px 0; text-align: center;">
-                            <p><b>Gráfica 4: Desglose estructural de los 6 espacios de características (43 predictores a 100 Hz)</b></p>
+                          <!-- Gráfica 4: Explorador interactivo de los 6 espacios y las 43 características -->
+                          <div style="margin: 30px 0 15px 0;">
+                            <p style="text-align: center; margin-bottom: 12px;">
+                              <b>Gráfica 4: Arquitectura interactiva de la matriz de diseño a 100 Hz (43 predictores en 6 espacios)</b>
+                            </p>
 
-                            <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
-                              flowchart TB
-                              subgraph TOTAL ["Matriz Predictora Completa: 43 Características a 100 Hz"]
-                              direction TB
+                            <div style="border: 1px solid #e5e5e5; border-radius: 8px; background-color: #ffffff; padding: 18px;">
 
-                              subgraph CTRL ["Cinco Espacios de Control (39 Predictores — Modelo Restringido)"]
-                              direction TB
+                              <!-- Cabecera de proporción: 39 controles vs 4 interés -->
+                              <div style="display: flex; width: 100%; font-size: 0.82em; margin-bottom: 6px;">
+                                <div style="width: 90.70%; padding-right: 6px; color: #555555; border-bottom: 2px solid #b5dbe8; padding-bottom: 3px;">
+                                  <b>Cinco espacios de control: 39 predictores (90.7%)</b> (Modelo Restringido y base del Modelo Global)
+                                </div>
+                                <div style="width: 9.30%; text-align: right; color: #0099cc; border-bottom: 2px solid #04b4e0; padding-bottom: 3px; white-space: nowrap;">
+                                  <b>Interés: 4 (9.3%)</b>
+                                </div>
+                              </div>
 
-                              subgraph FON ["1. Fonético-Fonológico (14)"]
-                              F_LIST["• Vocalicidad y Consonanticidad<br>• Sonoridad y Ausencia de sonoridad<br>• Lugares: Bilabial, Labiodental, Dental/Alveolar, Palatal/Velar<br>• Modos: Oclusiva, Fricativa, Africada, Nasal, Líquida, Aproximante"]
-                              end
+                              <!-- Barra proporcional interactiva de las 43 columnas -->
+                              <div id="f43-bar-container" style="display: flex; width: 100%; height: 38px; border-radius: 6px; overflow: hidden; border: 1px solid #d5d5d5; margin-bottom: 16px; cursor: pointer;">
+                                <div data-space="phonological" style="width: 32.56%; background-color: #f5f5f5; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 600; color: #222222; transition: all 0.2s;" title="1. Fonético-Fonológico (14 columnas)">
+                                  1. Fonológico (14)
+                                </div>
+                                <div data-space="lexical_stats" style="width: 9.30%; background-color: #fcfcfc; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 600; color: #222222; transition: all 0.2s;" title="2. Léxico-Estadístico (4 columnas)">
+                                  2. Estad. (4)
+                                </div>
+                                <div data-space="categorical" style="width: 18.60%; background-color: #f5f5f5; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 600; color: #222222; transition: all 0.2s;" title="3. Léxico-Categorial (8 columnas)">
+                                  3. Categorial (8)
+                                </div>
+                                <div data-space="syntactic" style="width: 6.98%; background-color: #fcfcfc; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.76em; font-weight: 600; color: #222222; transition: all 0.2s;" title="4. Sintáctico (3 columnas)">
+                                  4. Sint. (3)
+                                </div>
+                                <div data-space="semantic" style="width: 23.26%; background-color: #f2f7f9; border-right: 2px solid #04b4e0; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 600; color: #222222; transition: all 0.2s;" title="5. Léxico-Semántico LSA (10 columnas)">
+                                  5. Semántico LSA (10)
+                                </div>
+                                <div data-space="tense" style="width: 9.30%; background-color: #e6f7fc; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 700; color: #0099cc; transition: all 0.2s;" title="6. Tiempo Gramatical (4 columnas)">
+                                  6. Tiempo (4)
+                                </div>
+                              </div>
 
-                              subgraph LEX_EST ["2. Léxico-Estadístico (4)"]
-                              LE_LIST["• Presencia de palabra<br>• Frecuencia léxica (Zipf)<br>• Longitud en caracteres<br>• Duración del intervalo (s)"]
-                              end
+                              <!-- Botonera de selección por espacio -->
+                              <div id="f43-tabs" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;">
+                                <button type="button" data-space="phonological" class="btn btn-primary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">1. Fonológico (14)</button>
+                                <button type="button" data-space="lexical_stats" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">2. Léxico-Estadístico (4)</button>
+                                <button type="button" data-space="categorical" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">3. Léxico-Categorial (8)</button>
+                                <button type="button" data-space="syntactic" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">4. Sintáctico (3)</button>
+                                <button type="button" data-space="semantic" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">5. Semántico LSA (10)</button>
+                                <button type="button" data-space="tense" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">6. Tiempo Gramatical (4)</button>
+                                <button type="button" data-space="all" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">Ver las 43 columnas</button>
+                              </div>
 
-                              subgraph LEX_CAT ["3. Léxico-Categorial (8)"]
-                              LC_LIST["• Sustantivo • Adjetivo • Adverbio • Pronombre<br>• Preposición • Conjunción • Determinante<br>• Verbo sin marca de tiempo (infinitivo, gerundio, participio)"]
-                              end
+                              <!-- Tarjeta de contenido dinámico con clases nativas de main.css -->
+                              <div id="f43-detail-panel" class="lm-info-block" style="text-align: left; padding: 18px 20px; margin-bottom: 0;">
+                              </div>
 
-                              subgraph SINT ["4. Sintáctico (3)"]
-                              S_LIST["• Distancia a la cabeza sintáctica<br>• Profundidad en el árbol<br>• Identificador de raíz oracional"]
-                              end
-
-                              subgraph SEM ["5. Léxico-Semántico (10)"]
-                              SEM_LIST["• 10 Componentes Latentes LSA (TF-IDF + SVD)<br>• Cláusulas segmentadas por pausas ≥ 0.65 s<br>• Ajustado sin la historia de prueba"]
-                              end
-                              end
-
-                              subgraph TARGET ["Espacio de Interés Gramatical (4 Predictores — Adición del Modelo Global)"]
-                              direction TB
-                              subgraph TEMP ["6. Tiempo Gramatical (4)"]
-                              T_LIST["• Pasado regular (-ed)<br>• Pasado irregular (verbos léxicos, auxiliares y cópulas)<br>• No-pasado marcado (3.ª persona singular)<br>• No-pasado no marcado (otras personas)"]
-                              end
-                              end
-
-                              end
-
-                              style TOTAL fill:#fcfcfc,stroke:#e5e5e5,stroke-width:1px
-                              style CTRL fill:#f2f7f9,stroke:#b5dbe8,stroke-width:1px
-                              style TARGET fill:#e6f7fc,stroke:#04b4e0,stroke-width:1.5px
-                              style FON fill:#ffffff,stroke:#e5e5e5
-                              style LEX_EST fill:#ffffff,stroke:#e5e5e5
-                              style LEX_CAT fill:#ffffff,stroke:#e5e5e5
-                              style SINT fill:#ffffff,stroke:#e5e5e5
-                              style SEM fill:#ffffff,stroke:#e5e5e5
-                              style TEMP fill:#ffffff,stroke:#04b4e0
                             </div>
                           </div>
 
                           <p style="font-size: 0.9em; text-align: center; margin-bottom: 25px;">
-                            <i>Nota:</i> El pipeline verifica programáticamente en cada historia que la matriz
-                            consolidada tenga exactamente las 43 columnas en este orden antes de serializar los archivos
-                            Parquet por espacio y exportar una muestra de consulta (<i>odetostepfather</i>) a SQLite.
+                            <i>Nota:</i> Haz clic sobre cualquier segmento de la barra proporcional o sobre los botones
+                            para inspeccionar los nombres exactos de las columnas en el código, su representación
+                            numérica a 100 Hz y su persistencia en formato Parquet y SQLite (muestra
+                            <i>odetostepfather</i>).
                           </p>
+
+                          <script>
+                            (function () {
+                              var panel = document.getElementById('f43-detail-panel');
+                              var tabsContainer = document.getElementById('f43-tabs');
+                              var barContainer = document.getElementById('f43-bar-container');
+                              if (!panel || !tabsContainer || !barContainer) return;
+
+                              var spacesData = {
+                                phonological: {
+                                  title: '1. Espacio Fonético-Fonológico (14 predictores de control)',
+                                  role: 'Espacio de control (Modelo Restringido y Modelo Global)',
+                                  colsRange: 'Columnas 1 a 14 de 43',
+                                  dtype: 'int8 (binario 0 / 1 a 100 Hz)',
+                                  artifact: '{historia}_phonological.parquet',
+                                  desc: 'Proyecta cada fonema ARPABET de la capa phone del TextGrid en 14 rasgos articulatorios binarios (modo, lugar de articulación y sonoridad).',
+                                  columns: [
+                                    ['vocalic', 'Sonido vocálico (AA, AE, IY...)'],
+                                    ['consonantal', 'Sonido consonántico'],
+                                    ['voiceless', 'Cuerdas vocales sin vibración (/p/, /t/, /k/, /s/)'],
+                                    ['voiced', 'Cuerdas vocales con vibración (/b/, /d/, /g/, vocales)'],
+                                    ['bilabial', 'Contacto entre ambos labios (/p/, /b/, /m/, /w/)'],
+                                    ['labiodental', 'Labio inferior contra incisivos superiores (/f/, /v/)'],
+                                    ['dental_alveolar', 'Ápice lingual en dientes o alvéolos (/t/, /d/, /s/, /n/, /l/)'],
+                                    ['palatal_velar', 'Dorso lingual en paladar o velo (/k/, /g/, /sh/, /ng/, /y/)'],
+                                    ['stop', 'Oclusión total del paso del aire (/p/, /b/, /t/, /d/, /k/, /g/)'],
+                                    ['fricative', 'Estrechamiento con fricción turbulenta (/f/, /v/, /s/, /z/, /sh/)'],
+                                    ['affricate', 'Oclusión seguida de fricción (/ch/, /jh/)'],
+                                    ['nasal', 'Resonancia por cavidad nasal (/m/, /n/, /ng/)'],
+                                    ['liquid', 'Flujo lateral o vibrante (/l/, /r/)'],
+                                    ['approximant', 'Aproximación sin turbulencia (/w/, /y/)']
+                                  ]
+                                },
+                                lexical_stats: {
+                                  title: '2. Espacio Léxico-Estadístico (4 predictores de control)',
+                                  role: 'Espacio de control (Modelo Restringido y Modelo Global)',
+                                  colsRange: 'Columnas 15 a 18 de 43',
+                                  dtype: 'float32 (continuo a 100 Hz)',
+                                  artifact: '{historia}_lexical_stats.parquet',
+                                  desc: 'Cuantifica la presencia, familiaridad estadística en el idioma y extensión física de cada palabra alineada en la capa word.',
+                                  columns: [
+                                    ['word_presence', 'Indicador de presencia de palabra pronunciada (1.0 durante la palabra)'],
+                                    ['lexical_frequency', 'Frecuencia de uso en inglés en escala logarítmica de Zipf (librería wordfreq)'],
+                                    ['word_length_chars', 'Longitud ortográfica medida en número de caracteres'],
+                                    ['word_duration_secs', 'Duración acústica exacta del intervalo de la palabra en segundos']
+                                  ]
+                                },
+                                categorical: {
+                                  title: '3. Espacio Léxico-Categorial (8 predictores de control)',
+                                  role: 'Espacio de control (Modelo Restringido y Modelo Global)',
+                                  colsRange: 'Columnas 19 a 26 de 43',
+                                  dtype: 'int8 (binario 0 / 1 a 100 Hz)',
+                                  artifact: '{historia}_categorical.parquet',
+                                  desc: 'Etiquetado morfosintáctico (POS) mediante en_core_web_trf. Aísla las formas verbales sin marca de tiempo y excluye deliberadamente los verbos conjugados.',
+                                  columns: [
+                                    ['noun', 'Sustantivos comunes y nombres propios (NOUN, PROPN)'],
+                                    ['adjective', 'Adjetivos calificativos y relacionales (ADJ)'],
+                                    ['adverb', 'Adverbios léxicos y modificadores (ADV)'],
+                                    ['pronoun', 'Pronombres personales, relativos y demostrativos (PRON)'],
+                                    ['preposition', 'Preposiciones y adposiciones (ADP)'],
+                                    ['conjunction', 'Conjunciones coordinantes y subordinantes (CCONJ, SCONJ)'],
+                                    ['determiner', 'Artículos y determinantes (DET)'],
+                                    ['non_finite_verb', 'Verbos sin marca de tiempo: infinitivo (VB), gerundio (VBG) y participio (VBN)']
+                                  ]
+                                },
+                                syntactic: {
+                                  title: '4. Espacio Sintáctico (3 predictores de control)',
+                                  role: 'Espacio de control (Modelo Restringido y Modelo Global)',
+                                  colsRange: 'Columnas 27 a 29 de 43',
+                                  dtype: 'int16 (discreto estructural a 100 Hz)',
+                                  artifact: '{historia}_syntactic.parquet',
+                                  desc: 'Mide la complejidad jerárquica de la oración en cada palabra a partir del árbol de dependencias sintácticas de spaCy.',
+                                  columns: [
+                                    ['dependency_distance', 'Distancia lineal en número de palabras entre el token y su cabeza sintáctica'],
+                                    ['syntactic_depth', 'Profundidad jerárquica (conteo de ancestros hasta la raíz de la oración)'],
+                                    ['is_root', 'Indicador binario de nodo raíz principal de la cláusula (dep_ == ROOT)']
+                                  ]
+                                },
+                                semantic: {
+                                  title: '5. Espacio Léxico-Semántico LSA (10 predictores de control)',
+                                  role: 'Espacio de control (Modelo Restringido y Modelo Global)',
+                                  colsRange: 'Columnas 30 a 39 de 43',
+                                  dtype: 'float32 (continuo latente a 100 Hz)',
+                                  artifact: '{historia}_semantic.parquet',
+                                  desc: 'Proyección temática sobre cláusulas delimitadas por pausas ≥ 0.65 s (TF-IDF con min_df=3, max_df=0.85 + TruncatedSVD ajustado solo en historias de entrenamiento).',
+                                  columns: [
+                                    ['semantic_dim_0', 'Componente semántica latente 1 (mayor varianza temática explicada)'],
+                                    ['semantic_dim_1', 'Componente semántica latente 2'],
+                                    ['semantic_dim_2', 'Componente semántica latente 3'],
+                                    ['semantic_dim_3', 'Componente semántica latente 4'],
+                                    ['semantic_dim_4', 'Componente semántica latente 5'],
+                                    ['semantic_dim_5', 'Componente semántica latente 6'],
+                                    ['semantic_dim_6', 'Componente semántica latente 7'],
+                                    ['semantic_dim_7', 'Componente semántica latente 8'],
+                                    ['semantic_dim_8', 'Componente semántica latente 9'],
+                                    ['semantic_dim_9', 'Componente semántica latente 10']
+                                  ]
+                                },
+                                tense: {
+                                  title: '6. Espacio de Tiempo Gramatical (4 predictores de interés)',
+                                  role: 'Espacio objetivo evaluado (presente únicamente en el Modelo Global)',
+                                  colsRange: 'Columnas 40 a 43 de 43',
+                                  dtype: 'int8 (binario 0 / 1 a 100 Hz)',
+                                  artifact: '{historia}_tense.parquet',
+                                  desc: 'Captura la oposición morfológica entre pasado y no-pasado en verbos léxicos, auxiliares y cópulas conjugadas (excluyendo modales MD y la contracción ambigua \'d).',
+                                  columns: [
+                                    ['past_regular', 'Pasado regular (etiqueta VBD terminada en -ed: walked, looked, decided)'],
+                                    ['past_irregular', 'Pasado irregular y auxiliares/cópulas en pasado (VBD sin -ed: was, had, went, did)'],
+                                    ['non_past_marked_3sg', 'No-pasado marcado en 3.ª persona singular (etiqueta VBZ: is, has, makes, says)'],
+                                    ['non_past_unmarked', 'No-pasado no marcado en resto de personas (etiqueta VBP: am, are, have, go, think)']
+                                  ]
+                                }
+                              };
+
+                              function renderSpace(spaceKey) {
+                                var buttons = tabsContainer.querySelectorAll('button');
+                                for (var i = 0; i < buttons.length; i++) {
+                                  var bKey = buttons[i].getAttribute('data-space');
+                                  buttons[i].className = (bKey === spaceKey) ? 'btn btn-primary' : 'btn btn-secondary';
+                                }
+
+                                var segs = barContainer.querySelectorAll('div[data-space]');
+                                for (var j = 0; j < segs.length; j++) {
+                                  var sKey = segs[j].getAttribute('data-space');
+                                  if (spaceKey === 'all' || sKey === spaceKey) {
+                                    segs[j].style.opacity = '1';
+                                    segs[j].style.boxShadow = (sKey === spaceKey) ? 'inset 0 -3px 0 #04b4e0' : 'none';
+                                  } else {
+                                    segs[j].style.opacity = '0.45';
+                                    segs[j].style.boxShadow = 'none';
+                                  }
+                                }
+
+                                if (spaceKey === 'all') {
+                                  var allHtml = '<h4 style="margin-top:0; margin-bottom:8px;">Vista completa de las 43 características (FEATURE_COLUMNS_ORDER)</h4>';
+                                  allHtml += '<p style="font-size:0.92em; margin-bottom:12px;">Orden exacto de concatenación verificado por <code>02_extract_features.py</code> y <code>03_apply_hrf.py</code>:</p>';
+                                  allHtml += '<ul class="knowledges" style="padding-left:0; margin-bottom:0;">';
+                                  var keysOrder = ['phonological', 'lexical_stats', 'categorical', 'syntactic', 'semantic', 'tense'];
+                                  var idxCounter = 1;
+                                  for (var k = 0; k < keysOrder.length; k++) {
+                                    var sp = spacesData[keysOrder[k]];
+                                    var isTarget = (keysOrder[k] === 'tense');
+                                    for (var c = 0; c < sp.columns.length; c++) {
+                                      var bgStyle = isTarget ? 'background-color:#04b4e0; font-weight:600;' : 'background-color:#0099cc;';
+                                      allHtml += '<li style="' + bgStyle + '" title="' + sp.columns[c][1] + '">' + idxCounter + '. ' + sp.columns[c][0] + '</li>';
+                                      idxCounter++;
+                                    }
+                                  }
+                                  allHtml += '</ul>';
+                                  panel.innerHTML = allHtml;
+                                  return;
+                                }
+
+                                var info = spacesData[spaceKey];
+                                var html = '<div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:baseline; gap:8px; margin-bottom:8px;">';
+                                html += '<h4 style="margin:0;">' + info.title + '</h4>';
+                                html += '<span style="font-size:0.85em; color:#0099cc; font-weight:600;">' + info.colsRange + ' &nbsp;|&nbsp; ' + info.dtype + '</span>';
+                                html += '</div>';
+                                html += '<p style="font-size:0.92em; margin-bottom:12px;">' + info.desc + ' <span style="color:#888888;">(Archivo: <code>' + info.artifact + '</code>)</span></p>';
+                                html += '<ul class="knowledges" style="padding-left:0; margin-bottom:14px;">';
+                                for (var m = 0; m < info.columns.length; m++) {
+                                  html += '<li>' + info.columns[m][0] + '</li>';
+                                }
+                                html += '</ul>';
+                                html += '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:8px; font-size:0.88em;">';
+                                for (var n = 0; n < info.columns.length; n++) {
+                                  html += '<div style="background-color:#ffffff; border:1px solid #eeeeee; border-radius:4px; padding:6px 10px;">';
+                                  html += '<b style="color:#222222;"><code>' + info.columns[n][0] + '</code>:</b> <span style="color:#555555;">' + info.columns[n][1] + '</span>';
+                                  html += '</div>';
+                                }
+                                html += '</div>';
+                                panel.innerHTML = html;
+                              }
+
+                              tabsContainer.addEventListener('click', function (e) {
+                                var btn = e.target.closest('button[data-space]');
+                                if (btn) renderSpace(btn.getAttribute('data-space'));
+                              });
+
+                              barContainer.addEventListener('click', function (e) {
+                                var seg = e.target.closest('div[data-space]');
+                                if (seg) renderSpace(seg.getAttribute('data-space'));
+                              });
+
+                              renderSpace('phonological');
+                            })();
+                          </script>
 
                           <!-- Tabla 3: Resumen de correspondencia y función de los espacios -->
                           <div class="block-title" style="margin-top: 20px;">
