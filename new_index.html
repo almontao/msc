@@ -3214,7 +3214,281 @@
                       </div>
                     </div>
 
-                    <!-- AQUÍ VA LA PARTE 3 SUB 2 (SECCIÓN 9 Y METADATOS FINALES) -->
+                    <!-- ==================================================================== -->
+                    <!-- SECCIÓN 9: EXPLORACIÓN CORTICAL, VISORES Y CONSIDERACIONES FINALES    -->
+                    <!-- ==================================================================== -->
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="col-inner">
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Proyección en la superficie cortical <span>individual mediante PyCortex</span></h3>
+                          </div>
+
+                          <p>
+                            Para examinar la distribución espacial de los modelos en toda la corteza sin deformar los
+                            cerebros hacia una plantilla grupal promedio, proyectamos los vectores de resultados a nivel
+                            de vóxel directamente sobre las mallas tridimensionales de la superficie cortical nativa de
+                            cada participante mediante la librería <b>PyCortex</b> (<code>06_generate_cortical_maps.py</code>).
+                            El pipeline vincula la matriz funcional de cada sujeto con su transformación anatómica
+                            individual y reemplaza los vóxeles fuera de umbral por valores nulos (<code>NaN</code>), lo
+                            que permite que el motor gráfico WebGL los represente con transparencia nativa sobre la
+                            curvatura de los giros y surcos.
+                          </p>
+
+                          <p>
+                            En cada visor tridimensional exportado es posible alternar entre tres capas volumétricas
+                            complementarias, cuyas escalas se calibran de manera dinámica (al percentil 99 de cada
+                            distribución) para evitar la saturación visual por valores extremos:
+                          </p>
+
+                          <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+                            <div class="col-xs-12 col-sm-12">
+                              <div class="lm-info-block" style="text-align: left; padding: 18px; margin-bottom: 15px;">
+                                <h4>1. Capa del Modelo Global: <code>1. Global model (R2 &gt; 0.01)</code></h4>
+                                <p style="font-size: 0.94em; margin-top: 8px; margin-bottom: 0;">
+                                  Utiliza la escala cromática cálida secuencial (<code>OrRd</code>, de tonos naranjas a
+                                  rojos intensos), mostrando únicamente los vóxeles donde el modelo completo de 43
+                                  características alcanza un ajuste fuera de muestra superior a R² = 0.01 (con cota
+                                  superior ajustada al percentil 99 de cada cerebro). Funciona como control de calidad
+                                  neurobiológico: permite verificar que la corteza auditiva primaria y secundaria, el
+                                  giro temporal superior, el surco temporal superior y las regiones perisilvianas y
+                                  frontales inferiores en ambos hemisferios son predichas de forma consistente por el
+                                  conjunto de variables lingüísticas.
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12">
+                              <div class="lm-info-block" style="text-align: left; padding: 18px; margin-bottom: 15px;">
+                                <h4>2a. Capa del Tiempo Gramatical Umbralizada: <code>2a. Grammatical tense (FDR &lt; 0.05)</code></h4>
+                                <p style="font-size: 0.94em; margin-top: 8px; margin-bottom: 0;">
+                                  Emplea la misma escala cálida (<code>OrRd</code>, desde 0.0001 hasta el percentil 99),
+                                  pero enmascara todos los vóxeles cuyo valor de probabilidad corregido por
+                                  Benjamini-Hochberg no sea inferior a 0.05. Representa el contraste inferencial
+                                  estricto: dado que en los 10 participantes ningún vóxel superó la corrección FDR, esta
+                                  capa aparece completamente transparente sobre la anatomía gris de la corteza, en
+                                  correspondencia directa con los resultados reportados en la Tabla 5.
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12">
+                              <div class="lm-info-block" style="text-align: left; padding: 18px; border-color: #04b4e0;">
+                                <h4>2b. Capa del Tiempo Gramatical Continua Descriptiva: <code>2b. Grammatical tense (descriptive continuum)</code></h4>
+                                <p style="font-size: 0.94em; margin-top: 8px; margin-bottom: 0;">
+                                  Proyecta el vector completo de diferencias (ΔR²) en toda la corteza sin aplicar
+                                  ningún recorte estadístico, utilizando una escala divergente simétrica centrada en
+                                  cero (<code>coolwarm</code>, con límites <code>-vmax</code> y <code>+vmax</code>
+                                  fijados en el percentil 99 del valor absoluto de ΔR²). Los tonos cálidos (rojizos)
+                                  indican vóxeles donde el Modelo Global obtuvo un ajuste numéricamente mayor que el
+                                  Modelo Restringido (ΔR² &gt; 0), mientras que los tonos fríos (azulados) señalan
+                                  vóxeles donde añadir las cuatro columnas produjo un ligero sobreajuste (ΔR² &lt; 0).
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="white-space-10"></div>
+
+                          <div class="block-title">
+                            <h3>Criterios de lectura de las <span>tres capas corticales</span></h3>
+                          </div>
+
+                          <p>
+                            Las tres capas cumplen funciones distintas y conviene inspeccionarlas en orden. La
+                            <b>Capa 1</b> establece en qué regiones de un participante existe señal predecible por el
+                            modelo completo: si una zona cortical aparece gris en esa primera capa (por ejemplo, en
+                            áreas motoras primarias o visuales alejadas de la red del lenguaje), cualquier fluctuación
+                            que se observe allí en las capas siguientes carece de sustento funcional.
+                          </p>
+
+                          <p>
+                            Una vez ubicadas las áreas que sí responden al relato en la Capa 1, la <b>Capa 2a</b>
+                            muestra el resultado de la prueba de hipótesis corregida en toda la corteza. El hecho de que
+                            permanezca vacía en los diez cerebros indica que ninguna región presenta una ganancia
+                            predictiva por el tiempo gramatical que logre distinguirse estadísticamente de la
+                            distribución de rotaciones circulares.
+                          </p>
+
+                          <p>
+                            Por su parte, la <b>Capa 2b</b> cumple un propósito descriptivo y exploratorio. Al no estar
+                            filtrada por significancia, permite comprobar visualmente que las pequeñas diferencias
+                            positivas (que como vimos en la Tabla 5 abarcan cerca del 42.83% de los vóxeles en bruto) se
+                            distribuyen como un moteado fino alternado con zonas negativas, sin conformar un foco
+                            anatómico aislado exclusivo del tiempo verbal. Su función es documentar de forma
+                            transparente la distribución espacial de los datos crudos sin confundir variaciones
+                            subumbrales con efectos confirmados.
+                          </p>
+
+                          <div class="block-title" style="margin-top: 25px;">
+                            <h4>Acceso directo a los visores corticales 3D por participante</h4>
+                          </div>
+
+                          <p>
+                            Selecciona cualquiera de los diez participantes para abrir en una pestaña nueva su visor
+                            interactivo de PyCortex en WebGL (puedes rotar el cerebro en 3D, desplegar la corteza en un
+                            mapa plano 2D y cambiar entre las capas 1, 2a y 2b en el menú superior del visor):
+                          </p>
+
+                          <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;">
+                            <a href="sub-UTS01/index.html" target="_blank" class="btn btn-primary">Participante UTS01</a>
+                            <a href="sub-UTS02/index.html" target="_blank" class="btn btn-primary">Participante UTS02</a>
+                            <a href="sub-UTS03/index.html" target="_blank" class="btn btn-primary">Participante UTS03</a>
+                            <a href="sub-UTS04/index.html" target="_blank" class="btn btn-primary">Participante UTS04</a>
+                            <a href="sub-UTS05/index.html" target="_blank" class="btn btn-primary">Participante UTS05</a>
+                            <a href="sub-UTS06/index.html" target="_blank" class="btn btn-primary">Participante UTS06</a>
+                            <a href="sub-UTS07/index.html" target="_blank" class="btn btn-primary">Participante UTS07</a>
+                            <a href="sub-UTS08/index.html" target="_blank" class="btn btn-primary">Participante UTS08</a>
+                            <a href="sub-UTS09/index.html" target="_blank" class="btn btn-primary">Participante UTS09</a>
+                            <a href="sub-UTS10/index.html" target="_blank" class="btn btn-primary">Participante UTS10</a>
+                          </div>
+
+                          <div class="white-space-10"></div>
+
+                          <div class="block-title">
+                            <h3>Consideraciones finales: <span>procesamiento distribuido y límites de detección</span></h3>
+                          </div>
+
+                          <p>
+                            Durante mucho tiempo fue habitual imaginar la relación entre el lenguaje y el cerebro bajo
+                            un esquema de compartimentos separados: una región dedicada a los sustantivos, otra a los
+                            verbos y otra a las reglas de conjugación. El análisis del habla naturalista mediante
+                            modelos de codificación a nivel de vóxel ofrece una perspectiva bastante distinta sobre cómo
+                            opera la comprensión en condiciones reales.
+                          </p>
+
+                          <p>
+                            Cuando escuchamos una historia oral continua, las marcas gramaticales de pasado y no-pasado
+                            no llegan al cerebro como símbolos abstractos aislados: se pronuncian a través de fonemas
+                            concretos, recaen en más de la mitad de los casos sobre verbos auxiliares y cópulas muy
+                            frecuentes (<i>be, have, do</i>), encajan en los nodos centrales del árbol sintáctico de la
+                            oración y acompañan el marco temporal del tema narrado. Una vez que el modelo de control
+                            incorpora explícitamente esos cinco niveles (39 variables), la porción de señal BOLD que
+                            queda disponible únicamente para las 4 columnas de tiempo gramatical no alcanza a separarse
+                            del ruido vascular a una resolución de 2.0 segundos por volumen.
+                          </p>
+
+                          <p>
+                            A la vez, el diagnóstico detallado de cada etapa del pipeline deja trazadas tres líneas
+                            concretas de continuación para futuras investigaciones sobre la representación neurobiológica
+                            del tiempo, el aspecto y el modo (TAM):
+                          </p>
+
+                          <ul style="line-height: 1.75; margin-bottom: 25px;">
+                            <li>
+                              <b>Estímulos de evaluación con equilibrio morfológico:</b> Sustituir o complementar la
+                              evaluación en una única historia dominada por el no-pasado (79.87% en
+                              <i>wheretheressmoke</i>) mediante esquemas de validación cruzada externa sobre historias
+                              que conserven la proporción equilibrada de pasado y no-pasado observada en el resto del
+                              corpus (~50% / ~50%).
+                            </li>
+                            <li>
+                              <b>Regularización diferenciada por espacios (<i>Banded Ridge Regression</i>):</b> Pasar de
+                              la regresión de cresta estándar (que impone un único hiperparámetro de penalización L2
+                              compartido entre las 43 columnas) a modelos de cresta por bandas. Asignar un hiperparámetro
+                              de penalización propio a cada uno de los seis bloques evita que espacios de mayor
+                              dimensión y varianza continua (como los 14 rasgos fonológicos o las 10 dimensiones LSA)
+                              dominen la regularización sobre los 4 canales binarios de tiempo gramatical.
+                            </li>
+                            <li>
+                              <b>Flexibilidad en la latencia hemodinámica regional:</b> Explorar bases hemodinámicas con
+                              derivadas temporales o ventanas de retardos múltiples (FIR) focalizadas en regiones de
+                              interés perisilvianas (donde el techo de ruido supera ampliamente el umbral de 0.01),
+                              capturando variaciones sutiles en la velocidad de respuesta vascular sin multiplicar el
+                              número de pruebas en el resto de la corteza.
+                            </li>
+                          </ul>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Agradecimientos y <span>Recursos Abiertos</span></h3>
+                          </div>
+
+                          <blockquote>
+                            <p style="margin-bottom: 0;">
+                              Agradecimiento institucional al <b>Gallant Lab</b> (Universidad de California, Berkeley) y
+                              al equipo de <b>Huth Lab</b> (Universidad de Texas en Austin) por el desarrollo de los
+                              marcos metodológicos de <i>Voxelwise Modeling</i>, el mantenimiento de las librerías de
+                              código abierto (<i>Himalaya</i> y <i>PyCortex</i>) y la publicación abierta del corpus
+                              <i>ds003020</i> en OpenNeuro.
+                            </p>
+                          </blockquote>
+
+                          <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+                            <div class="col-xs-12 col-sm-4">
+                              <div class="fun-fact gray-bg">
+                                <i class="lnr lnr-code"></i>
+                                <h4>Software de modelado y visualización</h4>
+                                <span class="fun-fact-block-text">
+                                  <a href="https://gallantlab.org/" target="_blank">Gallant Lab</a>:
+                                  <a href="https://github.com/gallantlab/himalaya" target="_blank">Himalaya</a> y
+                                  <a href="https://github.com/gallantlab/pycortex" target="_blank">PyCortex</a>
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4">
+                              <div class="fun-fact gray-bg">
+                                <i class="lnr lnr-database"></i>
+                                <h4>Conjunto de datos fMRI ds003020</h4>
+                                <span class="fun-fact-block-text">
+                                  <a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel et al. (2023)</a> en
+                                  <a href="https://openneuro.org/datasets/ds003020/" target="_blank">OpenNeuro</a>
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4">
+                              <div class="fun-fact gray-bg">
+                                <i class="lnr lnr-picture"></i>
+                                <h4>Fotografía de cabecera</h4>
+                                <span class="fun-fact-block-text">
+                                  <a href="https://unsplash.com/es/@whisperingshiba" target="_blank">Shawn Day</a> en
+                                  <a href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM" target="_blank">Unsplash</a>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <p align="right" style="margin-top: 20px;">
+                            —<br>
+                            Investigación y redacción por
+                            <a class="url fn n" href="https://www.almontao.com" target="_blank" rel="author">
+                              <b>Alejandro Montenegro Taborda</b>
+                            </a>
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Metadatos y etiquetas finales con las clases nativas de main.css -->
+                    <div class="entry-meta entry-meta-bottom">
+                      <div class="date-author">
+                        <span class="entry-date">
+                          <i class="far fa-clock"></i> Septiembre 2026
+                        </span>
+                        <span class="author vcard">
+                          <i class="fas fa-user"></i> Alejandro Montenegro Taborda
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="post-tags">
+                      <ul class="tags">
+                        <li><a href="#" rel="tag">Neurociencia Computacional</a></li>
+                        <li><a href="#" rel="tag">Modelos de Codificación a Nivel de Vóxel</a></li>
+                        <li><a href="#" rel="tag">Tiempo Gramatical</a></li>
+                        <li><a href="#" rel="tag">fMRI</a></li>
+                        <li><a href="#" rel="tag">Habla Naturalista</a></li>
+                        <li><a href="#" rel="tag">PyCortex</a></li>
+                      </ul>
+                    </div>
 
                   </div>
                 </div>
