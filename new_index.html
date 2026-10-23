@@ -235,9 +235,9 @@
                                     ritmo lento de la señal BOLD (0.5 Hz).</td>
                                 </tr>
                                 <tr>
-                                  <td><b>Delta de los Modelos (ΔR²)</b></td>
-                                  <td>Diferencia de desempeño predictivo entre el modelo completo (43 variables) y el
-                                    modelo de control que omite el tiempo gramatical (39 variables).</td>
+                                  <td><b>Diferencia predictiva ($\Delta R^2$)</b></td>
+                                  <td>Diferencia de desempeño fuera de muestra entre el modelo completo (43 variables) y
+                                    el modelo de control que omite el tiempo gramatical (39 variables).</td>
                                   <td>Mide la fracción de varianza explicada de manera exclusiva por la adición de las
                                     marcas de tiempo gramatical.</td>
                                 </tr>
@@ -1445,12 +1445,12 @@
                             Para traducir las series lingüísticas rápidas al ritmo lento de la respuesta vascular, cada
                             una de las 43 columnas a 100 Hz se somete a una <b>convolución temporal</b> con una
                             <b>Función de Respuesta Hemodinámica (HRF) canónica de doble gamma</b> (siguiendo la
-                            formulación estándar de Friston et al., 1998). Matemáticamente, este filtro resta dos
-                            distribuciones gamma sobre una ventana de 32 segundos (con parámetros de forma y escala
-                            $a_1 = 6.0, b_1 = 1.0$ para el pico principal, $a_2 = 16.0, b_2 = 1.0$ para el valle
-                            posterior y una razón de amplitud $c = 1/6$) y se normaliza para que su suma total sea igual
-                            a 1, evitando alterar de forma artificial la escala original de las variables. Su evolución
-                            describe tres etapas sucesivas:
+                            formulación estándar de Friston et al., 1998). Este filtro combina dos curvas gamma a lo
+                            largo de una ventana de 32 segundos (una primera curva que modela el ascenso principal hacia
+                            el sexto segundo y una segunda curva de menor amplitud que modela el descenso posterior
+                            hacia el segundo dieciséis) y se normaliza para que su suma total sea igual a uno, evitando
+                            alterar de forma artificial la escala original de las variables. Su evolución describe tres
+                            etapas sucesivas:
                           </p>
 
                           <ul style="line-height: 1.75; margin-bottom: 20px;">
@@ -1935,11 +1935,11 @@
                           </p>
 
                           <p>
-                            El nivel óptimo de penalización ($\alpha$) no se fija de antemano, sino que se calibra de
-                            manera independiente para cada vóxel evaluando una rejilla de 20 valores distribuidos en
-                            escala logarítmica entre $0.01$ ($10^{-2}$) y $10,000$ ($10^{4}$). Ahora bien, elegir ese
-                            parámetro en series de tiempo de fMRI exige evitar un problema frecuente: <b>la
-                              autocorrelación hemodinámica</b>.
+                            El nivel óptimo de penalización no se fija de antemano, sino que se calibra de manera
+                            independiente para cada vóxel evaluando una rejilla de 20 valores candidatos distribuidos
+                            en escala logarítmica entre 0.01 y 10,000. Ahora bien, elegir ese grado de regularización
+                            en series de tiempo de fMRI exige evitar un problema frecuente: <b>la autocorrelación
+                              hemodinámica</b>.
                           </p>
 
                           <p>
@@ -1949,8 +1949,8 @@
                             impedir esta contaminación temporal diseñamos un esquema de <b>validación cruzada agrupada
                               por historias completas</b> (<i>Story-Blocked Cross-Validation</i> mediante
                             <code>GroupKFold</code> de 3 particiones): todos los volúmenes pertenecientes a una misma
-                            narración se asignan siempre al mismo bloque, garantizando que la calibración del parámetro
-                            $\alpha$ se evalúe siempre sobre relatos distintos a los usados para ajustar los pesos.
+                            narración se asignan siempre al mismo bloque, garantizando que la calibración de la
+                            penalización se evalúe siempre sobre relatos distintos a los usados para ajustar los pesos.
                           </p>
 
                           <div class="white-space-20"></div>
@@ -1962,7 +1962,7 @@
                           <p>
                             Con el fin de aislar si el tiempo gramatical aporta capacidad predictiva propia sobre la
                             corteza, entrenamos dos arquitecturas de regresión en paralelo para cada participante (con
-                            selección independiente de su hiperparámetro de regularización $\alpha$):
+                            calibración independiente de su penalización en cada caso):
                           </p>
 
                           <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
@@ -1988,7 +1988,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-4">
                               <div class="lm-info-block" style="text-align: left; padding: 18px; border-color: #04b4e0;">
-                                <h4>3. Delta de los Modelos (ΔR²)</h4>
+                                <h4>3. Diferencia predictiva ($\Delta R^2$)</h4>
                                 <p style="font-size: 0.92em; margin-top: 8px; margin-bottom: 0;">
                                   Es la resta entre el coeficiente de determinación fuera de muestra del Modelo Global y
                                   el del Modelo Restringido ($\Delta R^2 = R^2_{\text{global}} - R^2_{\text{restringido}}$).
@@ -2083,10 +2083,10 @@
                           </div>
 
                           <p style="font-size: 0.9em; text-align: center; margin-bottom: 25px;">
-                            <i>Nota:</i> El Delta de los modelos se obtiene para cada vóxel de manera independiente
+                            <i>Nota:</i> La diferencia $\Delta R^2$ se obtiene para cada vóxel de manera independiente
                             sobre la historia reservada de evaluación. Para interpretar adecuadamente tanto la magnitud
-                            de este Delta como el desempeño del Modelo Global, es necesario compararlos primero con el
-                            límite biológico de señal reproducible presente en cada vóxel.
+                            de $\Delta R^2$ como el desempeño del Modelo Global ($R^2_{\text{global}}$), es necesario
+                            compararlos primero con el límite biológico de señal reproducible presente en cada vóxel.
                           </p>
 
                         </div>
@@ -2162,26 +2162,25 @@
 
                           <ol style="line-height: 1.75; margin-bottom: 20px;">
                             <li>
-                              Se calcula la serie temporal promediada entre las $R$ repeticiones y se obtiene su
-                              varianza temporal ($\text{Var}(\bar{y})$).
+                              Se calcula la serie temporal promediada entre las repeticiones disponibles del
+                              participante (10 o 5 escuchas) y se mide su varianza total a lo largo del tiempo.
                             </li>
                             <li>
-                              Se calcula la varianza residual de cada repetición individual respecto a ese promedio y se
-                              promedian dichos residuales.
+                              Se mide cuánto se desvía cada repetición individual respecto a esa serie promediada y se
+                              obtiene el promedio de esas variaciones residuales.
                             </li>
                             <li>
-                              Dado que el promedio $\bar{y}$ incluye a cada repetición individual, la diferencia directa
-                              subestima la varianza real del ruido en una muestra finita; por ello, la varianza residual
-                              se multiplica por el factor de corrección de sesgo $\frac{R}{R - 1}$, obteniendo la
-                              varianza de ruido independiente ($\sigma^2_{\text{ruido}}$).
+                              Como la serie promediada incluye en su cálculo a cada una de las repeticiones individuales,
+                              la resta directa subestima ligeramente la magnitud real del ruido al trabajar con un
+                              número finito de escuchas; por ello se aplica un factor de corrección por muestra finita
+                              que recupera la varianza de ruido independiente.
                             </li>
                             <li>
-                              Finalmente, la varianza atribuible a la señal reproducible se estima restando la fracción
-                              de ruido que sobrevive al promedio ($\sigma^2_{\text{señal}} = \max(0, \text{Var}(\bar{y}) - \sigma^2_{\text{ruido}} / R)$),
-                              y el <b>techo de ruido</b> ($R^2_{\text{techo}}$) se define como la proporción
-                              $\sigma^2_{\text{señal}} / \text{Var}(\bar{y})$, acotada en el intervalo $[0, 1]$. Este
-                              valor representa el $R^2$ máximo que un modelo perfecto podría alcanzar al predecir la
-                              serie BOLD promediada de ese vóxel.
+                              Finalmente, a la varianza de la serie promediada se le descuenta la fracción de ruido
+                              residual que sobrevive al promedio, obteniendo la potencia de la señal reproducible. El
+                              cociente entre esa señal reproducible y la varianza del promedio (acotado entre 0 y 1)
+                              define el <b>techo de ruido</b> ($R^2_{\text{techo}}$), que representa el $R^2$ máximo
+                              que un modelo ideal podría alcanzar al predecir la serie BOLD promediada de ese vóxel.
                             </li>
                           </ol>
 
@@ -2261,11 +2260,11 @@
                           </div>
 
                           <p>
-                            Contar con el techo de ruido en cada vóxel permite reexpresar el ajuste del Modelo Global,
-                            del Modelo Restringido y del propio Delta de los modelos como una fracción de la
-                            <b>varianza explicable</b> ($R^2_{\text{global}} / R^2_{\text{techo}}$,
-                            $R^2_{\text{restringido}} / R^2_{\text{techo}}$ y su diferencia), en lugar de compararlos
-                            únicamente contra la varianza total contaminada por ruido.
+                            Contar con el techo de ruido ($R^2_{\text{techo}}$) en cada vóxel permite reexpresar el
+                            desempeño del Modelo Global, el del Modelo Restringido y su diferencia ($\Delta R^2$) como
+                            una proporción de la <b>varianza efectivamente explicable</b> (dividiendo cada métrica entre
+                            el techo de ruido del vóxel), en lugar de compararlos únicamente contra la varianza bruta
+                            contaminada por ruido fisiológico.
                           </p>
 
                           <p>
@@ -2524,11 +2523,11 @@
                           </script>
 
                           <p>
-                            Establecer este techo biológico de referencia permite situar en proporción cualquier mejora
+                            Establecer este techo biológico de referencia permite situar en proporción cualquier ganancia
                             predictiva de los modelos, pero aún resta responder la pregunta inferencial decisiva: ¿puede
-                            el Delta observado en un vóxel explicarse por meras coincidencias del azar entre dos series
-                            temporales suaves? Esa verificación es el propósito de la etapa de validación estadística
-                            descrita en la siguiente sección.
+                            la diferencia $\Delta R^2$ observada en un vóxel explicarse por meras coincidencias del azar
+                            entre dos series temporales suaves? Esa verificación es el propósito de la etapa de
+                            validación estadística descrita en la siguiente sección.
                           </p>
 
                         </div>
@@ -2552,7 +2551,7 @@
                           <p>
                             Al restar la precisión del Modelo Restringido (39 variables) de la del Modelo Global (43
                             variables) en la historia de evaluación, observamos que en todos los participantes existe
-                            una proporción amplia del cerebro donde la diferencia resulta positiva (ΔR² mayor que cero).
+                            una proporción amplia del cerebro donde la diferencia resulta positiva ($\Delta R^2 > 0$).
                             De hecho, en los datos reales de nuestra cohorte, entre el <b>36.61% (participante UTS06) y
                               el 51.10% (participante UTS04) de los vóxeles de cada corteza</b> (un promedio del
                             <b>42.83%</b> del volumen cortical) muestra en bruto una cifra ligeramente favorable al
@@ -2647,7 +2646,7 @@
                               exacta y sin reemplazo las <b>271 rotaciones circulares posibles</b>. Aplicando la
                               corrección de continuidad estándar (sumar 1 tanto al conteo de rotaciones que igualan o
                               superan el valor real como al total de pruebas), este inventario define una resolución de
-                              probabilidad mínima detectable de <b><i>p</i> = 0.00368</b> (1 entre 272).
+                              probabilidad mínima detectable de <b>$p = 0.00368$</b> (1 entre 272).
                             </li>
                             <li>
                               <b>Análisis de sensibilidad del margen (16 TRs = 32 segundos):</b> Para comprobar que las
@@ -2656,7 +2655,7 @@
                               volúmenes en cada extremo, equivalente a la duración íntegra de una función de respuesta
                               hemodinámica completa (32 segundos). Bajo este criterio más estricto quedan <b>260
                                 rotaciones circulares válidas</b>, con una resolución mínima detectable de
-                              <b><i>p</i> = 0.00383</b> (1 entre 261).
+                              <b>$p = 0.00383$</b> (1 entre 261).
                             </li>
                           </ul>
 
@@ -2687,9 +2686,9 @@
                             empíricos obtenidos de las rotaciones circulares (tanto bajo el margen base de 10 TRs como
                             bajo el margen de sensibilidad de 16 TRs) se someten a la corrección de la <b>Tasa de Falsos
                               Descubrimientos</b> (<i>False Discovery Rate</i> o FDR) mediante el procedimiento de
-                            Benjamini-Hochberg con un nivel de exigencia de <b><i>q</i> &lt; 0.05</b>. Solo los vóxeles
-                            que superan este ajuste global pueden atribuirse de manera estadísticamente defendible al
-                            aporte del tiempo gramatical.
+                            Benjamini-Hochberg con un nivel de exigencia de <b>$q < 0.05$</b>. Solo los vóxeles que
+                            superan este ajuste global pueden atribuirse de manera estadísticamente defendible al aporte
+                            del tiempo gramatical.
                           </p>
 
                           <!-- Gráfica 10: Mecánica de Validación Estadística en Mermaid -->
@@ -3168,16 +3167,16 @@
                               confiable (superior a 0.01 a partir de las 5 o 10 repeticiones de <i>wheretheressmoke</i>),
                               y el <b>Modelo Global de 43 características logra predicciones positivas fuera de muestra
                                 en el 35.56% de toda la corteza</b> (entre 27,000 y 42,000 vóxeles por persona, con
-                              máximos de R² de hasta 0.1091 en las áreas auditivas y temporales del lenguaje).
+                              máximos de $R^2$ de hasta 0.1091 en las áreas auditivas y temporales del lenguaje).
                             </li>
                             <li>
                               <b>El aporte aislado de las 4 variables de tiempo gramatical no supera el control por
                                 comparaciones múltiples:</b> Aunque antes del filtro estadístico el 42.83% de los
-                              vóxeles muestra valores brutos de ΔR² mayores que cero (con el percentil 95 situado entre
+                              vóxeles muestra valores brutos de $\Delta R^2 > 0$ (con el percentil 95 situado entre
                               0.00402 y 0.00754 en escala bruta, y entre 0.03699 y 0.10706 al normalizar por el techo de
                               ruido), al confrontar cada vóxel con las 271 rotaciones circulares del margen base (y las
                               260 del margen de sensibilidad de 32 segundos) y aplicar la corrección FDR de
-                              Benjamini-Hochberg (<i>q</i> &lt; 0.05), <b>en ninguno de los 10 participantes sobrevivieron
+                              Benjamini-Hochberg ($q < 0.05$), <b>en ninguno de los 10 participantes sobrevivieron
                                 vóxeles estadísticamente significativos (0 de 10 sujetos)</b>.
                             </li>
                           </ol>
@@ -3195,10 +3194,10 @@
                                   <th>Vóxeles analizados</th>
                                   <th>Repeticiones BOLD</th>
                                   <th>Corteza con techo &gt; 0.01</th>
-                                  <th>Modelo Global R² &gt; 0 (Máx R²)</th>
-                                  <th>ΔR² &gt; 0 bruto (P95 bruto | P95 norm.)</th>
+                                  <th>Modelo Global $R^2 > 0$ (Máx $R^2$)</th>
+                                  <th>$\Delta R^2 > 0$ bruto (P95 bruto | P95 norm.)</th>
                                   <th>Vóxeles FDR (10 TR | 16 TR)</th>
-                                  <th>ΔR² en vóxeles sig.</th>
+                                  <th>$\Delta R^2$ en vóxeles sig.</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -3308,7 +3307,7 @@
                                   <td><b>5 a 10 (med. 5)</b></td>
                                   <td><b>75.45% (media)</b></td>
                                   <td><b>35.56% (media)</b></td>
-                                  <td><b>42.83% (mediana ΔR²: -0.00053)</b></td>
+                                  <td><b>42.83% (mediana $\Delta R^2$: -0.00053)</b></td>
                                   <td><b>0 / 10 (0.00%)</b></td>
                                   <td><b>N/A</b></td>
                                 </tr>
@@ -3528,7 +3527,7 @@
                             cláusula, un pequeño desfase en el pico de la HRF apenas altera la correlación; en cambio,
                             para eventos breves y puntuales como la aparición de una desinencia verbal, cualquier
                             diferencia entre la latencia vascular real del vóxel y la curva canónica atenúa la magnitud
-                            del ΔR², impidiendo que supere el umbral del FDR.
+                            de $\Delta R^2$, impidiendo que supere el umbral del FDR.
                           </p>
 
                         </div>
@@ -3573,7 +3572,7 @@
                                 <p style="font-size: 0.94em; margin-top: 8px; margin-bottom: 0;">
                                   Utiliza la escala cromática cálida secuencial (<code>OrRd</code>, de tonos naranjas a
                                   rojos intensos), mostrando únicamente los vóxeles donde el modelo completo de 43
-                                  características alcanza un ajuste fuera de muestra superior a R² = 0.01 (con cota
+                                  características alcanza un ajuste fuera de muestra superior a $R^2 = 0.01$ (con cota
                                   superior ajustada al percentil 99 de cada cerebro). Funciona como control de calidad
                                   neurobiológico: permite verificar que la corteza auditiva primaria y secundaria, el
                                   giro temporal superior, el surco temporal superior y las regiones perisilvianas y
@@ -3589,7 +3588,7 @@
                                 <p style="font-size: 0.94em; margin-top: 8px; margin-bottom: 0;">
                                   Emplea la misma escala cálida (<code>OrRd</code>, desde 0.0001 hasta el percentil 99),
                                   pero enmascara todos los vóxeles cuyo valor de probabilidad corregido por
-                                  Benjamini-Hochberg no sea inferior a 0.05. Representa el contraste inferencial
+                                  Benjamini-Hochberg no sea inferior a $q < 0.05$. Representa el contraste inferencial
                                   estricto: dado que en los 10 participantes ningún vóxel superó la corrección FDR, esta
                                   capa aparece completamente transparente sobre la anatomía gris de la corteza, en
                                   correspondencia directa con los resultados reportados en la Tabla 5.
@@ -3601,13 +3600,14 @@
                               <div class="lm-info-block" style="text-align: left; padding: 18px; border-color: #04b4e0;">
                                 <h4>2b. Capa del Tiempo Gramatical Continua Descriptiva: <code>2b. Grammatical tense (descriptive continuum)</code></h4>
                                 <p style="font-size: 0.94em; margin-top: 8px; margin-bottom: 0;">
-                                  Proyecta el vector completo de diferencias (ΔR²) en toda la corteza sin aplicar
-                                  ningún recorte estadístico, utilizando una escala divergente simétrica centrada en
-                                  cero (<code>coolwarm</code>, con límites <code>-vmax</code> y <code>+vmax</code>
-                                  fijados en el percentil 99 del valor absoluto de ΔR²). Los tonos cálidos (rojizos)
-                                  indican vóxeles donde el Modelo Global obtuvo un ajuste numéricamente mayor que el
-                                  Modelo Restringido (ΔR² &gt; 0), mientras que los tonos fríos (azulados) señalan
-                                  vóxeles donde añadir las cuatro columnas produjo un ligero sobreajuste (ΔR² &lt; 0).
+                                  Proyecta el vector completo de diferencias ($\Delta R^2$) en toda la corteza sin
+                                  aplicar ningún recorte estadístico, utilizando una escala divergente simétrica
+                                  centrada en cero (<code>coolwarm</code>, con límites <code>-vmax</code> y
+                                  <code>+vmax</code> fijados en el percentil 99 del valor absoluto de $\Delta R^2$). Los
+                                  tonos cálidos (rojizos) indican vóxeles donde el Modelo Global obtuvo un ajuste
+                                  numéricamente mayor que el Modelo Restringido ($\Delta R^2 > 0$), mientras que los
+                                  tonos fríos (azulados) señalan vóxeles donde añadir las cuatro columnas produjo un
+                                  ligero sobreajuste ($\Delta R^2 < 0$).
                                 </p>
                               </div>
                             </div>
