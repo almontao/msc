@@ -109,7 +109,1056 @@
                 <div class="row">
                   <div class="col-xs-12 col-sm-12">
 
-                    <!-- AQUÍ VA LA PARTE 1 (SECCIONES 1, 2 Y 3) -->
+                    <!-- ==================================================================== -->
+                    <!-- SECCIÓN 1: EL RETO DEL HABLA NATURALISTA Y LA PARADOJA DEL CONTEXTO   -->
+                    <!-- ==================================================================== -->
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="col-inner">
+
+                          <p>
+                            Estudiar las bases neurobiológicas del lenguaje implica enfrentarse a una paradoja
+                            metodológica histórica. Durante décadas, la neurociencia cognitiva se apoyó en experimentos
+                            de laboratorio sumamente controlados: se introducía a una persona dentro de un resonador
+                            magnético y se le pedía leer o escuchar palabras aisladas y frases breves desconectadas
+                            entre sí. Aunque este aislamiento artificial permitió identificar componentes básicos del
+                            procesamiento verbal, dejó de lado un aspecto central: <b>la validez ecológica</b>. En la
+                            vida cotidiana nadie se comunica mediante ráfagas inconexas de oraciones; el lenguaje real
+                            es continuo, narrativo y estrechamente dependiente del contexto previo.
+                          </p>
+
+                          <p>
+                            Para superar ese límite experimental, la investigación contemporánea ha migrado hacia el
+                            <b>habla naturalista</b>, analizando registros donde los participantes escuchan historias
+                            orales completas (como las narraciones autobiográficas de <i>The Moth Radio Hour</i>). Sin
+                            embargo, trabajar con relatos reales introduce una dificultad estadística importante:
+                            <b>la colinealidad</b>. En una historia hablada, las propiedades físicas del sonido, la
+                            frecuencia con la que usamos cada palabra, la estructura gramatical de la oración y el
+                            significado temático varían al mismo tiempo. Ninguno de estos niveles llega al cerebro por
+                            un canal separado.
+                          </p>
+
+                          <blockquote>
+                            <p>
+                              <b>Estímulo continuo:</b><br>
+                              "I looked back at the door and realized that everyone had vanished into the cold night."
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              "Miré hacia la puerta y me di cuenta de que todos habían desaparecido en la noche fría."
+                            </p>
+                          </blockquote>
+
+                          <p>
+                            Cuando un oyente procesa esa frase, su cerebro no espera a que termine un nivel para
+                            iniciar el siguiente. En fracciones de segundo, la corteza auditiva recibe las fluctuaciones
+                            acústicas; casi en simultáneo, las redes léxicas reconocen las palabras, los circuitos
+                            sintácticos relacionan quién hizo qué y las áreas de asociación integran el sentido general
+                            de la escena. Al mismo tiempo, las marcas gramaticales de los verbos (como la terminación de
+                            pasado <i>-ed</i> en <i>looked</i> o el auxiliar <i>had</i>) sitúan los hechos en una
+                            coordenada temporal precisa respecto al momento en que se habla.
+                          </p>
+
+                          <p>
+                            Por esta razón, la pregunta de investigación no puede plantearse simplemente como
+                            <i>«¿qué parte del cerebro se activa con el tiempo verbal?»</i>, como si existiera un
+                            compartimento exclusivo y aislado para las conjugaciones. Desde una perspectiva
+                            computacional, el problema consiste en responder una pregunta más estricta: <b>¿aporta la
+                              representación matemática del tiempo gramatical información predictiva adicional sobre la
+                              actividad cerebral, una vez que ya hemos descontado el sonido, la frecuencia de las
+                              palabras, su categoría general, la complejidad de la oración y el significado temático del
+                              relato?</b>
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <!-- Tabla 1: Glosario de convenciones -->
+                          <div class="block-title">
+                            <h3>Tabla 1: <span>Glosario de convenciones y conceptos clave del estudio</span></h3>
+                          </div>
+
+                          <div class="fw-table" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
+                            <table style="min-width: 520px; text-align: left;">
+                              <thead>
+                                <tr class="heading-row">
+                                  <th>Término</th>
+                                  <th>Definición conceptual</th>
+                                  <th>Rol en el estudio</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td><b>fMRI / BOLD</b></td>
+                                  <td>Resonancia magnética funcional que registra cambios locales en la oxigenación de
+                                    la sangre cerebral.</td>
+                                  <td>Es la señal neurobiológica continua que los modelos intentan predecir en cada
+                                    punto de la corteza.</td>
+                                </tr>
+                                <tr>
+                                  <td><b>TR (Tiempo de Repetición)</b></td>
+                                  <td>El compás temporal en el que el escáner adquiere un volumen cerebral completo (cada
+                                    2.0 segundos, equivalente a 0.5 Hz).</td>
+                                  <td>Determina la escala temporal final a la que deben sincronizarse todas las matrices
+                                    de características.</td>
+                                </tr>
+                                <tr>
+                                  <td><b>derivatives/</b></td>
+                                  <td>Carpeta estandarizada bajo el formato BIDS con datos sometidos a preprocesamiento
+                                    y control de calidad.</td>
+                                  <td>Punto de partida validado: series BOLD limpias en formato HDF5 y transcripciones
+                                    TextGrid alineadas al audio.</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Modelos de codificación a nivel de vóxel (VEM)</b></td>
+                                  <td>Algoritmos de regresión ajustados de manera independiente en cada unidad cúbica
+                                    tridimensional (vóxel) de la corteza.</td>
+                                  <td>Permiten evaluar qué representaciones del lenguaje predicen la actividad cerebral
+                                    ante estímulos nuevos fuera de muestra.</td>
+                                </tr>
+                                <tr>
+                                  <td><b>HRF Canónica</b></td>
+                                  <td>Función matemática que modela el retraso biológico entre el disparo neuronal y el
+                                    pico de flujo sanguíneo oxigenado.</td>
+                                  <td>Actúa como filtro temporal para convertir eventos lingüísticos rápidos (100 Hz) al
+                                    ritmo lento de la señal BOLD (0.5 Hz).</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Delta de los Modelos (ΔR²)</b></td>
+                                  <td>Diferencia de desempeño predictivo entre el modelo completo (43 variables) y el
+                                    modelo de control que omite el tiempo gramatical (39 variables).</td>
+                                  <td>Mide la fracción de varianza explicada de manera exclusiva por la adición de las
+                                    marcas de tiempo gramatical.</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <p>
+                            Para abordar este problema diseñamos un flujo analítico reproducible sobre el conjunto de
+                            datos abierto <i>ds003020</i> (versión 4.0.0), articulando desde la verificación y rescate
+                            de las transcripciones acústicas hasta la proyección tridimensional en la corteza de cada
+                            participante. La siguiente gráfica resume la arquitectura general del estudio, cuyas etapas
+                            desglosaremos paso a paso en las siguientes secciones.
+                          </p>
+
+                          <!-- Gráfica 1: Arquitectura macro con Mermaid -->
+                          <div style="margin: 30px 0 10px 0; text-align: center;">
+                            <p><b>Gráfica 1: Arquitectura general del flujo de codificación a nivel de vóxel</b></p>
+
+                            <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
+                              flowchart
+                              DATA@{ shape: cyl, label: "OpenNeuro ds003020 v4.0.0" }
+
+                              subgraph Preliminares ["0. Preparación, Rescate y Auditoría"]
+                              DERIVATIVES@{ shape: lin-cyl, label: "Datos BIDS (fMRI + Audio + TextGrids)" }
+                              TGFIX@{ shape: rounded, label: "Reparación de TextGrids cronológicos<br>(subconjunto reparado sin tocar el crudo)" }
+                              AUDIT@{ shape: rounded, label: "Auditoría cruzada de sesiones<br>y repeticiones internas HDF5" }
+                              LSA_FIT@{ shape: rounded, label: "Entrenamiento del modelo LSA<br>(solo en historias de ajuste)" }
+                              end
+
+                              subgraph Espacios ["1. Extracción de Espacios de Características (100 Hz)"]
+                              FON@{ shape: rounded, label: "Espacio fonético-fonológico (14)"}
+                              EST@{ shape: rounded, label: "Espacio léxico-estadístico (4)"}
+                              CAT@{ shape: rounded, label: "Espacio léxico-categorial (8)"}
+                              SIN@{ shape: rounded, label: "Espacio sintáctico (3)"}
+                              SEM@{ shape: rounded, label: "Espacio léxico-semántico (10)"}
+                              TEN@{ shape: rounded, label: "Espacio de tiempo gramatical (4)"}
+
+                              FON ~~~ SIN
+                              EST ~~~ SEM
+                              CAT ~~~ TEN
+                              end
+
+                              subgraph Modelado ["2. Alineación Temporal y Modelado a Nivel de Vóxel"]
+                              direction TB
+                              HRF@{ shape: hex, label: "Convolución FFT con HRF canónica (32 s)" }
+                              REM@{ shape: rounded, label: "Remuestreo polifásico al TR (0.5 Hz) y Z-score"}
+                              CV@{ shape: rounded, label: "Validación cruzada agrupada por historia<br>(selección de penalización Ridge)" }
+                              RESTRICT@{ shape: subproc, label: "Modelo restringido<br>(39 controles)" }
+                              GLOBAL@{ shape: subproc, label: "Modelo global<br>(43 predictores)" }
+
+                              HRF e13@--> REM
+                              REM e6@--> CV
+                              CV e7@--> RESTRICT
+                              CV e16@--> GLOBAL
+                              end
+
+                              subgraph Inferencia ["3. Techo de Ruido, Inferencia Estadística y Resultados"]
+                              direction TB
+                              CEIL_NODE@{ shape: rounded, label: "Techo de ruido por vóxel<br>(5 a 10 repeticiones BOLD)" }
+                              VAR@{ shape: rounded, label: "Aislamiento de señal (ΔR² bruto y normalizado)"}
+                              PERM@{ shape: rounded, label: "Desplazamientos circulares exhaustivos<br>(271 rotaciones base / 260 sensibilidad)" }
+                              HOCH@{ shape: rounded, label: "Control FDR Benjamini-Hochberg (q < 0.05)"}
+                              MAPS@{ shape: procs, label: "Mapas corticales individuales en PyCortex" }
+
+                              CEIL_NODE e17@--> VAR
+                              VAR e10@--> PERM
+                              PERM e11@--> HOCH
+                              HOCH e14@--> MAPS
+                              end
+
+                              DATA e4@==> DERIVATIVES
+                              DERIVATIVES e3@--> TGFIX
+                              TGFIX e15@--> AUDIT
+                              AUDIT e5@--> LSA_FIT
+                              AUDIT e1@--> Espacios
+                              LSA_FIT e12@--> Espacios
+                              Espacios e2@--> HRF
+                              RESTRICT e8@--> VAR
+                              GLOBAL e9@--> VAR
+
+                              style Preliminares fill:#fcfcfc,stroke:#e5e5e5,stroke-width:1px
+                              style Espacios fill:#f5f5f5,stroke:#d5d5d5,stroke-width:1px
+                              style Modelado fill:#f2f7f9,stroke:#b5dbe8,stroke-width:1px
+                              style Inferencia fill:#e6f7fc,stroke:#04b4e0,stroke-width:1.5px
+
+                              e1@{ animation: fast }
+                              e2@{ animation: fast }
+                              e3@{ animation: fast }
+                              e4@{ animation: fast }
+                              e5@{ animation: fast }
+                              e6@{ animation: fast }
+                              e7@{ animation: fast }
+                              e8@{ animation: fast }
+                              e9@{ animation: fast }
+                              e10@{ animation: fast }
+                              e11@{ animation: fast }
+                              e12@{ animation: fast }
+                              e13@{ animation: fast }
+                              e14@{ animation: fast }
+                              e15@{ animation: fast }
+                              e16@{ animation: fast }
+                              e17@{ animation: fast }
+                            </div>
+                          </div>
+
+                          <p style="font-size: 0.9em; text-align: center; margin-bottom: 30px;">
+                            <i>Nota:</i> El bloque preliminar repara automáticamente los archivos TextGrid que venían en
+                            formato cronológico de Praat, escribiendo las versiones corregidas en un directorio derivado
+                            independiente sin sobrescribir los archivos crudos, y entrena el modelo semántico únicamente
+                            con las narraciones de entrenamiento para impedir fugas de datos hacia la evaluación final.
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ==================================================================== -->
+                    <!-- SECCIÓN 2: LA PREGUNTA LINGÜÍSTICA: ¿CÓMO CODIFICA EL INGLÉS EL TIEMPO? -->
+                    <!-- ==================================================================== -->
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="col-inner">
+
+                          <div class="block-title">
+                            <h3>Tiempo conceptual (<i>time</i>) y <span>tiempo gramatical (<i>tense</i>)</span></h3>
+                          </div>
+
+                          <p>
+                            Para delimitar con claridad qué buscamos medir en la corteza cerebral, conviene distinguir
+                            entre dos planos que en el habla diaria suelen nombrarse con la misma palabra en español: el
+                            tiempo como <b>dimensión conceptual</b> (lo que en inglés se denomina <i>time</i>) y el
+                            tiempo como <b>mecanismo gramatical</b> (denominado <i>tense</i>).
+                          </p>
+
+                          <p>
+                            El primero corresponde a la experiencia cognitiva general: cualquier persona comprende la
+                            diferencia entre un hecho que ocurrió ayer, un estado que se desarrolla en este momento y
+                            un evento que podría suceder mañana. El tiempo gramatical, en cambio, abarca las marcas
+                            morfosintácticas específicas que una lengua aplica sobre el verbo para situar un evento
+                            respecto a un punto de referencia (habitualmente, el instante en que se habla). Las lenguas
+                            no organizan su morfología verbal del mismo modo, y el inglés tiene una estructura muy
+                            particular.
+                          </p>
+
+                          <blockquote>
+                            <p>
+                              <b>Referencia temporal futura sin flexión de futuro en el verbo:</b><br>
+                              "The train departs tomorrow morning at dawn."
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              "El tren sale mañana por la mañana al amanecer."
+                            </p>
+                          </blockquote>
+
+                          <p>
+                            En el ejemplo anterior, la acción se ubica sin duda en el futuro conceptual. Sin embargo,
+                            desde el punto de vista estrictamente morfológico, el verbo <i>departs</i> lleva una marca
+                            de <b>no-pasado</b> (el sufijo <i>-s</i> de tercera persona singular en presente). La
+                            oración se apoya en el adverbio <i>tomorrow</i> y en el contexto compartido para expresar el
+                            sentido de futuro.
+                          </p>
+
+                          <p>
+                            A diferencia del español, donde contamos con desinencias propias en el verbo para expresar
+                            el futuro en una sola palabra (como en <i>cantaré</i> o <i>saldrá</i>), la lingüística
+                            descriptiva del inglés muestra que este idioma no posee una flexión morfológica de futuro
+                            equivalente a la del pasado. Las referencias a eventos posteriores se construyen mediante
+                            auxiliares modales (como <i>will</i>), perífrasis (como <i>going to</i>) o verbos en
+                            presente acompañados de adverbios temporales. Por consiguiente, el sistema flexivo de tiempo
+                            gramatical en inglés se articula en torno a una oposición binaria: <b>pasado frente a
+                              no-pasado</b>.
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>¿Dónde recae la marca de tiempo? <span>Verbos conjugados y cadenas verbales</span></h3>
+                          </div>
+
+                          <p>
+                            Comprender cómo opera esa oposición en el discurso real exige observar en qué palabra recae
+                            la conjugación temporal. No todas las formas de un verbo expresan tiempo: los infinitivos
+                            (<i>to walk</i>), los gerundios (<i>walking</i>) y los participios pasados (<i>vanished</i>)
+                            aportan el significado de la acción, pero no están anclados a un sujeto ni indican por sí
+                            mismos si el evento ocurrió en el pasado o en el presente. En una oración simple, la marca
+                            de tiempo recae directamente en el verbo principal (por ejemplo, <i>walked</i> frente a
+                            <i>walks</i>). En cambio, cuando las oraciones emplean tiempos progresivos o compuestos, el
+                            idioma reparte las tareas entre varias palabras.
+                          </p>
+
+                          <blockquote>
+                            <p>
+                              <b>Cadena verbal con verbo auxiliar:</b><br>
+                              "She was walking down the street when the sudden explosion shook the ground."
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              "Ella estaba caminando por la calle cuando la repentina explosión sacudió el suelo."
+                            </p>
+                          </blockquote>
+
+                          <p>
+                            En la primera cláusula de esa oración (<i>"was walking"</i>), la marca de tiempo gramatical
+                            no está en el verbo que describe el desplazamiento físico (<i>walking</i> es una forma no
+                            conjugada que sería idéntica en presente, <i>is walking</i>), sino en el auxiliar
+                            <b>was</b>. Es ese verbo auxiliar el que concuerda con el sujeto y le indica al oyente que
+                            la escena transcurrió en el pasado.
+                          </p>
+
+                          <p>
+                            Por este motivo, nuestra medición del tiempo gramatical no podía limitarse a los verbos de
+                            acción habituales (como <i>run</i>, <i>eat</i> o <i>shook</i>). Debía capturar todas las
+                            palabras verbales que portan la conjugación de tiempo en la cláusula: verbos léxicos,
+                            verbos auxiliares y formas copulativas (como el verbo <i>to be</i>).
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Auditoría lingüística del corpus y <span>distribución del tiempo gramatical</span></h3>
+                          </div>
+
+                          <p>
+                            Antes de entrenar los modelos sobre los datos cerebrales, realizamos una auditoría
+                            lingüística sobre las narraciones del corpus experimental. El conteo identificó un total de
+                            <b>21,354 verbos conjugados con marca de tiempo</b> a lo largo de las historias.
+                          </p>
+
+                          <p>
+                            En el conjunto global del corpus, la proporción entre los dos polos de la oposición resultó
+                            prácticamente simétrica: <b>10,674 apariciones de pasado (49.99%)</b> y <b>10,680
+                              apariciones de no-pasado (50.01%)</b>. Para representar cómo se materializan estos dos
+                            polos en la morfología del inglés, dividimos el espacio de tiempo gramatical en cuatro
+                            variables operativas:
+                          </p>
+
+                          <!-- Tabla 2: Auditoría y Realizaciones del Espacio de Interés -->
+                          <div class="block-title" style="margin-top: 15px;">
+                            <h4>Tabla 2: Estructura del espacio de tiempo gramatical y distribución en el corpus</h4>
+                          </div>
+
+                          <div class="fw-table" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
+                            <table style="min-width: 520px; text-align: left;">
+                              <thead>
+                                <tr class="heading-row">
+                                  <th>Polo temporal</th>
+                                  <th>Variable operativa (Predictor)</th>
+                                  <th>Criterio morfológico y etiqueta spaCy</th>
+                                  <th>Ejemplos representativos</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td rowspan="2"><b>Pasado (49.99%)</b></td>
+                                  <td><b>Pasado regular</b> (<code>past_regular</code>)</td>
+                                  <td>Verbos en pasado (etiqueta <code>VBD</code>) con terminación ortográfica en
+                                    <i>-ed</i>.</td>
+                                  <td><i>walked, called, looked, decided</i></td>
+                                </tr>
+                                <tr>
+                                  <td><b>Pasado irregular</b> (<code>past_irregular</code>)</td>
+                                  <td>Verbos léxicos irregulares y formas de pasado de auxiliares y cópulas (etiqueta
+                                    <code>VBD</code> sin <i>-ed</i>).</td>
+                                  <td><i>was, were, had, went, saw, did</i></td>
+                                </tr>
+                                <tr>
+                                  <td rowspan="2"><b>No-pasado (50.01%)</b></td>
+                                  <td><b>No-pasado marcado (3.ª pers.)</b> (<code>non_past_marked_3sg</code>)</td>
+                                  <td>Presente con flexión explícita de tercera persona singular (etiqueta
+                                    <code>VBZ</code>).</td>
+                                  <td><i>is, has, does, makes, seems, says</i></td>
+                                </tr>
+                                <tr>
+                                  <td><b>No-pasado no marcado</b> (<code>non_past_unmarked</code>)</td>
+                                  <td>Formas conjugadas de presente para el resto de personas gramaticales (etiqueta
+                                    <code>VBP</code>).</td>
+                                  <td><i>am, are, have, do, go, know, think</i></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <p>
+                            Al examinar qué tipo de palabras conformaban esas 21,354 apariciones surgió un hallazgo
+                            central para el diseño del estudio: los verbos de contenido léxico representaron el
+                            <b>49.74%</b> del total, mientras que los verbos auxiliares y las formas copulativas
+                            constituyeron el <b>50.26%</b> restante. Más de la mitad del contraste entre pasado y
+                            no-pasado en las narraciones orales recae sobre palabras breves y de muy alta frecuencia
+                            pertenecientes a tres verbos: <i>be</i>, <i>have</i> y <i>do</i>.
+                          </p>
+
+                          <p>
+                            Esto tiene una consecuencia directa para el modelado neurocomputacional: las cuatro
+                            variables del espacio de tiempo gramatical no aparecen aisladas de la estadística del
+                            idioma, sino estrechamente ligadas a palabras muy frecuentes que ocupan posiciones clave en
+                            la estructura de la oración. Para evaluar si la corteza cerebral responde de manera
+                            específica a la marca de tiempo verbal, fue necesario construir primero cinco espacios de
+                            control que dieran cuenta de esas propiedades concurrentes.
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ==================================================================== -->
+                    <!-- SECCIÓN 3: DE LA ONDA SONORA A LOS 6 ESPACIOS DE CARACTERÍSTICAS     -->
+                    <!-- ==================================================================== -->
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="col-inner">
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Del audio continuo a las <span>matrices de características lingüísticas</span></h3>
+                          </div>
+
+                          <p>
+                            Cuando leemos un texto impreso, las palabras están separadas por espacios en blanco y las
+                            oraciones están delimitadas por comas y puntos. En el habla natural esa segmentación visual
+                            no existe: lo que llega al oído es una señal acústica continua donde los sonidos se enlazan,
+                            y los archivos de alineación temporal (los <i>TextGrid</i> de Praat incluidos en el conjunto
+                            de datos) registran únicamente el segundo de inicio y fin de cada palabra y de cada fonema,
+                            sin signos de puntuación.
+                          </p>
+
+                          <p>
+                            Entregarle una secuencia de miles de palabras sin puntuación a un analizador sintáctico
+                            degrada la calidad del etiquetado gramatical, porque el modelo no cuenta con fronteras
+                            claras entre oraciones. Por ello, antes de extraer las variables lingüísticas, nuestro
+                            pipeline ejecuta tres tareas de ingeniería sobre los datos:
+                          </p>
+
+                          <ul style="line-height: 1.75; margin-bottom: 20px;">
+                            <li>
+                              <b>Rescate automático de archivos TextGrid en formato cronológico:</b> Al auditar el
+                              corpus detectamos que algunas narraciones venían en un formato cronológico antiguo de
+                              Praat (basado en pares de líneas de tiempo y texto) que los lectores estándar no logran
+                              interpretar. En lugar de descartar esas historias, programamos un analizador que detecta
+                              los archivos no estándar, reconstruye sus capas de intervalos y guarda las versiones
+                              reparadas en un directorio paralelo (<code>textgrids_repaired</code>), comprobando que
+                              todas cuenten con las capas de palabras (<code>word</code>) y fonemas
+                              (<code>phone</code>). Así se preserva intacto el archivo original y ninguna historia queda
+                              excluida del estudio.
+                            </li>
+                            <li>
+                              <b>Filtrado de ruido vocal y reconstrucción de puntuación por pausas acústicas:</b> El
+                              algoritmo limpia mediante expresiones regulares las anotaciones no lingüísticas del audio
+                              (respiraciones <code>br</code>, risas <code>lg</code>, ruidos vocales <code>spn</code>,
+                              silencios <code>sil</code>/<code>sp</code> y etiquetas entre corchetes o llaves como
+                              <code>[laugh]</code> o <code>{cough}</code>) y mide la duración exacta de las pausas del
+                              narrador. Cuando encuentra un silencio breve de al menos <b>0.35 segundos</b> inserta una
+                              coma (umbral calibrado para no cortar sintagmas nominales), y cuando la pausa alcanza o
+                              supera los <b>0.65 segundos</b> (percentil 75 de las pausas del corpus) inserta un punto
+                              seguido para delimitar la cláusula, manteniendo un diccionario exacto que vincula la
+                              posición de cada caracter en el texto reconstruido con su tiempo real en el audio.
+                            </li>
+                            <li>
+                              <b>Inferencia neuronal en una sola pasada a 100 Hz:</b> El texto continuo reconstruido se
+                              procesa una única vez por historia (<i>Single-Pass Inference</i>) con el modelo de
+                              lenguaje basado en <i>transformers</i> de spaCy (<code>en_core_web_trf</code>). Los
+                              objetos morfosintácticos resultantes alimentan simultáneamente a los distintos extractores
+                              sobre una matriz temporal de alta resolución a <b>100 Hz</b> (un punto cada 10
+                              milisegundos), evitando recalcular el modelo de lenguaje en cada etapa.
+                            </li>
+                          </ul>
+
+                          <p>
+                            A partir de este procesamiento, cada milisegundo de las narraciones quedó representado en
+                            <b>seis espacios de características</b> que suman exactamente <b>43 predictores</b> (39 de
+                            control y 4 de tiempo gramatical):
+                          </p>
+
+                          <!-- 1. Fonético-Fonológico -->
+                          <div class="block-title" style="margin-top: 25px;">
+                            <h4>1. Espacio Fonético-Fonológico (14 características de control)</h4>
+                          </div>
+
+                          <p>
+                            La fonética y la fonología describen los sonidos del habla según cómo se producen en el
+                            tracto vocal. El oído y la corteza auditiva no procesan letras ortográficas, sino rasgos
+                            articulatorios como la vibración de las cuerdas vocales, el paso de aire por la cavidad
+                            nasal o el punto donde la lengua entra en contacto con los dientes, los alvéolos o el velo
+                            del paladar.
+                          </p>
+
+                          <p>
+                            Este primer espacio convierte cada fonema pronunciado (codificado en el alfabeto ARPABET en
+                            la capa <code>phone</code> del TextGrid) en un vector de 14 rasgos binarios: vocalicidad,
+                            consonanticidad, ausencia o presencia de sonoridad laríngea, lugares de articulación
+                            (bilabial, labiodental, dental/alveolar, palatal/velar) y modos de articulación (oclusiva,
+                            fricativa, africada, nasal, líquida y aproximante).
+                          </p>
+
+                          <blockquote>
+                            <p>
+                              <b>Superposición entre morfología de pasado y acústica superficial:</b><br>
+                              "He walked towards the door."
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              "Él caminó hacia la puerta."
+                            </p>
+                          </blockquote>
+
+                          <p>
+                            Cuando el hablante pronuncia el pasado <i>walked</i>, la terminación ortográfica <i>-ed</i>
+                            se realiza físicamente como una consonante oclusiva alveolar sorda (/t/). Si un vóxel de la
+                            corteza temporal se activa en ese instante, es necesario distinguir si responde a la marca
+                            gramatical de pasado o simplemente al sonido consonántico /t/. Incluir estos 14 rasgos en el
+                            modelo obliga a descontar primero la respuesta física al sonido.
+                          </p>
+
+                          <!-- 2. Léxico-Estadístico -->
+                          <div class="block-title" style="margin-top: 25px;">
+                            <h4>2. Espacio Léxico-Estadístico (4 características de control)</h4>
+                          </div>
+
+                          <p>
+                            Este espacio captura cuatro propiedades cuantitativas de cada palabra pronunciada: un
+                            indicador binario de presencia de palabra (<code>word_presence</code>), su frecuencia de uso
+                            en el idioma inglés medida en la escala logarítmica de Zipf (<code>lexical_frequency</code>),
+                            su longitud en número de caracteres (<code>word_length_chars</code>) y su duración acústica
+                            en segundos (<code>word_duration_secs</code>).
+                          </p>
+
+                          <blockquote>
+                            <p>
+                              <b>Diferencia en frecuencia de uso y costo de recuperación léxica:</b><br>
+                              "It was an astonishing serendipity."
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              "Fue una casualidad asombrosa."
+                            </p>
+                          </blockquote>
+
+                          <p>
+                            Palabras como <i>was</i> duran apenas unas décimas de segundo y tienen una frecuencia de
+                            uso tan alta que el cerebro las reconoce con mínimo esfuerzo. En cambio, un vocablo largo y
+                            poco común como <i>serendipity</i> exige una carga mucho mayor de acceso a la memoria
+                            léxica. Dado que el 50.26% de las marcas de tiempo gramatical del corpus recae en auxiliares
+                            y cópulas sumamente frecuentes (como <i>was, is, had</i> o <i>did</i>), este espacio impide
+                            que confundamos la facilidad de procesar palabras cortas y familiares con un efecto del
+                            tiempo verbal.
+                          </p>
+
+                          <!-- 3. Léxico-Categorial -->
+                          <div class="block-title" style="margin-top: 25px;">
+                            <h4>3. Espacio Léxico-Categorial (8 características de control) y filtro morfológico del verbo</h4>
+                          </div>
+
+                          <p>
+                            El tercer espacio clasifica cada palabra según su función morfosintáctica general (lo que en
+                            procesamiento de lenguaje natural se conoce como etiquetado de partes de la oración o
+                            <i>POS tagging</i>). Sus primeras siete columnas corresponden a sustantivos (incluyendo
+                            nombres propios), adjetivos, adverbios, pronombres, preposiciones, conjunciones y
+                            determinantes.
+                          </p>
+
+                          <p>
+                            La octava columna (<code>non_finite_verb</code>) recoge de manera exclusiva las <b>formas
+                              verbales sin marca de tiempo</b>: infinitivos (etiqueta <code>VB</code>, como <i>walk</i>
+                            en <i>to walk</i>), gerundios o participios presentes (<code>VBG</code>, como <i>walking</i>)
+                            y participios pasados (<code>VBN</code>, como <i>vanished</i> en <i>had vanished</i>). En
+                            este punto el pipeline aplica tres reglas de separación entre el espacio categorial de
+                            control y nuestro espacio de interés:
+                          </p>
+
+                          <ol style="line-height: 1.75; margin-bottom: 20px;">
+                            <li>
+                              Las formas verbales sin marca de tiempo (<code>VB</code>, <code>VBG</code>,
+                              <code>VBN</code>) van al octavo canal de este espacio de control, absorbiendo la actividad
+                              cerebral general asociada a escuchar acciones o procesos verbales.
+                            </li>
+                            <li>
+                              Los verbos auxiliares modales (etiqueta <code>MD</code>, tales como <i>will, would, can,
+                                could, should</i>) y la contracción ambigua <i>'d</i> (que en el habla oral contrae
+                              tanto el pasado <i>had</i> como el modal <i>would</i>) se descartan explícitamente para no
+                              contaminar el contraste temporal con matices de posibilidad, obligación o ambigüedad
+                              morfológica.
+                            </li>
+                            <li>
+                              Únicamente los verbos y auxiliares conjugados que portan marca efectiva de tiempo
+                              (etiquetas <code>VBD</code>, <code>VBZ</code> y <code>VBP</code>) pasan al sexto espacio
+                              (Tiempo Gramatical).
+                            </li>
+                          </ol>
+
+                          <!-- Gráfica 2: Diagrama Sankey en Plotly (Árbol de decisión morfosintáctica) -->
+                          <div style="margin: 25px 0 10px 0;">
+                            <p style="text-align: center;">
+                              <b>Gráfica 2: Flujo de clasificación morfosintáctica entre el espacio categorial de control y el espacio de tiempo gramatical</b>
+                            </p>
+                            <div id="plotly-verb-decision-tree"
+                              style="width: 100%; height: 430px; border: 1px solid #e5e5e5; border-radius: 8px; background-color: #ffffff; overflow: hidden;">
+                            </div>
+                          </div>
+
+                          <p style="font-size: 0.9em; text-align: center; margin-bottom: 25px;">
+                            <i>Nota:</i> Pasa el cursor sobre los nodos y conexiones para inspeccionar los criterios de
+                            clasificación aplicados por <code>LexicalCategoricalExtractor</code> y
+                            <code>FiniteTenseExtractor</code> sobre los tokens etiquetados por
+                            <code>en_core_web_trf</code>.
+                          </p>
+
+                          <script>
+                            (function () {
+                              var treeDiv = document.getElementById('plotly-verb-decision-tree');
+                              if (!treeDiv) return;
+
+                              var data = [{
+                                type: 'sankey',
+                                orientation: 'h',
+                                arrangement: 'snap',
+                                node: {
+                                  pad: 16,
+                                  thickness: 18,
+                                  line: { color: '#e5e5e5', width: 1 },
+                                  label: [
+                                    'Tokens del relato (spaCy)',
+                                    'Categorías no verbales (NOUN, ADJ...)',
+                                    'Verbos y Auxiliares (VERB / AUX)',
+                                    'Espacio 3: 7 canales categoriales',
+                                    'Modales (MD) y contracción \'d',
+                                    'Verbos sin tiempo (VB, VBG, VBN)',
+                                    'Verbos con marca de tiempo (21,354)',
+                                    'Excluidos (control de pureza)',
+                                    'Espacio 3: Verbo no conjugado (1 canal)',
+                                    'Espacio 6: Pasado regular (-ed)',
+                                    'Espacio 6: Pasado irregular',
+                                    'Espacio 6: No-pasado 3.ª sing. (VBZ)',
+                                    'Espacio 6: No-pasado no marcado (VBP)'
+                                  ],
+                                  color: [
+                                    '#222222',
+                                    '#a5a6a7',
+                                    '#0099cc',
+                                    '#d5d5d5',
+                                    '#e87878',
+                                    '#888888',
+                                    '#04b4e0',
+                                    '#ff4e4e',
+                                    '#b5b6b7',
+                                    '#04b4e0',
+                                    '#04b4e0',
+                                    '#0099cc',
+                                    '#0099cc'
+                                  ],
+                                  customdata: [
+                                    'Todas las palabras alineadas procesadas en una pasada por en_core_web_trf',
+                                    'Sustantivos, adjetivos, adverbios, pronombres, preposiciones, conjunciones y determinantes',
+                                    'Formas verbales léxicas (49.74%) y auxiliares/cópulas (50.26%)',
+                                    'Primeras 7 columnas binarias de control en LexicalCategoricalExtractor',
+                                    'Auxiliares modales (will, can, would, could) y contracción ambigua \'d (had/would)',
+                                    'Infinitivos (walk), gerundios (walking) y participios (vanished)',
+                                    '21,354 apariciones con marca temporal (10,674 pasado / 10,680 no-pasado)',
+                                    'Descartados para evitar mezclar modalidad o ambigüedad con tiempo gramatical',
+                                    'Octava columna de control del Espacio 3 (non_finite_verb)',
+                                    'Etiqueta VBD terminada en -ed (ej. walked, called, decided)',
+                                    'Etiqueta VBD sin terminación -ed (ej. was, had, went, saw, did)',
+                                    'Etiqueta VBZ de 3.ª persona singular en presente (ej. is, has, makes, says)',
+                                    'Etiqueta VBP de resto de personas en presente (ej. am, are, have, go, think)'
+                                  ],
+                                  hovertemplate: '<b>%{label}</b><br>%{customdata}<extra></extra>'
+                                },
+                                link: {
+                                  source: [0, 0, 1, 2, 2, 2, 4, 5, 6, 6, 6, 6],
+                                  target: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                                  value:  [55, 45, 55, 6, 11, 28, 6, 11, 6, 8, 6, 8],
+                                  color: [
+                                    'rgba(165, 166, 167, 0.28)',
+                                    'rgba(4, 180, 224, 0.28)',
+                                    'rgba(165, 166, 167, 0.28)',
+                                    'rgba(232, 120, 120, 0.32)',
+                                    'rgba(136, 136, 136, 0.28)',
+                                    'rgba(4, 180, 224, 0.35)',
+                                    'rgba(255, 78, 78, 0.32)',
+                                    'rgba(136, 136, 136, 0.28)',
+                                    'rgba(4, 180, 224, 0.45)',
+                                    'rgba(4, 180, 224, 0.45)',
+                                    'rgba(0, 153, 204, 0.45)',
+                                    'rgba(0, 153, 204, 0.45)'
+                                  ],
+                                  customdata: [
+                                    'Palabras no verbales -> Espacio 3 (Control categorial)',
+                                    'Palabras verbales -> Filtro morfosintáctico',
+                                    'Activan los 7 primeros canales del Espacio 3',
+                                    'Filtro de modalidad (tag == MD) y contracción \'d',
+                                    'Formas verbales sin marca de tiempo (VB, VBG, VBN)',
+                                    'Verbos conjugados con marca de tiempo (VBD, VBZ, VBP)',
+                                    'Excluidos del Espacio 6',
+                                    'Activan el canal non_finite_verb en el Espacio 3',
+                                    'Polo pasado (49.99%): canal past_regular',
+                                    'Polo pasado (49.99%): canal past_irregular',
+                                    'Polo no-pasado (50.01%): canal non_past_marked_3sg',
+                                    'Polo no-pasado (50.01%): canal non_past_unmarked'
+                                  ],
+                                  hovertemplate: '%{customdata}<extra></extra>'
+                                }
+                              }];
+
+                              var layout = {
+                                font: { family: "'Poppins', Helvetica, sans-serif", size: 11.5, color: '#222222' },
+                                paper_bgcolor: '#ffffff',
+                                plot_bgcolor: '#ffffff',
+                                margin: { l: 15, r: 15, t: 20, b: 20 },
+                                autosize: true
+                              };
+
+                              Plotly.newPlot(treeDiv, data, layout, { responsive: true, displayModeBar: false });
+                            })();
+                          </script>
+
+                          <!-- 4. Sintáctico -->
+                          <div class="block-title" style="margin-top: 25px;">
+                            <h4>4. Espacio Sintáctico (3 características de control)</h4>
+                          </div>
+
+                          <p>
+                            Comprender una oración exige relacionar palabras que no siempre están juntas, organizándolas
+                            en un árbol jerárquico de dependencias. Este cuarto espacio extrae tres medidas automáticas
+                            para cada palabra a partir del árbol sintáctico de spaCy:
+                          </p>
+
+                          <ul style="line-height: 1.75; margin-bottom: 18px;">
+                            <li>
+                              <b>Distancia de dependencia (<code>dependency_distance</code>):</b> Calcula cuántas
+                              palabras de distancia hay entre un elemento y el núcleo gramatical del que depende
+                              (<code>|token.i - token.head.i|</code>).
+                            </li>
+                            <li>
+                              <b>Profundidad sintáctica (<code>syntactic_depth</code>):</b> Cuenta el número de
+                              ancestros jerárquicos que separan a la palabra de la raíz principal de la oración.
+                            </li>
+                            <li>
+                              <b>Indicador de raíz (<code>is_root</code>):</b> Marca con un 1 la palabra que constituye
+                              el núcleo central del enunciado (<code>dep_ == "ROOT"</code>).
+                            </li>
+                          </ul>
+
+                          <blockquote>
+                            <p>
+                              <b>Dependencia estructural a larga distancia:</b><br>
+                              "The musician [who played that haunting melody on the guitar during the festival] suddenly
+                              fainted."
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              "El músico [que tocó esa melodía inolvidable en la guitarra durante el festival] de
+                              repente se desmayó."
+                            </p>
+                          </blockquote>
+
+                          <p>
+                            En esa oración, entre el sujeto (<i>the musician</i>) y el verbo principal (<i>fainted</i>)
+                            se interpone una cláusula subordinada de once palabras. Mientras escucha esa cláusula
+                            intermedia, la memoria de trabajo del oyente debe retener el sujeto hasta que finalmente
+                            aparece el verbo conjugado <i>fainted</i> que cierra la estructura. La siguiente gráfica
+                            muestra cómo el extractor sintáctico cuantifica estas tres dimensiones sobre ese mismo
+                            ejemplo:
+                          </p>
+
+                          <!-- Gráfica 3: Árbol sintáctico de dependencias en SVG limpio (paleta main.css) -->
+                          <div style="margin: 25px 0 10px 0;">
+                            <p style="text-align: center;">
+                              <b>Gráfica 3: Árbol sintáctico de dependencias y cálculo de distancia, profundidad y raíz</b>
+                            </p>
+
+                            <div
+                              style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #e5e5e5; border-radius: 8px; background-color: #fcfcfc; padding: 18px 12px;">
+                              <svg viewBox="0 0 880 250" style="width: 100%; min-width: 680px; height: auto; display: block; font-family: 'Poppins', Helvetica, sans-serif;">
+                                <defs>
+                                  <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#04b4e0" />
+                                  </marker>
+                                  <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#0099cc" />
+                                  </marker>
+                                  <marker id="arrow-gray" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                    <path d="M 0 1 L 10 5 L 0 9 z" fill="#888888" />
+                                  </marker>
+                                </defs>
+
+                                <!-- Fondo de la cláusula subordinada -->
+                                <rect x="155" y="128" width="540" height="106" rx="6" fill="#f2f7f9" stroke="#b5dbe8" stroke-dasharray="4,3" />
+                                <text x="425" y="226" text-anchor="middle" font-size="10.5" fill="#0099cc" font-weight="500">
+                                  Cláusula subordinada intercalada (aumenta la profundidad sintáctica de 1 a 4 escalones)
+                                </text>
+
+                                <!-- Arco principal de larga distancia: fainted -> musician -->
+                                <path d="M 805 135 C 805 15, 95 15, 95 132" fill="none" stroke="#04b4e0" stroke-width="2.4" marker-end="url(#arrow-cyan)" />
+                                <rect x="305" y="18" width="285" height="22" rx="4" fill="#e6f7fc" stroke="#04b4e0" stroke-width="1" />
+                                <text x="447" y="33" text-anchor="middle" font-size="11" fill="#222222" font-weight="600">
+                                  Distancia de dependencia = 12 posiciones (sujeto)
+                                </text>
+
+                                <!-- Arco relcl: musician -> played -->
+                                <path d="M 105 135 C 105 75, 255 75, 255 132" fill="none" stroke="#0099cc" stroke-width="1.8" marker-end="url(#arrow-blue)" />
+                                <text x="180" y="84" text-anchor="middle" font-size="10" fill="#0099cc">subordinada rel. (dist = 2)</text>
+
+                                <!-- Arcos internos de la cláusula subordinada -->
+                                <path d="M 245 135 C 245 105, 185 105, 185 132" fill="none" stroke="#888888" stroke-width="1.4" marker-end="url(#arrow-gray)" />
+                                <path d="M 265 135 C 265 88, 395 88, 395 132" fill="none" stroke="#0099cc" stroke-width="1.6" marker-end="url(#arrow-blue)" />
+                                <text x="330" y="96" text-anchor="middle" font-size="9.5" fill="#555555">objeto (dist = 3)</text>
+
+                                <path d="M 405 135 C 405 98, 520 98, 520 132" fill="none" stroke="#888888" stroke-width="1.4" marker-end="url(#arrow-gray)" />
+                                <path d="M 270 135 C 270 62, 645 62, 645 132" fill="none" stroke="#888888" stroke-width="1.4" marker-end="url(#arrow-gray)" />
+                                <path d="M 795 135 C 795 100, 730 100, 730 132" fill="none" stroke="#888888" stroke-width="1.4" marker-end="url(#arrow-gray)" />
+
+                                <!-- Nodos de palabras -->
+                                <rect x="42" y="138" width="105" height="62" rx="5" fill="#ffffff" stroke="#d5d5d5" />
+                                <text x="94" y="157" text-anchor="middle" font-size="12" font-weight="600" fill="#222222">The musician</text>
+                                <text x="94" y="174" text-anchor="middle" font-size="10" fill="#555555">raíz = 0 | dist = 12</text>
+                                <text x="94" y="189" text-anchor="middle" font-size="10" fill="#0099cc" font-weight="500">profundidad = 1</text>
+
+                                <rect x="162" y="138" width="52" height="62" rx="5" fill="#ffffff" stroke="#e5e5e5" />
+                                <text x="188" y="157" text-anchor="middle" font-size="11.5" font-weight="600" fill="#222222">who</text>
+                                <text x="188" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist = 1</text>
+                                <text x="188" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof = 3</text>
+
+                                <rect x="222" y="138" width="76" height="62" rx="5" fill="#ffffff" stroke="#0099cc" />
+                                <text x="260" y="157" text-anchor="middle" font-size="11.5" font-weight="600" fill="#222222">played</text>
+                                <text x="260" y="174" text-anchor="middle" font-size="9.5" fill="#555555">dist = 2</text>
+                                <text x="260" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc" font-weight="500">prof = 2</text>
+
+                                <rect x="308" y="138" width="142" height="62" rx="5" fill="#ffffff" stroke="#e5e5e5" />
+                                <text x="379" y="157" text-anchor="middle" font-size="11.5" font-weight="600" fill="#222222">that ... melody</text>
+                                <text x="379" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist = 3</text>
+                                <text x="379" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof = 3</text>
+
+                                <rect x="460" y="138" width="115" height="62" rx="5" fill="#ffffff" stroke="#e5e5e5" />
+                                <text x="517" y="157" text-anchor="middle" font-size="11.5" font-weight="600" fill="#222222">on the guitar</text>
+                                <text x="517" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist = 3</text>
+                                <text x="517" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc" font-weight="600">prof = 4</text>
+
+                                <rect x="585" y="138" width="102" height="62" rx="5" fill="#ffffff" stroke="#e5e5e5" />
+                                <text x="636" y="157" text-anchor="middle" font-size="11" font-weight="600" fill="#222222">during ... fest.</text>
+                                <text x="636" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist = 8</text>
+                                <text x="636" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof = 3</text>
+
+                                <rect x="702" y="138" width="64" height="62" rx="5" fill="#ffffff" stroke="#e5e5e5" />
+                                <text x="734" y="157" text-anchor="middle" font-size="11.5" font-weight="600" fill="#222222">suddenly</text>
+                                <text x="734" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist = 1</text>
+                                <text x="734" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof = 1</text>
+
+                                <rect x="774" y="134" width="88" height="70" rx="6" fill="#e6f7fc" stroke="#04b4e0" stroke-width="2" />
+                                <text x="818" y="154" text-anchor="middle" font-size="12.5" font-weight="700" fill="#222222">fainted</text>
+                                <text x="818" y="172" text-anchor="middle" font-size="10" font-weight="600" fill="#04b4e0">RAÍZ (is_root = 1)</text>
+                                <text x="818" y="188" text-anchor="middle" font-size="9.5" fill="#555555">dist = 0 | prof = 0</text>
+                              </svg>
+                            </div>
+                          </div>
+
+                          <p style="font-size: 0.9em; text-align: center; margin-bottom: 25px;">
+                            <i>Nota:</i> Como los verbos conjugados suelen ser la raíz del árbol sintáctico o cerrar
+                            dependencias a larga distancia, incluir estas tres variables de control permite descontar el
+                            esfuerzo de integración estructural de la oración.
+                          </p>
+
+                          <!-- 5. Léxico-Semántico -->
+                          <div class="block-title" style="margin-top: 25px;">
+                            <h4>5. Espacio Léxico-Semántico (10 características de control)</h4>
+                          </div>
+
+                          <p>
+                            La semántica modela el significado temático de las historias mediante <b>Análisis Semántico
+                              Latente (LSA)</b>. El código agrupa las palabras en unidades clausales delimitadas por las
+                            pausas acústicas iguales o superiores a 0.65 segundos, toma sus lemas (descartando palabras
+                            vacías estándar, signos de puntuación, números y una lista específica de muletillas orales
+                            como <i>like, know, uh, um, yeah, oh, well</i> o <i>mean</i>) y construye una matriz de
+                            relevancia léxica TF-IDF (ignorando términos presentes en menos de 3 cláusulas o en más del
+                            85% de ellas) que se comprime mediante descomposición en valores singulares truncada
+                            (<code>TruncatedSVD</code>) a <b>10 dimensiones temáticas continuas</b>.
+                          </p>
+
+                          <p>
+                            En esta etapa se aplicaron dos controles de ingeniería: primero, el modelo LSA se entrenó
+                            <b>exclusivamente con las narraciones de entrenamiento</b>, excluyendo por completo la
+                            historia reservada para la evaluación final (<i>wheretheressmoke</i>) para impedir cualquier
+                            fuga de datos (<i>data leakage</i>) y generando un reporte de trazabilidad sobre el
+                            vocabulario cubierto y fuera de vocabulario (OOV) en la historia de prueba. Segundo,
+                            durante la extracción a 100 Hz, el extractor semántico reutiliza los tokens y lemas ya
+                            calculados en la pasada inicial de <code>en_core_web_trf</code>, proyectando el vector de 10
+                            dimensiones sobre la duración de cada cláusula sin volver a ejecutar el modelo neuronal.
+                          </p>
+
+                          <!-- 6. Tiempo Gramatical -->
+                          <div class="block-title" style="margin-top: 25px;">
+                            <h4>6. Espacio de Tiempo Gramatical (4 características de interés)</h4>
+                          </div>
+
+                          <p>
+                            Este sexto bloque contiene las cuatro variables binarias cuyo aporte específico queremos
+                            poner a prueba: <b>pasado regular</b> (<code>past_regular</code>, ej. <i>walked</i>),
+                            <b>pasado irregular</b> (<code>past_irregular</code>, ej. <i>went, was, had</i>),
+                            <b>no-pasado marcado en tercera persona singular</b> (<code>non_past_marked_3sg</code>, ej.
+                            <i>makes, is, has</i>) y <b>no-pasado no marcado</b> (<code>non_past_unmarked</code>, ej.
+                            <i>go, think, am, are</i>). Siguiendo el diseño formal del estudio, en la matriz predictora
+                            ingresan únicamente estas cuatro realizaciones elementales (sin agregar columnas redundantes
+                            de suma total de pasado o no-pasado, que se reservan para reportes descriptivos).
+                          </p>
+
+                          <!-- Gráfica 4: Zoom-in detallado de las 43 características en Mermaid -->
+                          <div style="margin: 30px 0 10px 0; text-align: center;">
+                            <p><b>Gráfica 4: Desglose estructural de los 6 espacios de características (43 predictores a 100 Hz)</b></p>
+
+                            <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
+                              flowchart TB
+                              subgraph TOTAL ["Matriz Predictora Completa: 43 Características a 100 Hz"]
+                              direction TB
+
+                              subgraph CTRL ["Cinco Espacios de Control (39 Predictores — Modelo Restringido)"]
+                              direction TB
+
+                              subgraph FON ["1. Fonético-Fonológico (14)"]
+                              F_LIST["• Vocalicidad y Consonanticidad<br>• Sonoridad y Ausencia de sonoridad<br>• Lugares: Bilabial, Labiodental, Dental/Alveolar, Palatal/Velar<br>• Modos: Oclusiva, Fricativa, Africada, Nasal, Líquida, Aproximante"]
+                              end
+
+                              subgraph LEX_EST ["2. Léxico-Estadístico (4)"]
+                              LE_LIST["• Presencia de palabra<br>• Frecuencia léxica (Zipf)<br>• Longitud en caracteres<br>• Duración del intervalo (s)"]
+                              end
+
+                              subgraph LEX_CAT ["3. Léxico-Categorial (8)"]
+                              LC_LIST["• Sustantivo • Adjetivo • Adverbio • Pronombre<br>• Preposición • Conjunción • Determinante<br>• Verbo sin marca de tiempo (infinitivo, gerundio, participio)"]
+                              end
+
+                              subgraph SINT ["4. Sintáctico (3)"]
+                              S_LIST["• Distancia a la cabeza sintáctica<br>• Profundidad en el árbol<br>• Identificador de raíz oracional"]
+                              end
+
+                              subgraph SEM ["5. Léxico-Semántico (10)"]
+                              SEM_LIST["• 10 Componentes Latentes LSA (TF-IDF + SVD)<br>• Cláusulas segmentadas por pausas ≥ 0.65 s<br>• Ajustado sin la historia de prueba"]
+                              end
+                              end
+
+                              subgraph TARGET ["Espacio de Interés Gramatical (4 Predictores — Adición del Modelo Global)"]
+                              direction TB
+                              subgraph TEMP ["6. Tiempo Gramatical (4)"]
+                              T_LIST["• Pasado regular (-ed)<br>• Pasado irregular (verbos léxicos, auxiliares y cópulas)<br>• No-pasado marcado (3.ª persona singular)<br>• No-pasado no marcado (otras personas)"]
+                              end
+                              end
+
+                              end
+
+                              style TOTAL fill:#fcfcfc,stroke:#e5e5e5,stroke-width:1px
+                              style CTRL fill:#f2f7f9,stroke:#b5dbe8,stroke-width:1px
+                              style TARGET fill:#e6f7fc,stroke:#04b4e0,stroke-width:1.5px
+                              style FON fill:#ffffff,stroke:#e5e5e5
+                              style LEX_EST fill:#ffffff,stroke:#e5e5e5
+                              style LEX_CAT fill:#ffffff,stroke:#e5e5e5
+                              style SINT fill:#ffffff,stroke:#e5e5e5
+                              style SEM fill:#ffffff,stroke:#e5e5e5
+                              style TEMP fill:#ffffff,stroke:#04b4e0
+                            </div>
+                          </div>
+
+                          <p style="font-size: 0.9em; text-align: center; margin-bottom: 25px;">
+                            <i>Nota:</i> El pipeline verifica programáticamente en cada historia que la matriz
+                            consolidada tenga exactamente las 43 columnas en este orden antes de serializar los archivos
+                            Parquet por espacio y exportar una muestra de consulta (<i>odetostepfather</i>) a SQLite.
+                          </p>
+
+                          <!-- Tabla 3: Resumen de correspondencia y función de los espacios -->
+                          <div class="block-title" style="margin-top: 20px;">
+                            <h4>Tabla 3: Resumen de dimensiones y roles de los 6 espacios de características</h4>
+                          </div>
+
+                          <div class="fw-table" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
+                            <table style="min-width: 520px; text-align: left;">
+                              <thead>
+                                <tr class="heading-row">
+                                  <th>Espacio analítico</th>
+                                  <th>N.º de variables</th>
+                                  <th>Naturaleza del predictor</th>
+                                  <th>Interrogante neurobiológico que controla</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td><b>Fonético-Fonológico</b></td>
+                                  <td>14</td>
+                                  <td>Binaria (rasgos articulatorios)</td>
+                                  <td>¿Responde la corteza al sonido físico o a la gramática?</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Léxico-Estadístico</b></td>
+                                  <td>4</td>
+                                  <td>Continua / Cuantitativa</td>
+                                  <td>¿Responde al esfuerzo de reconocer palabras raras o a la brevedad de palabras muy
+                                    frecuentes?</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Léxico-Categorial</b></td>
+                                  <td>8</td>
+                                  <td>Binaria (partes de la oración)</td>
+                                  <td>¿Responde a la categoría gramatical general o a escuchar acciones verbales sin
+                                    marca de tiempo?</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Sintáctico</b></td>
+                                  <td>3</td>
+                                  <td>Discreta / Estructural</td>
+                                  <td>¿Responde a la complejidad jerárquica de ensamblar la oración?</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Léxico-Semántico</b></td>
+                                  <td>10</td>
+                                  <td>Continua (espacio latente LSA)</td>
+                                  <td>¿Responde al significado temático y conceptual de la historia?</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Tiempo Gramatical</b></td>
+                                  <td><b>4</b></td>
+                                  <td>Binaria (oposición temporal)</td>
+                                  <td><b>¿Aporta el contraste entre pasado y no-pasado tras descontar todo lo
+                                      anterior?</b></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <p>
+                            Con esta matriz de 43 predictores construida a una resolución de 100 muestras por segundo
+                            (una muestra cada 10 milisegundos), disponemos de una representación temporal detallada del
+                            habla. Sin embargo, estas 43 series describen el estímulo a la velocidad del sonido,
+                            mientras que el resonador magnético registra el cerebro a una escala temporal mucho más
+                            lenta. El siguiente paso consistió en modelar el puente hemodinámico que conecta ambas
+                            escalas.
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
 
                     <!-- AQUÍ VA LA PARTE 2 (SECCIONES 4, 5 Y 6) -->
 
