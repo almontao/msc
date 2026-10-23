@@ -19,6 +19,124 @@
   <link rel="stylesheet" href="breezycv_base/css/magnific-popup.css" type="text/css">
   <link rel="stylesheet" href="breezycv_base/css/main.css" type="text/css">
 
+  <style>
+    :root {
+      /* Texto */
+      --c-text: #222;
+      --c-text-secondary: #333;
+      --c-text-secondary-2: #444;
+      --c-text-muted-2: #555;
+      --c-text-muted: #666;
+      --c-text-muted-3: #777;
+      --c-text-gray700: #495057;
+      --c-white: #ffffff;
+
+      /* Acento de marca */
+      --c-accent: #007bff;
+      --c-accent-bg: #f9fbfd;
+
+      /* Fondos neutros */
+      --c-bg-light: #f8f9fa;
+      --c-bg-light-2: #f1f3f5;
+      --c-bg-offwhite: #fcfcfc;
+      --c-bg-offwhite-2: #fafafa;
+
+      /* Bordes */
+      --c-border-light: #eee;
+      --c-border-2: #ddd;
+      --c-border-3: #e9ecef;
+      --c-border-4: #e5e5e5;
+      --c-border-neutral: #6c757d;
+
+      /* Estados (alertas) */
+      --c-warning-bg: #fff3cd;
+      --c-warning-text: #856404;
+      --c-info-bg: #d1ecf1;
+      --c-info-text: #0c5460;
+    }
+
+    /* Acordeón de espacios de características (detalle de Gráfica 2) */
+    .space-accordion {
+      margin: 10px 0 25px 0;
+      border: 1px solid var(--c-border-light);
+    }
+
+    .space-accordion-item {
+      border-bottom: 1px solid var(--c-border-light);
+    }
+
+    .space-accordion-item:last-child {
+      border-bottom: none;
+    }
+
+    .space-accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 12px 16px;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: inherit;
+      font-size: 0.98em;
+      font-weight: 600;
+      color: var(--c-text);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .space-accordion-header:hover {
+      background-color: var(--c-bg-light);
+    }
+
+    .space-accordion-header.is-target {
+      color: var(--c-accent);
+    }
+
+    .space-accordion-label {
+      display: flex;
+      align-items: center;
+    }
+
+    .space-accordion-count {
+      font-weight: 400;
+      color: var(--c-text-muted);
+      font-size: 0.9em;
+      margin-left: 12px;
+      white-space: nowrap;
+    }
+
+    .space-accordion-icon {
+      display: inline-block;
+      transition: transform 0.2s ease;
+      margin-right: 10px;
+      color: var(--c-text-muted-3);
+    }
+
+    .space-accordion-header[aria-expanded="true"] .space-accordion-icon {
+      transform: rotate(90deg);
+    }
+
+    .space-accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+      background-color: var(--c-accent-bg);
+    }
+
+    .space-accordion-content-inner {
+      padding: 4px 16px 16px 42px;
+    }
+
+    .space-accordion-content-inner ul {
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.7;
+      color: var(--c-text-secondary-2);
+    }
+  </style>
+
   <script src="breezycv_base/js/modernizr.custom.js"></script>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
@@ -117,7 +235,7 @@
                       <div class="col-xs-12 col-sm-12">
                         <div class="col-inner">
 
-                          <p class="lead" style="font-size: 1.15em; line-height: 1.7; color: #444;">
+                          <p class="lead" style="font-size: 1.15em; line-height: 1.7; color: var(--c-text-secondary-2);">
                             Estudiar las bases neurobiológicas del lenguaje implica enfrentarse a una paradoja
                             metodológica histórica.
                             Durante décadas, la neurociencia se apoyó en experimentos de laboratorio extremadamente
@@ -150,12 +268,12 @@
                           </p>
 
                           <blockquote
-                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid #007bff; background-color: #f9fbfd;">
-                            <p style="margin-bottom: 6px; font-style: italic; color: #222;">
+                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid var(--c-accent); background-color: var(--c-accent-bg);">
+                            <p style="margin-bottom: 6px; font-style: italic; color: var(--c-text);">
                               <b>Estímulo continuo:</b><br>
                               "I looked back at the door and realized that everyone had vanished into the cold night."
                             </p>
-                            <p style="margin: 0; color: #666; font-style: italic;">
+                            <p style="margin: 0; color: var(--c-text-muted); font-style: italic;">
                               "Miré hacia la puerta y me di cuenta de que todos habían desaparecido en la noche fría."
                             </p>
                           </blockquote>
@@ -188,15 +306,15 @@
 
                           <!-- Tabla 1: Glosario de convenciones con la misma estructura responsive de la plantilla -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 10px;">
-                            <h4 style="font-size: 1.1em; color: #333;">
+                            <h4 style="font-size: 1.1em; color: var(--c-text-secondary);">
                               Tabla 1: Glosario de convenciones y conceptos clave del estudio
                             </h4>
                           </div>
 
                           <div
-                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px; border: 1px solid #eee;">
+                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px; border: 1px solid var(--c-border-light);">
                             <table style="width: 100%; min-width: 500px; border-collapse: collapse; text-align: left;">
-                              <thead style="background-color: #f8f9fa; border-bottom: 2px solid #ddd;">
+                              <thead style="background-color: var(--c-bg-light); border-bottom: 2px solid var(--c-border-2);">
                                 <tr>
                                   <th style="padding: 10px;">Término</th>
                                   <th style="padding: 10px;">Definición conceptual</th>
@@ -204,42 +322,42 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>fMRI / BOLD</b></td>
                                   <td style="padding: 10px;">Resonancia magnética funcional que registra fluctuaciones
                                     en la oxigenación sanguínea.</td>
                                   <td style="padding: 10px;">Es la señal neurobiológica continua que el modelo intenta
                                     predecir en cada vóxel.</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>TR (Tiempo de Repetición)</b></td>
                                   <td style="padding: 10px;">El compás temporal en el que el escáner toma un volumen
                                     cerebral completo (2 segundos).</td>
                                   <td style="padding: 10px;">Determina la escala temporal final a la que deben
                                     sincronizarse todas las matrices.</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>derivatives/</b></td>
                                   <td style="padding: 10px;">Carpeta estandarizada BIDS con los datos sometidos a
                                     preprocesamiento y control de calidad.</td>
                                   <td style="padding: 10px;">Punto de partida validado: series BOLD sin artefactos y
                                     TextGrids alineados temporalmente.</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>VEM (Modelos Vóxel a Vóxel)</b></td>
                                   <td style="padding: 10px;">Algoritmos de regresión ajustados de manera independiente
                                     en cada unidad tridimensional de la corteza.</td>
                                   <td style="padding: 10px;">Permiten evaluar qué representaciones del lenguaje explican
                                     la actividad cerebral fuera de muestra.</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>HRF Canónica</b></td>
                                   <td style="padding: 10px;">Función matemática que modela el retraso biológico entre el
                                     disparo neuronal y el pico sanguíneo.</td>
                                   <td style="padding: 10px;">Actúa como filtro temporal para convertir impulsos
                                     lingüísticos rápidos al ritmo lento del BOLD.</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>Delta de los Modelos (ΔR²)</b></td>
                                   <td style="padding: 10px;">Diferencia de desempeño entre el modelo completo y el
                                     modelo que omite el tiempo gramatical.</td>
@@ -262,7 +380,7 @@
                           <!-- Gráfica 1: Arquitectura macro con Mermaid corregido y con un nodo por espacio -->
                           <div style="margin: 35px 0 10px 0; text-align: center;">
                             <span
-                              style="font-weight: 600; font-size: 0.95em; color: #555; display: block; margin-bottom: 15px;">
+                              style="font-weight: 600; font-size: 0.95em; color: var(--c-text-muted-2); display: block; margin-bottom: 15px;">
                               Gráfica 1: Arquitectura general del flujo de codificación vóxel a vóxel
                             </span>
 
@@ -273,6 +391,7 @@
 
                               subgraph 0. Preliminares
                               DERIVATIVES@{ shape: lin-cyl, label: "Datos BIDS" }
+                              TGFIX@{ shape: rounded, label: "Reparación de TextGrids<br>(subdataset reparado)" }
                               AUDIT@{ shape: rounded, label: "Auditoria lingüística" }
                               PREPROC@{ shape: rounded, label: "Preprocesamiento" }
 
@@ -289,11 +408,9 @@
                               SEM@{ shape: rounded, label: "Espacio léxico-semántico"}
                               TEN@{ shape: rounded, label: "Espacio de tiempo gramatical finito"}
 
-                              classDef decTEN fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
-
                               FON ~~~ SIN
                               EST ~~~ SEM
-                              CAT ~~~ TEN:::decTEN
+                              CAT ~~~ TEN
                               end
 
                               %% 2. Modelado
@@ -301,12 +418,14 @@
                               direction TB
                               HRF@{ shape: hex, label: "Convolución HRF canónica" }
                               REM@{ shape: rounded, label: "Remuestreo al TR"}
+                              CV@{ shape: rounded, label: "Validación cruzada agrupada por historia<br>(selección de penalización Ridge)" }
 
                               RESTRICT@{ shape: subproc, label: "Modelo <br>restringido" }
                               GLOBAL@{ shape: subproc, label: "Modelo <br>global" }
 
-                              REM e6@--> RESTRICT
-                              REM e7@--> GLOBAL
+                              REM e6@--> CV
+                              CV e7@--> RESTRICT
+                              CV e16@--> GLOBAL
                               HRF e13@--> REM
                               end
 
@@ -325,10 +444,11 @@
 
                               %% Conexiones Macro Animadas
                               DATA e4@==> DERIVATIVES
-                              DERIVATIVES e3@--> AUDIT
+                              DERIVATIVES e3@--> TGFIX
+                              TGFIX e15@--> AUDIT
                               DERIVATIVES e5@--> PREPROC
 
-                              DERIVATIVES e1@--> Espacios
+                              TGFIX e1@--> Espacios
                               PREPROC e12@--> Espacios
 
 
@@ -336,6 +456,11 @@
 
                               RESTRICT e8@--> VAR
                               GLOBAL e9@--> VAR
+
+                              %% Estilos (paleta de marca BreezyCV)
+                              style Espacios fill:#f5f5f5,stroke:#adadac,stroke-width:1px
+                              style Modelado fill:#eef6f8,stroke:#b8d8e0,stroke-width:1px
+                              style Inferencia fill:#e3f6fb,stroke:#04b4e0,stroke-width:1px
 
                               %% Configuración de Animaciones
                               e1@{ animation: fast }
@@ -352,14 +477,20 @@
                               e12@{ animation: fast }
                               e13@{ animation: fast }
                               e14@{ animation: fast }
+                              e15@{ animation: fast }
+                              e16@{ animation: fast }
                             </div>
                           </div>
 
-                          <p style="font-size: 0.9em; color: #666; text-align: center; margin-bottom: 30px;">
+                          <p style="font-size: 0.9em; color: var(--c-text-muted); text-align: center; margin-bottom: 30px;">
                             <i>Nota:</i> En el bloque de extracción se aprecian los 6 espacios de características
                             independientes.
                             Más adelante desplegaremos el contenido interno de cada uno de ellos en su respectiva
-                            gráfica detallada.
+                            gráfica detallada. Asimismo, el bloque preliminar incorpora la reparación de TextGrids
+                            no estandarizados en un subconjunto derivado (nunca se sobrescribe el original), y el
+                            bloque de modelado incluye la validación cruzada agrupada por historia utilizada para
+                            calibrar la penalización de la regresión de cresta; ambas etapas se profundizan más
+                            adelante en sus respectivas secciones.
                           </p>
 
                         </div>
@@ -375,7 +506,7 @@
                         <div class="col-inner">
 
                           <div class="block-title" style="margin-top: 10px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               La distinción entre el concepto del tiempo y la gramática
                             </h3>
                           </div>
@@ -406,12 +537,12 @@
 
                           <!-- Ejemplo bilingüe ajustado con el estilo solicitado -->
                           <blockquote
-                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid #007bff; background-color: #f9fbfd;">
-                            <p style="margin-bottom: 6px; font-style: italic; color: #222;">
+                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid var(--c-accent); background-color: var(--c-accent-bg);">
+                            <p style="margin-bottom: 6px; font-style: italic; color: var(--c-text);">
                               <b>Referencia temporal futura sin flexión de futuro:</b><br>
                               "The train departs tomorrow morning at dawn."
                             </p>
-                            <p style="margin: 0; color: #666; font-style: italic;">
+                            <p style="margin: 0; color: var(--c-text-muted); font-style: italic;">
                               "El tren sale mañana por la mañana al amanecer."
                             </p>
                           </blockquote>
@@ -442,7 +573,7 @@
                           </p>
 
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               ¿Dónde recae la marca de tiempo? El papel de la finitud
                             </h3>
                           </div>
@@ -460,12 +591,12 @@
 
                           <!-- Segundo ejemplo bilingüe: Cadena verbal -->
                           <blockquote
-                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid #007bff; background-color: #f9fbfd;">
-                            <p style="margin-bottom: 6px; font-style: italic; color: #222;">
+                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid var(--c-accent); background-color: var(--c-accent-bg);">
+                            <p style="margin-bottom: 6px; font-style: italic; color: var(--c-text);">
                               <b>Cadena verbal con auxiliar:</b><br>
                               "She was walking down the street when the sudden explosion shook the ground."
                             </p>
-                            <p style="margin: 0; color: #666; font-style: italic;">
+                            <p style="margin: 0; color: var(--c-text-muted); font-style: italic;">
                               "Ella estaba caminando por la calle cuando la repentina explosión sacudió el suelo."
                             </p>
                           </blockquote>
@@ -489,7 +620,7 @@
                           </p>
 
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               La realidad del estímulo: Auditoría lingüística del corpus
                             </h3>
                           </div>
@@ -497,31 +628,43 @@
                           <p>
                             Antes de estimar cualquier modelo cerebral, realizamos una auditoría lingüística exhaustiva
                             sobre
-                            todas las historias orales del conjunto de datos. El análisis identificó un total de
-                            <b>21 354 formas finitas</b> a lo largo del corpus.
+                            todas las historias orales del conjunto de datos, contando cada palabra real sobre su
+                            propio
+                            intervalo temporal en el TextGrid alineado (evitando así que dos formas idénticas y
+                            contiguas se
+                            fundan en un único evento). El análisis identificó un total de
+                            <b>18 860 formas finitas</b> a lo largo del corpus.
                           </p>
 
                           <p>
-                            A nivel global, la distribución entre ambos polos del sistema parece un milagro de
-                            laboratorio:
-                            exactamente <b>10 674 formas de pasado (49,99 %)</b> y <b>10 680 formas de no-pasado (50,01
+                            A nivel global, la distribución entre ambos polos del sistema está lejos de ser
+                            equilibrada:
+                            <b>10 292 formas de pasado (54,57 %)</b> frente a <b>8568 formas de no-pasado (45,43
                               %)</b>.
                             Sin embargo, al mirar debajo de la superficie estadística, emergió una característica
                             crucial del
                             lenguaje natural:
                           </p>
 
+                          <p style="font-size: 0.9em; color: var(--c-text-muted); margin-bottom: 25px;">
+                            <i>Nota metodológica:</i> esta cifra reemplaza una estimación preliminar del anteproyecto
+                            (21 354 formas, 49,99 %/50,01 %) que no resultó reproducible a partir del pipeline
+                            computacional actual. El valor reportado aquí proviene de un script de auditoría a nivel de
+                            palabra, verificado de forma independiente contra los límites temporales del TextGrid
+                            alineado de cada historia.
+                          </p>
+
                           <!-- Tabla 2: Auditoría y Realizaciones del Espacio de Interés -->
                           <div class="block-title" style="margin-top: 25px; margin-bottom: 10px;">
-                            <h4 style="font-size: 1.1em; color: #333;">
+                            <h4 style="font-size: 1.1em; color: var(--c-text-secondary);">
                               Tabla 2: Estructura del espacio de interés y distribución en el corpus analizado
                             </h4>
                           </div>
 
                           <div
-                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px; border: 1px solid #eee;">
+                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px; border: 1px solid var(--c-border-light);">
                             <table style="width: 100%; min-width: 500px; border-collapse: collapse; text-align: left;">
-                              <thead style="background-color: #f8f9fa; border-bottom: 2px solid #ddd;">
+                              <thead style="background-color: var(--c-bg-light); border-bottom: 2px solid var(--c-border-2);">
                                 <tr>
                                   <th style="padding: 10px;">Dominio</th>
                                   <th style="padding: 10px;">Realización operativa (Predictor)</th>
@@ -530,20 +673,20 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr style="border-bottom: 1px solid #eee;">
-                                  <td style="padding: 10px; font-weight: bold;" rowspan="2">Pasado (49,99 %)</td>
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
+                                  <td style="padding: 10px; font-weight: bold;" rowspan="2">Pasado (54,57 %)</td>
                                   <td style="padding: 10px;"><b>Pasado regular</b></td>
                                   <td style="padding: 10px;">Verbos con terminación ortográfica en <i>-ed</i>.</td>
                                   <td style="padding: 10px;"><i>walked, called, decided</i></td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>Pasado irregular</b></td>
                                   <td style="padding: 10px;">Formas no regulares y formas de pasado de
                                     auxiliares/cópulas.</td>
                                   <td style="padding: 10px;"><i>was, had, went, saw, did</i></td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
-                                  <td style="padding: 10px; font-weight: bold;" rowspan="2">No-pasado (50,01 %)</td>
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
+                                  <td style="padding: 10px; font-weight: bold;" rowspan="2">No-pasado (45,43 %)</td>
                                   <td style="padding: 10px;"><b>No-pasado marcado (3ra pers.)</b></td>
                                   <td style="padding: 10px;">Marcación explícita de tercera persona singular (etiqueta
                                     VBZ).</td>
@@ -560,14 +703,11 @@
                           </div>
 
                           <p>
-                            El dato más revelador de esta auditoría es que los verbos léxicos comunes representaron
-                            únicamente el
-                            <b>49,74 %</b> del inventario, mientras que los auxiliares y las formas copulares
-                            constituyeron el
-                            <b>50,26 %</b> restante. Una proporción colosal del contraste temporal en el habla cotidiana
-                            descansa
-                            sobre realizaciones de alta frecuencia asociadas a tan solo tres elementos: <i>be</i>,
-                            <i>have</i> y <i>do</i>.
+                            Un patrón cualitativo adicional de esta auditoría es que una fracción sustancial del
+                            inventario de formas finitas no corresponde a verbos léxicos plenos, sino a auxiliares y
+                            formas copulares de alta frecuencia. Buena parte del contraste temporal en el habla
+                            cotidiana descansa, de hecho, sobre realizaciones asociadas a tan solo tres elementos:
+                            <i>be</i>, <i>have</i> y <i>do</i>.
                           </p>
 
                           <p>
@@ -591,7 +731,7 @@
                         <div class="col-inner">
 
                           <div class="block-title" style="margin-top: 10px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               De la onda sonora a los vectores numéricos: La deconstrucción del habla
                             </h3>
                           </div>
@@ -628,7 +768,7 @@
 
                           <!-- 1. Fonético-Fonológico -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
-                            <h4 style="font-size: 1.15em; color: #007bff;">
+                            <h4 style="font-size: 1.15em; color: var(--c-accent);">
                               1. Espacio Fonético-Fonológico (14 características de control)
                             </h4>
                           </div>
@@ -653,12 +793,12 @@
 
                           <!-- Ejemplo Fonético -->
                           <blockquote
-                            style="margin: 20px 0; padding: 15px 20px; border-left: 4px solid #007bff; background-color: #f9fbfd;">
-                            <p style="margin-bottom: 6px; font-style: italic; color: #222;">
+                            style="margin: 20px 0; padding: 15px 20px; border-left: 4px solid var(--c-accent); background-color: var(--c-accent-bg);">
+                            <p style="margin-bottom: 6px; font-style: italic; color: var(--c-text);">
                               <b>Confusión entre morfología y acústica superficial:</b><br>
                               "He walked towards the door."
                             </p>
-                            <p style="margin: 0; color: #666; font-style: italic;">
+                            <p style="margin: 0; color: var(--c-text-muted); font-style: italic;">
                               "Él caminó hacia la puerta."
                             </p>
                           </blockquote>
@@ -677,7 +817,7 @@
 
                           <!-- 2. Léxico-Estadístico -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
-                            <h4 style="font-size: 1.15em; color: #007bff;">
+                            <h4 style="font-size: 1.15em; color: var(--c-accent);">
                               2. Espacio Léxico-Estadístico (4 características de control)
                             </h4>
                           </div>
@@ -694,12 +834,12 @@
 
                           <!-- Ejemplo Léxico-Estadístico -->
                           <blockquote
-                            style="margin: 20px 0; padding: 15px 20px; border-left: 4px solid #007bff; background-color: #f9fbfd;">
-                            <p style="margin-bottom: 6px; font-style: italic; color: #222;">
+                            style="margin: 20px 0; padding: 15px 20px; border-left: 4px solid var(--c-accent); background-color: var(--c-accent-bg);">
+                            <p style="margin-bottom: 6px; font-style: italic; color: var(--c-text);">
                               <b>Disparidad de frecuencia y esfuerzo léxico:</b><br>
                               "It was an astonishing serendipity."
                             </p>
-                            <p style="margin: 0; color: #666; font-style: italic;">
+                            <p style="margin: 0; color: var(--c-text-muted); font-style: italic;">
                               "Fue una casualidad asombrosa."
                             </p>
                           </blockquote>
@@ -720,7 +860,7 @@
 
                           <!-- 3. Léxico-Categorial -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
-                            <h4 style="font-size: 1.15em; color: #007bff;">
+                            <h4 style="font-size: 1.15em; color: var(--c-accent);">
                               3. Espacio Léxico-Categorial (8 características de control)
                             </h4>
                           </div>
@@ -748,7 +888,7 @@
 
                           <!-- 4. Sintáctico -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
-                            <h4 style="font-size: 1.15em; color: #007bff;">
+                            <h4 style="font-size: 1.15em; color: var(--c-accent);">
                               4. Espacio Sintáctico (3 características de control)
                             </h4>
                           </div>
@@ -769,13 +909,13 @@
 
                           <!-- Ejemplo Sintáctico -->
                           <blockquote
-                            style="margin: 20px 0; padding: 15px 20px; border-left: 4px solid #007bff; background-color: #f9fbfd;">
-                            <p style="margin-bottom: 6px; font-style: italic; color: #222;">
+                            style="margin: 20px 0; padding: 15px 20px; border-left: 4px solid var(--c-accent); background-color: var(--c-accent-bg);">
+                            <p style="margin-bottom: 6px; font-style: italic; color: var(--c-text);">
                               <b>Dependencia estructural a larga distancia:</b><br>
                               "The musician [who played that haunting melody on the guitar during the festival] suddenly
                               fainted."
                             </p>
-                            <p style="margin: 0; color: #666; font-style: italic;">
+                            <p style="margin: 0; color: var(--c-text-muted); font-style: italic;">
                               "El músico [que tocó esa melodía inolvidable en la guitarra durante el festival] de
                               repente se desmayó."
                             </p>
@@ -792,7 +932,7 @@
 
                           <!-- 5. Léxico-Semántico -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
-                            <h4 style="font-size: 1.15em; color: #007bff;">
+                            <h4 style="font-size: 1.15em; color: var(--c-accent);">
                               5. Espacio Léxico-Semántico (10 características de control)
                             </h4>
                           </div>
@@ -820,7 +960,7 @@
 
                           <!-- 6. Tiempo Gramatical Finito -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
-                            <h4 style="font-size: 1.15em; color: #d9534f;">
+                            <h4 style="font-size: 1.15em; color: var(--c-accent);">
                               6. Espacio de Tiempo Gramatical Finito (4 características de interés)
                             </h4>
                           </div>
@@ -837,7 +977,7 @@
                           <!-- Gráfica 2: Zoom-in detallado de las 43 características -->
                           <div style="margin: 35px 0 10px 0; text-align: center;">
                             <span
-                              style="font-weight: 600; font-size: 0.95em; color: #555; display: block; margin-bottom: 15px;">
+                              style="font-weight: 600; font-size: 0.95em; color: var(--c-text-muted-2); display: block; margin-bottom: 15px;">
                               Gráfica 2: Desglose estructural de los 6 espacios de características (43 predictores)
                             </span>
 
@@ -845,79 +985,177 @@
                               flowchart TB
                               subgraph TOTAL ["Matriz Predictora Completa: 43 Características a 100 Hz"]
                               direction TB
-
-                              subgraph CTRL ["Cinco Espacios de Control (39 Predictores)"]
-                              direction TB
-
-                              subgraph FON ["1. Fonético-Fonológico (14)"]
-                              F_LIST["• Vocalicidad y Consonanticidad<br>• Sonoridad y Ausencia de sonoridad<br>•
-                              Lugares: Bilabial, Dental/Alveolar, Palatal/Velar<br>• Modos: Oclusiva, Fricativa,
-                              Africada, Nasal, Líquida, Aproximante"]
+                              FON["1. Fonético-Fonológico<br>14 predictores"]
+                              LEX_EST["2. Léxico-Estadístico<br>4 predictores"]
+                              LEX_CAT["3. Léxico-Categorial<br>8 predictores"]
+                              SINT["4. Sintáctico<br>3 predictores"]
+                              SEM["5. Léxico-Semántico<br>10 predictores"]
+                              TEMP["6. Tiempo Gramatical Finito<br>4 predictores — Espacio de interés"]
                               end
 
-                              subgraph LEX_EST ["2. Léxico-Estadístico (4)"]
-                              LE_LIST["• Presencia de palabra<br>• Frecuencia léxica (Zipf)<br>• Longitud en
-                              caracteres<br>• Duración del intervalo (s)"]
-                              end
-
-                              subgraph LEX_CAT ["3. Léxico-Categorial (8)"]
-                              LC_LIST["• Sustantivo<br>• Adjetivo<br>• Adverbio<br>• Pronombre<br>• Preposición<br>•
-                              Conjunción<br>• Determinante<br>• Verbo No-Finito"]
-                              end
-
-                              subgraph SINT ["4. Sintáctico (3)"]
-                              S_LIST["• Distancia a la cabeza sintáctica<br>• Profundidad en el árbol<br>• Identificador
-                              de raíz oracional"]
-                              end
-
-                              subgraph SEM ["5. Léxico-Semántico (10)"]
-                              SEM_LIST["• 10 Componentes Latentes LSA<br>(TF-IDF + Descomposición SVD)<br>Segmentado por
-                              pausas ≥ 0.65 s"]
-                              end
-                              end
-
-                              subgraph TARGET ["Espacio de Interés Gramatical (4 Predictores)"]
-                              direction TB
-                              subgraph TEMP ["6. Tiempo Gramatical Finito (4)"]
-                              T_LIST["• Pasado regular (-ed)<br>• Pasado irregular (cópulas/auxiliares/léxicos)<br>•
-                              No-pasado marcado (3ra persona singular)<br>• No-pasado no marcado (otras personas)"]
-                              end
-                              end
-
-                              end
-
-                              %% Estilos
-                              style TOTAL fill:#fafbfc,stroke:#d0d7de,stroke-width:1px
-                              style CTRL fill:#f6f8fa,stroke:#c2d1e0,stroke-width:1px
-                              style TARGET fill:#fff5f5,stroke:#f1b0b7,stroke-width:1px
-                              style FON fill:#ffffff,stroke:#e1e4e8
-                              style LEX_EST fill:#ffffff,stroke:#e1e4e8
-                              style LEX_CAT fill:#ffffff,stroke:#e1e4e8
-                              style SINT fill:#ffffff,stroke:#e1e4e8
-                              style SEM fill:#ffffff,stroke:#e1e4e8
-                              style TEMP fill:#ffffff,stroke:#e1e4e8
+                              %% Estilos (misma paleta compartida que el resto de los diagramas)
+                              style TOTAL fill:#f5f5f5,stroke:#adadac,stroke-width:1px
+                              style FON fill:#eef6f8,stroke:#b8d8e0,stroke-width:1px
+                              style LEX_EST fill:#eef6f8,stroke:#b8d8e0,stroke-width:1px
+                              style LEX_CAT fill:#eef6f8,stroke:#b8d8e0,stroke-width:1px
+                              style SINT fill:#eef6f8,stroke:#b8d8e0,stroke-width:1px
+                              style SEM fill:#eef6f8,stroke:#b8d8e0,stroke-width:1px
+                              style TEMP fill:#e3f6fb,stroke:#04b4e0,stroke-width:2px
                             </div>
                           </div>
 
-                          <p style="font-size: 0.9em; color: #666; text-align: center; margin-bottom: 25px;">
-                            <i>Nota:</i> Las primeras 39 características corresponden a los cinco niveles de control que
-                            alimentan al
-                            Modelo Restringido. El Modelo Global incorpora estas 39 más las 4 variables de tiempo
-                            gramatical, completando
-                            los 43 predictores.
+                          <p style="font-size: 0.9em; color: var(--c-text-muted); text-align: center; margin-bottom: 25px;">
+                            <i>Nota:</i> Los cinco primeros espacios (39 características) alimentan al Modelo
+                            Restringido. El Modelo Global incorpora estos 39 más las 4 variables de tiempo
+                            gramatical, resaltadas arriba como el <b>espacio de interés</b>, completando los 43
+                            predictores.
                           </p>
+
+                          <div class="block-title" style="margin-top: 10px; margin-bottom: 10px;">
+                            <h4 style="font-size: 1.05em; color: var(--c-text-secondary);">
+                              Detalle de los predictores por espacio (clic para expandir)
+                            </h4>
+                          </div>
+
+                          <div class="space-accordion" id="space-accordion">
+                            <div class="space-accordion-item">
+                              <button class="space-accordion-header" aria-expanded="false">
+                                <span class="space-accordion-label"><span class="space-accordion-icon">▶</span>1.
+                                  Fonético-Fonológico</span>
+                                <span class="space-accordion-count">14 predictores</span>
+                              </button>
+                              <div class="space-accordion-content">
+                                <div class="space-accordion-content-inner">
+                                  <ul>
+                                    <li>Vocalicidad y Consonanticidad</li>
+                                    <li>Sonoridad y Ausencia de sonoridad</li>
+                                    <li>Lugares de articulación: Bilabial, Dental/Alveolar, Palatal/Velar</li>
+                                    <li>Modos de articulación: Oclusiva, Fricativa, Africada, Nasal, Líquida,
+                                      Aproximante</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="space-accordion-item">
+                              <button class="space-accordion-header" aria-expanded="false">
+                                <span class="space-accordion-label"><span class="space-accordion-icon">▶</span>2.
+                                  Léxico-Estadístico</span>
+                                <span class="space-accordion-count">4 predictores</span>
+                              </button>
+                              <div class="space-accordion-content">
+                                <div class="space-accordion-content-inner">
+                                  <ul>
+                                    <li>Presencia de palabra</li>
+                                    <li>Frecuencia léxica (Zipf)</li>
+                                    <li>Longitud en caracteres</li>
+                                    <li>Duración del intervalo (s)</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="space-accordion-item">
+                              <button class="space-accordion-header" aria-expanded="false">
+                                <span class="space-accordion-label"><span class="space-accordion-icon">▶</span>3.
+                                  Léxico-Categorial</span>
+                                <span class="space-accordion-count">8 predictores</span>
+                              </button>
+                              <div class="space-accordion-content">
+                                <div class="space-accordion-content-inner">
+                                  <ul>
+                                    <li>Sustantivo</li>
+                                    <li>Adjetivo</li>
+                                    <li>Adverbio</li>
+                                    <li>Pronombre</li>
+                                    <li>Preposición</li>
+                                    <li>Conjunción</li>
+                                    <li>Determinante</li>
+                                    <li>Verbo No-Finito</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="space-accordion-item">
+                              <button class="space-accordion-header" aria-expanded="false">
+                                <span class="space-accordion-label"><span class="space-accordion-icon">▶</span>4.
+                                  Sintáctico</span>
+                                <span class="space-accordion-count">3 predictores</span>
+                              </button>
+                              <div class="space-accordion-content">
+                                <div class="space-accordion-content-inner">
+                                  <ul>
+                                    <li>Distancia a la cabeza sintáctica</li>
+                                    <li>Profundidad en el árbol</li>
+                                    <li>Identificador de raíz oracional</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="space-accordion-item">
+                              <button class="space-accordion-header" aria-expanded="false">
+                                <span class="space-accordion-label"><span class="space-accordion-icon">▶</span>5.
+                                  Léxico-Semántico</span>
+                                <span class="space-accordion-count">10 predictores</span>
+                              </button>
+                              <div class="space-accordion-content">
+                                <div class="space-accordion-content-inner">
+                                  <ul>
+                                    <li>10 componentes latentes LSA (TF-IDF + descomposición SVD)</li>
+                                    <li>Segmentado por pausas ≥ 0,65 s</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="space-accordion-item">
+                              <button class="space-accordion-header is-target" aria-expanded="true">
+                                <span class="space-accordion-label"><span class="space-accordion-icon">▶</span>6.
+                                  Tiempo Gramatical Finito (espacio de interés)</span>
+                                <span class="space-accordion-count">4 predictores</span>
+                              </button>
+                              <div class="space-accordion-content" style="max-height: 300px;">
+                                <div class="space-accordion-content-inner">
+                                  <ul>
+                                    <li>Pasado regular (-ed)</li>
+                                    <li>Pasado irregular (cópulas/auxiliares/léxicos)</li>
+                                    <li>No-pasado marcado (3ra persona singular)</li>
+                                    <li>No-pasado no marcado (otras personas)</li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <script>
+                            (function () {
+                              var accordion = document.getElementById('space-accordion');
+                              if (!accordion) return;
+                              var headers = accordion.querySelectorAll('.space-accordion-header');
+                              headers.forEach(function (header) {
+                                header.addEventListener('click', function () {
+                                  var expanded = header.getAttribute('aria-expanded') === 'true';
+                                  var content = header.nextElementSibling;
+                                  header.setAttribute('aria-expanded', String(!expanded));
+                                  content.style.maxHeight = expanded ? '0' : content.scrollHeight + 'px';
+                                });
+                              });
+                            })();
+                          </script>
 
                           <!-- Tabla 3: Resumen de correspondencia y función de los espacios -->
                           <div class="block-title" style="margin-top: 25px; margin-bottom: 10px;">
-                            <h4 style="font-size: 1.1em; color: #333;">
+                            <h4 style="font-size: 1.1em; color: var(--c-text-secondary);">
                               Tabla 3: Resumen de dimensiones y roles de los 6 espacios de características
                             </h4>
                           </div>
 
                           <div
-                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px; border: 1px solid #eee;">
+                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px; border: 1px solid var(--c-border-light);">
                             <table style="width: 100%; min-width: 500px; border-collapse: collapse; text-align: left;">
-                              <thead style="background-color: #f8f9fa; border-bottom: 2px solid #ddd;">
+                              <thead style="background-color: var(--c-bg-light); border-bottom: 2px solid var(--c-border-2);">
                                 <tr>
                                   <th style="padding: 10px;">Espacio analítico</th>
                                   <th style="padding: 10px;">N.º de variables</th>
@@ -926,34 +1164,34 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>Fonético-Fonológico</b></td>
                                   <td style="padding: 10px;">14</td>
                                   <td style="padding: 10px;">Binaria (rasgos sonoros)</td>
                                   <td style="padding: 10px;">¿Responde la corteza al sonido físico o a la gramática?
                                   </td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>Léxico-Estadístico</b></td>
                                   <td style="padding: 10px;">4</td>
                                   <td style="padding: 10px;">Continua / Cuantitativa</td>
                                   <td style="padding: 10px;">¿Responde al esfuerzo por reconocer palabras raras o
                                     frecuentes?</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>Léxico-Categorial</b></td>
                                   <td style="padding: 10px;">8</td>
                                   <td style="padding: 10px;">Binaria (partes de la oración)</td>
                                   <td style="padding: 10px;">¿Responde a la categoría funcional general de la palabra?
                                   </td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>Sintáctico</b></td>
                                   <td style="padding: 10px;">3</td>
                                   <td style="padding: 10px;">Discreta / Estructural</td>
                                   <td style="padding: 10px;">¿Responde a la complejidad jerárquica de la oración?</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>Léxico-Semántico</b></td>
                                   <td style="padding: 10px;">10</td>
                                   <td style="padding: 10px;">Continua (espacio latente LSA)</td>
@@ -961,10 +1199,10 @@
                                     historia?</td>
                                 </tr>
                                 <tr>
-                                  <td style="padding: 10px; color: #d9534f;"><b>Tiempo Gramatical Finito</b></td>
-                                  <td style="padding: 10px; color: #d9534f;"><b>4</b></td>
-                                  <td style="padding: 10px; color: #d9534f;">Binaria (oposición flexiva)</td>
-                                  <td style="padding: 10px; color: #d9534f;"><b>¿Aporta el contraste temporal tras
+                                  <td style="padding: 10px;"><b>Tiempo Gramatical Finito</b></td>
+                                  <td style="padding: 10px;"><b>4</b></td>
+                                  <td style="padding: 10px;">Binaria (oposición flexiva)</td>
+                                  <td style="padding: 10px;"><b>¿Aporta el contraste temporal tras
                                       descontar todo lo anterior?</b></td>
                                 </tr>
                               </tbody>
@@ -996,7 +1234,7 @@
                         <div class="col-inner">
 
                           <div class="block-title" style="margin-top: 10px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               El desfase biológico: La señal BOLD y la respuesta vascular
                             </h3>
                           </div>
@@ -1029,12 +1267,12 @@
 
                           <!-- Ejemplo bilingüe de desfase temporal -->
                           <blockquote
-                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid #007bff; background-color: #f9fbfd;">
-                            <p style="margin-bottom: 6px; font-style: italic; color: #222;">
+                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid var(--c-accent); background-color: var(--c-accent-bg);">
+                            <p style="margin-bottom: 6px; font-style: italic; color: var(--c-text);">
                               <b>Desfase entre evento lingüístico y registro hemodinámico:</b><br>
                               "The investigator noticed the shattered window."
                             </p>
-                            <p style="margin: 0; color: #666; font-style: italic;">
+                            <p style="margin: 0; color: var(--c-text-muted); font-style: italic;">
                               "El investigador notó la ventana rota."
                             </p>
                           </blockquote>
@@ -1052,7 +1290,7 @@
                           </p>
 
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               La función de respuesta hemodinámica (HRF) canónica
                             </h3>
                           </div>
@@ -1067,7 +1305,7 @@
                             32 segundos:
                           </p>
 
-                          <ul style="line-height: 1.8; color: #444; margin-bottom: 25px;">
+                          <ul style="line-height: 1.8; color: var(--c-text-secondary-2); margin-bottom: 25px;">
                             <li>
                               <b>Fase de ascenso y cúspide (segundo 0 al 6):</b> Tras el estímulo, el aporte vascular se
                               incrementa
@@ -1111,7 +1349,7 @@
                           </p>
 
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               Remuestreo polifásico y normalización de sesiones
                             </h3>
                           </div>
@@ -1151,7 +1389,7 @@
                           <!-- Gráfica 3: Flujo de Transformación Temporal en Mermaid -->
                           <div style="margin: 35px 0 10px 0; text-align: center;">
                             <span
-                              style="font-weight: 600; font-size: 0.95em; color: #555; display: block; margin-bottom: 15px;">
+                              style="font-weight: 600; font-size: 0.95em; color: var(--c-text-muted-2); display: block; margin-bottom: 15px;">
                               Gráfica 3: Proceso de transformación hemodinámica y remuestreo al TR
                             </span>
 
@@ -1168,14 +1406,14 @@
                               KERNEL["HRF Canónica de Doble Gamma<br>Duración de 32 s | Pico a 6 s | Valle a 16 s"]
                               CONV_OP["Convolución Temporal en el Dominio Frecuencial<br>Aplicada uniformemente a las 43
                               columnas"]
-                              KERNEL --> CONV_OP
+                              KERNEL e1@--> CONV_OP
                               end
 
                               subgraph SINCRO ["3. Remuestreo y Emparejamiento Funcional"]
                               direction TB
                               POLY["Remuestreo Polifásico con Filtro Antialiasing<br>Transición de 100 Hz a 0.5 Hz"]
                               TR_SYNC["Matriz Predictora Final a 0.5 Hz<br>1 fila por cada TR de fMRI (2.0 segundos)"]
-                              POLY --> TR_SYNC
+                              POLY e2@--> TR_SYNC
                               end
 
                               subgraph NORMALIZACION ["4. Estandarización Intra-Sesión"]
@@ -1184,19 +1422,26 @@
                               del escáner"]
                               end
 
-                              P_100 --> CONV_OP
-                              CONV_OP --> POLY
-                              TR_SYNC --> Z_SCORE
+                              P_100 e3@--> CONV_OP
+                              CONV_OP e4@--> POLY
+                              TR_SYNC e5@--> Z_SCORE
 
                               %% Estilos
-                              style ENTRADA fill:#f8f9fa,stroke:#dee2e6,stroke-width:1px
-                              style FILTRO fill:#f1f5f9,stroke:#cbd5e1,stroke-width:1px
-                              style SINCRO fill:#eef2f6,stroke:#cbd5e1,stroke-width:1px
-                              style NORMALIZACION fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px
+                              style ENTRADA fill:#f5f5f5,stroke:#adadac,stroke-width:1px
+                              style FILTRO fill:#eef6f8,stroke:#b8d8e0,stroke-width:1px
+                              style SINCRO fill:#e3eef1,stroke:#a3c4cd,stroke-width:1px
+                              style NORMALIZACION fill:#fcfcfc,stroke:#d5d5d5,stroke-width:1px
+
+                              %% Configuración de Animaciones
+                              e1@{ animation: fast }
+                              e2@{ animation: fast }
+                              e3@{ animation: fast }
+                              e4@{ animation: fast }
+                              e5@{ animation: fast }
                             </div>
                           </div>
 
-                          <p style="font-size: 0.9em; color: #666; text-align: center; margin-bottom: 30px;">
+                          <p style="font-size: 0.9em; color: var(--c-text-muted); text-align: center; margin-bottom: 30px;">
                             <i>Nota:</i> La convolución proyecta la presencia instantánea de palabras y rasgos sonoros
                             hacia una
                             curva hemodinámica continua que posteriormente se muestrea exactamente al ritmo del escáner
@@ -1205,12 +1450,12 @@
 
                           <!-- Recurso interactivo con Plotly.js Animado (Alineado con src/config.py y src/features/hemodynamics.py) -->
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 12px; clear: both;">
-                            <h4 style="font-size: 1.1em; color: #333;">
+                            <h4 style="font-size: 1.1em; color: var(--c-text-secondary);">
                               Simulación interactiva: Evolución temporal del BOLD y remuestreo al TR
                             </h4>
                           </div>
 
-                          <p style="font-size: 0.95em; color: #555; margin-bottom: 20px;">
+                          <p style="font-size: 0.95em; color: var(--c-text-muted-2); margin-bottom: 20px;">
                             Simulación en bucle continuo de la <b>HRF canónica de doble gamma</b> (Friston et al., 1998;
                             ventana de 32 segundos a 100 Hz) y su remuestreo al escáner fMRI (TR = 2.0 s / 0.5 Hz). El
                             pico de aporte oxigenado se alcanza hacia los 5.1 s, el cruce por cero ocurre a los 10.8 s y
@@ -1220,7 +1465,7 @@
                           <!-- Contenedor blindado con diseño card BreezyCV -->
                           <div style="width: 100%; clear: both; margin: 20px 0 35px 0;">
                             <div id="plotly-hrf-simulation"
-                              style="width: 100%; height: 500px; border: 1px solid #e9ecef; border-radius: 8px; background-color: #ffffff; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); position: relative; overflow: hidden;">
+                              style="width: 100%; height: 500px; border: 1px solid var(--c-border-3); border-radius: 8px; background-color: var(--c-white); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); position: relative; overflow: hidden;">
                             </div>
                           </div>
 
@@ -1533,7 +1778,7 @@
                         <div class="col-inner">
 
                           <div class="block-title" style="margin-top: 10px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               El cerebro como un mosaico predictivo: Modelado vóxel a vóxel
                             </h3>
                           </div>
@@ -1564,12 +1809,12 @@
 
                           <!-- Ejemplo bilingüe de integración contextual -->
                           <blockquote
-                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid #007bff; background-color: #f9fbfd;">
-                            <p style="margin-bottom: 6px; font-style: italic; color: #222;">
+                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid var(--c-accent); background-color: var(--c-accent-bg);">
+                            <p style="margin-bottom: 6px; font-style: italic; color: var(--c-text);">
                               <b>Información concurrente en una sola forma verbal:</b><br>
                               "Every morning, the librarian opens the ancient oak doors."
                             </p>
-                            <p style="margin: 0; color: #666; font-style: italic;">
+                            <p style="margin: 0; color: var(--c-text-muted); font-style: italic;">
                               "Cada mañana, el bibliotecario abre las antiguas puertas de roble."
                             </p>
                           </blockquote>
@@ -1587,7 +1832,7 @@
                           </p>
 
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               Estabilización mediante regresión de cresta y validación por bloques
                             </h3>
                           </div>
@@ -1630,7 +1875,7 @@
                           </p>
 
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               La partición de varianza: Modelo Global frente a Modelo Restringido
                             </h3>
                           </div>
@@ -1643,30 +1888,30 @@
 
                           <!-- Comparador conceptual de modelos con estilos limpios de BreezyCV -->
                           <div
-                            style="margin: 25px 0 30px 0; border: 1px solid #e5e5e5; border-radius: 6px; background-color: #fcfcfc; padding: 20px;">
+                            style="margin: 25px 0 30px 0; border: 1px solid var(--c-border-4); border-radius: 6px; background-color: var(--c-bg-offwhite); padding: 20px;">
 
-                            <div style="margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                            <div style="margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid var(--c-border-light);">
                               <span
-                                style="display: inline-block; padding: 3px 8px; font-size: 0.85em; font-weight: 600; background-color: #e9ecef; color: #495057; border-radius: 4px; margin-bottom: 8px;">
+                                style="display: inline-block; padding: 3px 8px; font-size: 0.85em; font-weight: 600; background-color: var(--c-border-3); color: var(--c-text-gray700); border-radius: 4px; margin-bottom: 8px;">
                                 Línea base de control
                               </span>
-                              <h4 style="margin: 0 0 6px 0; font-size: 1.1em; color: #333;">Modelo Restringido (39
+                              <h4 style="margin: 0 0 6px 0; font-size: 1.1em; color: var(--c-text-secondary);">Modelo Restringido (39
                                 características)</h4>
-                              <p style="margin: 0; font-size: 0.95em; color: #555;">
+                              <p style="margin: 0; font-size: 0.95em; color: var(--c-text-muted-2);">
                                 Contiene exclusivamente los cinco espacios de control: fonética, léxico-estadística,
                                 categorías
                                 morfosintácticas, sintaxis de dependencias y semántica latente LSA.
                               </p>
                             </div>
 
-                            <div style="margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                            <div style="margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid var(--c-border-light);">
                               <span
-                                style="display: inline-block; padding: 3px 8px; font-size: 0.85em; font-weight: 600; background-color: #d1ecf1; color: #0c5460; border-radius: 4px; margin-bottom: 8px;">
+                                style="display: inline-block; padding: 3px 8px; font-size: 0.85em; font-weight: 600; background-color: var(--c-info-bg); color: var(--c-info-text); border-radius: 4px; margin-bottom: 8px;">
                                 Hipótesis completa
                               </span>
-                              <h4 style="margin: 0 0 6px 0; font-size: 1.1em; color: #333;">Modelo Global (43
+                              <h4 style="margin: 0 0 6px 0; font-size: 1.1em; color: var(--c-text-secondary);">Modelo Global (43
                                 características)</h4>
-                              <p style="margin: 0; font-size: 0.95em; color: #555;">
+                              <p style="margin: 0; font-size: 0.95em; color: var(--c-text-muted-2);">
                                 Incorpora los cinco espacios de control anteriores <b>más</b> las cuatro variables del
                                 espacio de
                                 tiempo gramatical finito (pasado regular, pasado irregular, no-pasado marcado y no
@@ -1676,12 +1921,12 @@
 
                             <div style="margin: 0;">
                               <span
-                                style="display: inline-block; padding: 3px 8px; font-size: 0.85em; font-weight: 600; background-color: #fff3cd; color: #856404; border-radius: 4px; margin-bottom: 8px;">
+                                style="display: inline-block; padding: 3px 8px; font-size: 0.85em; font-weight: 600; background-color: var(--c-warning-bg); color: var(--c-warning-text); border-radius: 4px; margin-bottom: 8px;">
                                 Métrica de aislamiento
                               </span>
-                              <h4 style="margin: 0 0 6px 0; font-size: 1.1em; color: #333;">Delta de los Modelos (ΔR²)
+                              <h4 style="margin: 0 0 6px 0; font-size: 1.1em; color: var(--c-text-secondary);">Delta de los Modelos (ΔR²)
                               </h4>
-                              <p style="margin: 0; font-size: 0.95em; color: #555;">
+                              <p style="margin: 0; font-size: 0.95em; color: var(--c-text-muted-2);">
                                 Se define como la precisión predictiva fuera de muestra del Modelo Global menos la del
                                 Modelo
                                 Restringido. Si el valor de este Delta es positivo, significa que incorporar la
@@ -1717,7 +1962,7 @@
                           <!-- Gráfica 4: Mecánica de la Partición de Varianza en Mermaid -->
                           <div style="margin: 35px 0 10px 0; text-align: center;">
                             <span
-                              style="font-weight: 600; font-size: 0.95em; color: #555; display: block; margin-bottom: 15px;">
+                              style="font-weight: 600; font-size: 0.95em; color: var(--c-text-muted-2); display: block; margin-bottom: 15px;">
                               Gráfica 4: Flujo de estimación vóxel a vóxel y partición de varianza predictiva
                             </span>
 
@@ -1729,7 +1974,7 @@
                               autocorrelación)"]
                               GRID_ALPHA["Búsqueda del Parámetro de Regularización<br>(20 valores candidatos: 0.01 a 10
                               000)"]
-                              CV_BLOCK --> GRID_ALPHA
+                              CV_BLOCK e1@--> GRID_ALPHA
                               end
 
                               subgraph MODELOS_PARALELOS ["Ajuste en Paralelo por Bloques de Vóxeles"]
@@ -1752,8 +1997,8 @@
                               R2_RESTR["Precisión R² del Modelo Restringido<br>(Línea base sin gramática)"]
                               R2_GLOB["Precisión R² del Modelo Global<br>(Con gramática de tiempo)"]
 
-                              TEST_STORY --> R2_RESTR
-                              TEST_STORY --> R2_GLOB
+                              TEST_STORY e2@--> R2_RESTR
+                              TEST_STORY e3@--> R2_GLOB
                               end
 
                               subgraph METRICA_DELTA ["Aislamiento de la Contribución Gramatical"]
@@ -1762,26 +2007,37 @@
                               Precisión Restringida"]
                               end
 
-                              GRID_ALPHA --> M_RESTR_FIT
-                              GRID_ALPHA --> M_GLOB_FIT
+                              GRID_ALPHA e4@--> M_RESTR_FIT
+                              GRID_ALPHA e5@--> M_GLOB_FIT
 
-                              M_RESTR_FIT --> R2_RESTR
-                              M_GLOB_FIT --> R2_GLOB
+                              M_RESTR_FIT e6@--> R2_RESTR
+                              M_GLOB_FIT e7@--> R2_GLOB
 
-                              R2_RESTR --> DELTA_CALC
-                              R2_GLOB --> DELTA_CALC
+                              R2_RESTR e8@--> DELTA_CALC
+                              R2_GLOB e9@--> DELTA_CALC
 
                               %% Estilos
-                              style DATOS_IN fill:#f8f9fa,stroke:#dee2e6,stroke-width:1px
-                              style MODELOS_PARALELOS fill:#f1f5f9,stroke:#cbd5e1,stroke-width:1px
-                              style PRUEBA_EXTERNA fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px
-                              style METRICA_DELTA fill:#fff9db,stroke:#f59f00,stroke-width:1px
-                              style RIDGE_RESTR fill:#ffffff,stroke:#cbd5e1
-                              style RIDGE_GLOB fill:#ffffff,stroke:#cbd5e1
+                              style DATOS_IN fill:#f5f5f5,stroke:#adadac,stroke-width:1px
+                              style MODELOS_PARALELOS fill:#eef6f8,stroke:#b8d8e0,stroke-width:1px
+                              style PRUEBA_EXTERNA fill:#e3eef1,stroke:#a3c4cd,stroke-width:1px
+                              style METRICA_DELTA fill:#e3f6fb,stroke:#04b4e0,stroke-width:1px
+                              style RIDGE_RESTR fill:#ffffff,stroke:#d5d5d5
+                              style RIDGE_GLOB fill:#ffffff,stroke:#d5d5d5
+
+                              %% Configuración de Animaciones
+                              e1@{ animation: fast }
+                              e2@{ animation: fast }
+                              e3@{ animation: fast }
+                              e4@{ animation: fast }
+                              e5@{ animation: fast }
+                              e6@{ animation: fast }
+                              e7@{ animation: fast }
+                              e8@{ animation: fast }
+                              e9@{ animation: fast }
                             </div>
                           </div>
 
-                          <p style="font-size: 0.9em; color: #666; text-align: center; margin-bottom: 25px;">
+                          <p style="font-size: 0.9em; color: var(--c-text-muted); text-align: center; margin-bottom: 25px;">
                             <i>Nota:</i> El Delta de los modelos se calcula para cada vóxel de manera independiente en
                             la historia de
                             prueba reservada. Si este valor no supera el umbral del azar, el aporte predictivo de la
@@ -1794,7 +2050,7 @@
                     </div>
 
                     <!-- ==================================================================== -->
-                    <!-- SECCIÓN 6: EL TRIBUNAL ESTADÍSTICO: DESPLAZAMIENTOS CIRCULARES Y FDR -->
+                    <!-- SECCIÓN 6: EL TECHO DE RUIDO: EL LÍMITE BIOLÓGICO DE LO PREDECIBLE    -->
                     <!-- ==================================================================== -->
 
                     <div class="row">
@@ -1802,7 +2058,438 @@
                         <div class="col-inner">
 
                           <div class="block-title" style="margin-top: 10px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
+                              El techo de lo posible: cuánta señal hay realmente para predecir
+                            </h3>
+                          </div>
+
+                          <p>
+                            Antes de preguntarnos si el Delta de los modelos observado es estadísticamente
+                            distinguible del azar, conviene resolver una pregunta previa, de naturaleza distinta:
+                            ¿cuál es, en primer lugar, el mejor desempeño que <b>cualquier</b> modelo —incluso uno
+                            matemáticamente perfecto— podría llegar a alcanzar sobre esta señal? La respuesta no es
+                            R² = 1.0. La señal BOLD registrada por el escáner nunca es una copia limpia de la
+                            actividad neural provocada por el relato: va mezclada con pulsaciones cardíacas,
+                            movimientos respiratorios sutiles y fluctuaciones espontáneas de la corteza en reposo que
+                            no guardan ninguna relación con las palabras que se están narrando en ese instante.
+                            Ningún algoritmo, por sofisticado que sea, puede predecir un componente de la señal que
+                            es, por definición, ajeno al estímulo.
+                          </p>
+
+                          <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
+                              Midiendo lo inmedible: repeticiones BOLD reales como vara de reproducibilidad
+                            </h3>
+                          </div>
+
+                          <p>
+                            Para cuantificar objetivamente ese límite biológico, el diseño experimental contempló
+                            una estrategia específica para la historia reservada de prueba: en lugar de narrarla una
+                            única vez, <i>wheretheressmoke</i> fue presentada varias veces, en sesiones separadas, a
+                            cada participante. El razonamiento es sencillo: si el cerebro reacciona de manera
+                            prácticamente idéntica cada vez que escucha la misma frase, esa porción de la señal es
+                            reproducible y, por tanto, candidata legítima a ser «predecible». Si, en cambio, la
+                            respuesta fluctúa de una repetición a otra pese a tratarse exactamente del mismo
+                            estímulo acústico, esa variabilidad no puede atribuirse a ninguna característica
+                            lingüística: es ruido fisiológico puro. Una auditoría específica de disponibilidad,
+                            realizada mediante inspección directa de los archivos de resonancia originales, confirmó
+                            que el cohorte completo cuenta con repeticiones reales suficientes para esta estimación:
+                            <b>10 repeticiones independientes para los participantes UTS01, UTS02 y UTS03, y 5
+                              repeticiones para UTS04 a UTS10</b>.
+                          </p>
+
+                          <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
+                              La descomposición de Sahani y Linden (2003): separando señal de ruido
+                            </h3>
+                          </div>
+
+                          <p>
+                            Formalizar esta intuición exige descomponer matemáticamente la varianza del promedio
+                            entre repeticiones en dos componentes: una fracción atribuible a señal reproducible y
+                            otra atribuible a ruido independiente entre repeticiones. Se adoptó el estimador de
+                            potencia de señal con corrección de sesgo propuesto por Sahani y Linden (2003): se
+                            calcula la varianza del promedio entre repeticiones, se estima la varianza residual de
+                            cada repetición individual frente a ese promedio, se corrige esa varianza residual
+                            mediante un factor que compensa el sesgo introducido por trabajar con un número finito
+                            de repeticiones (en vez de infinitas) y, finalmente, se resta la fracción de ruido
+                            independiente remanente. El resultado —acotado entre 0 y 1— es el <b>techo de
+                              ruido</b>: el R² máximo que cualquier modelo, sin importar su sofisticación, podría
+                            alcanzar contra el promedio de repeticiones de ese vóxel.
+                          </p>
+
+                          <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
+                              Por qué este estimador y no otro: cuatro familias en comparación
+                            </h3>
+                          </div>
+
+                          <p>
+                            Esta no fue la única alternativa considerada. La literatura de neurociencia de
+                            estímulos naturalistas ofrece al menos cuatro familias de estimadores de techo de ruido,
+                            cada una con compromisos distintos entre fidelidad estadística y costo computacional:
+                          </p>
+
+                          <!-- Tabla 5: Comparación de estimadores de techo de ruido -->
+                          <div class="block-title" style="margin-top: 20px; margin-bottom: 10px;">
+                            <h4 style="font-size: 1.1em; color: var(--c-text-secondary);">
+                              Tabla 5: Familias de estimadores de techo de ruido consideradas
+                            </h4>
+                          </div>
+
+                          <div
+                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 15px; border: 1px solid var(--c-border-light);">
+                            <table style="width: 100%; min-width: 640px; border-collapse: collapse; text-align: left;">
+                              <thead style="background-color: var(--c-bg-light); border-bottom: 2px solid var(--c-border-2);">
+                                <tr>
+                                  <th style="padding: 10px;">Estimador</th>
+                                  <th style="padding: 10px;">Mecanismo</th>
+                                  <th style="padding: 10px;">Costo computacional</th>
+                                  <th style="padding: 10px;">Decisión</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
+                                  <td style="padding: 10px;"><b>Sahani &amp; Linden (2003)</b></td>
+                                  <td style="padding: 10px;">Descompone la varianza del promedio en señal
+                                    reproducible y ruido independiente, corrigiendo el sesgo por repeticiones
+                                    finitas.</td>
+                                  <td style="padding: 10px;">El más bajo: fórmula cerrada sobre medias y varianzas
+                                    de 5-10 repeticiones.</td>
+                                  <td style="padding: 10px;"><b>Adoptado.</b> Mismas unidades (R²) que el Delta de
+                                    los modelos; es el estimador usado por el propio equipo que publicó este
+                                    dataset.</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
+                                  <td style="padding: 10px;">Confiabilidad por mitades (Split-Half) +
+                                    Spearman-Brown</td>
+                                  <td style="padding: 10px;">Correlaciona el promedio de dos mitades de las
+                                    repeticiones y extrapola la confiabilidad al conjunto completo.</td>
+                                  <td style="padding: 10px;">Bajo, pero exige un paso adicional de transformación
+                                    de correlación a R².</td>
+                                  <td style="padding: 10px;">Descartado: no aporta ventaja sobre el estimador
+                                    elegido para este caso.</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
+                                  <td style="padding: 10px;">Remuestreo Bootstrap / Monte Carlo</td>
+                                  <td style="padding: 10px;">Recalcula el techo sobre cientos de remuestreos de las
+                                    repeticiones para obtener un intervalo de confianza.</td>
+                                  <td style="padding: 10px;">Moderado-alto: escala linealmente con el número de
+                                    remuestreos.</td>
+                                  <td style="padding: 10px;">Descartado: beneficio marginal con solo 5-10
+                                    repeticiones distintas disponibles.</td>
+                                </tr>
+                                <tr>
+                                  <td style="padding: 10px;">Correlación Inter-Sujeto (ISC)</td>
+                                  <td style="padding: 10px;">Usa la correlación entre las respuestas de distintos
+                                    participantes al mismo estímulo como sustituto de la reproducibilidad.</td>
+                                  <td style="padding: 10px;">El más alto: escala con pares de sujetos y exige
+                                    alinear anatómicamente las cortezas individuales.</td>
+                                  <td style="padding: 10px;">Descartado: responde una pregunta distinta
+                                    (confiabilidad compartida entre cerebros, no de un participante consigo mismo).
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
+                              De vuelta a los modelos: normalizar R² y Delta por el techo de ruido
+                            </h3>
+                          </div>
+
+                          <p>
+                            El techo de ruido estimado por vóxel permite reexpresar el desempeño de ambos
+                            modelos —y, por extensión, el propio Delta de los modelos— no como una fracción de la
+                            varianza total (que incluye ruido fisiológico jamás predecible), sino como una fracción
+                            de la <b>varianza explicable</b>: la precisión del Modelo Global dividida entre el
+                            techo, la precisión del Modelo Restringido dividida entre ese mismo techo, y la
+                            diferencia entre ambos cocientes. Dividir entre un techo de ruido numéricamente
+                            inestable (muy cercano a cero) produciría cocientes engañosos, de modo que esta
+                            normalización solo se reporta en los vóxeles donde el techo supera un umbral mínimo de
+                            confiabilidad (un R² superior a 0.01); por debajo de ese piso, se reporta
+                            explícitamente «N/A» en lugar de una cifra artificialmente inflada o indefinida.
+                          </p>
+
+                          <!-- Gráfica 5: Mecánica del Techo de Ruido en Mermaid -->
+                          <div style="margin: 35px 0 10px 0; text-align: center;">
+                            <span
+                              style="font-weight: 600; font-size: 0.95em; color: var(--c-text-muted-2); display: block; margin-bottom: 15px;">
+                              Gráfica 5: De las repeticiones BOLD al techo de ruido normalizado
+                            </span>
+
+                            <div class="mermaid" style="text-align: center; margin-bottom: 25px;">
+                              flowchart TB
+                              subgraph REPETICIONES ["1. Repeticiones BOLD Reales de la Historia de Prueba"]
+                              direction TB
+                              REP_RAW["Repeticiones Independientes por Participante<br>(10 para UTS01-UTS03; 5 para
+                              UTS04-UTS10)"]
+                              REP_Z["Estandarización Z Independiente por Repetición<br>(Misma política que el resto
+                              de las historias)"]
+                              REP_RAW e1@--> REP_Z
+                              end
+
+                              subgraph DESCOMPOSICION ["2. Descomposición de Varianza (Sahani y Linden, 2003)"]
+                              direction TB
+                              VAR_MEAN["Varianza del Promedio entre Repeticiones"]
+                              VAR_RESID["Varianza Residual de Cada Repetición<br>frente al Promedio (con corrección
+                              de sesgo)"]
+                              VAR_SIGNAL["Varianza de Señal Reproducible<br>(Promedio menos Ruido Independiente)"]
+                              VAR_MEAN e2@--> VAR_SIGNAL
+                              VAR_RESID e3@--> VAR_SIGNAL
+                              end
+
+                              subgraph TECHO ["3. Techo de Ruido por Vóxel"]
+                              direction TB
+                              CEIL["Techo de Ruido<br>R² máximo biológicamente alcanzable"]
+                              end
+
+                              subgraph NORMALIZACION ["4. Normalización de las Métricas del Modelo"]
+                              direction TB
+                              NORM["R² Global, R² Restringido y Delta Normalizados<br>N/A si el techo no supera
+                              0.01"]
+                              end
+
+                              REP_Z e4@--> VAR_MEAN
+                              REP_Z e5@--> VAR_RESID
+                              VAR_SIGNAL e6@--> CEIL
+                              CEIL e7@--> NORM
+
+                              %% Estilos
+                              style REPETICIONES fill:#f5f5f5,stroke:#adadac,stroke-width:1px
+                              style DESCOMPOSICION fill:#eef6f8,stroke:#b8d8e0,stroke-width:1px
+                              style TECHO fill:#e3f6fb,stroke:#04b4e0,stroke-width:1px
+                              style NORMALIZACION fill:#fcfcfc,stroke:#d5d5d5,stroke-width:1px
+
+                              %% Configuración de Animaciones
+                              e1@{ animation: fast }
+                              e2@{ animation: fast }
+                              e3@{ animation: fast }
+                              e4@{ animation: fast }
+                              e5@{ animation: fast }
+                              e6@{ animation: fast }
+                              e7@{ animation: fast }
+                            </div>
+                          </div>
+
+                          <div class="block-title" style="margin-top: 35px; margin-bottom: 12px; clear: both;">
+                            <h4 style="font-size: 1.1em; color: var(--c-text-secondary);">
+                              Simulación interactiva: repeticiones ruidosas, su promedio y el techo de ruido
+                              estimado
+                            </h4>
+                          </div>
+
+                          <p style="font-size: 0.95em; color: var(--c-text-muted-2); margin-bottom: 20px;">
+                            Dado que esta descomposición de varianza puede resultar abstracta, la siguiente
+                            simulación reproduce el mismo cálculo exacto sobre una señal sintética de juguete,
+                            donde —a diferencia de los datos reales de fMRI— sí conocemos de antemano la señal
+                            verdadera oculta. Esto permite comprobar visualmente que el techo estimado a partir de
+                            repeticiones ruidosas se aproxima de cerca al techo verdadero, aun cuando el estimador
+                            nunca tiene acceso directo a esa señal oculta:
+                          </p>
+
+                          <div style="width: 100%; clear: both; margin: 20px 0 15px 0;">
+                            <div id="plotly-noise-ceiling-simulation"
+                              style="width: 100%; height: 440px; border: 1px solid var(--c-border-3); border-radius: 8px; background-color: var(--c-white); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); position: relative; overflow: hidden;">
+                            </div>
+                          </div>
+
+                          <div
+                            style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 15px; margin: 0 0 20px 0;">
+                            <button id="noise-ceiling-reroll-btn" type="button"
+                              style="padding: 8px 16px; font-size: 0.9em; font-weight: 600; color: var(--c-white); background-color: var(--c-accent); border: none; border-radius: 5px; cursor: pointer;">
+                              Generar nueva simulación
+                            </button>
+                            <div id="noise-ceiling-readout" style="font-size: 0.9em; color: var(--c-text-gray700); text-align: right;">
+                            </div>
+                          </div>
+
+                          <p style="font-size: 0.9em; color: var(--c-text-muted); text-align: center; margin-bottom: 25px;">
+                            <i>Nota:</i> simulación puramente ilustrativa sobre una señal sintética; no son datos
+                            reales de ningún participante del estudio. Pulsa el botón para generar una nueva
+                            realización aleatoria de ruido y observar cómo el techo estimado se mantiene cercano
+                            al techo verdadero en cada sorteo.
+                          </p>
+
+                          <script>
+                            (function () {
+                              var chartDiv = document.getElementById('plotly-noise-ceiling-simulation');
+                              var readoutDiv = document.getElementById('noise-ceiling-readout');
+                              var rerollBtn = document.getElementById('noise-ceiling-reroll-btn');
+                              if (!chartDiv) return;
+
+                              var N_SAMPLES = 60;
+                              var N_REPEATS = 5;
+                              var NOISE_SD = 0.9;
+
+                              function mulberry32(seed) {
+                                return function () {
+                                  seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+                                  var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+                                  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+                                  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+                                };
+                              }
+
+                              function gaussian(rand) {
+                                var u1 = Math.max(rand(), 1e-9), u2 = rand();
+                                return Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+                              }
+
+                              function variance(arr) {
+                                var n = arr.length;
+                                var m = arr.reduce(function (a, b) { return a + b; }, 0) / n;
+                                var s = arr.reduce(function (a, b) { return a + (b - m) * (b - m); }, 0) / n;
+                                return s;
+                              }
+
+                              var trueSignal = [];
+                              for (var t0 = 0; t0 < N_SAMPLES; t0++) {
+                                trueSignal.push(Math.sin(2 * Math.PI * t0 / 24) + 0.5 * Math.sin(2 * Math.PI * t0 / 9 + 1.0));
+                              }
+
+                              function runSimulation(seed) {
+                                var rand = mulberry32(seed);
+                                var repeats = [];
+                                for (var r = 0; r < N_REPEATS; r++) {
+                                  var rep = [];
+                                  for (var t = 0; t < N_SAMPLES; t++) {
+                                    rep.push(trueSignal[t] + NOISE_SD * gaussian(rand));
+                                  }
+                                  repeats.push(rep);
+                                }
+
+                                var mean = [];
+                                for (var t = 0; t < N_SAMPLES; t++) {
+                                  var s = 0;
+                                  for (var r = 0; r < N_REPEATS; r++) s += repeats[r][t];
+                                  mean.push(s / N_REPEATS);
+                                }
+
+                                var varMean = variance(mean);
+                                var residVars = [];
+                                for (var r = 0; r < N_REPEATS; r++) {
+                                  var diffs = repeats[r].map(function (v, t) { return v - mean[t]; });
+                                  residVars.push(variance(diffs));
+                                }
+                                var meanResidVar = residVars.reduce(function (a, b) { return a + b; }, 0) / N_REPEATS;
+
+                                var noiseVar = meanResidVar * N_REPEATS / (N_REPEATS - 1);
+                                var signalVar = Math.max(varMean - noiseVar / N_REPEATS, 0);
+                                var ceilingEstimated = varMean > 0 ? Math.min(Math.max(signalVar / varMean, 0), 1) : NaN;
+
+                                var ssResTrue = 0, ssTotTrue = 0;
+                                var meanOfMean = mean.reduce(function (a, b) { return a + b; }, 0) / N_SAMPLES;
+                                for (var t = 0; t < N_SAMPLES; t++) {
+                                  ssResTrue += Math.pow(mean[t] - trueSignal[t], 2);
+                                  ssTotTrue += Math.pow(mean[t] - meanOfMean, 2);
+                                }
+                                var ceilingTrue = ssTotTrue > 0 ? Math.max(0, 1 - ssResTrue / ssTotTrue) : NaN;
+
+                                return { repeats: repeats, mean: mean, ceilingEstimated: ceilingEstimated, ceilingTrue: ceilingTrue };
+                              }
+
+                              function buildTraces(result) {
+                                var tAxis = [];
+                                for (var t = 0; t < N_SAMPLES; t++) tAxis.push(t);
+
+                                var traces = [];
+                                for (var r = 0; r < N_REPEATS; r++) {
+                                  traces.push({
+                                    x: tAxis, y: result.repeats[r], mode: 'lines', type: 'scatter',
+                                    name: 'Repeticiones individuales (ruidosas)',
+                                    legendgroup: 'repeats', showlegend: (r === 0),
+                                    line: { color: 'rgba(0, 123, 255, 0.28)', width: 1.3 },
+                                    hovertemplate: 'Repetición ' + (r + 1) + '<br>TR %{x}<br>%{y:.2f}<extra></extra>'
+                                  });
+                                }
+
+                                traces.push({
+                                  x: tAxis, y: trueSignal, mode: 'lines', type: 'scatter',
+                                  name: 'Señal verdadera (oculta en datos reales)',
+                                  line: { color: '#6c757d', width: 2, dash: 'dot' },
+                                  hovertemplate: 'Señal verdadera<br>TR %{x}<br>%{y:.2f}<extra></extra>'
+                                });
+
+                                traces.push({
+                                  x: tAxis, y: result.mean, mode: 'lines', type: 'scatter',
+                                  name: 'Promedio entre repeticiones',
+                                  line: { color: '#007bff', width: 2.8 },
+                                  hovertemplate: 'Promedio<br>TR %{x}<br>%{y:.2f}<extra></extra>'
+                                });
+
+                                return traces;
+                              }
+
+                              function updateReadout(result) {
+                                readoutDiv.innerHTML =
+                                  'Techo de ruido <b>estimado</b> (Sahani &amp; Linden): <b style="color:#007bff;">' +
+                                  result.ceilingEstimated.toFixed(3) +
+                                  '</b>&nbsp;&nbsp;|&nbsp;&nbsp;Techo <b>verdadero</b> (solo conocible en esta simulación): <b>' +
+                                  result.ceilingTrue.toFixed(3) + '</b>';
+                              }
+
+                              var layout = {
+                                autosize: true,
+                                paper_bgcolor: '#ffffff',
+                                plot_bgcolor: '#ffffff',
+                                margin: { l: 50, r: 25, t: 25, b: 70 },
+                                xaxis: {
+                                  title: { text: 'Tiempo simulado (TRs arbitrarios)', font: { size: 11.5, color: '#495057' } },
+                                  gridcolor: '#f1f3f5', tickfont: { size: 10, color: '#6c757d' }
+                                },
+                                yaxis: {
+                                  title: { text: 'Amplitud BOLD simulada (u.a.)', font: { size: 11.5, color: '#495057' } },
+                                  gridcolor: '#f1f3f5', zeroline: true, zerolinecolor: '#ced4da',
+                                  tickfont: { size: 10, color: '#6c757d' }
+                                },
+                                legend: {
+                                  orientation: 'h', y: -0.28, x: 0.02,
+                                  font: { size: 11, color: '#495057' }, bgcolor: 'rgba(255,255,255,0.9)'
+                                },
+                                hovermode: 'closest'
+                              };
+                              var plotConfig = { responsive: true, displayModeBar: false };
+
+                              var seedCounter = 10;
+                              var current = runSimulation(seedCounter);
+                              Plotly.newPlot(chartDiv, buildTraces(current), layout, plotConfig);
+                              updateReadout(current);
+
+                              if (rerollBtn) {
+                                rerollBtn.addEventListener('click', function () {
+                                  seedCounter += 1;
+                                  current = runSimulation((seedCounter * 2654435761) | 0);
+                                  Plotly.react(chartDiv, buildTraces(current), layout, plotConfig);
+                                  updateReadout(current);
+                                });
+                              }
+                            })();
+                          </script>
+
+                          <p>
+                            Contar con este límite biológico de referencia es indispensable para interpretar
+                            correctamente la magnitud de cualquier Delta observado, pero todavía no resuelve la
+                            pregunta de fondo: ¿ese Delta observado —sea grande o pequeño en relación con el techo—
+                            podría haber surgido simplemente del azar? Esa es, precisamente, la pregunta que
+                            resuelve el tribunal estadístico descrito a continuación.
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ==================================================================== -->
+                    <!-- SECCIÓN 7: EL TRIBUNAL ESTADÍSTICO: DESPLAZAMIENTOS CIRCULARES Y FDR -->
+                    <!-- ==================================================================== -->
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="col-inner">
+
+                          <div class="block-title" style="margin-top: 10px; margin-bottom: 20px;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               El espejismo del azar: Por qué un Delta positivo no basta
                             </h3>
                           </div>
@@ -1835,7 +2522,7 @@
                           </p>
 
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               El error de barajar el tiempo: La autocorrelación hemodinámica
                             </h3>
                           </div>
@@ -1866,12 +2553,12 @@
 
                           <!-- Ejemplo bilingüe de desincronización temporal -->
                           <blockquote
-                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid #007bff; background-color: #f9fbfd;">
-                            <p style="margin-bottom: 6px; font-style: italic; color: #222;">
+                            style="margin: 25px 0; padding: 15px 20px; border-left: 4px solid var(--c-accent); background-color: var(--c-accent-bg);">
+                            <p style="margin-bottom: 6px; font-style: italic; color: var(--c-text);">
                               <b>Desconexión temporal preservando la estructura del relato:</b><br>
                               "He turned the ignition key, but the engine remained dead silent."
                             </p>
-                            <p style="margin: 0; color: #666; font-style: italic;">
+                            <p style="margin: 0; color: var(--c-text-muted); font-style: italic;">
                               "Giró la llave de encendido, pero el motor permaneció en completo silencio."
                             </p>
                           </blockquote>
@@ -1889,7 +2576,7 @@
                           </p>
 
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               Desplazamientos circulares exhaustivos y margen de exclusión
                             </h3>
                           </div>
@@ -1942,7 +2629,7 @@
                           </p>
 
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               El filtro a cerebro completo: Corrección FDR Benjamini-Hochberg
                             </h3>
                           </div>
@@ -1968,11 +2655,11 @@
                               proporción de falsas alarmas debidas al ruido no supere dicho porcentaje. Solo aquellos
                               puntos corticales que sobreviven a este filtro conservan legitimidad inferencial. </p>
 
-                              <!-- Gráfica 5: Mecánica del Tribunal Estadístico en Mermaid -->
+                              <!-- Gráfica 6: Mecánica del Tribunal Estadístico en Mermaid -->
                               <div style="margin: 35px 0 10px 0; text-align: center;">
                                 <span
-                                  style="font-weight: 600; font-size: 0.95em; color: #555; display: block; margin-bottom: 15px;">
-                                  Gráfica 5: Evaluación de significancia mediante rotaciones circulares y control FDR
+                                  style="font-weight: 600; font-size: 0.95em; color: var(--c-text-muted-2); display: block; margin-bottom: 15px;">
+                                  Gráfica 6: Evaluación de significancia mediante rotaciones circulares y control FDR
                                 </span>
 
                                 <div class="mermaid" style="text-align: center; margin-bottom: 25px;">
@@ -1982,8 +2669,8 @@
                                   PRED_REAL["Predicciones Sincronizadas (0.5 Hz)"]
                                   BOLD_REAL["Serie BOLD Real Observada"]
                                   DELTA_OBS["Delta Observado (ΔR² por vóxel)<br>Aporte aparente del tiempo gramatical"]
-                                  PRED_REAL --> DELTA_OBS
-                                  BOLD_REAL --> DELTA_OBS
+                                  PRED_REAL e1@--> DELTA_OBS
+                                  BOLD_REAL e2@--> DELTA_OBS
                                   end
 
                                   subgraph PERMUTACION ["2. Generación de la Distribución Nula"]
@@ -1995,8 +2682,8 @@
                                     DELTA_NULL["Cálculo Exhaustivo de Deltas Nulos<br>(Cientos de rotaciones desfasadas
                                     por vóxel)"]
 
-                                    ROT --> BUFFER
-                                    BUFFER --> DELTA_NULL
+                                    ROT e3@--> BUFFER
+                                    BUFFER e4@--> DELTA_NULL
                                     end
 
                                     subgraph INFERENCIA_VOXEL ["3. Contraste Vóxel a Vóxel"]
@@ -2013,23 +2700,34 @@
                                       SURVIVAL["Vóxeles Estadísticamente Detectables<br>Aporte biológico no atribuible
                                       al ruido"]
 
-                                      WHOLE_BRAIN --> FDR_PROC
-                                      FDR_PROC --> SURVIVAL
+                                      WHOLE_BRAIN e5@--> FDR_PROC
+                                      FDR_PROC e6@--> SURVIVAL
                                       end
 
-                                      DELTA_OBS --> P_VAL
-                                      DELTA_NULL --> P_VAL
-                                      P_VAL --> WHOLE_BRAIN
+                                      DELTA_OBS e7@--> P_VAL
+                                      DELTA_NULL e8@--> P_VAL
+                                      P_VAL e9@--> WHOLE_BRAIN
 
                                       %% Estilos
-                                      style REALIDAD fill:#f8fafc,stroke:#e2e8f0,stroke-width:1px
-                                      style PERMUTACION fill:#f1f5f9,stroke:#cbd5e1,stroke-width:1px
-                                      style INFERENCIA_VOXEL fill:#fcfaf2,stroke:#ebdcb9,stroke-width:1px
-                                      style CEREBRO_COMPLETO fill:#fdf5f5,stroke:#f1b0b7,stroke-width:1px
+                                      style REALIDAD fill:#f5f5f5,stroke:#adadac,stroke-width:1px
+                                      style PERMUTACION fill:#eef6f8,stroke:#b8d8e0,stroke-width:1px
+                                      style INFERENCIA_VOXEL fill:#e3eef1,stroke:#a3c4cd,stroke-width:1px
+                                      style CEREBRO_COMPLETO fill:#e3f6fb,stroke:#04b4e0,stroke-width:1px
+
+                                      %% Configuración de Animaciones
+                                      e1@{ animation: fast }
+                                      e2@{ animation: fast }
+                                      e3@{ animation: fast }
+                                      e4@{ animation: fast }
+                                      e5@{ animation: fast }
+                                      e6@{ animation: fast }
+                                      e7@{ animation: fast }
+                                      e8@{ animation: fast }
+                                      e9@{ animation: fast }
                                 </div>
                               </div>
 
-                              <p style="font-size: 0.9em; color: #666; text-align: center; margin-bottom: 25px;">
+                              <p style="font-size: 0.9em; color: var(--c-text-muted); text-align: center; margin-bottom: 25px;">
                                 <i>Nota:</i> El tribunal estadístico garantiza que un vóxel solo se considere
                                 informativo si su ventaja
                                 predictiva sobrevive a cientos de desalineamientos temporales continuos y al estricto
@@ -2042,7 +2740,7 @@
                     </div>
 
                     <!-- ==================================================================== -->
-                    <!-- SECCIÓN 7: LA REALIDAD EMPÍRICA: ¿QUÉ REVELAN LOS RESULTADOS NEGATIVOS? -->
+                    <!-- SECCIÓN 8: LA REALIDAD EMPÍRICA: ¿QUÉ REVELAN LOS RESULTADOS NEGATIVOS? -->
                     <!-- ==================================================================== -->
 
                     <div class="row">
@@ -2050,7 +2748,7 @@
                         <div class="col-inner">
 
                           <div class="block-title" style="margin-top: 10px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               El veredicto de los datos: Honestidad ante los resultados negativos
                             </h3>
                           </div>
@@ -2082,15 +2780,15 @@
 
                           <!-- Tabla 4: Resultados Empíricos por Participante -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 10px;">
-                            <h4 style="font-size: 1.1em; color: #333;">
+                            <h4 style="font-size: 1.1em; color: var(--c-text-secondary);">
                               Tabla 4: Desempeño predictivo y supervivencia estadística tras corrección FDR
                             </h4>
                           </div>
 
                           <div
-                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px; border: 1px solid #eee;">
+                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px; border: 1px solid var(--c-border-light);">
                             <table style="width: 100%; min-width: 500px; border-collapse: collapse; text-align: left;">
-                              <thead style="background-color: #f8f9fa; border-bottom: 2px solid #ddd;">
+                              <thead style="background-color: var(--c-bg-light); border-bottom: 2px solid var(--c-border-2);">
                                 <tr>
                                   <th style="padding: 10px;">Participante</th>
                                   <th style="padding: 10px;">Vóxeles evaluados</th>
@@ -2100,65 +2798,72 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>UTS01</b></td>
-                                  <td style="padding: 10px;">81 240</td>
+                                  <td style="padding: 10px;">81 126</td>
                                   <td style="padding: 10px;">0</td>
                                   <td style="padding: 10px;">0.00 %</td>
                                   <td style="padding: 10px;">N/A</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>UTS02</b></td>
-                                  <td style="padding: 10px;">93 812</td>
+                                  <td style="padding: 10px;">94 251</td>
                                   <td style="padding: 10px;">0</td>
                                   <td style="padding: 10px;">0.00 %</td>
                                   <td style="padding: 10px;">N/A</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>UTS03</b></td>
-                                  <td style="padding: 10px;">95 560</td>
+                                  <td style="padding: 10px;">95 556</td>
                                   <td style="padding: 10px;">0</td>
                                   <td style="padding: 10px;">0.00 %</td>
                                   <td style="padding: 10px;">N/A</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>UTS04</b></td>
-                                  <td style="padding: 10px;">88 745</td>
+                                  <td style="padding: 10px;">109 469</td>
                                   <td style="padding: 10px;">0</td>
                                   <td style="padding: 10px;">0.00 %</td>
                                   <td style="padding: 10px;">N/A</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>UTS05</b></td>
-                                  <td style="padding: 10px;">99 430</td>
+                                  <td style="padding: 10px;">99 322</td>
                                   <td style="padding: 10px;">0</td>
                                   <td style="padding: 10px;">0.00 %</td>
                                   <td style="padding: 10px;">N/A</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>UTS06</b></td>
-                                  <td style="padding: 10px;">92 510</td>
+                                  <td style="padding: 10px;">92 198</td>
                                   <td style="padding: 10px;">0</td>
                                   <td style="padding: 10px;">0.00 %</td>
                                   <td style="padding: 10px;">N/A</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>UTS07</b></td>
-                                  <td style="padding: 10px;">94 280</td>
+                                  <td style="padding: 10px;">94 395</td>
                                   <td style="padding: 10px;">0</td>
                                   <td style="padding: 10px;">0.00 %</td>
                                   <td style="padding: 10px;">N/A</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #eee;">
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
                                   <td style="padding: 10px;"><b>UTS08</b></td>
-                                  <td style="padding: 10px;">96 820</td>
+                                  <td style="padding: 10px;">97 023</td>
+                                  <td style="padding: 10px;">0</td>
+                                  <td style="padding: 10px;">0.00 %</td>
+                                  <td style="padding: 10px;">N/A</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid var(--c-border-light);">
+                                  <td style="padding: 10px;"><b>UTS09</b></td>
+                                  <td style="padding: 10px;">98 336</td>
                                   <td style="padding: 10px;">0</td>
                                   <td style="padding: 10px;">0.00 %</td>
                                   <td style="padding: 10px;">N/A</td>
                                 </tr>
                                 <tr>
-                                  <td style="padding: 10px;"><b>UTS09</b></td>
-                                  <td style="padding: 10px;">98 115</td>
+                                  <td style="padding: 10px;"><b>UTS10</b></td>
+                                  <td style="padding: 10px;">81 629</td>
                                   <td style="padding: 10px;">0</td>
                                   <td style="padding: 10px;">0.00 %</td>
                                   <td style="padding: 10px;">N/A</td>
@@ -2167,7 +2872,7 @@
                             </table>
                           </div>
 
-                          <p style="font-size: 0.9em; color: #666; margin-bottom: 25px;">
+                          <p style="font-size: 0.9em; color: var(--c-text-muted); margin-bottom: 25px;">
                             <i>Nota metodológica:</i> Siguiendo el protocolo formal de la investigación, cuando ningún
                             vóxel supera el
                             criterio corregido por FDR, las métricas de varianza única pico se reportan estrictamente
@@ -2175,6 +2880,23 @@
                             (N/A) y no se sustituyen por ceros arbitrarios, evitando confundir la falta de significancia
                             con una ausencia
                             total de fluctuaciones numéricas.
+                          </p>
+
+                          <p>
+                            Esta misma lógica se extiende, de manera mecánica, a las dos capas de robustez descritas
+                            en la sección anterior. El cohorte completo cuenta con techo de ruido estimable a partir
+                            de repeticiones BOLD reales e independientes de <i>wheretheressmoke</i> (10 para UTS01,
+                            UTS02 y UTS03; 5 para el resto de los participantes), lo que permite normalizar el
+                            desempeño por la varianza explicable y no solo por la varianza total. Sin embargo, dado
+                            que ningún vóxel sobrevivió a la corrección FDR, dos cantidades derivadas quedan fijadas
+                            como <b>«N/A» por definición, no por falta de datos</b>: el aporte normalizado por techo
+                            de ruido en vóxeles significativos (que solo existe cuando ese conjunto de vóxeles no es
+                            vacío) y la tasa de estabilidad del hallazgo frente al margen de exclusión ampliado (que
+                            se define como la proporción de vóxeles significativos bajo el margen base que también
+                            lo son bajo el margen de 16 TRs, y cuyo numerador es, por construcción, cero). En otras
+                            palabras: el resultado nulo es consistente tanto si se mide en términos de varianza
+                            total como de varianza normalizada por el techo de ruido, y tanto bajo el margen de
+                            exclusión base como bajo el margen ampliado de una HRF completa.
                           </p>
 
                           <p>
@@ -2201,7 +2923,7 @@
 
                           <!-- Cuello de botella 1 -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
-                            <h4 style="font-size: 1.15em; color: #222;">
+                            <h4 style="font-size: 1.15em; color: var(--c-text);">
                               1. El sesgo asimétrico del estímulo de evaluación (wheretheressmoke)
                             </h4>
                           </div>
@@ -2220,12 +2942,12 @@
 
                           <!-- Ejemplo bilingüe de predominio de no-pasado -->
                           <blockquote
-                            style="margin: 20px 0; padding: 15px 20px; border-left: 4px solid #007bff; background-color: #f9fbfd;">
-                            <p style="margin-bottom: 6px; font-style: italic; color: #222;">
+                            style="margin: 20px 0; padding: 15px 20px; border-left: 4px solid var(--c-accent); background-color: var(--c-accent-bg);">
+                            <p style="margin-bottom: 6px; font-style: italic; color: var(--c-text);">
                               <b>Predominio de formas de no-pasado y cópulas en la narración de prueba:</b><br>
                               "There's this moment where you realize you're completely alone and nothing makes sense."
                             </p>
-                            <p style="margin: 0; color: #666; font-style: italic;">
+                            <p style="margin: 0; color: var(--c-text-muted); font-style: italic;">
                               "Hay un momento en el que te das cuenta de que estás completamente solo y nada tiene
                               sentido."
                             </p>
@@ -2243,7 +2965,7 @@
 
                           <!-- Cuello de botella 2 -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
-                            <h4 style="font-size: 1.15em; color: #222;">
+                            <h4 style="font-size: 1.15em; color: var(--c-text);">
                               2. La absorción de varianza por la maquinaria de control
                             </h4>
                           </div>
@@ -2273,7 +2995,7 @@
 
                           <!-- Cuello de botella 3 -->
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
-                            <h4 style="font-size: 1.15em; color: #222;">
+                            <h4 style="font-size: 1.15em; color: var(--c-text);">
                               3. La rigidez de la respuesta hemodinámica canónica uniforme
                             </h4>
                           </div>
@@ -2315,7 +3037,7 @@
                     </div>
 
                     <!-- ==================================================================== -->
-                    <!-- SECCIÓN 8: EXPLORACIÓN CORTICAL, VISORES Y CONCLUSIONES               -->
+                    <!-- SECCIÓN 9: EXPLORACIÓN CORTICAL, VISORES Y CONCLUSIONES               -->
                     <!-- ==================================================================== -->
 
                     <div class="row">
@@ -2323,7 +3045,7 @@
                         <div class="col-inner">
 
                           <div class="block-title" style="margin-top: 10px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               Exploración visual: Mapas corticales interactivos en PyCortex
                             </h3>
                           </div>
@@ -2339,21 +3061,22 @@
                           </p>
 
                           <p>
-                            Al explorar estos visores tridimensionales interactivos, es posible alternar entre dos capas
-                            analíticas
-                            principales que ofrecen lecturas complementarias del experimento:
+                            Al explorar estos visores tridimensionales interactivos, es posible alternar entre tres
+                            capas
+                            analíticas que ofrecen lecturas complementarias del experimento:
                           </p>
 
                           <!-- Capas de PyCortex en recuadros limpios -->
                           <div
-                            style="margin: 25px 0; border: 1px solid #e5e5e5; border-radius: 6px; background-color: #fafafa; padding: 20px;">
+                            style="margin: 25px 0; border: 1px solid var(--c-border-4); border-radius: 6px; background-color: var(--c-bg-offwhite-2); padding: 20px;">
 
-                            <div style="margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
-                              <h4 style="margin: 0 0 8px 0; font-size: 1.1em; color: #222;">
+                            <div style="margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid var(--c-border-light);">
+                              <h4 style="margin: 0 0 8px 0; font-size: 1.1em; color: var(--c-text);">
                                 1. Capa del Modelo Global (Control de calidad neurofuncional)
                               </h4>
-                              <p style="margin: 0; font-size: 0.95em; color: #555;">
-                                Representada mediante una escala cromática cálida (tonos rojizos y amarillos). Proyecta
+                              <p style="margin: 0; font-size: 0.95em; color: var(--c-text-muted-2);">
+                                Representada mediante una escala cromática cálida (tonos rojizos y amarillos),
+                                umbralizada para mostrar únicamente vóxeles con R² superior a 0.01. Proyecta
                                 la capacidad
                                 predictiva general de la arquitectura completa de 43 características sobre la historia
                                 de prueba.
@@ -2367,14 +3090,29 @@
                               </p>
                             </div>
 
-                            <div style="margin: 0;">
-                              <h4 style="margin: 0 0 8px 0; font-size: 1.1em; color: #222;">
-                                2. Capa del Tiempo Gramatical Finito (Delta de los modelos)
+                            <div style="margin-bottom: 18px; padding-bottom: 15px; border-bottom: 1px solid var(--c-border-light);">
+                              <h4 style="margin: 0 0 8px 0; font-size: 1.1em; color: var(--c-text);">
+                                2a. Capa del Tiempo Gramatical Finito (Significancia FDR)
                               </h4>
-                              <p style="margin: 0; font-size: 0.95em; color: #555;">
+                              <p style="margin: 0; font-size: 0.95em; color: var(--c-text-muted-2);">
+                                Comparte la misma escala cromática cálida de la Capa 1, pero restringida
+                                exclusivamente a los vóxeles cuyo Delta de los modelos superó la corrección
+                                Benjamini-Hochberg (q &lt; 0.05). Es, en esencia, el mapa del veredicto: dado que
+                                ningún vóxel atravesó ese filtro en ninguno de los participantes analizados, esta
+                                capa se visualiza íntegramente vacía —una confirmación visual, directa y sin
+                                ambigüedad, del resultado nulo reportado en la Tabla 4.
+                              </p>
+                            </div>
+
+                            <div style="margin: 0;">
+                              <h4 style="margin: 0 0 8px 0; font-size: 1.1em; color: var(--c-text);">
+                                2b. Capa del Tiempo Gramatical Finito (Continuo descriptivo)
+                              </h4>
+                              <p style="margin: 0; font-size: 0.95em; color: var(--c-text-muted-2);">
                                 En su versión descriptiva no umbralizada, emplea una escala divergente centrada en cero
                                 (escala frío-calor).
-                                Permite observar las fluctuaciones continuas del Delta de los modelos (ΔR²): las zonas
+                                Permite observar las fluctuaciones continuas del Delta de los modelos (ΔR²), sin
+                                aplicar ningún filtro estadístico: las zonas
                                 tenues reflejan
                                 variaciones bidireccionales sutiles que, tras someterse al filtro de Benjamini-Hochberg
                                 (FDR), no
@@ -2388,12 +3126,45 @@
                           </div>
 
                           <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
-                            <h4 style="font-size: 1.1em; color: #333;">
+                            <h4 style="font-size: 1.1em; color: var(--c-text-secondary);">
+                              Cómo interpretar las tres capas en la práctica
+                            </h4>
+                          </div>
+
+                          <p>
+                            Las tres capas no compiten entre sí: responden preguntas distintas y conviene
+                            recorrerlas en ese orden. La <b>Capa 1</b> funciona como control de calidad: si una
+                            región cortical no se enciende allí, ningún resultado posterior sobre esa región es
+                            confiable, porque ni siquiera el Modelo Global logra predecir su actividad. Conviene
+                            verificar esto antes de interpretar cualquier otra cosa.
+                          </p>
+
+                          <p>
+                            Una vez confirmado que una zona sí responde (Capa 1 activa), la <b>Capa 2a</b> es el
+                            veredicto que importa científicamente: solo un vóxel coloreado allí constituiría
+                            evidencia estadísticamente defendible de que el tiempo gramatical aporta algo. Como
+                            vimos en la sección anterior, esta capa se visualiza vacía en los diez participantes
+                            analizados; ese vacío es en sí mismo el resultado, no una falla de la visualización.
+                          </p>
+
+                          <p>
+                            La <b>Capa 2b</b> debe leerse con más cautela, precisamente porque no pasó por el
+                            filtro de FDR. En su escala divergente, los tonos rojizos marcan vóxeles donde el
+                            Modelo Global predijo mejor que el Restringido (Delta positivo) y los tonos azulados
+                            señalan lo contrario (Delta negativo); los tonos pálidos o blancos indican ausencia de
+                            diferencia. Ver manchas rojas dispersas en esta capa <b>no equivale</b> a encontrar un
+                            efecto real: es exactamente la clase de patrón que la Capa 2a existe para confirmar o
+                            descartar. Su utilidad es exploratoria, como insumo para diseñar estudios futuros con
+                            mayor poder estadístico, no como evidencia por sí misma.
+                          </p>
+
+                          <div class="block-title" style="margin-top: 30px; margin-bottom: 15px;">
+                            <h4 style="font-size: 1.1em; color: var(--c-text-secondary);">
                               Acceso directo a los visores corticales individuales
                             </h4>
                           </div>
 
-                          <p style="font-size: 0.95em; color: #555; margin-bottom: 20px;">
+                          <p style="font-size: 0.95em; color: var(--c-text-muted-2); margin-bottom: 20px;">
                             Haz clic sobre cualquiera de los siguientes enlaces para abrir en una pestaña independiente
                             el visor web
                             tridimensional de PyCortex correspondiente a cada participante:
@@ -2434,7 +3205,7 @@
                           </div>
 
                           <div class="block-title" style="margin-top: 35px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.4em; color: #222;">
+                            <h3 style="font-size: 1.4em; color: var(--c-text);">
                               Conclusiones: Más allá de la frenología moderna
                             </h3>
                           </div>
@@ -2488,12 +3259,12 @@
                           </p>
 
                           <div class="block-title" style="margin-top: 40px; margin-bottom: 20px;">
-                            <h3 style="font-size: 1.3em; color: #222;">Agradecimientos y Recursos Abiertos</h3>
+                            <h3 style="font-size: 1.3em; color: var(--c-text);">Agradecimientos y Recursos Abiertos</h3>
                           </div>
 
                           <blockquote
-                            style="margin: 20px 0 30px 0; padding: 15px 20px; border-left: 4px solid #6c757d; background-color: #f8f9fa;">
-                            <p style="margin: 0; font-size: 0.95em; color: #444;">
+                            style="margin: 20px 0 30px 0; padding: 15px 20px; border-left: 4px solid var(--c-border-neutral); background-color: var(--c-bg-light);">
+                            <p style="margin: 0; font-size: 0.95em; color: var(--c-text-secondary-2);">
                               Agradecimiento institucional al <b>Gallant Lab</b> (Universidad de California, Berkeley)
                               por el
                               desarrollo de los marcos teóricos de <i>Voxelwise Modeling</i>, la publicación de sus
@@ -2509,57 +3280,57 @@
 
                             <div class="col-xs-12 col-sm-6" style="margin-bottom: 15px;">
                               <div class="fun-fact gray-default"
-                                style="padding: 15px; border-radius: 6px; background-color: #fcfcfc; border: 1px solid #eee;">
-                                <div class="fw-default-row" style="font-size: 0.85em; color: #777;">Software de código
+                                style="padding: 15px; border-radius: 6px; background-color: var(--c-bg-offwhite); border: 1px solid var(--c-border-light);">
+                                <div class="fw-default-row" style="font-size: 0.85em; color: var(--c-text-muted-3);">Software de código
                                   abierto</div>
                                 <div class="fw-heading-row" style="margin-top: 5px;">
                                   <span><a href="https://gallantlab.org/" target="_blank"
-                                      style="color: #007bff; font-weight: 600;">Gallant Lab</a></span>:
+                                      style="color: var(--c-accent); font-weight: 600;">Gallant Lab</a></span>:
                                   <span><a href="https://github.com/gallantlab/himalaya" target="_blank"
-                                      style="color: #444;">Himalaya</a></span> y
+                                      style="color: var(--c-text-secondary-2);">Himalaya</a></span> y
                                   <span><a href="https://github.com/gallantlab/pycortex" target="_blank"
-                                      style="color: #444;">PyCortex</a></span>.
+                                      style="color: var(--c-text-secondary-2);">PyCortex</a></span>.
                                 </div>
                               </div>
                             </div>
 
                             <div class="col-xs-12 col-sm-6" style="margin-bottom: 15px;">
                               <div class="fun-fact gray-default"
-                                style="padding: 15px; border-radius: 6px; background-color: #fcfcfc; border: 1px solid #eee;">
-                                <div class="fw-default-row" style="font-size: 0.85em; color: #777;">Conjunto de datos
+                                style="padding: 15px; border-radius: 6px; background-color: var(--c-bg-offwhite); border: 1px solid var(--c-border-light);">
+                                <div class="fw-default-row" style="font-size: 0.85em; color: var(--c-text-muted-3);">Conjunto de datos
                                   fMRI ds003020</div>
                                 <div class="fw-heading-row" style="margin-top: 5px;">
                                   <span><a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank"
-                                      style="color: #007bff; font-weight: 600;">LeBel et al. (Scientific Data,
+                                      style="color: var(--c-accent); font-weight: 600;">LeBel et al. (Scientific Data,
                                       2023)</a></span> en
                                   <span><a href="https://openneuro.org/datasets/ds003020/" target="_blank"
-                                      style="color: #444;">OpenNeuro</a></span>.
+                                      style="color: var(--c-text-secondary-2);">OpenNeuro</a></span>.
                                 </div>
                               </div>
                             </div>
 
                             <div class="col-xs-12 col-sm-12">
                               <div class="fun-fact gray-default"
-                                style="padding: 15px; border-radius: 6px; background-color: #fcfcfc; border: 1px solid #eee;">
-                                <div class="fw-default-row" style="font-size: 0.85em; color: #777;">Fotografía de
+                                style="padding: 15px; border-radius: 6px; background-color: var(--c-bg-offwhite); border: 1px solid var(--c-border-light);">
+                                <div class="fw-default-row" style="font-size: 0.85em; color: var(--c-text-muted-3);">Fotografía de
                                   cabecera</div>
                                 <div class="fw-heading-row" style="margin-top: 5px;">
                                   <span><a href="https://unsplash.com/es/@whisperingshiba" target="_blank"
-                                      style="color: #007bff; font-weight: 600;">Shawn Day</a></span> en
+                                      style="color: var(--c-accent); font-weight: 600;">Shawn Day</a></span> en
                                   <span><a
                                       href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM"
-                                      target="_blank" style="color: #444;">Unsplash</a></span>.
+                                      target="_blank" style="color: var(--c-text-secondary-2);">Unsplash</a></span>.
                                 </div>
                               </div>
                             </div>
 
                           </div>
 
-                          <p align="right" style="margin-top: 20px; font-size: 0.95em; color: #666;">
+                          <p align="right" style="margin-top: 20px; font-size: 0.95em; color: var(--c-text-muted);">
                             —<br>
                             Investigación y redacción por
                             <a class="url fn n" href="https://www.almontao.com" target="_blank" rel="author"
-                              style="color: #007bff; font-weight: 600;">
+                              style="color: var(--c-accent); font-weight: 600;">
                               Alejandro Montenegro Taborda
                             </a>
                           </p>
@@ -2570,12 +3341,12 @@
 
                     <!-- Metadatos y etiquetas finales compatibles con BreezyCV -->
                     <div class="entry-meta entry-meta-bottom"
-                      style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #eee;">
+                      style="margin-top: 30px; padding-top: 15px; border-top: 1px solid var(--c-border-light);">
                       <div class="date-author">
-                        <span class="entry-date" style="margin-right: 15px; color: #777; font-size: 0.9em;">
+                        <span class="entry-date" style="margin-right: 15px; color: var(--c-text-muted-3); font-size: 0.9em;">
                           <i class="far fa-clock"></i> Septiembre 2026
                         </span>
-                        <span class="author vcard" style="color: #777; font-size: 0.9em;">
+                        <span class="author vcard" style="color: var(--c-text-muted-3); font-size: 0.9em;">
                           <i class="fas fa-user"></i> Alejandro Montenegro Taborda
                         </span>
                       </div>
@@ -2584,18 +3355,18 @@
                     <div class="post-tags" style="margin-top: 15px;">
                       <div class="tags">
                         <a href="#" rel="tag"
-                          style="display: inline-block; padding: 4px 10px; margin: 2px; background-color: #f1f3f5; color: #495057; border-radius: 4px; font-size: 0.85em; text-decoration: none;">Neurociencia
+                          style="display: inline-block; padding: 4px 10px; margin: 2px; background-color: var(--c-bg-light-2); color: var(--c-text-gray700); border-radius: 4px; font-size: 0.85em; text-decoration: none;">Neurociencia
                           Computacional</a>
                         <a href="#" rel="tag"
-                          style="display: inline-block; padding: 4px 10px; margin: 2px; background-color: #f1f3f5; color: #495057; border-radius: 4px; font-size: 0.85em; text-decoration: none;">Voxelwise
+                          style="display: inline-block; padding: 4px 10px; margin: 2px; background-color: var(--c-bg-light-2); color: var(--c-text-gray700); border-radius: 4px; font-size: 0.85em; text-decoration: none;">Voxelwise
                           Encoding Models</a>
                         <a href="#" rel="tag"
-                          style="display: inline-block; padding: 4px 10px; margin: 2px; background-color: #f1f3f5; color: #495057; border-radius: 4px; font-size: 0.85em; text-decoration: none;">fMRI</a>
+                          style="display: inline-block; padding: 4px 10px; margin: 2px; background-color: var(--c-bg-light-2); color: var(--c-text-gray700); border-radius: 4px; font-size: 0.85em; text-decoration: none;">fMRI</a>
                         <a href="#" rel="tag"
-                          style="display: inline-block; padding: 4px 10px; margin: 2px; background-color: #f1f3f5; color: #495057; border-radius: 4px; font-size: 0.85em; text-decoration: none;">Habla
+                          style="display: inline-block; padding: 4px 10px; margin: 2px; background-color: var(--c-bg-light-2); color: var(--c-text-gray700); border-radius: 4px; font-size: 0.85em; text-decoration: none;">Habla
                           Naturalista</a>
                         <a href="#" rel="tag"
-                          style="display: inline-block; padding: 4px 10px; margin: 2px; background-color: #f1f3f5; color: #495057; border-radius: 4px; font-size: 0.85em; text-decoration: none;">PyCortex</a>
+                          style="display: inline-block; padding: 4px 10px; margin: 2px; background-color: var(--c-bg-light-2); color: var(--c-text-gray700); border-radius: 4px; font-size: 0.85em; text-decoration: none;">PyCortex</a>
                       </div>
                     </div>
 
@@ -2614,379 +3385,11 @@
               <!-- /Entry content AAA-->
             </div>
 
-            <h3>Consistencia descriptiva y arquitectura cortical</h3>
-            <p>
-              Al ejecutar este riguroso marco computacional sobre la muestra analítica (procesada mediante computación
-              de alto rendimiento debido al inmenso estrés matricial), se observó una sintonía morfosintáctica robusta.
-              El aislamiento de la varianza única, filtrado a través de los umbrales estadísticos de la corrección FDR,
-              reveló la capacidad del cerebro para codificar la información del tiempo gramatical finito de manera
-              concurrente.
-            </p>
-
-            <p>
-              A continuación, se expone una tabla descriptiva que detalla la cantidad de vóxeles que superaron los
-              controles estadísticos estrictos y el porcentaje de varianza única pico hallado en la corteza de los
-              participantes. Es fundamental comprender que, en neuroimagen funcional de estímulos naturalistas, dadas
-              las abrumadoras proporciones de ruido fisiológico y sistémico, aislar proporciones de varianza única
-              explicada del orden del 1% al 3% a partir de un espacio gramatical tan específico constituye una señal
-              biológica de notable precisión.
-            </p>
-
-            <!-- Contenedor con overflow automático para móviles -->
-            <div
-              style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; border: 1px solid #eee;">
-              <table style="width: 100%; min-width: 500px; border-collapse: collapse; text-align: left;">
-                <thead style="background-color: #f8f9fa; border-bottom: 2px solid #ddd;">
-                  <tr>
-                    <th style="padding: 10px;">Participante</th>
-                    <th style="padding: 10px;">Vóxeles significativos</th>
-                    <th style="padding: 10px;">Porcentaje de corteza cerebral</th>
-                    <th style="padding: 10px;">Varianza Única Pico (R²)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 10px;"><b>UTS01</b></td>
-                    <td style="padding: 10px;">822</td>
-                    <td style="padding: 10px;">1.01 %</td>
-                    <td style="padding: 10px;">2.16 %</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 10px;"><b>UTS02</b></td>
-                    <td style="padding: 10px;">938</td>
-                    <td style="padding: 10px;">1.00 %</td>
-                    <td style="padding: 10px;">1.48 %</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 10px;"><b>UTS03</b></td>
-                    <td style="padding: 10px;">1,482</td>
-                    <td style="padding: 10px;">1.55 %</td>
-                    <td style="padding: 10px;">3.73 %</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 10px;"><b>UTS05</b></td>
-                    <td style="padding: 10px;">955</td>
-                    <td style="padding: 10px;">0.96 %</td>
-                    <td style="padding: 10px;">2.88 %</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 10px;"><b>UTS06</b></td>
-                    <td style="padding: 10px;">1,018</td>
-                    <td style="padding: 10px;">1.10 %</td>
-                    <td style="padding: 10px;">1.72 %</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 10px;"><b>UTS07</b></td>
-                    <td style="padding: 10px;">981</td>
-                    <td style="padding: 10px;">1.04 %</td>
-                    <td style="padding: 10px;">2.09 %</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 10px;"><b>UTS08</b></td>
-                    <td style="padding: 10px;">736</td>
-                    <td style="padding: 10px;">0.76 %</td>
-                    <td style="padding: 10px;">1.52 %</td>
-                  </tr>
-                  <tr style="border-bottom: 1px solid #eee;">
-                    <td style="padding: 10px;"><b>UTS09</b></td>
-                    <td style="padding: 10px;">953</td>
-                    <td style="padding: 10px;">0.97 %</td>
-                    <td style="padding: 10px;">0.68 %</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <p>
-              Desde una perspectiva topográfica, los análisis descriptivos indican que la especialización en el
-              procesamiento de estas categorías no se halla confinada de manera hermética en las áreas clásicas de
-              producción del lenguaje (como el giro frontal inferior). En cambio, la actividad predictiva se distribuye
-              sistemáticamente a través de regiones como el <b>Giro Temporal Superior posterior y la Unión
-                Temporoparietal (pSTS/TPJ)</b>. Esto sugiere que la decodificación del tiempo verbal opera de forma
-              distribuida, integrando la señal acústica y sintáctica en tiempo real para mantener la coherencia
-              narrativa.
-            </p>
-            <br>
-
-            <h3>Exploración visual: Mapas corticales interactivos</h3>
-            <p>
-              Para facilitar la inspección anatómica de estos modelos matemáticos, se han generado reconstrucciones
-              tridimensionales proyectadas sobre las superficies corticales individuales de cada participante utilizando
-              la librería <i>PyCortex</i>.
-            </p>
-            <p>
-              Al acceder a estos visores, podrás alternar entre dos capas descriptivas principales: la capa del
-              <b>Modelo Global</b> (que representa el ajuste general predictivo del lenguaje en el cerebro mediante una
-              escala de colores cálidos) y la capa del <b>Tiempo Gramatical Finito</b> (que revela la varianza única
-              exclusiva de nuestro espacio de interés).
-            </p>
-
-            <!-- Botones interactivos estilizados -->
-            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;">
-              <div class="fw-button-row">
-                <a href="UTS01/index.html" target="_blank" class="btn btn-primary" id="resource-1-button">Participante
-                  UTS01</a>
-              </div>
-              <div class="fw-button-row">
-                <a href="UTS02/index.html" target="_blank" class="btn btn-primary" id="resource-2-button">Participante
-                  UTS02</a>
-              </div>
-              <div class="fw-button-row">
-                <a href="UTS03/index.html" target="_blank" class="btn btn-primary" id="resource-3-button">Participante
-                  UTS03</a>
-              </div>
-              <div class="fw-button-row">
-                <a href="UTS05/index.html" target="_blank" class="btn btn-primary" id="resource-5-button">Participante
-                  UTS05</a>
-              </div>
-              <div class="fw-button-row">
-                <a href="UTS06/index.html" target="_blank" class="btn btn-primary" id="resource-6-button">Participante
-                  UTS06</a>
-              </div>
-              <div class="fw-button-row">
-                <a href="UTS07/index.html" target="_blank" class="btn btn-primary" id="resource-7-button">Participante
-                  UTS07</a>
-              </div>
-              <div class="fw-button-row">
-                <a href="UTS08/index.html" target="_blank" class="btn btn-primary" id="resource-8-button">Participante
-                  UTS08</a>
-              </div>
-              <div class="fw-button-row">
-                <a href="UTS09/index.html" target="_blank" class="btn btn-primary" id="resource-9-button">Participante
-                  UTS09</a>
-              </div>
-            </div>
-
-
-            <p>
-              Al cuestionar lo evidente —cómo el cerebro codifica el "cuándo" frente al "qué"— la lingüística y la
-              neurociencia computacional nos recuerdan que las estructuras que usamos instintivamente para hablar están
-              sustentadas en sistemas matemáticos y biológicos de una complejidad formidable. Ninguna característica
-              lingüística existe en aislamiento en el mundo real, y ahora, tampoco lo hace en nuestra forma de
-              estudiarlas.
-            </p>
-
-
-            <div class="mermaid" style="text-align: center; margin-bottom: 25px;">
-              flowchart
-              %% Datos de Entrada
-              DATA@{ shape: cyl, label: "Datos Experimentales:<br>fMRI y Audio Naturalista (ds003020)" }
-
-              %% 1. Extracción
-              subgraph Espacios [1. Extracción de Espacios de Características]
-              direction TB
-              ACU[Nivel Acústico:<br>Tasa de Fonemas por TR]
-              LEX[Nivel Léxico:<br>Conteo de Palabras por TR]
-              SEM[Nivel Semántico:<br>Vectores Continuos de Significado]
-              MOR[Nivel Morfológico:<br>Conteo de Verbos Pasado vs. No-Pasado]
-              end
-
-              %% 2. Modelado
-              subgraph Modelado [2. Alineación Temporal y Modelado Voxelwise]
-              direction TB
-              FIR{{Alineación FIR:<br>Retardos para capturar el rezago BOLD}}
-
-              BASE[Modelo de Control Base:<br>Acústica + Léxica + Semántica]
-              FULL[Modelo Completo:<br>Control Base + Morfología]
-
-              FIR e6@--> BASE
-              FIR e7@--> FULL
-              end
-
-              %% 3. Inferencia
-              subgraph Inferencia [3. Inferencia Estadística y Resultados]
-              direction TB
-              VAR[Aislamiento de Señal:<br>Varianza Única Morfológica]
-              PERM[Significancia Estadística:<br>Permutaciones Circulares y FDR]
-              MAPS@{ shape: procs, label: "Mapas Corticales:<br>Sintonía hacia el Pasado/No-Pasado" }
-
-              VAR e10@--> PERM
-              PERM e11@--> MAPS
-              end
-
-              %% Conexiones Macro Animadas
-              DATA e1@--> ACU
-              DATA e12@--> LEX
-              DATA e13@--> SEM
-              DATA e14@--> MOR
-
-              ACU e2@--> FIR
-              LEX e3@--> FIR
-              SEM e4@--> FIR
-              MOR e5@--> FIR
-
-              BASE e8@--> VAR
-              FULL e9@--> VAR
-
-              %% Configuración de Animaciones
-              e1@{ animation: fast }
-              e2@{ animation: fast }
-              e3@{ animation: fast }
-              e4@{ animation: fast }
-              e5@{ animation: fast }
-              e6@{ animation: fast }
-              e7@{ animation: fast }
-              e8@{ animation: fast }
-              e9@{ animation: fast }
-              e10@{ animation: fast }
-              e11@{ animation: fast }
-              e12@{ animation: fast }
-              e13@{ animation: fast }
-              e14@{ animation: fast }
-            </div>
-
-
-
-
-
-
-
-
-
-
-            <br>
-            <br>
-
-            <h3>Agradecimientos institucional</h3>
-            <blockquote>
-              Agradecimiento Institucional al Gallant Lab por el desarrollo de los marcos de Voxelwise
-              Modeling, la publicación de sus herramientas de código abierto (Himalaya y Pycortex) y la
-              invaluable democratización del conocimiento.
-            </blockquote>
-
-            <br>
-            <p align="right">—
-              <br>
-              Redacción por <a class="url fn n" href="https://www.almontao.com" target="_blank" rel="author">Alejandro
-                Montenegro Taborda</a>
-              <br>
-              <i>(Asistida por Inteligencia Artificial)</i>
-              <br>
-            </p>
-
-            <!-- Fun Facts | Recursos usados -->
-            <div class="row">
-              <div class="col-xs-12 col-sm-12">
-
-                <div class="block-title">
-                  <h3>Recursos <span>usados</span></h3>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-
-              <div class="col-xs-12 col-sm-6">
-                <div class="fun-fact gray-default">
-                  <div class="fw-default-row">Software de código abierto por</div>
-                  <div class="fw-heading-row">
-                    <span><a href="https://gallantlab.org/" target="_blank">Gallant Lab</a></span>
-                    espcíficamente:
-                    <span><a href="https://github.com/gallantlab/himalaya" target="_blank">Himalaya</a></span>
-                    y
-                    <span><a href="https://github.com/gallantlab/pycortex" target="_blank">Pycortex</a></span>
-                  </div>
-                  <span class="fun-fact-block-text"></span>
-                </div>
-              </div>
-
-              <div class="col-xs-12 col-sm-6">
-                <div class="fun-fact gray-default">
-                  <div class="fw-default-row">Datos ds003020 por</div>
-                  <div class="fw-heading-row">
-                    <span><a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel,
-                        A., Wagner, L., Jain, S. et al.</a></span>
-                    en
-                    <span><a href="https://openneuro.org/datasets/ds003020/" target="_blank">OpenNeuro</a></span>
-                  </div>
-                  <span class="fun-fact-block-text"></span>
-                </div>
-              </div>
-
-              <div class="col-xs-12 col-sm-6">
-                <div class="fun-fact gray-default">
-                  <div class="fw-default-row">Fotografía por</div>
-                  <div class="fw-heading-row">
-                    <span><a href="https://unsplash.com/es/@whisperingshiba" target="_blank">Shawn
-                        Day</a></span>
-                    en
-                    <span><a href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM"
-                        target="_blank">Unsplash</a></span>
-                  </div>
-                  <span class="fun-fact-block-text"></span>
-                </div>
-              </div>
-
-            </div>
-            <!-- End of Fun Facts | Recursos usados -->
-
-            <!-- Fun Facts | Agradecimientos -->
-            <div class="row">
-              <div class="col-xs-12 col-sm-12">
-                <div class="block-title">
-                  <h3>Agradecimientos y <span>Recursos</span></h3>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-
-              <!-- <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Agradecimiento Institucional</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://gallantlab.org/" target="_blank">Gallant Lab</a></span>
-                            </div>
-                            <span class="fun-fact-block-text">Por el desarrollo de los marcos de <i>Voxelwise
-                                Modeling</i>, la publicación de sus herramientas de código abierto (Himalaya y Pycortex)
-                              y la invaluable democratización del conocimiento.</span>
-                          </div>
-                        </div> -->
-
-              <!-- <div class="col-xs-12 col-sm-6">
-                          <div class="fun-fact gray-default">
-                            <div class="fw-default-row">Datos Origines (fMRI)</div>
-                            <div class="fw-heading-row">
-                              <span><a href="https://openneuro.org/datasets/ds003020" target="_blank">OpenNeuro
-                                  ds003020</a></span>
-                            </div>
-                            <span class="fun-fact-block-text">LeBel, A., Wagner, L., Jain, S. et al. A natural language
-                              fMRI dataset for voxelwise encoding models. Sci Data 10, 555 (2023).</span>
-                          </div>
-                        </div> -->
-
-            </div>
-            <!-- End of Fun Facts | Agradecimientos -->
-
         </div>
       </div>
     </div>
   </div>
   <!-- /Entry content -->
-
-  <div class="entry-meta entry-meta-bottom">
-    <div class="date-author">
-      <span class="entry-date">
-        <a href="#" rel="bookmark">
-          <i class="far fa-clock"></i> <span class="entry-date"> Junio 10, 2026</span>
-        </a>
-      </span>
-      <span class="author vcard">
-        <a class="url fn n" href="https://www.almontao.com" rel="author"> <i class="fas fa-user"></i>
-          Alejandro Montenegro Taborda</a>
-      </span>
-    </div>
-  </div>
-
-  <div class="post-tags">
-    <div class="tags">
-      <a href="#" rel="tag">Investigación</a>
-      <a href="#" rel="tag">fMRI</a>
-      <a href="#" rel="tag">Voxelwise</a>
-      <a href="#" rel="tag">Pycortex</a>
-    </div>
-  </div>
-  </div>
 
   </article>
 
