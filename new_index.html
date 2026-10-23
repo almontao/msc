@@ -1160,7 +1160,1158 @@
                       </div>
                     </div>
 
-                    <!-- AQUÍ VA LA PARTE 2 (SECCIONES 4, 5 Y 6) -->
+                    <!-- ==================================================================== -->
+                    <!-- SECCIÓN 4: EL PUENTE NEUROVASCULAR: DE 100 HZ A BOLD A 0.5 HZ        -->
+                    <!-- ==================================================================== -->
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="col-inner">
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Acoplamiento neurovascular y <span>desfase temporal de la señal BOLD</span></h3>
+                          </div>
+
+                          <p>
+                            Al proyectar los 43 predictores sobre una rejilla temporal a 100 Hz, disponemos de una
+                            descripción donde cada fila equivale a 10 milisegundos. Esa resolución refleja la velocidad
+                            a la que se encadenan los sonidos y las palabras en el habla. Sin embargo, el resonador
+                            magnético funcional no registra de forma directa la actividad eléctrica rápida de las
+                            neuronas; mide la señal <b>BOLD</b> (<i>Blood-Oxygen-Level-Dependent</i>), que capta las
+                            variaciones locales en la concentración de oxígeno dentro de los vasos sanguíneos cerebrales.
+                          </p>
+
+                          <p>
+                            El acoplamiento entre la actividad neuronal y la respuesta vascular sigue una dinámica
+                            biológica mucho más pausada que el procesamiento auditivo. Cuando una población de neuronas
+                            se activa al escuchar una palabra, consume oxígeno de forma inmediata. Segundos después, los
+                            capilares cercanos responden dilatándose y enviando un flujo abundante de sangre oxigenada
+                            que supera el gasto metabólico inicial. Como resultado, existe un retraso de varios segundos
+                            entre el instante en que una palabra llega al oído y el momento en que el escáner detecta el
+                            pico de oxigenación en la corteza.
+                          </p>
+
+                          <blockquote>
+                            <p>
+                              <b>Desfase entre el evento verbal y el registro hemodinámico:</b><br>
+                              "The investigator noticed the shattered window."
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              "El investigador notó la ventana rota."
+                            </p>
+                          </blockquote>
+
+                          <p>
+                            En el enunciado anterior, el verbo en pasado <i>noticed</i> se pronuncia en menos de medio
+                            segundo y las redes perisilvianas decodifican su estructura de inmediato. No obstante, el
+                            aporte de sangre oxigenada asociado a ese procesamiento alcanzará su máxima amplitud entre
+                            cinco y seis segundos más tarde, cuando el narrador ya esté pronunciando la oración
+                            siguiente, y tardará cerca de medio minuto en regresar por completo a su estado inicial.
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>La función de respuesta <span>hemodinámica (HRF) canónica</span></h3>
+                          </div>
+
+                          <p>
+                            Para traducir las series lingüísticas rápidas al ritmo lento de la respuesta vascular, cada
+                            una de las 43 columnas a 100 Hz se somete a una <b>convolución temporal</b> con una
+                            <b>Función de Respuesta Hemodinámica (HRF) canónica de doble gamma</b> (siguiendo la
+                            formulación estándar de Friston et al., 1998). Matemáticamente, este filtro resta dos
+                            distribuciones gamma sobre una ventana de 32 segundos (con parámetros de forma y escala
+                            $a_1 = 6.0, b_1 = 1.0$ para el pico principal, $a_2 = 16.0, b_2 = 1.0$ para el valle
+                            posterior y una razón de amplitud $c = 1/6$) y se normaliza para que su suma total sea igual
+                            a 1, evitando alterar de forma artificial la escala original de las variables. Su evolución
+                            describe tres etapas sucesivas:
+                          </p>
+
+                          <ul style="line-height: 1.75; margin-bottom: 20px;">
+                            <li>
+                              <b>Fase de ascenso y pico principal (segundo 0 al 6):</b> Tras el impulso lingüístico, la
+                              demanda vascular estimada sube de manera sostenida hasta alcanzar su cúspide alrededor de
+                              los 5.1 a 6.0 segundos.
+                            </li>
+                            <li>
+                              <b>Fase de descenso y valle posestímulo (segundo 6 al 16):</b> El flujo sanguíneo cae,
+                              cruza la línea base hacia los 10.8 segundos y se sitúa temporalmente por debajo del nivel
+                              de reposo (fenómeno conocido como <i>undershoot</i>) cerca de los 15.5 a 16.0 segundos.
+                            </li>
+                            <li>
+                              <b>Fase de restablecimiento (segundo 16 al 32):</b> La señal se recupera gradualmente
+                              hasta extinguir el rastro del evento al cumplirse los 32 segundos.
+                            </li>
+                          </ul>
+
+                          <p>
+                            En términos computacionales, esta operación se ejecuta en paralelo a través de todos los
+                            núcleos del procesador mediante la Transformada Rápida de Fourier (<code>fftconvolve</code>),
+                            recortando la cola transitoria final para conservar la duración exacta de cada relato.
+                          </p>
+
+                          <p>
+                            Una decisión metodológica central de este estudio fue emplear esta <b>HRF canónica
+                              uniforme</b> en lugar de expandir cada característica mediante múltiples copias retrasadas
+                            en el tiempo (estrategia conocida como modelo de respuesta finita al impulso o FIR, que se
+                            conservó únicamente como referencia auxiliar en el código). Mientras que un modelo FIR con
+                            cuatro retardos multiplicaría la matriz de diseño de 43 a 172 columnas (incrementando el
+                            riesgo de sobreajuste y cuadruplicando el costo de memoria), la convolución con la HRF
+                            canónica mantiene exactamente 43 predictores. A cambio de esta parsimonia y viabilidad en
+                            CPU, el modelo asume que la forma temporal de la respuesta vascular es relativamente
+                            homogénea entre regiones corticales y participantes.
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Sincronización al ritmo del escáner (TR) y <span>estandarización por sesión</span></h3>
+                          </div>
+
+                          <p>
+                            Una vez convolucionadas las 43 variables a 100 Hz, las series resultantes representan curvas
+                            suaves y continuas de demanda hemodinámica. Sin embargo, el resonador magnético adquiere un
+                            volumen cerebral completo únicamente cada 2.0 segundos (un TR), lo que equivale a una
+                            frecuencia de muestreo de 0.5 Hz.
+                          </p>
+
+                          <p>
+                            Para pasar de 100 Hz a 0.5 Hz (una reducción de 200 muestras a 1) sin introducir
+                            distorsiones de frecuencia (<i>aliasing</i>), aplicamos un <b>remuestreo polifásico con
+                              filtrado antialiasing</b> (<code>resample_poly</code>). Al finalizar este paso, cada fila
+                            de la matriz de 43 predictores corresponde exactamente a un volumen funcional adquirido por
+                            el escáner. Asimismo, al emparejar las matrices lingüísticas con los archivos cerebrales
+                            HDF5, el código aplica un recorte de seguridad al mínimo común de muestras para absorber
+                            posibles diferencias de un volumen en el cierre de la grabación.
+                          </p>
+
+                          <p>
+                            Por último, tanto las matrices de características como las series BOLD se convierten a
+                            precisión simple de 32 bits (<code>float32</code>, reduciendo a la mitad el consumo de
+                            memoria RAM) y se estandarizan mediante puntaje Z (media 0 y desviación estándar 1) de
+                            manera <b>estrictamente independiente por cada sesión e historia</b>. Dado que la señal de
+                            resonancia magnética carece de una escala absoluta y su línea base fluctúa entre sesiones de
+                            escaneo, estandarizar cada presentación por separado impide que la regresión confunda los
+                            cambios de calibración física del equipo entre distintos días con respuestas neuronales al
+                            lenguaje.
+                          </p>
+
+                          <!-- Gráfica 5: Flujo de Transformación Temporal en Mermaid -->
+                          <div style="margin: 30px 0 10px 0; text-align: center;">
+                            <p><b>Gráfica 5: Proceso de transformación hemodinámica, remuestreo polifásico y estandarización</b></p>
+
+                            <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
+                              flowchart TB
+                              subgraph ENTRADA ["1. Predictores Lingüísticos a Alta Resolución"]
+                              direction TB
+                              P_100["43 Características a 100 Hz<br>(1 muestra cada 10 milisegundos)<br>Eventos discretos alineados al audio"]
+                              end
+
+                              subgraph FILTRO ["2. Modelado de la Respuesta Vascular"]
+                              direction TB
+                              KERNEL["HRF Canónica de Doble Gamma (Friston et al., 1998)<br>Ventana de 32 s | Pico ~5.1 s | Valle ~15.5 s"]
+                              CONV_OP["Convolución Temporal por FFT en Paralelo<br>Aplicada uniformemente a las 43 columnas"]
+                              KERNEL e1@--> CONV_OP
+                              end
+
+                              subgraph SINCRO ["3. Remuestreo y Emparejamiento Funcional"]
+                              direction TB
+                              POLY["Remuestreo Polifásico con Filtro Antialiasing<br>Reducción de 100 Hz a 0.5 Hz (factor 200:1)"]
+                              TR_SYNC["Matriz Predictora Final a 0.5 Hz<br>1 fila por cada TR de fMRI (2.0 segundos)"]
+                              POLY e2@--> TR_SYNC
+                              end
+
+                              subgraph NORMALIZACION ["4. Estandarización Intra-Sesión"]
+                              direction TB
+                              Z_SCORE["Conversión a float32 y Puntaje Z Independiente por Corrida<br>Control de derivas de línea base del escáner"]
+                              end
+
+                              P_100 e3@--> CONV_OP
+                              CONV_OP e4@--> POLY
+                              TR_SYNC e5@--> Z_SCORE
+
+                              style ENTRADA fill:#fcfcfc,stroke:#e5e5e5,stroke-width:1px
+                              style FILTRO fill:#f5f5f5,stroke:#d5d5d5,stroke-width:1px
+                              style SINCRO fill:#f2f7f9,stroke:#b5dbe8,stroke-width:1px
+                              style NORMALIZACION fill:#e6f7fc,stroke:#04b4e0,stroke-width:1.5px
+
+                              e1@{ animation: fast }
+                              e2@{ animation: fast }
+                              e3@{ animation: fast }
+                              e4@{ animation: fast }
+                              e5@{ animation: fast }
+                            </div>
+                          </div>
+
+                          <p style="font-size: 0.9em; text-align: center; margin-bottom: 30px;">
+                            <i>Nota:</i> La convolución transforma los impulsos de aparición de fonemas, palabras y
+                            marcas gramaticales en curvas continuas de oxigenación esperada, que luego se muestrean al
+                            compás de 2.0 segundos del resonador.
+                          </p>
+
+                          <!-- Gráfica 6: Simulación interactiva HRF en Plotly -->
+                          <div class="block-title" style="margin-top: 25px; clear: both;">
+                            <h4>Gráfica 6: Simulación interactiva de la evolución temporal del BOLD y su muestreo al TR</h4>
+                          </div>
+
+                          <p>
+                            Esta simulación interactiva ejecuta la ecuación de doble gamma empleada en nuestro módulo
+                            hemodinámico (ventana de 32 segundos a 100 Hz) y muestra cómo el escáner fMRI captura puntos
+                            discretos de esa onda continua cada 2.0 segundos (TR = 2.0 s / 0.5 Hz):
+                          </p>
+
+                          <div style="width: 100%; clear: both; margin: 20px 0 35px 0;">
+                            <div id="plotly-hrf-simulation"
+                              style="width: 100%; height: 480px; border: 1px solid #e5e5e5; border-radius: 8px; background-color: #ffffff; position: relative; overflow: hidden;">
+                            </div>
+                          </div>
+
+                          <script>
+                            (function () {
+                              var chartDiv = document.getElementById('plotly-hrf-simulation');
+                              if (!chartDiv) return;
+
+                              var HRF_LENGTH_SEC = 32.0;
+                              var HIGH_RES_FS = 100;
+                              var TR_FMRI = 2.0;
+
+                              var total_samples_high_res = Math.round(HRF_LENGTH_SEC * HIGH_RES_FS);
+                              var t_total = [];
+                              for (var i = 0; i <= total_samples_high_res; i++) {
+                                t_total.push(Number((i / HIGH_RES_FS).toFixed(2)));
+                              }
+
+                              function computeHrfDoubleGamma(t) {
+                                if (t < 0) return 0;
+                                var a1 = 6.0, b1 = 1.0;
+                                var a2 = 16.0, b2 = 1.0;
+                                var c = 1.0 / 6.0;
+                                var gamma_a1 = 120;
+                                var gamma_a2 = 1307674368000;
+
+                                var peak = (Math.pow(t, a1 - 1) * Math.exp(-t / b1)) / (Math.pow(b1, a1) * gamma_a1);
+                                var undershoot = (Math.pow(t, a2 - 1) * Math.exp(-t / b2)) / (Math.pow(b2, a2) * gamma_a2);
+                                return (peak - (c * undershoot));
+                              }
+
+                              var rawHrf = t_total.map(computeHrfDoubleGamma);
+                              var maxVal = Math.max.apply(null, rawHrf);
+                              var hrfFull = rawHrf.map(function (v) { return Number((v / maxVal).toFixed(4)); });
+
+                              var tr_times = [];
+                              for (var tr_t = 0; tr_t <= HRF_LENGTH_SEC; tr_t += TR_FMRI) {
+                                tr_times.push(tr_t);
+                              }
+
+                              var frames = [];
+                              var sliderSteps = [];
+                              var allFrameNames = [];
+
+                              for (var s = 0; s <= HRF_LENGTH_SEC; s++) {
+                                var current_idx = Math.round(s * HIGH_RES_FS);
+                                var sub_t = t_total.slice(0, current_idx + 1);
+                                var sub_hrf = hrfFull.slice(0, current_idx + 1);
+                                var sub_stim = sub_t.map(function (t) { return (t <= 0.35) ? 1.0 : 0.0; });
+
+                                var current_tr_x = [];
+                                var current_tr_y = [];
+                                for (var k = 0; k < tr_times.length; k++) {
+                                  if (tr_times[k] <= s) {
+                                    current_tr_x.push(tr_times[k]);
+                                    var idx_tr = Math.round(tr_times[k] * HIGH_RES_FS);
+                                    current_tr_y.push(hrfFull[idx_tr]);
+                                  }
+                                }
+
+                                var frameName = s.toString();
+                                allFrameNames.push(frameName);
+
+                                frames.push({
+                                  name: frameName,
+                                  data: [
+                                    { x: sub_t, y: sub_stim },
+                                    { x: sub_t, y: sub_hrf },
+                                    { x: current_tr_x, y: current_tr_y }
+                                  ]
+                                });
+
+                                sliderSteps.push({
+                                  label: s.toString() + 's',
+                                  method: 'animate',
+                                  args: [[frameName], {
+                                    mode: 'immediate',
+                                    frame: { duration: 100, redraw: true },
+                                    transition: { duration: 0 }
+                                  }]
+                                });
+                              }
+
+                              var traceImpulse = {
+                                x: [0],
+                                y: [1.0],
+                                mode: 'lines',
+                                name: 'Estímulo (Impulso 100 Hz)',
+                                line: { color: '#666666', width: 2, dash: 'dot' },
+                                fill: 'tozeroy',
+                                fillcolor: 'rgba(102, 102, 102, 0.12)',
+                                hovertemplate: '<b>Estímulo</b>: %{x:.2f} s<extra></extra>'
+                              };
+
+                              var traceHrf = {
+                                x: [0],
+                                y: [0],
+                                mode: 'lines',
+                                name: 'Respuesta BOLD continua (HRF)',
+                                line: { color: '#04b4e0', width: 2.8, shape: 'spline' },
+                                fill: 'tozeroy',
+                                fillcolor: 'rgba(4, 180, 224, 0.10)',
+                                hovertemplate: '<b>Respuesta BOLD</b><br>Tiempo: %{x:.2f} s<br>Amplitud: %{y:.3f}<extra></extra>'
+                              };
+
+                              var traceSamples = {
+                                x: [0],
+                                y: [0],
+                                mode: 'markers',
+                                name: 'Muestras fMRI (TR = 2.0 s / 0.5 Hz)',
+                                marker: {
+                                  color: '#ff4e4e',
+                                  size: 8.5,
+                                  symbol: 'circle',
+                                  line: { color: '#ffffff', width: 1.5 }
+                                },
+                                hovertemplate: '<b>Volumen fMRI</b><br>TR: %{x} s<br>Valor registrado: %{y:.3f}<extra></extra>'
+                              };
+
+                              var layout = {
+                                autosize: true,
+                                font: { family: "'Poppins', Helvetica, sans-serif", color: '#555555' },
+                                paper_bgcolor: '#ffffff',
+                                plot_bgcolor: '#ffffff',
+                                margin: { l: 55, r: 25, t: 65, b: 90 },
+                                xaxis: {
+                                  title: { text: 'Tiempo transcurrido (segundos)', font: { size: 11.5, color: '#222222' } },
+                                  range: [-0.5, 32.8],
+                                  dtick: 2,
+                                  gridcolor: '#eeeeee',
+                                  zeroline: false,
+                                  tickfont: { size: 10, color: '#888888' }
+                                },
+                                yaxis: {
+                                  title: { text: 'Amplitud hemodinámica normalizada', font: { size: 11.5, color: '#222222' } },
+                                  range: [-0.25, 1.18],
+                                  dtick: 0.2,
+                                  gridcolor: '#eeeeee',
+                                  zeroline: true,
+                                  zerolinecolor: '#d5d5d5',
+                                  zerolinewidth: 1.5,
+                                  tickfont: { size: 10, color: '#888888' }
+                                },
+                                legend: {
+                                  orientation: 'h',
+                                  y: -0.32,
+                                  x: 0.02,
+                                  font: { size: 11, color: '#555555' },
+                                  bgcolor: 'rgba(255, 255, 255, 0.9)'
+                                },
+                                hovermode: 'closest',
+                                updatemenus: [{
+                                  x: 0.0,
+                                  y: 1.18,
+                                  yanchor: 'top',
+                                  xanchor: 'left',
+                                  showactive: false,
+                                  direction: 'right',
+                                  type: 'buttons',
+                                  pad: { t: 0, r: 8, b: 0, l: 0 },
+                                  bgcolor: '#fcfcfc',
+                                  bordercolor: '#e5e5e5',
+                                  borderwidth: 1,
+                                  font: { size: 13, color: '#222222' },
+                                  buttons: [
+                                    {
+                                      method: 'animate',
+                                      args: [null, {
+                                        fromcurrent: true,
+                                        frame: { duration: 100, redraw: true },
+                                        transition: { duration: 0 }
+                                      }],
+                                      label: '  ▶  '
+                                    },
+                                    {
+                                      method: 'animate',
+                                      args: [[null], {
+                                        mode: 'immediate',
+                                        frame: { duration: 0, redraw: false },
+                                        transition: { duration: 0 }
+                                      }],
+                                      label: '  ⏸  '
+                                    },
+                                    {
+                                      method: 'animate',
+                                      args: [['0'], {
+                                        mode: 'immediate',
+                                        frame: { duration: 0, redraw: true },
+                                        transition: { duration: 0 }
+                                      }],
+                                      label: '  ⏹  '
+                                    }
+                                  ]
+                                }],
+                                sliders: [{
+                                  pad: { l: 0, t: 22, b: 0 },
+                                  currentvalue: {
+                                    visible: true,
+                                    prefix: 'Tiempo simulado (HRF 32 s): ',
+                                    xanchor: 'right',
+                                    font: { size: 11, color: '#0099cc' }
+                                  },
+                                  activecolor: '#04b4e0',
+                                  tickcolor: '#d5d5d5',
+                                  font: { size: 9, color: '#888888' },
+                                  steps: sliderSteps
+                                }]
+                              };
+
+                              var config = { responsive: true, displayModeBar: false };
+                              var isPlaying = true;
+                              var restartTimeout = null;
+
+                              Plotly.newPlot(chartDiv, [traceImpulse, traceHrf, traceSamples], layout, config)
+                                .then(function () {
+                                  return Plotly.addFrames(chartDiv, frames);
+                                })
+                                .then(function () {
+                                  Plotly.animate(chartDiv, allFrameNames, {
+                                    mode: 'immediate',
+                                    fromcurrent: true,
+                                    frame: { duration: 100, redraw: true },
+                                    transition: { duration: 0 }
+                                  });
+
+                                  chartDiv.on('plotly_buttonclicked', function (e) {
+                                    if (e && e.button) {
+                                      var lbl = e.button.label.trim();
+                                      if (lbl === '▶') {
+                                        isPlaying = true;
+                                      } else {
+                                        isPlaying = false;
+                                        if (restartTimeout) clearTimeout(restartTimeout);
+                                      }
+                                    }
+                                  });
+
+                                  chartDiv.on('plotly_sliderchange', function (e) {
+                                    if (e && e.step && (e.step.label === '32s' || e.step.value === '32')) {
+                                      if (isPlaying) {
+                                        if (restartTimeout) clearTimeout(restartTimeout);
+                                        restartTimeout = setTimeout(function () {
+                                          if (isPlaying) {
+                                            Plotly.animate(chartDiv, allFrameNames, {
+                                              mode: 'immediate',
+                                              fromcurrent: false,
+                                              frame: { duration: 100, redraw: true },
+                                              transition: { duration: 0 }
+                                            });
+                                          }
+                                        }, 120);
+                                      }
+                                    }
+                                  });
+
+                                  chartDiv.on('plotly_animated', function () {
+                                    var currentStep = chartDiv._fullLayout && chartDiv._fullLayout.sliders && chartDiv._fullLayout.sliders[0] && chartDiv._fullLayout.sliders[0].active;
+                                    if (isPlaying && currentStep === 32) {
+                                      if (restartTimeout) clearTimeout(restartTimeout);
+                                      restartTimeout = setTimeout(function () {
+                                        if (isPlaying) {
+                                          Plotly.animate(chartDiv, allFrameNames, {
+                                            mode: 'immediate',
+                                            fromcurrent: false,
+                                            frame: { duration: 100, redraw: true },
+                                            transition: { duration: 0 }
+                                          });
+                                        }
+                                      }, 120);
+                                    }
+                                  });
+                                });
+                            })();
+                          </script>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ==================================================================== -->
+                    <!-- SECCIÓN 5: MODELOS DE CODIFICACIÓN A NIVEL DE VÓXEL Y VARIANZA       -->
+                    <!-- ==================================================================== -->
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="col-inner">
+
+                          <div class="white-space-10"></div>
+
+                          <div class="block-title">
+                            <h3>Modelos de codificación <span>a nivel de vóxel (VEM)</span></h3>
+                          </div>
+
+                          <p>
+                            Para analizar cómo responde el cerebro al discurso continuo, la corteza no se promedia en
+                            grandes bloques anatómicos ni se deforma hacia un cerebro estándar grupal. En su lugar, el
+                            volumen cortical de cada participante se analiza en su propia geometría anatómica, dividido
+                            en entre 81,126 y 109,469 pequeñas unidades cúbicas tridimensionales llamadas <b>vóxeles</b>
+                            (el equivalente volumétrico de un píxel, de aproximadamente dos milímetros por lado).
+                          </p>
+
+                          <p>
+                            En el marco de los <b>modelos de codificación a nivel de vóxel</b> (<i>Voxelwise Encoding
+                              Models</i> o VEM), cada vóxel se trata como un problema de regresión independiente. A lo
+                            largo de los diez participantes de la cohorte se ajustaron 943,305 modelos individuales. El
+                            objetivo de cada modelo es aprender qué combinación lineal de las características
+                            lingüísticas permite predecir las subidas y bajadas de la señal BOLD en ese punto específico
+                            del tejido cortical.
+                          </p>
+
+                          <blockquote>
+                            <p>
+                              <b>Información concurrente en un mismo verbo conjugado:</b><br>
+                              "Every morning, the librarian opens the ancient oak doors."
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              "Cada mañana, el bibliotecario abre las antiguas puertas de roble."
+                            </p>
+                          </blockquote>
+
+                          <p>
+                            Cuando el relato llega a la palabra <i>opens</i>, coinciden en el mismo instante una
+                            secuencia de sonidos vocálicos y consonánticos, una frecuencia de uso léxico, un papel como
+                            verbo raíz que conecta sujeto y objeto, una carga semántica asociada a la escena y una marca
+                            morfológica de no-pasado en tercera persona singular. Intentar separar estas influencias
+                            mediante una regresión por mínimos cuadrados ordinarios produciría estimaciones numéricamente
+                            inestables: debido a la colinealidad entre las variables lingüísticas, los coeficientes
+                            crecerían sin control compensándose unos a otros y fallarían al predecir datos nuevos.
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Estabilización mediante regresión de cresta y <span>validación por bloques</span></h3>
+                          </div>
+
+                          <p>
+                            Para resolver la colinealidad entre predictores se implementó la <b>Regresión de Cresta
+                              Estándar</b> (<i>Standard Ridge Regression</i> en el espacio primal, mediante la librería
+                            <i>Himalaya</i>). Esta técnica añade una penalización cuadrática (<i>L2</i>) sobre la
+                            magnitud de los coeficientes: en lugar de permitir que variables correlacionadas tomen pesos
+                            extremos de signo opuesto, encoge de forma proporcional los parámetros y estabiliza la
+                            solución.
+                          </p>
+
+                          <p>
+                            El nivel óptimo de penalización ($\alpha$) no se fija de antemano, sino que se calibra de
+                            manera independiente para cada vóxel evaluando una rejilla de 20 valores distribuidos en
+                            escala logarítmica entre $0.01$ ($10^{-2}$) y $10,000$ ($10^{4}$). Ahora bien, elegir ese
+                            parámetro en series de tiempo de fMRI exige evitar un problema frecuente: <b>la
+                              autocorrelación hemodinámica</b>.
+                          </p>
+
+                          <p>
+                            Si dividiéramos los volúmenes de una historia al azar entre entrenamiento y validación, la
+                            respuesta sanguínea de una oración (que tarda hasta 32 segundos en disiparse) quedaría
+                            repartida a ambos lados de la frontera, filtrando información entre los pliegues. Para
+                            impedir esta contaminación temporal diseñamos un esquema de <b>validación cruzada agrupada
+                              por historias completas</b> (<i>Story-Blocked Cross-Validation</i> mediante
+                            <code>GroupKFold</code> de 3 particiones): todos los volúmenes pertenecientes a una misma
+                            narración se asignan siempre al mismo bloque, garantizando que la calibración del parámetro
+                            $\alpha$ se evalúe siempre sobre relatos distintos a los usados para ajustar los pesos.
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>La partición de varianza: <span>Modelo Global frente a Modelo Restringido</span></h3>
+                          </div>
+
+                          <p>
+                            Con el fin de aislar si el tiempo gramatical aporta capacidad predictiva propia sobre la
+                            corteza, entrenamos dos arquitecturas de regresión en paralelo para cada participante (con
+                            selección independiente de su hiperparámetro de regularización $\alpha$):
+                          </p>
+
+                          <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
+                            <div class="col-xs-12 col-sm-4">
+                              <div class="lm-info-block" style="text-align: left; padding: 18px;">
+                                <h4>1. Modelo Restringido (39 variables)</h4>
+                                <p style="font-size: 0.92em; margin-top: 8px; margin-bottom: 0;">
+                                  Integra exclusivamente los cinco espacios de control: rasgos fonológicos (14),
+                                  estadística léxica (4), categorías gramaticales y verbos no conjugados (8), sintaxis
+                                  de dependencias (3) y semántica latente LSA (10).
+                                </p>
+                              </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                              <div class="lm-info-block" style="text-align: left; padding: 18px;">
+                                <h4>2. Modelo Global (43 variables)</h4>
+                                <p style="font-size: 0.92em; margin-top: 8px; margin-bottom: 0;">
+                                  Reúne los mismos cinco espacios de control anteriores (39 variables) más las cuatro
+                                  variables del espacio de tiempo gramatical (pasado regular, pasado irregular,
+                                  no-pasado 3.ª sing. y no-pasado no marcado).
+                                </p>
+                              </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                              <div class="lm-info-block" style="text-align: left; padding: 18px; border-color: #04b4e0;">
+                                <h4>3. Delta de los Modelos (ΔR²)</h4>
+                                <p style="font-size: 0.92em; margin-top: 8px; margin-bottom: 0;">
+                                  Es la resta entre el coeficiente de determinación fuera de muestra del Modelo Global y
+                                  el del Modelo Restringido ($\Delta R^2 = R^2_{\text{global}} - R^2_{\text{restringido}}$).
+                                  Cuantifica la ganancia predictiva atribuible al tiempo gramatical.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <p>
+                            La evaluación de ambos modelos no se realiza sobre las historias empleadas en el ajuste,
+                            sino sobre la narración reservada exclusivamente para prueba fuera de muestra:
+                            <i>wheretheressmoke</i>. Para elevar la relación señal-ruido (SNR) de este conjunto de
+                            evaluación y atenuar fluctuaciones fisiológicas no sincronizadas con el audio, las
+                            repeticiones disponibles de esta historia se estandarizan por separado y se promedian punto
+                            a punto en el tiempo antes de evaluar las predicciones.
+                          </p>
+
+                          <p>
+                            En el plano de la ingeniería computacional, el ajuste de cada participante se ejecuta en
+                            bloques espaciales de 10,000 vóxeles (<code>VOXEL_BATCH_SIZE = 10000</code>), configurando
+                            las librerías algebraicas subyacentes en C (OpenBLAS y MKL) para vectorizar las operaciones
+                            matriciales en todos los hilos lógicos de la CPU sin exceder el presupuesto de memoria RAM.
+                          </p>
+
+                          <!-- Gráfica 7: Mecánica de la Partición de Varianza en Mermaid -->
+                          <div style="margin: 30px 0 10px 0; text-align: center;">
+                            <p><b>Gráfica 7: Flujo de estimación a nivel de vóxel y partición de varianza predictiva</b></p>
+
+                            <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
+                              flowchart TB
+                              subgraph DATOS_IN ["1. Entrenamiento y Calibración (Historias de Ajuste)"]
+                              direction TB
+                              CV_BLOCK["Validación Cruzada por Bloques de Historias (3 pliegues)<br>Sin filtración temporal por autocorrelación"]
+                              GRID_ALPHA["Búsqueda del Parámetro de Regularización Ridge<br>(20 valores candidatos: 0.01 a 10,000)"]
+                              CV_BLOCK e1@--> GRID_ALPHA
+                              end
+
+                              subgraph MODELOS_PARALELOS ["2. Ajuste en Paralelo por Lotes de 10,000 Vóxeles"]
+                              direction TB
+
+                              subgraph RIDGE_RESTR ["Ruta de Control"]
+                              M_RESTR_FIT["Modelo Restringido (39 predictores de control)<br>Pesos de sonido, léxico, categorías, sintaxis y LSA"]
+                              end
+
+                              subgraph RIDGE_GLOB ["Ruta Completa"]
+                              M_GLOB_FIT["Modelo Global (43 predictores totales)<br>Pesos de control + 4 de Tiempo Gramatical"]
+                              end
+                              end
+
+                              subgraph PRUEBA_EXTERNA ["3. Evaluación Fuera de Muestra (Historia Reservada)"]
+                              direction TB
+                              TEST_STORY["wheretheressmoke<br>Estímulo reservado + serie BOLD promediada entre repeticiones"]
+                              R2_RESTR["Desempeño R² del Modelo Restringido<br>(Línea base sin tiempo gramatical)"]
+                              R2_GLOB["Desempeño R² del Modelo Global<br>(Con tiempo gramatical)"]
+
+                              TEST_STORY e2@--> R2_RESTR
+                              TEST_STORY e3@--> R2_GLOB
+                              end
+
+                              subgraph METRICA_DELTA ["4. Aislamiento de la Contribución Gramatical"]
+                              direction TB
+                              DELTA_CALC["Delta de los Modelos (ΔR² por vóxel)<br>Diferencia: R² Global menos R² Restringido"]
+                              end
+
+                              GRID_ALPHA e4@--> M_RESTR_FIT
+                              GRID_ALPHA e5@--> M_GLOB_FIT
+
+                              M_RESTR_FIT e6@--> R2_RESTR
+                              M_GLOB_FIT e7@--> R2_GLOB
+
+                              R2_RESTR e8@--> DELTA_CALC
+                              R2_GLOB e9@--> DELTA_CALC
+
+                              style DATOS_IN fill:#fcfcfc,stroke:#e5e5e5,stroke-width:1px
+                              style MODELOS_PARALELOS fill:#f5f5f5,stroke:#d5d5d5,stroke-width:1px
+                              style PRUEBA_EXTERNA fill:#f2f7f9,stroke:#b5dbe8,stroke-width:1px
+                              style METRICA_DELTA fill:#e6f7fc,stroke:#04b4e0,stroke-width:1.5px
+                              style RIDGE_RESTR fill:#ffffff,stroke:#e5e5e5
+                              style RIDGE_GLOB fill:#ffffff,stroke:#04b4e0
+
+                              e1@{ animation: fast }
+                              e2@{ animation: fast }
+                              e3@{ animation: fast }
+                              e4@{ animation: fast }
+                              e5@{ animation: fast }
+                              e6@{ animation: fast }
+                              e7@{ animation: fast }
+                              e8@{ animation: fast }
+                              e9@{ animation: fast }
+                            </div>
+                          </div>
+
+                          <p style="font-size: 0.9em; text-align: center; margin-bottom: 25px;">
+                            <i>Nota:</i> El Delta de los modelos se obtiene para cada vóxel de manera independiente
+                            sobre la historia reservada de evaluación. Para interpretar adecuadamente tanto la magnitud
+                            de este Delta como el desempeño del Modelo Global, es necesario compararlos primero con el
+                            límite biológico de señal reproducible presente en cada vóxel.
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ==================================================================== -->
+                    <!-- SECCIÓN 6: EL TECHO DE RUIDO: EL LÍMITE BIOLÓGICO DE LO PREDECIBLE    -->
+                    <!-- ==================================================================== -->
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="col-inner">
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>El límite de predictibilidad de la señal BOLD: <span>el techo de ruido</span></h3>
+                          </div>
+
+                          <p>
+                            Antes de evaluar si la diferencia observada entre los modelos supera el azar, conviene
+                            aclarar una cuestión previa sobre la naturaleza de los registros de resonancia magnética:
+                            ¿cuál es el desempeño máximo ($R^2$) que cualquier modelo computacional, incluso uno ideal,
+                            podría llegar a alcanzar sobre un vóxel determinado? La respuesta nunca es $R^2 = 1.0$. La
+                            señal BOLD registrada por el escáner no es una copia pura de la actividad neuronal evocada
+                            por la historia, sino que está mezclada con pulsaciones cardíacas, cambios respiratorios,
+                            ruido térmico del sensor y actividad espontánea de la corteza que transcurre al margen de
+                            las palabras escuchadas. Ningún modelo lingüístico puede predecir la fracción de la señal
+                            que es ajena al estímulo.
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Estimación de la reproducibilidad mediante <span>repeticiones de la historia de prueba</span></h3>
+                          </div>
+
+                          <p>
+                            Para cuantificar ese límite superior en cada vóxel se aprovecha una propiedad del diseño
+                            experimental de la historia de evaluación (<i>wheretheressmoke</i>): en lugar de escucharla
+                            una sola vez, cada participante la escuchó múltiples veces en sesiones separadas. El
+                            principio es directo: si un vóxel procesa propiedades del relato, su respuesta subirá y
+                            bajará siguiendo un patrón temporal consistente cada vez que se repita el mismo pasaje de la
+                            historia. En cambio, todo lo que varíe de una escucha a otra frente al mismo estímulo
+                            acústico corresponde a ruido fisiológico o instrumental no reproducible.
+                          </p>
+
+                          <p>
+                            Durante la auditoría de datos implementamos una distinción técnica importante: si uno
+                            cuenta únicamente los archivos de salida en la estructura de carpetas BIDS, podría parecer
+                            que algunos participantes cuentan con una sola presentación consolidada. Sin embargo, al
+                            inspeccionar programáticamente las dimensiones internas de los archivos HDF5 (consultando
+                            la llave <code>individual_repeats</code> mediante <code>h5py</code> en tiempo constante, sin
+                            cargar gigabytes de matrices en la memoria RAM), verificamos que los archivos almacenan por
+                            separado cada una de las escuchas individuales: <b>10 repeticiones BOLD independientes para
+                              los participantes UTS01, UTS02 y UTS03, y 5 repeticiones independientes para los
+                              participantes UTS04 a UTS10</b>.
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Separación entre señal reproducible <span>y ruido fisiológico</span></h3>
+                          </div>
+
+                          <p>
+                            Con esas 5 o 10 series temporales por participante (cada una estandarizada con puntaje Z de
+                            forma independiente dentro de su propia presentación y ajustada a una longitud común),
+                            aplicamos el estimador de potencia de señal con corrección de sesgo formulado por Sahani y
+                            Linden (2003). El cálculo descompone la varianza en cuatro pasos:
+                          </p>
+
+                          <ol style="line-height: 1.75; margin-bottom: 20px;">
+                            <li>
+                              Se calcula la serie temporal promediada entre las $R$ repeticiones y se obtiene su
+                              varianza temporal ($\text{Var}(\bar{y})$).
+                            </li>
+                            <li>
+                              Se calcula la varianza residual de cada repetición individual respecto a ese promedio y se
+                              promedian dichos residuales.
+                            </li>
+                            <li>
+                              Dado que el promedio $\bar{y}$ incluye a cada repetición individual, la diferencia directa
+                              subestima la varianza real del ruido en una muestra finita; por ello, la varianza residual
+                              se multiplica por el factor de corrección de sesgo $\frac{R}{R - 1}$, obteniendo la
+                              varianza de ruido independiente ($\sigma^2_{\text{ruido}}$).
+                            </li>
+                            <li>
+                              Finalmente, la varianza atribuible a la señal reproducible se estima restando la fracción
+                              de ruido que sobrevive al promedio ($\sigma^2_{\text{señal}} = \max(0, \text{Var}(\bar{y}) - \sigma^2_{\text{ruido}} / R)$),
+                              y el <b>techo de ruido</b> ($R^2_{\text{techo}}$) se define como la proporción
+                              $\sigma^2_{\text{señal}} / \text{Var}(\bar{y})$, acotada en el intervalo $[0, 1]$. Este
+                              valor representa el $R^2$ máximo que un modelo perfecto podría alcanzar al predecir la
+                              serie BOLD promediada de ese vóxel.
+                            </li>
+                          </ol>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Comparación metodológica entre <span>estimadores de techo de ruido</span></h3>
+                          </div>
+
+                          <p>
+                            En los estudios de neuroimagen con estímulos naturalistas existen distintas maneras de
+                            estimar la reproducibilidad de la señal. La Tabla 4 sintetiza las cuatro familias de
+                            estimadores contrastadas durante el diseño del pipeline y las razones técnicas de nuestra
+                            elección:
+                          </p>
+
+                          <!-- Tabla 4: Comparación de estimadores de techo de ruido -->
+                          <div class="block-title" style="margin-top: 15px;">
+                            <h4>Tabla 4: Familias de estimadores de techo de ruido consideradas</h4>
+                          </div>
+
+                          <div class="fw-table" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
+                            <table style="min-width: 600px; text-align: left;">
+                              <thead>
+                                <tr class="heading-row">
+                                  <th>Estimador</th>
+                                  <th>Mecanismo</th>
+                                  <th>Costo computacional</th>
+                                  <th>Decisión en el estudio</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td><b>Sahani y Linden (2003)</b></td>
+                                  <td>Descompone la varianza del promedio en señal reproducible y ruido independiente,
+                                    corrigiendo el sesgo por contar con un número finito de repeticiones.</td>
+                                  <td>El más bajo: fórmula analítica cerrada vectorizada sobre las 5 o 10 repeticiones.
+                                  </td>
+                                  <td><b>Adoptado.</b> Produce el límite directamente en la misma escala ($R^2$) que la
+                                    métrica de evaluación de los modelos Ridge.</td>
+                                </tr>
+                                <tr>
+                                  <td>Confiabilidad por mitades (Split-Half) + Spearman-Brown</td>
+                                  <td>Correlaciona el promedio de dos mitades de las repeticiones y extrapola la
+                                    confiabilidad al total de escuchas.</td>
+                                  <td>Bajo, pero requiere transformar correlaciones de Pearson a varianza explicada
+                                    ($R^2$).</td>
+                                  <td>Descartado por no ofrecer ventajas frente a la descomposición directa de varianza.
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Remuestreo Bootstrap / Monte Carlo</td>
+                                  <td>Recalcula el techo sobre cientos de submuestreos aleatorios de las repeticiones
+                                    para construir intervalos empíricos.</td>
+                                  <td>Moderado a alto: escala linealmente con el número de remuestreos sobre casi un
+                                    millón de vóxeles.</td>
+                                  <td>Descartado porque con 5 a 10 repeticiones la corrección analítica exacta evita el
+                                    costo del muestreo repetido.</td>
+                                </tr>
+                                <tr>
+                                  <td>Correlación Inter-Sujeto (ISC)</td>
+                                  <td>Usa la correlación entre las respuestas de distintos participantes al mismo
+                                    estímulo como aproximación de confiabilidad.</td>
+                                  <td>Alto: exige alinear y deformar las cortezas individuales hacia un espacio
+                                    anatómico común.</td>
+                                  <td>Descartado porque responde otra pregunta (similitud entre cerebros distintos) y
+                                    rompe el análisis en la anatomía nativa de cada sujeto.</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <div class="white-space-10"></div>
+
+                          <div class="block-title">
+                            <h3>Normalización del desempeño predictivo <span>respecto a la varianza explicable</span></h3>
+                          </div>
+
+                          <p>
+                            Contar con el techo de ruido en cada vóxel permite reexpresar el ajuste del Modelo Global,
+                            del Modelo Restringido y del propio Delta de los modelos como una fracción de la
+                            <b>varianza explicable</b> ($R^2_{\text{global}} / R^2_{\text{techo}}$,
+                            $R^2_{\text{restringido}} / R^2_{\text{techo}}$ y su diferencia), en lugar de compararlos
+                            únicamente contra la varianza total contaminada por ruido.
+                          </p>
+
+                          <p>
+                            Ahora bien, en los vóxeles donde el techo de ruido es sumamente bajo o cercano a cero,
+                            dividir por ese denominador produce cocientes numéricamente inestables dominados por el
+                            error de estimación. Para evitar cifras engañosas, el código aplica un umbral mínimo de
+                            confiabilidad (<code>NOISE_CEILING_MIN_THRESHOLD = 0.01</code>, equivalente al criterio
+                            $R^2 > 0.01$ utilizado en los mapas corticales): las métricas normalizadas se calculan solo
+                            en los vóxeles cuyo techo supera $0.01$ (que en nuestra cohorte abarcan en promedio el
+                            <b>75.45% de toda la corteza</b> de cada participante), mientras que por debajo de ese piso
+                            se registra explícitamente <code>N/A</code>.
+                          </p>
+
+                          <!-- Gráfica 8: Mecánica del Techo de Ruido en Mermaid -->
+                          <div style="margin: 30px 0 10px 0; text-align: center;">
+                            <p><b>Gráfica 8: De las repeticiones BOLD reales al techo de ruido y la normalización por vóxel</b></p>
+
+                            <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
+                              flowchart TB
+                              subgraph REPETICIONES ["1. Repeticiones BOLD Reales de la Historia de Prueba (individual_repeats)"]
+                              direction TB
+                              REP_RAW["Repeticiones Independientes por Participante<br>(10 para UTS01-UTS03; 5 para UTS04-UTS10)"]
+                              REP_Z["Estandarización Z Independiente por Repetición<br>(Misma política que el resto de las historias)"]
+                              REP_RAW e1@--> REP_Z
+                              end
+
+                              subgraph DESCOMPOSICION ["2. Descomposición de Varianza (Sahani y Linden, 2003)"]
+                              direction TB
+                              VAR_MEAN["Varianza del Promedio entre Repeticiones"]
+                              VAR_RESID["Varianza Residual de Cada Repetición frente al Promedio<br>(con corrección de sesgo R / (R - 1))"]
+                              VAR_SIGNAL["Varianza de Señal Reproducible<br>(Promedio menos Ruido Independiente)"]
+                              VAR_MEAN e2@--> VAR_SIGNAL
+                              VAR_RESID e3@--> VAR_SIGNAL
+                              end
+
+                              subgraph TECHO ["3. Techo de Ruido por Vóxel"]
+                              direction TB
+                              CEIL["Techo de Ruido (R² máximo biológicamente alcanzable)<br>Supera el umbral de 0.01 en el 75.45% de la corteza en promedio"]
+                              end
+
+                              subgraph NORMALIZACION ["4. Normalización de las Métricas del Modelo"]
+                              direction TB
+                              NORM["R² Global, R² Restringido y Delta Normalizados<br>(Reportado como N/A si el techo no supera 0.01)"]
+                              end
+
+                              REP_Z e4@--> VAR_MEAN
+                              REP_Z e5@--> VAR_RESID
+                              VAR_SIGNAL e6@--> CEIL
+                              CEIL e7@--> NORM
+
+                              style REPETICIONES fill:#fcfcfc,stroke:#e5e5e5,stroke-width:1px
+                              style DESCOMPOSICION fill:#f5f5f5,stroke:#d5d5d5,stroke-width:1px
+                              style TECHO fill:#f2f7f9,stroke:#b5dbe8,stroke-width:1px
+                              style NORMALIZACION fill:#e6f7fc,stroke:#04b4e0,stroke-width:1.5px
+
+                              e1@{ animation: fast }
+                              e2@{ animation: fast }
+                              e3@{ animation: fast }
+                              e4@{ animation: fast }
+                              e5@{ animation: fast }
+                              e6@{ animation: fast }
+                              e7@{ animation: fast }
+                            </div>
+                          </div>
+
+                          <!-- Gráfica 9: Simulación interactiva del Techo de Ruido en Plotly -->
+                          <div class="block-title" style="margin-top: 25px; clear: both;">
+                            <h4>Gráfica 9: Simulación interactiva de repeticiones ruidosas, su promedio y el techo de ruido estimado</h4>
+                          </div>
+
+                          <p>
+                            Para ilustrar de forma visual cómo opera este estimador, la siguiente simulación aplica la
+                            fórmula exacta de nuestro código sobre 5 repeticiones de una señal sintética controlada, en
+                            la que sí conocemos de antemano la onda verdadera libre de ruido. Al generar distintas
+                            realizaciones de ruido aleatorio, puedes comprobar cómo la serie promediada recupera la
+                            forma general de la señal y cómo el techo estimado por Sahani y Linden se aproxima al techo
+                            verdadero sin tener acceso directo a la onda oculta:
+                          </p>
+
+                          <div style="width: 100%; clear: both; margin: 20px 0 15px 0;">
+                            <div id="plotly-noise-ceiling-simulation"
+                              style="width: 100%; height: 430px; border: 1px solid #e5e5e5; border-radius: 8px; background-color: #ffffff; position: relative; overflow: hidden;">
+                            </div>
+                          </div>
+
+                          <div
+                            style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 15px; margin: 0 0 20px 0;">
+                            <button id="noise-ceiling-reroll-btn" type="button" class="btn btn-primary" style="margin-bottom: 0;">
+                              Generar nueva simulación
+                            </button>
+                            <div id="noise-ceiling-readout" style="font-size: 0.92em; text-align: right;">
+                            </div>
+                          </div>
+
+                          <p style="font-size: 0.9em; text-align: center; margin-bottom: 25px;">
+                            <i>Nota:</i> Simulación ilustrativa sobre una señal sintética controlada; pulsa el botón
+                            para generar un nuevo sorteo de ruido aleatorio sobre las 5 repeticiones y comparar el techo
+                            estimado frente al valor real.
+                          </p>
+
+                          <script>
+                            (function () {
+                              var chartDiv = document.getElementById('plotly-noise-ceiling-simulation');
+                              var readoutDiv = document.getElementById('noise-ceiling-readout');
+                              var rerollBtn = document.getElementById('noise-ceiling-reroll-btn');
+                              if (!chartDiv) return;
+
+                              var N_SAMPLES = 60;
+                              var N_REPEATS = 5;
+                              var NOISE_SD = 0.9;
+
+                              function mulberry32(seed) {
+                                return function () {
+                                  seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+                                  var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+                                  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+                                  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+                                };
+                              }
+
+                              function gaussian(rand) {
+                                var u1 = Math.max(rand(), 1e-9), u2 = rand();
+                                return Math.sqrt(-2.0 * Math.log(u1)) * Math.cos(2.0 * Math.PI * u2);
+                              }
+
+                              function variance(arr) {
+                                var n = arr.length;
+                                var m = arr.reduce(function (a, b) { return a + b; }, 0) / n;
+                                var s = arr.reduce(function (a, b) { return a + (b - m) * (b - m); }, 0) / n;
+                                return s;
+                              }
+
+                              var trueSignal = [];
+                              for (var t0 = 0; t0 < N_SAMPLES; t0++) {
+                                trueSignal.push(Math.sin(2 * Math.PI * t0 / 24) + 0.5 * Math.sin(2 * Math.PI * t0 / 9 + 1.0));
+                              }
+
+                              function runSimulation(seed) {
+                                var rand = mulberry32(seed);
+                                var repeats = [];
+                                for (var r = 0; r < N_REPEATS; r++) {
+                                  var rep = [];
+                                  for (var t = 0; t < N_SAMPLES; t++) {
+                                    rep.push(trueSignal[t] + NOISE_SD * gaussian(rand));
+                                  }
+                                  repeats.push(rep);
+                                }
+
+                                var mean = [];
+                                for (var t = 0; t < N_SAMPLES; t++) {
+                                  var s = 0;
+                                  for (var r = 0; r < N_REPEATS; r++) s += repeats[r][t];
+                                  mean.push(s / N_REPEATS);
+                                }
+
+                                var varMean = variance(mean);
+                                var residVars = [];
+                                for (var r = 0; r < N_REPEATS; r++) {
+                                  var diffs = repeats[r].map(function (v, t) { return v - mean[t]; });
+                                  residVars.push(variance(diffs));
+                                }
+                                var meanResidVar = residVars.reduce(function (a, b) { return a + b; }, 0) / N_REPEATS;
+
+                                var noiseVar = meanResidVar * N_REPEATS / (N_REPEATS - 1);
+                                var signalVar = Math.max(varMean - noiseVar / N_REPEATS, 0);
+                                var ceilingEstimated = varMean > 0 ? Math.min(Math.max(signalVar / varMean, 0), 1) : NaN;
+
+                                var ssResTrue = 0, ssTotTrue = 0;
+                                var meanOfMean = mean.reduce(function (a, b) { return a + b; }, 0) / N_SAMPLES;
+                                for (var t = 0; t < N_SAMPLES; t++) {
+                                  ssResTrue += Math.pow(mean[t] - trueSignal[t], 2);
+                                  ssTotTrue += Math.pow(mean[t] - meanOfMean, 2);
+                                }
+                                var ceilingTrue = ssTotTrue > 0 ? Math.max(0, 1 - ssResTrue / ssTotTrue) : NaN;
+
+                                return { repeats: repeats, mean: mean, ceilingEstimated: ceilingEstimated, ceilingTrue: ceilingTrue };
+                              }
+
+                              function buildTraces(result) {
+                                var tAxis = [];
+                                for (var t = 0; t < N_SAMPLES; t++) tAxis.push(t);
+
+                                var traces = [];
+                                for (var r = 0; r < N_REPEATS; r++) {
+                                  traces.push({
+                                    x: tAxis, y: result.repeats[r], mode: 'lines', type: 'scatter',
+                                    name: 'Repeticiones individuales (ruidosas)',
+                                    legendgroup: 'repeats', showlegend: (r === 0),
+                                    line: { color: 'rgba(4, 180, 224, 0.28)', width: 1.3 },
+                                    hovertemplate: 'Repetición ' + (r + 1) + '<br>TR %{x}<br>%{y:.2f}<extra></extra>'
+                                  });
+                                }
+
+                                traces.push({
+                                  x: tAxis, y: trueSignal, mode: 'lines', type: 'scatter',
+                                  name: 'Señal verdadera (oculta en datos reales)',
+                                  line: { color: '#666666', width: 2, dash: 'dot' },
+                                  hovertemplate: 'Señal verdadera<br>TR %{x}<br>%{y:.2f}<extra></extra>'
+                                });
+
+                                traces.push({
+                                  x: tAxis, y: result.mean, mode: 'lines', type: 'scatter',
+                                  name: 'Promedio entre repeticiones',
+                                  line: { color: '#0099cc', width: 2.8 },
+                                  hovertemplate: 'Promedio<br>TR %{x}<br>%{y:.2f}<extra></extra>'
+                                });
+
+                                return traces;
+                              }
+
+                              function updateReadout(result) {
+                                readoutDiv.innerHTML =
+                                  'Techo de ruido <b>estimado</b> (Sahani y Linden): <b style="color:#0099cc;">' +
+                                  result.ceilingEstimated.toFixed(3) +
+                                  '</b>&nbsp;&nbsp;|&nbsp;&nbsp;Techo <b>verdadero</b> (conocible en la simulación): <b>' +
+                                  result.ceilingTrue.toFixed(3) + '</b>';
+                              }
+
+                              var layout = {
+                                autosize: true,
+                                font: { family: "'Poppins', Helvetica, sans-serif", color: '#555555' },
+                                paper_bgcolor: '#ffffff',
+                                plot_bgcolor: '#ffffff',
+                                margin: { l: 55, r: 25, t: 25, b: 70 },
+                                xaxis: {
+                                  title: { text: 'Tiempo simulado (TRs arbitrarios)', font: { size: 11.5, color: '#222222' } },
+                                  gridcolor: '#eeeeee', tickfont: { size: 10, color: '#888888' }
+                                },
+                                yaxis: {
+                                  title: { text: 'Amplitud BOLD simulada (u.a.)', font: { size: 11.5, color: '#222222' } },
+                                  gridcolor: '#eeeeee', zeroline: true, zerolinecolor: '#d5d5d5',
+                                  tickfont: { size: 10, color: '#888888' }
+                                },
+                                legend: {
+                                  orientation: 'h', y: -0.28, x: 0.02,
+                                  font: { size: 11, color: '#555555' }, bgcolor: 'rgba(255,255,255,0.9)'
+                                },
+                                hovermode: 'closest'
+                              };
+                              var plotConfig = { responsive: true, displayModeBar: false };
+
+                              var seedCounter = 10;
+                              var current = runSimulation(seedCounter);
+                              Plotly.newPlot(chartDiv, buildTraces(current), layout, plotConfig);
+                              updateReadout(current);
+
+                              if (rerollBtn) {
+                                rerollBtn.addEventListener('click', function () {
+                                  seedCounter += 1;
+                                  current = runSimulation((seedCounter * 2654435761) | 0);
+                                  Plotly.react(chartDiv, buildTraces(current), layout, plotConfig);
+                                  updateReadout(current);
+                                });
+                              }
+                            })();
+                          </script>
+
+                          <p>
+                            Establecer este techo biológico de referencia permite situar en proporción cualquier mejora
+                            predictiva de los modelos, pero aún resta responder la pregunta inferencial decisiva: ¿puede
+                            el Delta observado en un vóxel explicarse por meras coincidencias del azar entre dos series
+                            temporales suaves? Esa verificación es el propósito de la etapa de validación estadística
+                            descrita en la siguiente sección.
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- AQUÍ VA LA PARTE 3 (SECCIONES 7, 8, 9 Y METADATOS FINALES) -->
 
                     <!-- AQUÍ VA LA PARTE 3 (SECCIONES 7, 8, 9 Y METADATOS FINALES) -->
 
