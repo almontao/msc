@@ -2311,9 +2311,910 @@
                       </div>
                     </div>
 
-                    <!-- AQUÍ VA LA PARTE 3 (SECCIONES 7, 8, 9 Y METADATOS FINALES) -->
+                    <!-- ==================================================================== -->
+                    <!-- SECCIÓN 7: VALIDACIÓN ESTADÍSTICA: DESPLAZAMIENTOS CIRCULARES Y FDR  -->
+                    <!-- ==================================================================== -->
 
-                    <!-- AQUÍ VA LA PARTE 3 (SECCIONES 7, 8, 9 Y METADATOS FINALES) -->
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="col-inner">
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Por qué una diferencia positiva entre modelos <span>no implica significancia estadística</span></h3>
+                          </div>
+
+                          <p>
+                            Al restar la precisión del Modelo Restringido (39 variables) de la del Modelo Global (43
+                            variables) en la historia de evaluación, observamos que en todos los participantes existe
+                            una proporción amplia del cerebro donde la diferencia resulta positiva (ΔR² mayor que cero).
+                            De hecho, en los datos reales de nuestra cohorte, entre el <b>36.61% (participante UTS06) y
+                              el 51.10% (participante UTS04) de los vóxeles de cada corteza</b> (un promedio del
+                            <b>42.83%</b> del volumen cortical) muestra en bruto una cifra ligeramente favorable al
+                            Modelo Global.
+                          </p>
+
+                          <p>
+                            Si nos quedáramos únicamente con esa resta directa, sería fácil concluir de manera
+                            apresurada que casi la mitad del cerebro procesa activamente el tiempo gramatical. Sin
+                            embargo, cuando se comparan dos modelos sobre series temporales ruidosas, el simple hecho
+                            de añadir cuatro columnas nuevas permite que, por pura coincidencia con las fluctuaciones
+                            del escáner, cerca de la mitad de los vóxeles aparenten mejorar unas milésimas y la otra
+                            mitad empeore en la misma proporción (como lo confirma el hecho de que la mediana cortical
+                            de esa diferencia se sitúe en torno a -0.00053). Para determinar si la mejora en un vóxel
+                            refleja una respuesta genuina al tiempo verbal y no una coincidencia casual con el ruido,
+                            es necesario someter esa diferencia a una prueba de hipótesis nula.
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Autocorrelación temporal de la señal BOLD y <span>límites de las permutaciones simples</span></h3>
+                          </div>
+
+                          <p>
+                            En un problema estadístico convencional con datos independientes (por ejemplo, una encuesta
+                            a distintas personas), para construir un escenario de azar basta con desordenar las filas
+                            aleatoriamente como quien baraja un mazo de cartas y volver a medir el ajuste. Sin embargo,
+                            aplicar ese barajado simple sobre una serie temporal de resonancia magnética funcional
+                            invalida la prueba estadística.
+                          </p>
+
+                          <p>
+                            Debido a la lentitud de la respuesta vascular (que tarda 32 segundos en subir y bajar), la
+                            señal cerebral no salta libremente de un segundo al siguiente: presenta una fuerte
+                            <b>autocorrelación temporal</b>, formando ondas suaves donde el valor de cada volumen
+                            depende estrechamente de los volúmenes anteriores. Si desordenamos los puntos del tiempo al
+                            azar, destruimos esa suavidad biológica y convertimos la serie en ruido blanco discontinuo.
+                            Comparar una predicción suave y continua contra una serie desordenada artificialmente hace
+                            que cualquier coincidencia normal entre ondas lentas parezca extraordinaria, inflando los
+                            falsos positivos.
+                          </p>
+
+                          <blockquote>
+                            <p>
+                              <b>Desfasar el reloj sin romper la estructura interna del relato:</b><br>
+                              "He turned the ignition key, but the engine remained dead silent."
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              "Giró la llave de encendido, pero el motor permaneció en completo silencio."
+                            </p>
+                          </blockquote>
+
+                          <p>
+                            Si esa frase fue pronunciada en el segundo 40 de la historia, un contraste de azar válido
+                            no consiste en desarmar la oración segundo por segundo, sino en conservar intacta toda la
+                            curva de predicciones del relato y desplazarla en bloque en el tiempo (por ejemplo,
+                            comparando la predicción del segundo 40 contra la actividad cerebral que ocurrió en el
+                            segundo 180, cuando el narrador hablaba de otro suceso). De ese modo, ambas curvas conservan
+                            su suavidad, su media, su varianza y su ritmo natural, pero pierden su sincronía con el
+                            audio.
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Desplazamientos circulares exhaustivos y <span>margen de exclusión</span></h3>
+                          </div>
+
+                          <p>
+                            Para implementar este principio sin depender de sorteos aleatorios, programamos un esquema
+                            de <b>desplazamientos circulares exhaustivos</b> (<i>circular shifts</i>). La serie temporal
+                            de predicciones sobre la historia de prueba se trata como una cinta cerrada: se desplaza en
+                            bloque un número entero de volúmenes hacia adelante y el tramo que sobresale por el final
+                            reingresa exactamente por el principio, mientras que la señal BOLD del cerebro permanece
+                            fija en su orden original.
+                          </p>
+
+                          <p>
+                            Ahora bien, no todos los desplazamientos son admisibles como escenario de azar. Si
+                            desplazáramos la serie apenas 1 o 2 volúmenes (2 a 4 segundos), la onda vascular de 32
+                            segundos seguiría solapándose consigo misma y conservaría parte de la correlación real. Por
+                            esa razón, nuestro código establece un <b>margen de exclusión de seguridad</b> en ambos
+                            extremos del ciclo circular y evalúa dos niveles de rigor:
+                          </p>
+
+                          <ul style="line-height: 1.75; margin-bottom: 20px;">
+                            <li>
+                              <b>Margen base (10 TRs = 20 segundos):</b> Se descartan todas las rotaciones menores a 10
+                              volúmenes hacia adelante o hacia atrás respecto a la posición sincronizada original. En la
+                              historia de prueba <i>wheretheressmoke</i> (de 291 TRs), esto permite evaluar de forma
+                              exacta y sin reemplazo las <b>271 rotaciones circulares posibles</b>. Aplicando la
+                              corrección de continuidad estándar (sumar 1 tanto al conteo de rotaciones que igualan o
+                              superan el valor real como al total de pruebas), este inventario define una resolución de
+                              probabilidad mínima detectable de <b><i>p</i> = 0.00368</b> (1 entre 272).
+                            </li>
+                            <li>
+                              <b>Análisis de sensibilidad del margen (16 TRs = 32 segundos):</b> Para comprobar que las
+                              conclusiones no dependan del ancho elegido para la zona prohibida, el mismo bloque
+                              matricial recalcula los valores de probabilidad exigiendo un margen de exclusión de 16
+                              volúmenes en cada extremo, equivalente a la duración íntegra de una función de respuesta
+                              hemodinámica completa (32 segundos). Bajo este criterio más estricto quedan <b>260
+                                rotaciones circulares válidas</b>, con una resolución mínima detectable de
+                              <b><i>p</i> = 0.00383</b> (1 entre 261).
+                            </li>
+                          </ul>
+
+                          <p>
+                            En el plano técnico, evaluar 271 rotaciones sobre cerca de 100,000 vóxeles por participante
+                            mediante un bucle secuencial en Python sería sumamente lento. Para evitarlo, el algoritmo
+                            precalcula una sola vez la suma total de cuadrados de cada vóxel (ya que la varianza total
+                            no cambia al rotar el tiempo) y vectoriza las predicciones desplazadas en tensores
+                            tridimensionales acotados a bloques de 512 MB en memoria RAM, obteniendo la distribución
+                            nula completa en pocos segundos por lote espacial.
+                          </p>
+
+                          <div class="white-space-20"></div>
+
+                          <div class="block-title">
+                            <h3>Control de comparaciones múltiples en toda la corteza <span>(FDR de Benjamini-Hochberg)</span></h3>
+                          </div>
+
+                          <p>
+                            Contar con una probabilidad individual baja en un vóxel aislado tampoco basta cuando se
+                            evalúan entre 81,126 y 109,469 vóxeles al mismo tiempo dentro de un mismo cerebro. Si
+                            usáramos un umbral sin corregir del 5% en cien mil pruebas simultáneas, esperaríamos miles
+                            de vóxeles falsamente positivos por simple acumulación de intentos.
+                          </p>
+
+                          <p>
+                            Para controlar este efecto a escala de toda la corteza, los valores de probabilidad
+                            empíricos obtenidos de las rotaciones circulares (tanto bajo el margen base de 10 TRs como
+                            bajo el margen de sensibilidad de 16 TRs) se someten a la corrección de la <b>Tasa de Falsos
+                              Descubrimientos</b> (<i>False Discovery Rate</i> o FDR) mediante el procedimiento de
+                            Benjamini-Hochberg con un nivel de exigencia de <b><i>q</i> &lt; 0.05</b>. Solo los vóxeles
+                            que superan este ajuste global pueden atribuirse de manera estadísticamente defendible al
+                            aporte del tiempo gramatical.
+                          </p>
+
+                          <!-- Gráfica 10: Mecánica de Validación Estadística en Mermaid -->
+                          <div style="margin: 30px 0 10px 0; text-align: center;">
+                            <p><b>Gráfica 10: Flujo de validación estadística mediante rotaciones circulares exhaustivas y corrección FDR</b></p>
+
+                            <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
+                              flowchart TB
+                              subgraph REALIDAD ["1. Desempeño Observado Fuera de Muestra (wheretheressmoke)"]
+                              direction TB
+                              PRED_REAL["Predicciones Sincronizadas a 0.5 Hz<br>(Modelo Global y Modelo Restringido)"]
+                              BOLD_REAL["Serie BOLD Real Promediada (291 TRs)"]
+                              DELTA_OBS["Delta Observado (ΔR² por vóxel)<br>Diferencia con el estímulo sincronizado"]
+                              PRED_REAL e1@--> DELTA_OBS
+                              BOLD_REAL e2@--> DELTA_OBS
+                              end
+
+                              subgraph PERMUTACION ["2. Construcción Vectorizada de la Distribución Nula"]
+                              direction TB
+                              ROT["Desplazamientos Circulares Exhaustivos en Bloque<br>(Preserva autocorrelación temporal de las ondas)"]
+                              BUFFER["Márgenes de Exclusión por Autocorrelación HRF<br>Base: ≥ 10 TRs (20 s, 271 rotaciones, p mín = 0.00368)<br>Sensibilidad: ≥ 16 TRs (32 s, 260 rotaciones, p mín = 0.00383)"]
+                              DELTA_NULL["Matriz de Deltas Nulos por Vóxel<br>(Cálculo vectorizado en bloques 3D de 512 MB)"]
+
+                              ROT e3@--> BUFFER
+                              BUFFER e4@--> DELTA_NULL
+                              end
+
+                              subgraph INFERENCIA_VOXEL ["3. Probabilidad Empírica con Corrección de Continuidad"]
+                              direction TB
+                              P_VAL["Valor p Empírico por Vóxel<br>p = (Rotaciones con ΔR² nulo ≥ ΔR² observado + 1) / (N + 1)"]
+                              end
+
+                              subgraph CEREBRO_COMPLETO ["4. Control de Comparaciones Múltiples"]
+                              direction TB
+                              WHOLE_BRAIN["Volumen Cortical Completo del Participante<br>(81,126 a 109,469 pruebas simultáneas)"]
+                              FDR_PROC["Corrección FDR Benjamini-Hochberg (q < 0.05)<br>Evaluada en margen base y en margen de sensibilidad"]
+                              SURVIVAL["Vóxeles Significativos Corregidos<br>(Si el conteo es 0, se reporta N/A en magnitud)"]
+
+                              WHOLE_BRAIN e5@--> FDR_PROC
+                              FDR_PROC e6@--> SURVIVAL
+                              end
+
+                              DELTA_OBS e7@--> P_VAL
+                              DELTA_NULL e8@--> P_VAL
+                              P_VAL e9@--> WHOLE_BRAIN
+
+                              style REALIDAD fill:#fcfcfc,stroke:#e5e5e5,stroke-width:1px
+                              style PERMUTACION fill:#f5f5f5,stroke:#d5d5d5,stroke-width:1px
+                              style INFERENCIA_VOXEL fill:#f2f7f9,stroke:#b5dbe8,stroke-width:1px
+                              style CEREBRO_COMPLETO fill:#e6f7fc,stroke:#04b4e0,stroke-width:1.5px
+
+                              e1@{ animation: fast }
+                              e2@{ animation: fast }
+                              e3@{ animation: fast }
+                              e4@{ animation: fast }
+                              e5@{ animation: fast }
+                              e6@{ animation: fast }
+                              e7@{ animation: fast }
+                              e8@{ animation: fast }
+                              e9@{ animation: fast }
+                            </div>
+                          </div>
+
+                          <!-- Gráfica 11: Nuevo Plotly interactivo de Desplazamientos Circulares y Márgenes de Exclusión -->
+                          <div class="block-title" style="margin-top: 25px; clear: both;">
+                            <h4>Gráfica 11: Explorador interactivo de desplazamientos circulares y márgenes de exclusión</h4>
+                          </div>
+
+                          <p>
+                            Mueve el control deslizante inferior para aplicar un <b>desplazamiento circular</b> sobre la
+                            serie de predicciones (línea cian) mientras la señal cerebral observada permanece fija
+                            (línea gris). En el panel inferior puedes ver los 291 TRs de la historia de prueba con las
+                            zonas sombreadas en rojo y coral claro que nuestro código excluye en los extremos (los
+                            primeros y últimos 10 TRs del margen base y los 16 TRs del margen de sensibilidad de una
+                            HRF completa) para evitar correlación residual con el punto sincronizado:
+                          </p>
+
+                          <div style="width: 100%; clear: both; margin: 20px 0 15px 0;">
+                            <div id="plotly-circular-shift-explorer"
+                              style="width: 100%; height: 500px; border: 1px solid #e5e5e5; border-radius: 8px; background-color: #ffffff; position: relative; overflow: hidden;">
+                            </div>
+                          </div>
+
+                          <div id="circular-shift-status-box" class="lm-info-block"
+                            style="text-align: left; padding: 12px 18px; margin-bottom: 30px; font-size: 0.92em;">
+                          </div>
+
+                          <script>
+                            (function () {
+                              var shiftDiv = document.getElementById('plotly-circular-shift-explorer');
+                              var statusBox = document.getElementById('circular-shift-status-box');
+                              if (!shiftDiv) return;
+
+                              var N_TRS = 291;
+                              var MARGIN_BASE = 10;
+                              var MARGIN_SENS = 16;
+
+                              var trAxis = [];
+                              var yBold = [];
+                              var yPredBase = [];
+
+                              for (var t = 0; t < N_TRS; t++) {
+                                trAxis.push(t);
+                                var wave = 0.85 * Math.sin(2 * Math.PI * t / 36)
+                                  + 0.55 * Math.cos(2 * Math.PI * t / 19 + 0.7)
+                                  + 0.40 * Math.sin(2 * Math.PI * t / 64 + 1.8);
+                                var noise = 0.32 * Math.sin(2 * Math.PI * t / 7.3 + 0.4)
+                                  + 0.25 * Math.cos(2 * Math.PI * t / 5.1 + 2.1);
+                                yBold.push(Number((wave + noise).toFixed(3)));
+                                yPredBase.push(Number((0.78 * wave + 0.12 * Math.sin(2 * Math.PI * t / 13)).toFixed(3)));
+                              }
+
+                              function rollArray(arr, shift) {
+                                var n = arr.length;
+                                var out = new Array(n);
+                                for (var i = 0; i < n; i++) {
+                                  var srcIdx = (i - shift) % n;
+                                  if (srcIdx < 0) srcIdx += n;
+                                  out[i] = arr[srcIdx];
+                                }
+                                return out;
+                              }
+
+                              var deltaByShift = [];
+                              for (var s = 0; s < N_TRS; s++) {
+                                var rolled = rollArray(yPredBase, s);
+                                var cov = 0;
+                                for (var i = 0; i < N_TRS; i++) {
+                                  cov += yBold[i] * rolled[i];
+                                }
+                                var val = (cov / N_TRS) * 0.022;
+                                deltaByShift.push(Number(val.toFixed(5)));
+                              }
+
+                              var candidateShifts = [0, 4, 8, 13, 20, 45, 75, 110, 145, 180, 215, 250, 270, 278, 285];
+                              var sliderSteps = [];
+
+                              function describeShiftZone(s) {
+                                if (s === 0) {
+                                  return {
+                                    badge: 'Sincronía original (Desfase = 0 TRs)',
+                                    color: '#04b4e0',
+                                    detail: 'Las predicciones están alineadas con el audio real escuchado por el participante (ΔR² observado).'
+                                  };
+                                }
+                                if (s < MARGIN_BASE || s > (N_TRS - MARGIN_BASE)) {
+                                  return {
+                                    badge: 'Zona excluida por el margen base (< 10 TRs / 20 s)',
+                                    color: '#ff4e4e',
+                                    detail: 'Descartado de la distribución nula: aún existe solapamiento directo con la ventana hemodinámica del evento real.'
+                                  };
+                                }
+                                if (s < MARGIN_SENS || s > (N_TRS - MARGIN_SENS)) {
+                                  return {
+                                    badge: 'Zona de transición (incluida en margen base [10 TRs], excluida en sensibilidad [16 TRs / 32 s])',
+                                    color: '#e87878',
+                                    detail: 'Se evalúa en las 271 rotaciones base, pero se retira en las 260 rotaciones del análisis de sensibilidad de 1 HRF completa.'
+                                  };
+                                }
+                                return {
+                                  badge: 'Rotación circular nula válida (zona admitida en ambos análisis)',
+                                  color: '#0099cc',
+                                  detail: 'La curva conserva intacta su forma y autocorrelación, pero está completamente desacoplada del momento en que ocurrió la frase.'
+                                };
+                              }
+
+                              function updateStatusBox(s) {
+                                if (!statusBox) return;
+                                var info = describeShiftZone(s);
+                                statusBox.innerHTML =
+                                  '<span style="color:' + info.color + '; font-weight:600;">● ' + info.badge + '</span>' +
+                                  ' &nbsp;|&nbsp; <b>Desplazamiento:</b> ' + s + ' TRs (' + (s * 2) + ' s)' +
+                                  ' &nbsp;|&nbsp; <b>ΔR² simulado en este giro:</b> ' + deltaByShift[s].toFixed(4) +
+                                  '<br><span style="color:#666666;">' + info.detail + '</span>';
+                              }
+
+                              var viewWindow = 90;
+                              var xWindow = trAxis.slice(0, viewWindow);
+                              var yBoldWindow = yBold.slice(0, viewWindow);
+
+                              for (var k = 0; k < candidateShifts.length; k++) {
+                                (function (shiftVal) {
+                                  sliderSteps.push({
+                                    label: shiftVal + ' TR',
+                                    method: 'restyle',
+                                    args: [
+                                      {
+                                        y: [
+                                          yBoldWindow,
+                                          rollArray(yPredBase, shiftVal).slice(0, viewWindow),
+                                          deltaByShift,
+                                          [deltaByShift[shiftVal]]
+                                        ],
+                                        x: [
+                                          xWindow,
+                                          xWindow,
+                                          trAxis,
+                                          [shiftVal]
+                                        ]
+                                      },
+                                      [0, 1, 2, 3]
+                                    ]
+                                  });
+                                })(candidateShifts[k]);
+                              }
+
+                              var traceBold = {
+                                x: xWindow,
+                                y: yBoldWindow,
+                                xaxis: 'x1',
+                                yaxis: 'y1',
+                                mode: 'lines',
+                                name: 'Señal BOLD observada (fija)',
+                                line: { color: '#666666', width: 2 },
+                                hovertemplate: 'TR %{x}<br>BOLD: %{y:.2f}<extra></extra>'
+                              };
+
+                              var tracePred = {
+                                x: xWindow,
+                                y: yPredBase.slice(0, viewWindow),
+                                xaxis: 'x1',
+                                yaxis: 'y1',
+                                mode: 'lines',
+                                name: 'Predicción rotada circularmente',
+                                line: { color: '#04b4e0', width: 2.5 },
+                                hovertemplate: 'TR %{x}<br>Predicción: %{y:.2f}<extra></extra>'
+                              };
+
+                              var traceNullCurve = {
+                                x: trAxis,
+                                y: deltaByShift,
+                                xaxis: 'x2',
+                                yaxis: 'y2',
+                                mode: 'lines',
+                                name: 'ΔR² a lo largo de los 291 giros posibles',
+                                line: { color: '#0099cc', width: 1.8 },
+                                hovertemplate: 'Giro: %{x} TRs<br>ΔR²: %{y:.4f}<extra></extra>'
+                              };
+
+                              var traceCurrentMarker = {
+                                x: [0],
+                                y: [deltaByShift[0]],
+                                xaxis: 'x2',
+                                yaxis: 'y2',
+                                mode: 'markers',
+                                name: 'Posición actual del giro',
+                                marker: { color: '#ff4e4e', size: 10, line: { color: '#ffffff', width: 1.5 } },
+                                hovertemplate: 'Giro actual: %{x} TRs<br>ΔR²: %{y:.4f}<extra></extra>'
+                              };
+
+                              var layout = {
+                                autosize: true,
+                                font: { family: "'Poppins', Helvetica, sans-serif", color: '#555555' },
+                                paper_bgcolor: '#ffffff',
+                                plot_bgcolor: '#ffffff',
+                                margin: { l: 55, r: 25, t: 30, b: 95 },
+                                grid: { rows: 2, columns: 1, pattern: 'independent', roworder: 'top to bottom' },
+                                xaxis: {
+                                  domain: [0, 1],
+                                  title: { text: 'Ventana de los primeros 90 TRs de la historia de prueba (180 segundos)', font: { size: 11, color: '#222222' } },
+                                  gridcolor: '#eeeeee',
+                                  tickfont: { size: 9.5, color: '#888888' }
+                                },
+                                yaxis: {
+                                  domain: [0.56, 1],
+                                  title: { text: 'Señal Z-score', font: { size: 11, color: '#222222' } },
+                                  gridcolor: '#eeeeee',
+                                  zeroline: true,
+                                  zerolinecolor: '#d5d5d5',
+                                  tickfont: { size: 9.5, color: '#888888' }
+                                },
+                                xaxis2: {
+                                  domain: [0, 1],
+                                  range: [0, N_TRS - 1],
+                                  title: { text: 'Mapa completo de los 291 TRs de rotación circular (zonas rojas = márgenes excluidos)', font: { size: 11, color: '#222222' } },
+                                  gridcolor: '#eeeeee',
+                                  tickfont: { size: 9.5, color: '#888888' }
+                                },
+                                yaxis2: {
+                                  domain: [0, 0.38],
+                                  title: { text: 'ΔR² resultante', font: { size: 11, color: '#222222' } },
+                                  gridcolor: '#eeeeee',
+                                  zeroline: true,
+                                  zerolinecolor: '#d5d5d5',
+                                  tickfont: { size: 9.5, color: '#888888' }
+                                },
+                                shapes: [
+                                  {
+                                    type: 'rect', xref: 'x2', yref: 'paper',
+                                    x0: 0, x1: MARGIN_BASE, y0: 0, y1: 0.38,
+                                    fillcolor: 'rgba(255, 78, 78, 0.22)', line: { width: 0 }
+                                  },
+                                  {
+                                    type: 'rect', xref: 'x2', yref: 'paper',
+                                    x0: N_TRS - MARGIN_BASE, x1: N_TRS - 1, y0: 0, y1: 0.38,
+                                    fillcolor: 'rgba(255, 78, 78, 0.22)', line: { width: 0 }
+                                  },
+                                  {
+                                    type: 'rect', xref: 'x2', yref: 'paper',
+                                    x0: MARGIN_BASE, x1: MARGIN_SENS, y0: 0, y1: 0.38,
+                                    fillcolor: 'rgba(232, 120, 120, 0.16)', line: { width: 0 }
+                                  },
+                                  {
+                                    type: 'rect', xref: 'x2', yref: 'paper',
+                                    x0: N_TRS - MARGIN_SENS, x1: N_TRS - MARGIN_BASE, y0: 0, y1: 0.38,
+                                    fillcolor: 'rgba(232, 120, 120, 0.16)', line: { width: 0 }
+                                  }
+                                ],
+                                legend: {
+                                  orientation: 'h', y: 1.11, x: 0.0,
+                                  font: { size: 10.5, color: '#555555' }
+                                },
+                                sliders: [{
+                                  active: 0,
+                                  pad: { t: 38, b: 0 },
+                                  currentvalue: {
+                                    visible: true,
+                                    prefix: 'Desplazamiento circular aplicado: ',
+                                    xanchor: 'right',
+                                    font: { size: 11, color: '#0099cc' }
+                                  },
+                                  activecolor: '#04b4e0',
+                                  tickcolor: '#d5d5d5',
+                                  font: { size: 9.5, color: '#888888' },
+                                  steps: sliderSteps
+                                }]
+                              };
+
+                              Plotly.newPlot(shiftDiv, [traceBold, tracePred, traceNullCurve, traceCurrentMarker], layout, { responsive: true, displayModeBar: false })
+                                .then(function () {
+                                  updateStatusBox(0);
+                                  shiftDiv.on('plotly_sliderchange', function (e) {
+                                    if (e && e.step) {
+                                      var shiftVal = parseInt(e.step.label.replace(' TR', ''), 10);
+                                      if (!isNaN(shiftVal)) {
+                                        updateStatusBox(shiftVal);
+                                      }
+                                    }
+                                  });
+                                });
+                            })();
+                          </script>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- ==================================================================== -->
+                    <!-- SECCIÓN 8: RESULTADOS EMPÍRICOS E INTERPRETACIÓN DE HALLAZGOS NULOS  -->
+                    <!-- ==================================================================== -->
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12">
+                        <div class="col-inner">
+
+                          <div class="white-space-10"></div>
+
+                          <div class="block-title">
+                            <h3>Resultados empíricos en la cohorte e <span>interpretación de los hallazgos nulos</span></h3>
+                          </div>
+
+                          <p>
+                            En la comunicación científica suele existir un sesgo hacia reportar únicamente efectos
+                            positivos llamativos, pasando por alto que un resultado nulo obtenido bajo controles
+                            estrictos aporta información metodológica precisa sobre los límites de detección de un
+                            paradigma experimental.
+                          </p>
+
+                          <p>
+                            Al ejecutar el modelado completo sobre los <b>10 participantes de la cohorte (943,305
+                              vóxeles corticales en total)</b>, los datos mostraron dos caras complementarias que
+                            conviene leer juntas en la <b>Tabla 5</b>:
+                          </p>
+
+                          <ol style="line-height: 1.75; margin-bottom: 20px;">
+                            <li>
+                              <b>El sistema completo sí predice con éxito la respuesta cerebral al habla naturalista:</b>
+                              En promedio, el <b>75.45% de los vóxeles de cada cerebro</b> posee un techo de ruido
+                              confiable (superior a 0.01 a partir de las 5 o 10 repeticiones de <i>wheretheressmoke</i>),
+                              y el <b>Modelo Global de 43 características logra predicciones positivas fuera de muestra
+                                en el 35.56% de toda la corteza</b> (entre 27,000 y 42,000 vóxeles por persona, con
+                              máximos de R² de hasta 0.1091 en las áreas auditivas y temporales del lenguaje).
+                            </li>
+                            <li>
+                              <b>El aporte aislado de las 4 variables de tiempo gramatical no supera el control por
+                                comparaciones múltiples:</b> Aunque antes del filtro estadístico el 42.83% de los
+                              vóxeles muestra valores brutos de ΔR² mayores que cero (con el percentil 95 situado entre
+                              0.00402 y 0.00754 en escala bruta, y entre 0.03699 y 0.10706 al normalizar por el techo de
+                              ruido), al confrontar cada vóxel con las 271 rotaciones circulares del margen base (y las
+                              260 del margen de sensibilidad de 32 segundos) y aplicar la corrección FDR de
+                              Benjamini-Hochberg (<i>q</i> &lt; 0.05), <b>en ninguno de los 10 participantes sobrevivieron
+                                vóxeles estadísticamente significativos (0 de 10 sujetos)</b>.
+                            </li>
+                          </ol>
+
+                          <!-- Tabla 5: Resultados Empíricos Reales de los 10 Participantes -->
+                          <div class="block-title" style="margin-top: 20px;">
+                            <h4>Tabla 5: Resumen cuantitativo por participante en la historia de evaluación (wheretheressmoke)</h4>
+                          </div>
+
+                          <div class="fw-table" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px;">
+                            <table style="min-width: 780px; text-align: left;">
+                              <thead>
+                                <tr class="heading-row">
+                                  <th>Sujeto</th>
+                                  <th>Vóxeles analizados</th>
+                                  <th>Repeticiones BOLD</th>
+                                  <th>Corteza con techo &gt; 0.01</th>
+                                  <th>Modelo Global R² &gt; 0 (Máx R²)</th>
+                                  <th>ΔR² &gt; 0 bruto (P95 bruto | P95 norm.)</th>
+                                  <th>Vóxeles FDR (10 TR | 16 TR)</th>
+                                  <th>ΔR² en vóxeles sig.</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td><b>UTS01</b></td>
+                                  <td>81,126</td>
+                                  <td>10</td>
+                                  <td>80.93%</td>
+                                  <td>36.88% (0.0928)</td>
+                                  <td>41.97% (0.00585 | 0.06447)</td>
+                                  <td>0 (0.00%) | 0</td>
+                                  <td>N/A</td>
+                                </tr>
+                                <tr>
+                                  <td><b>UTS02</b></td>
+                                  <td>94,251</td>
+                                  <td>10</td>
+                                  <td>86.35%</td>
+                                  <td>34.84% (0.0876)</td>
+                                  <td>44.31% (0.00629 | 0.05068)</td>
+                                  <td>0 (0.00%) | 0</td>
+                                  <td>N/A</td>
+                                </tr>
+                                <tr>
+                                  <td><b>UTS03</b></td>
+                                  <td>95,556</td>
+                                  <td>10</td>
+                                  <td>89.34%</td>
+                                  <td>33.91% (0.1091)</td>
+                                  <td>42.54% (0.00641 | 0.04223)</td>
+                                  <td>0 (0.00%) | 0</td>
+                                  <td>N/A</td>
+                                </tr>
+                                <tr>
+                                  <td><b>UTS04</b></td>
+                                  <td>109,469</td>
+                                  <td>5</td>
+                                  <td>68.11%</td>
+                                  <td>38.58% (0.0818)</td>
+                                  <td>51.10% (0.00754 | 0.10706)</td>
+                                  <td>0 (0.00%) | 0</td>
+                                  <td>N/A</td>
+                                </tr>
+                                <tr>
+                                  <td><b>UTS05</b></td>
+                                  <td>99,322</td>
+                                  <td>5</td>
+                                  <td>67.30%</td>
+                                  <td>39.06% (0.0556)</td>
+                                  <td>46.02% (0.00450 | 0.07047)</td>
+                                  <td>0 (0.00%) | 0</td>
+                                  <td>N/A</td>
+                                </tr>
+                                <tr>
+                                  <td><b>UTS06</b></td>
+                                  <td>92,198</td>
+                                  <td>5</td>
+                                  <td>69.73%</td>
+                                  <td>29.59% (0.0683)</td>
+                                  <td>36.61% (0.00480 | 0.06132)</td>
+                                  <td>0 (0.00%) | 0</td>
+                                  <td>N/A</td>
+                                </tr>
+                                <tr>
+                                  <td><b>UTS07</b></td>
+                                  <td>94,395</td>
+                                  <td>5</td>
+                                  <td>68.87%</td>
+                                  <td>31.38% (0.0572)</td>
+                                  <td>40.45% (0.00453 | 0.05989)</td>
+                                  <td>0 (0.00%) | 0</td>
+                                  <td>N/A</td>
+                                </tr>
+                                <tr>
+                                  <td><b>UTS08</b></td>
+                                  <td>97,023</td>
+                                  <td>5</td>
+                                  <td>68.03%</td>
+                                  <td>35.23% (0.0854)</td>
+                                  <td>45.67% (0.00653 | 0.07783)</td>
+                                  <td>0 (0.00%) | 0</td>
+                                  <td>N/A</td>
+                                </tr>
+                                <tr>
+                                  <td><b>UTS09</b></td>
+                                  <td>98,336</td>
+                                  <td>5</td>
+                                  <td>72.68%</td>
+                                  <td>32.84% (0.0558)</td>
+                                  <td>41.88% (0.00421 | 0.05565)</td>
+                                  <td>0 (0.00%) | 0</td>
+                                  <td>N/A</td>
+                                </tr>
+                                <tr>
+                                  <td><b>UTS10</b></td>
+                                  <td>81,629</td>
+                                  <td>5</td>
+                                  <td>83.13%</td>
+                                  <td>43.31% (0.0806)</td>
+                                  <td>37.72% (0.00402 | 0.03699)</td>
+                                  <td>0 (0.00%) | 0</td>
+                                  <td>N/A</td>
+                                </tr>
+                                <tr style="background-color: #fcfcfc; font-weight: 600;">
+                                  <td><b>Muestra (10)</b></td>
+                                  <td><b>943,305 (total)</b></td>
+                                  <td><b>5 a 10 (med. 5)</b></td>
+                                  <td><b>75.45% (media)</b></td>
+                                  <td><b>35.56% (media)</b></td>
+                                  <td><b>42.83% (mediana ΔR²: -0.00053)</b></td>
+                                  <td><b>0 / 10 (0.00%)</b></td>
+                                  <td><b>N/A</b></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+
+                          <p style="font-size: 0.9em; margin-bottom: 25px;">
+                            <i>Nota metodológica sobre la síntesis grupal y los valores N/A:</i> Los promedios de la
+                            última fila representan una caracterización descriptiva de consistencia en la muestra de 10
+                            participantes y no una inferencia poblacional de efectos aleatorios. Asimismo, cuando el
+                            conteo de vóxeles significativos tras la corrección FDR es cero, el protocolo reporta el
+                            aporte en vóxeles significativos (tanto bruto como normalizado por techo de ruido) y el
+                            porcentaje de estabilidad frente al margen de sensibilidad como no aplicables
+                            (<code>N/A</code>), en lugar de asignarles el número 0.0, para no confundir la ausencia de
+                            detección estadística con un efecto puntualmente igual a cero.
+                          </p>
+
+                          <p>
+                            ¿Implica este resultado que el cerebro humano es indiferente al tiempo verbal cuando escucha
+                            una historia? No: en metodología cuantitativa, la ausencia de un efecto estadísticamente
+                            separable bajo un diseño dado no equivale a demostrar la inexistencia del proceso
+                            cognitivo. Lo que estos datos prueban de manera concreta es que, dentro de esta arquitectura
+                            de 43 variables evaluada sobre <i>wheretheressmoke</i>, los cuatro canales de tiempo
+                            gramatical no logran despegarse de la varianza que ya explican los 39 predictores de control
+                            con una fuerza suficiente para superar la corrección sobre cien mil vóxeles. Al examinar las
+                            auditorías del pipeline, tres factores explican por qué ocurre esto:
+                          </p>
+
+                          <!-- Factor 1 -->
+                          <div class="block-title" style="margin-top: 25px;">
+                            <h4>1. Desbalance de verbos con marca de tiempo en la historia de prueba (wheretheressmoke)</h4>
+                          </div>
+
+                          <p>
+                            Como vimos en la Sección 2, el corpus completo de entrenamiento exhibe una proporción casi
+                            idéntica entre verbos en pasado (49.99%) y en no-pasado (50.01%). Sin embargo, la historia
+                            reservada para la evaluación fuera de muestra (<i>wheretheressmoke</i>), elegida en el
+                            diseño estándar de este conjunto de datos por contar con 5 a 10 repeticiones para estimar el
+                            techo de ruido, presenta un perfil gramatical fuertemente inclinado hacia el presente.
+                          </p>
+
+                          <blockquote>
+                            <p>
+                              <b>Predominio de formas de presente y cópulas en la narración de prueba:</b><br>
+                              "There's this moment where you realize you're completely alone and nothing makes sense."
+                            </p>
+                            <p style="margin-bottom: 0;">
+                              "Hay un momento en el que te das cuenta de que estás completamente solo y nada tiene
+                              sentido."
+                            </p>
+                          </blockquote>
+
+                          <p>
+                            La auditoría específica sobre <i>wheretheressmoke</i> (documentada en el script
+                            <code>01c_audit_test_story.py</code>) identificó un total de <b>303 verbos conjugados con
+                              marca de tiempo</b>: de ellos, <b>242 corresponden a no-pasado (79.87%)</b> y tan solo
+                            <b>61 corresponden a pasado (20.13%)</b>. Al tratarse de una narración relatada
+                            mayoritariamente en presente histórico y reflexivo, las dos columnas de pasado
+                            (<code>past_regular</code> y <code>past_irregular</code>) permanecen inactivas durante casi
+                            el 80% de las cláusulas de prueba, reduciendo de forma pronunciada la potencia estadística
+                            para detectar el contraste binario fuera de muestra.
+                          </p>
+
+                          <!-- Gráfica 12: Nuevo Plotly comparativo del desbalance en wheretheressmoke -->
+                          <div style="margin: 25px 0 10px 0;">
+                            <p style="text-align: center;">
+                              <b>Gráfica 12: Contraste entre el equilibrio del corpus completo y el sesgo hacia el no-pasado en la historia de prueba</b>
+                            </p>
+                            <div id="plotly-test-story-imbalance"
+                              style="width: 100%; height: 290px; border: 1px solid #e5e5e5; border-radius: 8px; background-color: #ffffff; overflow: hidden;">
+                            </div>
+                          </div>
+
+                          <p style="font-size: 0.9em; text-align: center; margin-bottom: 25px;">
+                            <i>Nota:</i> Mientras el corpus completo divide sus 21,354 verbos conjugados en mitades
+                            iguales, la historia de evaluación <i>wheretheressmoke</i> concentra casi cuatro de cada
+                            cinco apariciones en el polo de no-pasado (242 frente a 61).
+                          </p>
+
+                          <script>
+                            (function () {
+                              var imbDiv = document.getElementById('plotly-test-story-imbalance');
+                              if (!imbDiv) return;
+
+                              var categories = [
+                                'Historia de prueba<br>(wheretheressmoke, n = 303)',
+                                'Corpus completo<br>(Todas las historias, n = 21,354)',
+                                'Composición léxica<br>del tiempo en el corpus'
+                              ];
+
+                              var traceFirst = {
+                                y: [categories[0], categories[1]],
+                                x: [20.13, 49.99],
+                                name: 'Polo Pasado (past_regular + past_irregular)',
+                                type: 'bar',
+                                orientation: 'h',
+                                marker: { color: '#04b4e0' },
+                                text: ['20.13% (61 verbos)', '49.99% (10,674 verbos)'],
+                                textposition: 'inside',
+                                insidetextanchor: 'middle',
+                                font: { color: '#ffffff' },
+                                hovertemplate: '<b>%{y}</b><br>Pasado: %{text}<extra></extra>'
+                              };
+
+                              var traceSecond = {
+                                y: [categories[0], categories[1]],
+                                x: [79.87, 50.01],
+                                name: 'Polo No-Pasado (3.ª sing. VBZ + resto VBP)',
+                                type: 'bar',
+                                orientation: 'h',
+                                marker: { color: '#0099cc' },
+                                text: ['79.87% (242 verbos)', '50.01% (10,680 verbos)'],
+                                textposition: 'inside',
+                                insidetextanchor: 'middle',
+                                hovertemplate: '<b>%{y}</b><br>No-Pasado: %{text}<extra></extra>'
+                              };
+
+                              var traceLexAux1 = {
+                                y: [categories[2]],
+                                x: [49.74],
+                                name: 'Verbos léxicos de contenido (49.74%)',
+                                type: 'bar',
+                                orientation: 'h',
+                                marker: { color: '#888888' },
+                                text: ['49.74% verbos léxicos'],
+                                textposition: 'inside',
+                                insidetextanchor: 'middle',
+                                hovertemplate: '<b>Composición en el corpus</b><br>49.74% verbos léxicos (walk, look, say...)<extra></extra>'
+                              };
+
+                              var traceLexAux2 = {
+                                y: [categories[2]],
+                                x: [50.26],
+                                name: 'Auxiliares y cópulas: be, have, do (50.26%)',
+                                type: 'bar',
+                                orientation: 'h',
+                                marker: { color: '#e87878' },
+                                text: ['50.26% auxiliares y cópulas (be, have, do)'],
+                                textposition: 'inside',
+                                insidetextanchor: 'middle',
+                                hovertemplate: '<b>Composición en el corpus</b><br>50.26% auxiliares y cópulas de alta frecuencia<extra></extra>'
+                              };
+
+                              var layout = {
+                                barmode: 'stack',
+                                autosize: true,
+                                font: { family: "'Poppins', Helvetica, sans-serif", color: '#222222', size: 11 },
+                                paper_bgcolor: '#ffffff',
+                                plot_bgcolor: '#ffffff',
+                                margin: { l: 210, r: 25, t: 18, b: 65 },
+                                xaxis: {
+                                  range: [0, 100],
+                                  ticksuffix: '%',
+                                  gridcolor: '#eeeeee',
+                                  zeroline: false,
+                                  tickfont: { size: 10, color: '#666666' }
+                                },
+                                yaxis: {
+                                  tickfont: { size: 11, color: '#222222' }
+                                },
+                                legend: {
+                                  orientation: 'h',
+                                  y: -0.36,
+                                  x: 0.0,
+                                  font: { size: 10.5, color: '#555555' }
+                                }
+                              };
+
+                              Plotly.newPlot(imbDiv, [traceFirst, traceSecond, traceLexAux1, traceLexAux2], layout, { responsive: true, displayModeBar: false });
+                            })();
+                          </script>
+
+                          <!-- Factor 2 -->
+                          <div class="block-title" style="margin-top: 25px;">
+                            <h4>2. Varianza compartida con los espacios de control léxico y sintáctico</h4>
+                          </div>
+
+                          <p>
+                            El segundo factor también aparece reflejado en la barra inferior de la Gráfica 12: en el
+                            habla espontánea en inglés, el <b>50.26% de las apariciones con marca de tiempo recae sobre
+                              auxiliares y cópulas</b> (formas de <i>be, have</i> y <i>do</i>). Se trata de palabras muy
+                            cortas, de altísima frecuencia Zipf y que ocupan posiciones fijas en el esqueleto
+                            sintáctico de la cláusula.
+                          </p>
+
+                          <p>
+                            Cuando el Modelo Restringido se entrena con las 39 variables de control, el espacio
+                            <b>Léxico-Estadístico</b> (que registra la frecuencia Zipf y la duración en segundos), el
+                            espacio <b>Sintáctico</b> (que sabe qué palabra es la raíz de la oración y qué distancia de
+                            dependencia recorre) y el espacio <b>Léxico-Semántico LSA</b> (que resume el contexto de la
+                            cláusula) ya capturan la mayor parte de la fluctuación hemodinámica producida en los
+                            instantes en que aparecen los verbos conjugados. Al sumarse además una penalización L2 común
+                            en la regresión de cresta estándar (que reparte el peso entre predictores correlacionados en
+                            lugar de asignarlo por separado a cada bloque), el margen de varianza exclusiva que les
+                            queda por explicar a las cuatro columnas de tiempo gramatical resulta demasiado estrecho
+                            frente al nivel de ruido de un TR de 2.0 segundos.
+                          </p>
+
+                          <!-- Factor 3 -->
+                          <div class="block-title" style="margin-top: 25px;">
+                            <h4>3. El supuesto de una respuesta hemodinámica (HRF) uniforme en la corteza</h4>
+                          </div>
+
+                          <p>
+                            Finalmente, para conservar un modelo parsimonioso de 43 columnas y hacer viable la
+                            estimación en CPU sobre casi un millón de vóxeles sin sobreajuste, el diseño aplicó una
+                            única HRF canónica de doble gamma con pico fijo hacia los 5 a 6 segundos para todas las
+                            regiones corticales y participantes.
+                          </p>
+
+                          <p>
+                            Aunque esa función canónica ajusta bien las cortezas auditivas y perisilvianas (como lo
+                            confirma el 35.56% de la corteza con ajuste positivo en el Modelo Global), la fisiología
+                            vascular presenta variaciones regionales de latencia de entre 1 y 2 segundos en áreas
+                            frontales o asociativas secundarias. Para rasgos sostenidos como el tema semántico de una
+                            cláusula, un pequeño desfase en el pico de la HRF apenas altera la correlación; en cambio,
+                            para eventos breves y puntuales como la aparición de una desinencia verbal, cualquier
+                            diferencia entre la latencia vascular real del vóxel y la curva canónica atenúa la magnitud
+                            del ΔR², impidiendo que supere el umbral del FDR.
+                          </p>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- AQUÍ VA LA PARTE 3 SUB 2 (SECCIÓN 9 Y METADATOS FINALES) -->
 
                   </div>
                 </div>
