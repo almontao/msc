@@ -1536,22 +1536,753 @@
 
                   <!-- [INICIO ESPACIO VISUAL 02] -->
                   <div class="distill-wide">
-                    <div class="visual-placeholder" id="visual-slot-02">
-                      <span class="visual-placeholder-badge">Espacio Visual 02</span>
-                      <h4 class="visual-placeholder-title">
-                        Distribución de los 21,354 verbos conjugados del corpus y criterios de filtrado gramatical
-                      </h4>
-                      <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Gráfico interactivo que muestra (1) cómo se separan los verbos con marca
-                        de tiempo de los verbos no conjugados (<i>crying, walking</i>) y de los modales excluidos
-                        (<i>could, would, 'd</i>); y (2) la proporción entre pasado (49.99%) y no-pasado (50.01%), junto
-                        al peso del 50.26% de <i>be, have</i> y <i>do</i>.
-                      </p>
-                      <p class="visual-placeholder-caption">
-                        <b>Descripción:</b> Más de la mitad de las marcas temporales del corpus oral se concentran en
-                        auxiliares y cópulas de uso muy frecuente.
-                      </p>
-                    </div>
+                    <style>
+                      .gv02-card {
+                        background-color: #ffffff;
+                        border: 1px solid #dfe7ec;
+                        border-radius: 12px;
+                        padding: 22px 24px 20px 24px;
+                        box-shadow: 0 4px 18px rgba(30, 35, 40, 0.03);
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
+
+                      .gv02-header {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: baseline;
+                        gap: 8px;
+                        margin-bottom: 16px;
+                        padding-bottom: 12px;
+                        border-bottom: 1px solid #eef2f5;
+                      }
+
+                      .gv02-kicker {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.09em;
+                        color: #0099cc;
+                        display: block;
+                        margin-bottom: 2px;
+                      }
+
+                      .gv02-title {
+                        font-size: 1.05em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0;
+                      }
+
+                      .gv02-hint {
+                        font-size: 0.78em;
+                        color: #6c7881;
+                      }
+
+                      /* Bloque de pasajes reales con verbos clicables */
+                      .gv02-passages-box {
+                        background-color: #fbfdfe;
+                        border: 1px solid #e6eef2;
+                        border-radius: 9px;
+                        padding: 14px 16px;
+                        margin-bottom: 16px;
+                      }
+
+                      .gv02-passages-head {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 8px;
+                        margin-bottom: 10px;
+                      }
+
+                      .gv02-passages-label {
+                        font-size: 0.75em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.06em;
+                        color: #4b5862;
+                      }
+
+                      .gv02-legend {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 12px;
+                        font-size: 0.73em;
+                        color: #55626b;
+                      }
+
+                      .gv02-legend-item {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 5px;
+                      }
+
+                      .gv02-dot {
+                        width: 9px;
+                        height: 9px;
+                        border-radius: 50%;
+                        display: inline-block;
+                      }
+
+                      .gv02-passage-line {
+                        font-size: 0.88em;
+                        line-height: 2.05;
+                        color: #364047;
+                        margin: 0 0 6px 0 !important;
+                      }
+
+                      .gv02-passage-line:last-child {
+                        margin-bottom: 0 !important;
+                      }
+
+                      .gv02-time-tag {
+                        display: inline-block;
+                        font-size: 0.76em;
+                        font-weight: 600;
+                        color: #6c7a84;
+                        background-color: #eef3f6;
+                        padding: 1px 7px;
+                        border-radius: 4px;
+                        margin-right: 6px;
+                        vertical-align: baseline;
+                      }
+
+                      .gv02-tok {
+                        appearance: none;
+                        border: 1px solid transparent;
+                        border-radius: 5px;
+                        padding: 1px 7px;
+                        margin: 0 1px;
+                        font-family: inherit;
+                        font-size: 0.95em;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                        line-height: 1.45;
+                      }
+
+                      .gv02-tok[data-kind="tense"] {
+                        background-color: #e2f5ef;
+                        border-color: #8fd3c1;
+                        color: #125c4b;
+                      }
+
+                      .gv02-tok[data-kind="control"] {
+                        background-color: #edf7f0;
+                        border-color: #b4d9bf;
+                        color: #2f6644;
+                      }
+
+                      .gv02-tok[data-kind="excluded"] {
+                        background-color: #fdf0ef;
+                        border: 1px dashed #dc9b96;
+                        color: #993f39;
+                      }
+
+                      .gv02-tok:hover {
+                        transform: translateY(-1px);
+                      }
+
+                      .gv02-tok.is-dimmed {
+                        opacity: 0.32;
+                      }
+
+                      .gv02-tok.is-selected {
+                        box-shadow: 0 0 0 2px #1e2328;
+                        transform: translateY(-1px);
+                      }
+
+                      /* Cuadrícula de las 6 categorías morfosintácticas */
+                      .gv02-buckets-grid {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 10px;
+                        margin-bottom: 18px;
+                      }
+
+                      .gv02-bucket-col {
+                        border: 1px solid #e4ecef;
+                        border-radius: 8px;
+                        padding: 10px 11px;
+                        background-color: #fafcfd;
+                      }
+
+                      .gv02-bucket-col.target-col {
+                        grid-column: span 2;
+                        background-color: #f6fbf9;
+                        border-color: #cce8df;
+                      }
+
+                      .gv02-col-head {
+                        font-size: 0.73em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.06em;
+                        color: #4c5a64;
+                        margin-bottom: 8px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                      }
+
+                      .gv02-bucket-col.target-col .gv02-col-head {
+                        color: #146956;
+                      }
+
+                      .gv02-target-subgrid {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 8px;
+                      }
+
+                      .gv02-side-stack {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 8px;
+                      }
+
+                      .gv02-cat-btn {
+                        appearance: none;
+                        width: 100%;
+                        text-align: left;
+                        background-color: #ffffff;
+                        border: 1px solid #d5e3ea;
+                        border-radius: 7px;
+                        padding: 8px 10px;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                      }
+
+                      .gv02-cat-btn:hover {
+                        border-color: #6ab7a4;
+                      }
+
+                      .gv02-cat-btn[data-cat^="past"],
+                      .gv02-cat-btn[data-cat^="non_past"] {
+                        border-left: 3px solid #1b856d;
+                      }
+
+                      .gv02-cat-btn[data-cat="non_finite"] {
+                        border-left: 3px solid #529b6d;
+                      }
+
+                      .gv02-cat-btn[data-cat="excluded"] {
+                        border-left: 3px dashed #c9655e;
+                      }
+
+                      .gv02-cat-btn.is-active {
+                        background-color: #eaf7f3;
+                        border-color: #1b856d;
+                        box-shadow: 0 0 0 1px #1b856d;
+                      }
+
+                      .gv02-cat-btn[data-cat="non_finite"].is-active {
+                        background-color: #edf7f0;
+                        border-color: #468f62;
+                        box-shadow: 0 0 0 1px #468f62;
+                      }
+
+                      .gv02-cat-btn[data-cat="excluded"].is-active {
+                        background-color: #fdf2f1;
+                        border-color: #c9655e;
+                        box-shadow: 0 0 0 1px #c9655e;
+                      }
+
+                      .gv02-cat-name {
+                        display: block;
+                        font-size: 0.8em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        line-height: 1.3;
+                      }
+
+                      .gv02-cat-ex {
+                        display: block;
+                        font-size: 0.72em;
+                        color: #64717a;
+                        margin-top: 2px;
+                      }
+
+                      /* Barras proporcionales exactas de la auditoría (n = 21,354) */
+                      .gv02-bars-section {
+                        background-color: #f9fbfc;
+                        border: 1px solid #e6edf2;
+                        border-radius: 9px;
+                        padding: 14px 16px;
+                        margin-bottom: 14px;
+                      }
+
+                      .gv02-bars-title {
+                        font-size: 0.76em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.06em;
+                        color: #4b5862;
+                        margin-bottom: 12px;
+                        display: block;
+                      }
+
+                      .gv02-bar-group {
+                        margin-bottom: 13px;
+                      }
+
+                      .gv02-bar-group:last-child {
+                        margin-bottom: 0;
+                      }
+
+                      .gv02-bar-labels {
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: 0.78em;
+                        margin-bottom: 5px;
+                        gap: 8px;
+                      }
+
+                      .gv02-bar-track {
+                        position: relative;
+                        display: flex;
+                        width: 100%;
+                        height: 28px;
+                        border-radius: 6px;
+                        overflow: hidden;
+                        border: 1px solid #d4e0e6;
+                      }
+
+                      .gv02-bar-midline {
+                        position: absolute;
+                        left: 50%;
+                        top: -3px;
+                        bottom: -3px;
+                        width: 1.5px;
+                        background-color: rgba(30, 35, 40, 0.45);
+                        z-index: 3;
+                        pointer-events: none;
+                      }
+
+                      .gv02-bar-seg {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 0.76em;
+                        font-weight: 600;
+                        color: #ffffff;
+                        white-space: nowrap;
+                        padding: 0 8px;
+                        transition: filter 0.18s ease;
+                      }
+
+                      /* Panel inspector inferior */
+                      .gv02-inspector {
+                        background-color: #f6fbf9;
+                        border: 1px solid #d9ebe5;
+                        border-left: 3px solid #1b856d;
+                        border-radius: 8px;
+                        padding: 13px 16px;
+                      }
+
+                      .gv02-inspector[data-kind="control"] {
+                        background-color: #f6fbf7;
+                        border-color: #dcebe0;
+                        border-left-color: #468f62;
+                      }
+
+                      .gv02-inspector[data-kind="excluded"] {
+                        background-color: #fdf7f7;
+                        border-color: #f0dcd9;
+                        border-left-color: #c9655e;
+                      }
+
+                      .gv02-insp-tag {
+                        display: block;
+                        font-size: 0.71em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.07em;
+                        color: #146956;
+                        margin-bottom: 3px;
+                      }
+
+                      .gv02-inspector[data-kind="control"] .gv02-insp-tag {
+                        color: #36754e;
+                      }
+
+                      .gv02-inspector[data-kind="excluded"] .gv02-insp-tag {
+                        color: #a6443d;
+                      }
+
+                      .gv02-insp-title {
+                        font-size: 0.92em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0 0 5px 0;
+                      }
+
+                      .gv02-insp-desc {
+                        font-size: 0.85em !important;
+                        line-height: 1.6 !important;
+                        color: #374148 !important;
+                        margin: 0 !important;
+                      }
+
+                      @media (max-width: 820px) {
+                        .gv02-buckets-grid {
+                          grid-template-columns: 1fr;
+                        }
+
+                        .gv02-bucket-col.target-col {
+                          grid-column: span 1;
+                        }
+                      }
+
+                      @media (max-width: 560px) {
+                        .gv02-card {
+                          padding: 16px 14px;
+                        }
+
+                        .gv02-target-subgrid {
+                          grid-template-columns: 1fr;
+                        }
+
+                        .gv02-bar-seg {
+                          font-size: 0.7em;
+                        }
+                      }
+                    </style>
+
+                    <figure class="gv02-card" id="gv02-root" style="margin: 0;">
+                      <div class="gv02-header">
+                        <div>
+                          <span class="gv02-kicker">Figura 2</span>
+                          <h4 class="gv02-title">Filtro morfológico del verbo y auditoría de los 21,354 verbos con
+                            tiempo</h4>
+                        </div>
+                        <span class="gv02-hint">Pulsa cualquier palabra resaltada o categoría inferior</span>
+                      </div>
+
+                      <!-- Extractos reales de Where There's Smoke -->
+                      <div class="gv02-passages-box">
+                        <div class="gv02-passages-head">
+                          <span class="gv02-passages-label">Fragmentos reales de Where There's Smoke</span>
+                          <div class="gv02-legend">
+                            <span class="gv02-legend-item"><span class="gv02-dot" style="background:#1b856d;"></span>Con
+                              tiempo (Espacio 6)</span>
+                            <span class="gv02-legend-item"><span class="gv02-dot" style="background:#529b6d;"></span>Sin
+                              tiempo (Control, Espacio 3)</span>
+                            <span class="gv02-legend-item"><span class="gv02-dot"
+                                style="background:#c9655e;"></span>Modal o ambiguo (Excluido)</span>
+                          </div>
+                        </div>
+
+                        <p class="gv02-passage-line">
+                          <span class="gv02-time-tag">0.01 a 13.25 s</span>
+                          «I <button type="button" class="gv02-tok" data-kind="tense" data-cat="past_reg"
+                            data-word="reached">reached</button> over, and secretly
+                          <button type="button" class="gv02-tok" data-kind="tense" data-cat="past_irreg"
+                            data-word="undid">undid</button> my seatbelt [...]
+                          I <button type="button" class="gv02-tok" data-kind="tense" data-cat="past_irreg"
+                            data-word="was">was</button>
+                          <button type="button" class="gv02-tok" data-kind="control" data-cat="non_finite"
+                            data-word="crying_1">crying</button>.»
+                        </p>
+
+                        <p class="gv02-passage-line">
+                          <span class="gv02-time-tag">93.10 a 109.60 s</span>
+                          «...hours I <button type="button" class="gv02-tok" data-kind="tense" data-cat="past_irreg"
+                            data-word="knew">knew</button>
+                          I<button type="button" class="gv02-tok" data-kind="excluded" data-cat="excluded"
+                            data-word="id">'d</button>
+                          <button type="button" class="gv02-tok" data-kind="control" data-cat="non_finite"
+                            data-word="have_inf">have</button> of freedom [...]
+                          I <button type="button" class="gv02-tok" data-kind="tense" data-cat="non_past_unm"
+                            data-word="dont">don't</button>
+                          <button type="button" class="gv02-tok" data-kind="control" data-cat="non_finite"
+                            data-word="have_neg">have</button> a light [...]
+                          I <button type="button" class="gv02-tok" data-kind="tense" data-cat="non_past_unm"
+                            data-word="see_fin">see</button> a figure.»
+                        </p>
+
+                        <p class="gv02-passage-line">
+                          <span class="gv02-time-tag">117.92 a 132.56 s</span>
+                          «The person <button type="button" class="gv02-tok" data-kind="tense" data-cat="non_past_3sg"
+                            data-word="comes">comes</button> closer and I
+                          <button type="button" class="gv02-tok" data-kind="excluded" data-cat="excluded"
+                            data-word="could">could</button>
+                          <button type="button" class="gv02-tok" data-kind="control" data-cat="non_finite"
+                            data-word="see_inf">see</button> [...]
+                          she<button type="button" class="gv02-tok" data-kind="tense" data-cat="non_past_3sg"
+                            data-word="is_contr">'s</button>
+                          <button type="button" class="gv02-tok" data-kind="control" data-cat="non_finite"
+                            data-word="crying_2">crying</button>.»
+                        </p>
+                      </div>
+
+                      <!-- Las 6 categorías operativas de destino -->
+                      <div class="gv02-buckets-grid">
+                        <div class="gv02-bucket-col target-col">
+                          <div class="gv02-col-head">
+                            <span>Espacio 6: Tiempo gramatical (4 predictores de interés)</span>
+                            <span>21,354 verbos</span>
+                          </div>
+                          <div class="gv02-target-subgrid">
+                            <button type="button" class="gv02-cat-btn is-active" data-cat="past_reg">
+                              <span class="gv02-cat-name">1. Pasado regular (-ed)</span>
+                              <span class="gv02-cat-ex">Etiqueta VBD con -ed: reached, jumped, smoked</span>
+                            </button>
+                            <button type="button" class="gv02-cat-btn" data-cat="past_irreg">
+                              <span class="gv02-cat-name">2. Pasado irregular</span>
+                              <span class="gv02-cat-ex">Etiqueta VBD sin -ed: undid, knew, ran, was, had</span>
+                            </button>
+                            <button type="button" class="gv02-cat-btn" data-cat="non_past_3sg">
+                              <span class="gv02-cat-name">3. No-pasado 3.ª sing. (-s)</span>
+                              <span class="gv02-cat-ex">Etiqueta VBZ: comes, sees, takes, is ('s), has</span>
+                            </button>
+                            <button type="button" class="gv02-cat-btn" data-cat="non_past_unm">
+                              <span class="gv02-cat-name">4. No-pasado sin marca</span>
+                              <span class="gv02-cat-ex">Etiqueta VBP: see, get, know, am, are, do (don't)</span>
+                            </button>
+                          </div>
+                        </div>
+
+                        <div class="gv02-bucket-col">
+                          <div class="gv02-col-head">
+                            <span>Separación de controles</span>
+                          </div>
+                          <div class="gv02-side-stack">
+                            <button type="button" class="gv02-cat-btn" data-cat="non_finite">
+                              <span class="gv02-cat-name">Espacio 3: Acción sin tiempo</span>
+                              <span class="gv02-cat-ex">Infinitivo, gerundio y participio: crying, have, see</span>
+                            </button>
+                            <button type="button" class="gv02-cat-btn" data-cat="excluded">
+                              <span class="gv02-cat-name">Excluidos del contraste</span>
+                              <span class="gv02-cat-ex">Modales (could, would, will) y contracción 'd</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Barras empíricas a escala exacta de los 21,354 verbos -->
+                      <div class="gv02-bars-section">
+                        <span class="gv02-bars-title">Proporciones exactas en el corpus completo (21,354 apariciones con
+                          tiempo, línea central en 50%)</span>
+
+                        <div class="gv02-bar-group">
+                          <div class="gv02-bar-labels">
+                            <span><b>Polo Pasado:</b> 10,674 apariciones (49.99%)</span>
+                            <span><b>Polo No-pasado:</b> 10,680 apariciones (50.01%)</span>
+                          </div>
+                          <div class="gv02-bar-track">
+                            <div class="gv02-bar-midline"></div>
+                            <div class="gv02-bar-seg" style="width: 49.99%; background-color: #166f5b;">49.99% Pasado
+                            </div>
+                            <div class="gv02-bar-seg" style="width: 50.01%; background-color: #26987e;">50.01% No-pasado
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="gv02-bar-group">
+                          <div class="gv02-bar-labels">
+                            <span><b>Verbos léxicos de contenido:</b> 49.74% (reached, undid, comes...)</span>
+                            <span><b>Auxiliares y cópulas (be, have, do):</b> 50.26% (was, is, don't...)</span>
+                          </div>
+                          <div class="gv02-bar-track">
+                            <div class="gv02-bar-midline"></div>
+                            <div class="gv02-bar-seg" style="width: 49.74%; background-color: #4b6a82;">49.74% Verbos
+                              léxicos</div>
+                            <div class="gv02-bar-seg" style="width: 50.26%; background-color: #0086b3;">50.26% Formas de
+                              be, have y do</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Panel dinámico de inspección -->
+                      <div class="gv02-inspector" id="gv02-inspector" data-kind="tense" aria-live="polite">
+                        <span class="gv02-insp-tag" id="gv02-insp-tag"></span>
+                        <h5 class="gv02-insp-title" id="gv02-insp-title"></h5>
+                        <p class="gv02-insp-desc" id="gv02-insp-desc"></p>
+                      </div>
+                    </figure>
+
+                    <script>
+                      (function () {
+                        var root = document.getElementById('gv02-root');
+                        if (!root) return;
+
+                        var catInfo = {
+                          past_reg: {
+                            kind: 'tense',
+                            tag: 'Predictor 1 de 4 en Espacio de Tiempo Gramatical',
+                            title: 'Pasado regular con sufijo -ed (columna past_regular)',
+                            desc: 'Agrupa los verbos conjugados en pasado (etiqueta VBD) cuya forma escrita termina regularmente en -ed. Todos sus miembros son verbos de contenido léxico y aportan al polo de pasado (49.99% del corpus).'
+                          },
+                          past_irreg: {
+                            kind: 'tense',
+                            tag: 'Predictor 2 de 4 en Espacio de Tiempo Gramatical',
+                            title: 'Pasado irregular y auxiliares en pasado (columna past_irregular)',
+                            desc: 'Reúne tanto verbos léxicos que cambian su raíz en pasado (como undid, knew o ran) como las formas en pasado de los auxiliares y cópulas frecuentes (was, were, had, did), que concentran buena parte de las marcas temporales del inglés oral.'
+                          },
+                          non_past_3sg: {
+                            kind: 'tense',
+                            tag: 'Predictor 3 de 4 en Espacio de Tiempo Gramatical',
+                            title: 'No-pasado marcado en tercera persona singular (columna non_past_marked_3sg)',
+                            desc: 'Incluye las formas de presente con desinencia explícita en -s para tercera persona singular (etiqueta VBZ), abarcando verbos de acción (comes, sees, takes) y las formas muy frecuentes is (incluidas contracciones como she\'s) y has.'
+                          },
+                          non_past_unm: {
+                            kind: 'tense',
+                            tag: 'Predictor 4 de 4 en Espacio de Tiempo Gramatical',
+                            title: 'No-pasado sin marca flexiva (columna non_past_unmarked)',
+                            desc: 'Recoge las formas conjugadas de presente para primera y segunda persona o plurales (etiqueta VBP), tales como verbos léxicos (see, get, know) y los auxiliares am, are, have y do (como en I don\'t have).'
+                          },
+                          non_finite: {
+                            kind: 'control',
+                            tag: 'Control en Espacio 3 (Columna non_finite_verb)',
+                            title: 'Formas verbales sin marca de tiempo: infinitivos, gerundios y participios',
+                            desc: 'Palabras como crying, walking o los infinitivos tras un auxiliar (have en I don\'t have, see en could see) expresan acciones, pero no fijan por sí mismas si el hecho ocurrió en pasado o en presente. Se envían al Espacio 3 de control para descontar la activación cerebral general asociada a procesar acciones.'
+                          },
+                          excluded: {
+                            kind: 'excluded',
+                            tag: 'Filtro de pureza morfológica (Descartados)',
+                            title: 'Auxiliares modales y contracción ambigua \'d',
+                            desc: 'Los verbos modales (etiqueta MD: could, would, will, can, should) expresan posibilidad, capacidad o intención futura sin flexión temporal pura, mientras que la contracción oral \'d confunde pasado (had) y condicional (would). Ambos se excluyen para evitar contaminar el espacio de tiempo gramatical.'
+                          }
+                        };
+
+                        var wordInfo = {
+                          reached: {
+                            cat: 'past_reg',
+                            title: '«reached» (segundo 0.14 a 0.50): Pasado regular (-ed)',
+                            desc: 'Verbo léxico conjugado en pasado (etiqueta VBD) mediante la terminación regular -ed, pronunciada en el audio como una oclusiva sorda final (/t/). Activa la columna past_regular en el Espacio 6.'
+                          },
+                          undid: {
+                            cat: 'past_irreg',
+                            title: '«undid» (segundo 2.42 a 2.96): Pasado irregular léxico',
+                            desc: 'Verbo léxico en pasado formado sin sufijo -ed (derivado de undo). Activa la columna past_irregular dentro del polo de pasado.'
+                          },
+                          was: {
+                            cat: 'past_irreg',
+                            title: '«was» (segundo 12.53 a 12.69): Pasado irregular en auxiliar be',
+                            desc: 'En la cadena verbal «was crying», esta palabra de apenas 0.16 segundos es la única que porta la conjugación de pasado. Ejemplifica cómo el 50.26% de las marcas temporales recae sobre be, have y do.'
+                          },
+                          crying_1: {
+                            cat: 'non_finite',
+                            title: '«crying» (segundo 12.69 a 13.25): Gerundio sin marca de tiempo',
+                            desc: 'Aporta el significado de llorar, pero es idéntico en pasado («was crying», seg. 12.5) y en presente («she\'s crying», seg. 131.9). Va al canal non_finite_verb del Espacio 3 de control.'
+                          },
+                          knew: {
+                            cat: 'past_irreg',
+                            title: '«knew» (segundo 93.24 a 93.47): Pasado irregular léxico',
+                            desc: 'Forma irregular de pasado del verbo know (etiqueta VBD). Se asigna a la columna past_irregular del Espacio 6.'
+                          },
+                          id: {
+                            cat: 'excluded',
+                            title: '«\'d» en «I\'d have» (segundo 93.47 a 93.62): Contracción excluida',
+                            desc: 'En el habla oral, \'d puede contraer tanto el pasado had como el modal would (aquí equivale a I would have). El algoritmo la descarta explícitamente por ambigüedad morfológica.'
+                          },
+                          have_inf: {
+                            cat: 'non_finite',
+                            title: '«have» tras modal (segundo 93.62 a 93.96): Infinitivo sin tiempo',
+                            desc: 'Al ir gobernado por «I\'d» (would), este verbo aparece en forma base no conjugada (etiqueta VB). Pasa al canal de verbos sin tiempo en el Espacio 3.'
+                          },
+                          dont: {
+                            cat: 'non_past_unm',
+                            title: '«don\'t» (segundo 102.89 a 103.03): No-pasado en auxiliar do',
+                            desc: 'En la negación «I don\'t have», quien porta la marca de presente (no-pasado, etiqueta VBP) es el auxiliar do, mientras que la partícula n\'t aporta la negación. Activa non_past_unmarked.'
+                          },
+                          have_neg: {
+                            cat: 'non_finite',
+                            title: '«have» en «don\'t have» (segundo 103.03 a 103.18): Forma base sin tiempo',
+                            desc: 'En inglés, cuando interviene el auxiliar do («don\'t» / «didn\'t»), el verbo principal pierde su marca de tiempo y queda en infinitivo (VB). Por eso have va al control categorial y do va al Espacio 6.'
+                          },
+                          see_fin: {
+                            cat: 'non_past_unm',
+                            title: '«see» en «I see a figure» (segundo 109.10 a 109.23): Giro al presente histórico',
+                            desc: 'Justo en este instante del relato la narradora abandona el pasado y empieza a narrar en presente (etiqueta VBP, columna non_past_unmarked), tendencia que dominará el 79.87% de la historia.'
+                          },
+                          comes: {
+                            cat: 'non_past_3sg',
+                            title: '«comes» (segundo 118.34 a 118.62): No-pasado marcado con -s',
+                            desc: 'Verbo léxico en presente de tercera persona singular (etiqueta VBZ). Activa la columna non_past_marked_3sg en el Espacio 6.'
+                          },
+                          could: {
+                            cat: 'excluded',
+                            title: '«could» (segundo 119.11 a 119.27): Auxiliar modal excluido',
+                            desc: 'Etiquetado como modal (MD). Expresa posibilidad perceptiva y carece de una oposición temporal limpia equivalente a los verbos conjugados ordinarios, por lo que se descarta.'
+                          },
+                          see_inf: {
+                            cat: 'non_finite',
+                            title: '«see» en «could see» (segundo 119.27 a 119.44): Infinitivo sin tiempo',
+                            desc: 'A diferencia de «I see a figure» (seg. 109.1, conjugado en presente), aquí see va subordinado al modal could como infinitivo invariable (VB), por lo que pasa al Espacio 3 de control.'
+                          },
+                          is_contr: {
+                            cat: 'non_past_3sg',
+                            title: '«\'s» en «she\'s crying» (segundo 131.94 a 132.07): Auxiliar is en no-pasado',
+                            desc: 'Contracción oral del auxiliar is (tercera persona singular en presente, etiqueta VBZ). Contrasta directamente con «I was crying» del segundo 12.5 usando el mismo verbo de acción.'
+                          },
+                          crying_2: {
+                            cat: 'non_finite',
+                            title: '«crying» (segundo 132.07 a 132.56): Gerundio invariable en control',
+                            desc: 'Exactamente la misma forma no conjugada (VBG) vista en el segundo 12.69, confirmando que el cambio temporal de la escena recae únicamente sobre el auxiliar previo (\'s frente a was).'
+                          }
+                        };
+
+                        var inspEl = document.getElementById('gv02-inspector');
+                        var tagEl = document.getElementById('gv02-insp-tag');
+                        var titleEl = document.getElementById('gv02-insp-title');
+                        var descEl = document.getElementById('gv02-insp-desc');
+                        var allTokens = root.querySelectorAll('.gv02-tok');
+                        var allCats = root.querySelectorAll('.gv02-cat-btn');
+
+                        function updateView(activeCat, specificWordKey) {
+                          var baseCat = catInfo[activeCat] || catInfo.past_reg;
+
+                          for (var i = 0; i < allCats.length; i++) {
+                            allCats[i].classList.toggle('is-active', allCats[i].getAttribute('data-cat') === activeCat);
+                          }
+
+                          for (var j = 0; j < allTokens.length; j++) {
+                            var tok = allTokens[j];
+                            var tokCat = tok.getAttribute('data-cat');
+                            var tokWord = tok.getAttribute('data-word');
+                            if (specificWordKey) {
+                              tok.classList.toggle('is-selected', tokWord === specificWordKey);
+                              tok.classList.toggle('is-dimmed', tokCat !== activeCat);
+                            } else {
+                              tok.classList.toggle('is-selected', false);
+                              tok.classList.toggle('is-dimmed', tokCat !== activeCat);
+                            }
+                          }
+
+                          inspEl.setAttribute('data-kind', baseCat.kind);
+                          tagEl.textContent = baseCat.tag;
+
+                          if (specificWordKey && wordInfo[specificWordKey]) {
+                            titleEl.textContent = wordInfo[specificWordKey].title;
+                            descEl.textContent = wordInfo[specificWordKey].desc;
+                          } else {
+                            titleEl.textContent = baseCat.title;
+                            descEl.textContent = baseCat.desc;
+                          }
+                        }
+
+                        root.addEventListener('click', function (e) {
+                          var tokBtn = e.target.closest('.gv02-tok');
+                          if (tokBtn) {
+                            var wKey = tokBtn.getAttribute('data-word');
+                            var cKey = tokBtn.getAttribute('data-cat');
+                            updateView(cKey, wKey);
+                            return;
+                          }
+
+                          var catBtn = e.target.closest('.gv02-cat-btn');
+                          if (catBtn) {
+                            updateView(catBtn.getAttribute('data-cat'), null);
+                          }
+                        });
+
+                        updateView('past_reg', null);
+                      })();
+                    </script>
                   </div>
                   <!-- [FIN ESPACIO VISUAL 02] -->
 
