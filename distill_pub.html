@@ -6,8 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>¿Tiene el tiempo gramatical su propia huella en el cerebro? | Alejandro Montenegro Taborda</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <meta name="description" content="Reporte divulgativo sobre modelos de codificación cerebral y tiempo gramatical durante la escucha de historias orales." />
-  <meta name="keywords" content="Alejandro Montenegro Taborda, neurociencia computacional, lingüística, tiempo gramatical, fMRI, modelos de codificación" />
+  <meta name="description"
+    content="Reporte divulgativo sobre modelos de codificación cerebral y tiempo gramatical durante la escucha de historias orales." />
+  <meta name="keywords"
+    content="Alejandro Montenegro Taborda, neurociencia computacional, lingüística, tiempo gramatical, fMRI, modelos de codificación" />
   <meta name="author" content="amontenegrot" />
   <link rel="shortcut icon" href="breezycv_base/favicon.ico">
 
@@ -555,7 +557,8 @@
                   <div class="distill-row">
                     <div class="distill-main">
                       <div class="distill-example">
-                        <span class="distill-example-label">Apertura de Where There's Smoke (segundos 0.01 a 9.46)</span>
+                        <span class="distill-example-label">Apertura de Where There's Smoke (segundos 0.01 a
+                          9.46)</span>
                         <p>
                           <i>«I reached over, and secretly undid my seatbelt. And when his foot hit the brake at the red
                             light, I flung open the door and I ran.»</i>
@@ -594,25 +597,827 @@
 
                   <!-- [INICIO ESPACIO VISUAL 01] -->
                   <div class="distill-wide">
-                    <div class="visual-placeholder" id="visual-slot-01">
-                      <span class="visual-placeholder-badge">Espacio Visual 01</span>
-                      <h4 class="visual-placeholder-title">
-                        De la historia hablada a la predicción cerebral mediante matrices apiladas
-                      </h4>
-                      <p class="visual-placeholder-spec">
-                        <b>Diseño previsto (basado en la representación matricial de Gallant Lab):</b> Esquema
-                        interactivo sin ecuaciones donde la grabación del relato se traduce en <b>6 cuadrículas verdes
-                          apiladas</b> (los seis espacios de características a lo largo del tiempo), que se multiplican
-                        por las <b>cuadrículas azules de pesos estimados</b> para predecir la <b>cuadrícula roja de
-                          respuestas BOLD registradas</b>. Al seleccionar cada matriz se mostrará qué información
-                        contiene.
-                      </p>
-                      <p class="visual-placeholder-caption">
-                        <b>Descripción:</b> El modelo reúne seis niveles simultáneos del discurso oral para comprobar si
-                        el sexto bloque, correspondiente al tiempo gramatical, aporta capacidad predictiva adicional
-                        sobre la corteza cerebral.
-                      </p>
-                    </div>
+                    <style>
+                      .gv01-card {
+                        background-color: #ffffff;
+                        border: 1px solid #dfe7ec;
+                        border-radius: 12px;
+                        padding: 22px 24px 20px 24px;
+                        box-shadow: 0 4px 18px rgba(30, 35, 40, 0.03);
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
+
+                      .gv01-header {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: baseline;
+                        gap: 8px;
+                        margin-bottom: 16px;
+                        padding-bottom: 12px;
+                        border-bottom: 1px solid #eef2f5;
+                      }
+
+                      .gv01-kicker {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.09em;
+                        color: #0099cc;
+                        display: block;
+                        margin-bottom: 2px;
+                      }
+
+                      .gv01-title {
+                        font-size: 1.05em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0;
+                      }
+
+                      .gv01-hint {
+                        font-size: 0.78em;
+                        color: #6c7881;
+                      }
+
+                      /* Barra superior de las 3 macro-etapas */
+                      .gv01-steps {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 10px;
+                        margin-bottom: 18px;
+                      }
+
+                      .gv01-step-btn {
+                        appearance: none;
+                        background-color: #f8fafc;
+                        border: 1px solid #e1e8ed;
+                        border-radius: 8px;
+                        padding: 10px 12px;
+                        text-align: left;
+                        cursor: pointer;
+                        transition: all 0.18s ease;
+                        display: flex;
+                        align-items: flex-start;
+                        gap: 10px;
+                      }
+
+                      .gv01-step-btn:hover {
+                        border-color: #9ad7ea;
+                        background-color: #f3fafe;
+                      }
+
+                      .gv01-step-btn.is-active {
+                        background-color: #eef9fd;
+                        border-color: #04b4e0;
+                        box-shadow: 0 0 0 1px #04b4e0;
+                      }
+
+                      .gv01-step-num {
+                        flex-shrink: 0;
+                        width: 22px;
+                        height: 22px;
+                        border-radius: 50%;
+                        background-color: #e1eff5;
+                        color: #007ea8;
+                        font-size: 0.75em;
+                        font-weight: 700;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-top: 1px;
+                      }
+
+                      .gv01-step-btn.is-active .gv01-step-num {
+                        background-color: #04b4e0;
+                        color: #ffffff;
+                      }
+
+                      .gv01-step-label {
+                        display: block;
+                        font-size: 0.8em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        line-height: 1.3;
+                        margin-bottom: 2px;
+                      }
+
+                      .gv01-step-sub {
+                        display: block;
+                        font-size: 0.72em;
+                        color: #65727b;
+                        line-height: 1.35;
+                      }
+
+                      /* Escenario central estilo Gallant Lab */
+                      .gv01-equation-stage {
+                        background-color: #fbfdfe;
+                        border: 1px solid #eaf0f4;
+                        border-radius: 10px;
+                        padding: 18px 14px 14px 14px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 12px;
+                        margin-bottom: 14px;
+                      }
+
+                      .gv01-matrix-unit {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        text-align: center;
+                      }
+
+                      .gv01-matrix-svg {
+                        width: 176px;
+                        height: 180px;
+                        overflow: visible;
+                        display: block;
+                      }
+
+                      .gv01-matrix-svg.single-grid {
+                        width: 132px;
+                      }
+
+                      .gv01-matrix-layer {
+                        cursor: pointer;
+                        transition: opacity 0.25s ease, transform 0.22s ease;
+                      }
+
+                      .gv01-matrix-layer:hover {
+                        filter: brightness(0.98);
+                      }
+
+                      .gv01-matrix-layer.is- lifted {
+                        transform: translate(-3px, -4px);
+                      }
+
+                      .gv01-operator {
+                        font-size: 1.85em;
+                        font-weight: 500;
+                        color: #3a444c;
+                        padding: 0 4px 26px 4px;
+                        user-select: none;
+                        line-height: 1;
+                      }
+
+                      .gv01-unit-title {
+                        font-size: 0.84em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin-top: 4px;
+                        line-height: 1.3;
+                      }
+
+                      .gv01-unit-sub {
+                        font-size: 0.73em;
+                        color: #68757e;
+                        margin-top: 2px;
+                      }
+
+                      .gv01-clickable-target {
+                        cursor: pointer;
+                      }
+
+                      /* Barra de selección de los 6 espacios apilados */
+                      .gv01-spaces-strip {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        gap: 6px;
+                        margin-bottom: 14px;
+                      }
+
+                      .gv01-spaces-caption {
+                        font-size: 0.76em;
+                        font-weight: 600;
+                        color: #55626b;
+                        margin-right: 4px;
+                      }
+
+                      .gv01-pill {
+                        appearance: none;
+                        border: 1px solid #c6e2cf;
+                        background-color: #f3faf5;
+                        color: #2b5e3f;
+                        font-size: 0.75em;
+                        font-weight: 500;
+                        padding: 4px 10px;
+                        border-radius: 99px;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                      }
+
+                      .gv01-pill:hover {
+                        background-color: #e3f4e8;
+                        border-color: #6fb386;
+                      }
+
+                      .gv01-pill.is-active {
+                        background-color: #468f62;
+                        border-color: #397a52;
+                        color: #ffffff;
+                        font-weight: 600;
+                      }
+
+                      .gv01-pill.tense-pill {
+                        border-color: #82cbb9;
+                        background-color: #eaf8f4;
+                        color: #146352;
+                        font-weight: 600;
+                      }
+
+                      .gv01-pill.tense-pill.is-active {
+                        background-color: #1b856d;
+                        border-color: #146956;
+                        color: #ffffff;
+                      }
+
+                      .gv01-pill.reset-pill {
+                        margin-left: auto;
+                        border-color: #d6dfe5;
+                        background-color: #ffffff;
+                        color: #536069;
+                      }
+
+                      .gv01-pill.reset-pill:hover {
+                        border-color: #9aa8b2;
+                        color: #1e2328;
+                      }
+
+                      .gv01-pill.reset-pill.is-active {
+                        background-color: #eef3f6;
+                        border-color: #9aa8b2;
+                        color: #1e2328;
+                      }
+
+                      /* Panel inferior de detalle contextual */
+                      .gv01-inspector {
+                        background-color: #f7fafc;
+                        border: 1px solid #e1e9ee;
+                        border-left: 3px solid #0099cc;
+                        border-radius: 8px;
+                        padding: 14px 18px;
+                        transition: border-color 0.2s ease;
+                      }
+
+                      .gv01-inspector[data-theme="green"] {
+                        border-left-color: #468f62;
+                        background-color: #f6fbf8;
+                      }
+
+                      .gv01-inspector[data-theme="tense"] {
+                        border-left-color: #1b856d;
+                        background-color: #f3faf8;
+                      }
+
+                      .gv01-inspector[data-theme="blue"] {
+                        border-left-color: #2f83b8;
+                        background-color: #f5f9fd;
+                      }
+
+                      .gv01-inspector[data-theme="red"] {
+                        border-left-color: #c95c54;
+                        background-color: #fdf7f7;
+                      }
+
+                      .gv01-inspector-top {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 8px;
+                        margin-bottom: 6px;
+                      }
+
+                      .gv01-inspector-tag {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.07em;
+                        color: #0086b3;
+                      }
+
+                      .gv01-inspector[data-theme="green"] .gv01-inspector-tag {
+                        color: #36754e;
+                      }
+
+                      .gv01-inspector[data-theme="tense"] .gv01-inspector-tag {
+                        color: #146956;
+                      }
+
+                      .gv01-inspector[data-theme="blue"] .gv01-inspector-tag {
+                        color: #266c99;
+                      }
+
+                      .gv01-inspector[data-theme="red"] .gv01-inspector-tag {
+                        color: #b0463f;
+                      }
+
+                      .gv01-inspector-title {
+                        font-size: 0.94em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0 0 6px 0;
+                      }
+
+                      .gv01-inspector-desc {
+                        font-size: 0.86em !important;
+                        line-height: 1.62 !important;
+                        color: #374148 !important;
+                        margin-bottom: 10px !important;
+                      }
+
+                      .gv01-meta-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 14px;
+                        padding-top: 8px;
+                        border-top: 1px solid rgba(0, 0, 0, 0.06);
+                        font-size: 0.77em;
+                        color: #5b6770;
+                      }
+
+                      .gv01-meta-row b {
+                        color: #222a30;
+                      }
+
+                      @media (max-width: 767px) {
+                        .gv01-card {
+                          padding: 16px 15px;
+                        }
+
+                        .gv01-steps {
+                          grid-template-columns: 1fr;
+                        }
+
+                        .gv01-equation-stage {
+                          flex-direction: column;
+                          padding: 16px 10px;
+                          gap: 6px;
+                        }
+
+                        .gv01-operator {
+                          padding: 2px 0;
+                          font-size: 1.55em;
+                        }
+
+                        .gv01-pill.reset-pill {
+                          margin-left: 0;
+                        }
+                      }
+                    </style>
+
+                    <figure class="gv01-card" id="gv01-root" style="margin: 0;">
+                      <div class="gv01-header">
+                        <div>
+                          <span class="gv01-kicker">Figura 1</span>
+                          <h4 class="gv01-title">Arquitectura general del modelo de codificación a nivel de vóxel</h4>
+                        </div>
+                        <span class="gv01-hint">Pulsa sobre las etapas, las matrices o los 6 espacios para
+                          explorar</span>
+                      </div>
+
+                      <!-- Tres etapas generales del estudio -->
+                      <div class="gv01-steps" role="group" aria-label="Etapas principales del estudio">
+                        <button type="button" class="gv01-step-btn" data-select="step_audio">
+                          <span class="gv01-step-num">1</span>
+                          <span>
+                            <span class="gv01-step-label">Del audio al ritmo vascular</span>
+                            <span class="gv01-step-sub">Puntuación por pausas, extracción a 100 Hz y filtro sanguíneo a
+                              2.0 s</span>
+                          </span>
+                        </button>
+
+                        <button type="button" class="gv01-step-btn" data-select="weights">
+                          <span class="gv01-step-num">2</span>
+                          <span>
+                            <span class="gv01-step-label">Ajuste en 943,305 vóxeles</span>
+                            <span class="gv01-step-sub">Regresión Ridge independiente por cubo cortical en 10
+                              participantes</span>
+                          </span>
+                        </button>
+
+                        <button type="button" class="gv01-step-btn" data-select="step_eval">
+                          <span class="gv01-step-num">3</span>
+                          <span>
+                            <span class="gv01-step-label">Evaluación y control en corteza</span>
+                            <span class="gv01-step-sub">43 vs. 39 variables en historia nueva, techo de ruido y
+                              rotaciones</span>
+                          </span>
+                        </button>
+                      </div>
+
+                      <!-- Escenario matricial inspirado en Gallant Lab -->
+                      <div class="gv01-equation-stage">
+
+                        <!-- 1. Matrices verdes apiladas: Características del estímulo -->
+                        <div class="gv01-matrix-unit">
+                          <svg class="gv01-matrix-svg" id="gv01-svg-green" viewBox="0 0 168 172"
+                            aria-label="Matrices apiladas de características del estímulo">
+                            <text x="64" y="15" text-anchor="middle" font-size="11" font-weight="600"
+                              fill="#3a4a40">TRs</text>
+                            <text x="13" y="72" text-anchor="middle" font-size="11" font-weight="600" fill="#3a4a40"
+                              transform="rotate(-90, 13, 72)">Características</text>
+                            <g id="gv01-green-layers"></g>
+                          </svg>
+                          <span class="gv01-unit-title">Características del estímulo</span>
+                          <span class="gv01-unit-sub">6 espacios apilados (43 variables)</span>
+                        </div>
+
+                        <div class="gv01-operator" aria-hidden="true">&times;</div>
+
+                        <!-- 2. Matrices azules apiladas: Pesos estimados del modelo -->
+                        <div class="gv01-matrix-unit gv01-clickable-target" data-select="weights">
+                          <svg class="gv01-matrix-svg" id="gv01-svg-blue" viewBox="0 0 168 172"
+                            aria-label="Matrices apiladas de pesos estimados del modelo">
+                            <text x="64" y="15" text-anchor="middle" font-size="11" font-weight="600"
+                              fill="#2f4858">Características</text>
+                            <text x="13" y="72" text-anchor="middle" font-size="11" font-weight="600" fill="#2f4858"
+                              transform="rotate(-90, 13, 72)">Vóxeles</text>
+                            <g id="gv01-blue-layers"></g>
+                          </svg>
+                          <span class="gv01-unit-title">Pesos estimados del modelo</span>
+                          <span class="gv01-unit-sub">Cuánto pesa cada pista en cada vóxel</span>
+                        </div>
+
+                        <div class="gv01-operator" aria-hidden="true">=</div>
+
+                        <!-- 3. Matriz roja: Respuestas BOLD registradas -->
+                        <div class="gv01-matrix-unit gv01-clickable-target" data-select="bold">
+                          <svg class="gv01-matrix-svg single-grid" id="gv01-svg-red" viewBox="0 0 124 172"
+                            aria-label="Matriz de respuestas BOLD registradas">
+                            <text x="68" y="32" text-anchor="middle" font-size="11" font-weight="600"
+                              fill="#5a3532">TRs</text>
+                            <text x="17" y="89" text-anchor="middle" font-size="11" font-weight="600" fill="#5a3532"
+                              transform="rotate(-90, 17, 89)">Vóxeles</text>
+                            <g id="gv01-red-layer"></g>
+                          </svg>
+                          <span class="gv01-unit-title">Respuestas BOLD registradas</span>
+                          <span class="gv01-unit-sub">Oxigenación cerebral cada 2.0 s</span>
+                        </div>
+
+                      </div>
+
+                      <!-- Pastillas para inspeccionar las 6 capas verdes -->
+                      <div class="gv01-spaces-strip" role="group" aria-label="Espacios de características">
+                        <span class="gv01-spaces-caption">Capas del estímulo:</span>
+                        <button type="button" class="gv01-pill" data-select="sp0">1. Fonológico (14)</button>
+                        <button type="button" class="gv01-pill" data-select="sp1">2. Estadístico (4)</button>
+                        <button type="button" class="gv01-pill" data-select="sp2">3. Categorial (8)</button>
+                        <button type="button" class="gv01-pill" data-select="sp3">4. Sintáctico (3)</button>
+                        <button type="button" class="gv01-pill" data-select="sp4">5. Semántico LSA (10)</button>
+                        <button type="button" class="gv01-pill tense-pill" data-select="sp5">6. Tiempo gramatical
+                          (4)</button>
+                        <button type="button" class="gv01-pill reset-pill is-active" data-select="overview">Vista
+                          completa</button>
+                      </div>
+
+                      <!-- Tarjeta dinámica de explicación -->
+                      <div class="gv01-inspector" id="gv01-inspector" data-theme="neutral" aria-live="polite">
+                        <div class="gv01-inspector-top">
+                          <span class="gv01-inspector-tag" id="gv01-tag">Panorama completo</span>
+                        </div>
+                        <h5 class="gv01-inspector-title" id="gv01-panel-title"></h5>
+                        <p class="gv01-inspector-desc" id="gv01-panel-desc"></p>
+                        <div class="gv01-meta-row" id="gv01-panel-meta"></div>
+                      </div>
+                    </figure>
+
+                    <script>
+                      (function () {
+                        var root = document.getElementById('gv01-root');
+                        if (!root) return;
+
+                        var svgNS = 'http://www.w3.org/2000/svg';
+                        var greenContainer = document.getElementById('gv01-green-layers');
+                        var blueContainer = document.getElementById('gv01-blue-layers');
+                        var redContainer = document.getElementById('gv01-red-layer');
+
+                        // Patrones de intensidad (12 celdas: 3 columnas x 4 filas) para diferenciar espacios binarios y continuos
+                        var greenPalettes = {
+                          controlBg: '#d8eee0',
+                          controlStroke: '#529b6d',
+                          controlCells: ['#c2e2cd', '#8dc4a0', '#5ca375', '#3e7f56'],
+                          tenseBg: '#d0efe8',
+                          tenseStroke: '#1b856d',
+                          tenseCells: ['#dcF3ee', '#7dc7b5', '#2a967d', '#156b57']
+                        };
+
+                        var bluePalette = {
+                          bg: '#dceef9',
+                          stroke: '#3c8ec2',
+                          cells: ['#c5e2f4', '#8cc2e6', '#4f99ca', '#2b6f9e']
+                        };
+
+                        var redPalette = {
+                          bg: '#fae1df',
+                          stroke: '#cc625b',
+                          cells: ['#f3c3bf', '#e5948e', '#cf665f', '#ad433c']
+                        };
+
+                        var layerPatterns = [
+                          [3, 0, 2, 0, 3, 0, 2, 0, 0, 3, 0, 2], // 0: Fonológico (binario)
+                          [1, 3, 2, 2, 0, 3, 3, 1, 2, 1, 2, 3], // 1: Estadístico (continuo)
+                          [0, 3, 0, 2, 0, 0, 0, 3, 2, 3, 0, 0], // 2: Categorial (binario)
+                          [1, 0, 3, 2, 1, 0, 0, 2, 1, 3, 1, 2], // 3: Sintáctico (discreto)
+                          [2, 3, 1, 1, 2, 3, 3, 0, 2, 1, 2, 1], // 4: Semántico LSA (continuo)
+                          [3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 2, 0]  // 5: Tiempo gramatical (binario escaso)
+                        ];
+
+                        var weightPatterns = [
+                          [2, 1, 3, 0, 2, 1, 3, 1, 0, 1, 3, 2],
+                          [3, 2, 1, 1, 0, 3, 2, 2, 1, 0, 3, 2],
+                          [1, 3, 0, 2, 1, 2, 0, 3, 1, 2, 0, 3],
+                          [2, 0, 3, 1, 2, 1, 3, 0, 2, 1, 3, 1],
+                          [3, 1, 2, 2, 3, 0, 1, 2, 3, 0, 2, 1],
+                          [3, 0, 2, 1, 3, 0, 0, 2, 3, 2, 1, 0]
+                        ];
+
+                        var boldPattern = [2, 1, 3, 3, 2, 1, 1, 3, 2, 3, 0, 2];
+
+                        function createMatrixCard(x, y, bg, stroke, cellsPalette, pattern, selectKey) {
+                          var g = document.createElementNS(svgNS, 'g');
+                          g.setAttribute('class', 'gv01-matrix-layer');
+                          if (selectKey) g.setAttribute('data-layer-key', selectKey);
+
+                          var rect = document.createElementNS(svgNS, 'rect');
+                          rect.setAttribute('x', x);
+                          rect.setAttribute('y', y);
+                          rect.setAttribute('width', 76);
+                          rect.setAttribute('height', 92);
+                          rect.setAttribute('rx', 11);
+                          rect.setAttribute('fill', bg);
+                          rect.setAttribute('stroke', stroke);
+                          rect.setAttribute('stroke-width', '2.2');
+                          g.appendChild(rect);
+
+                          for (var r = 0; r < 4; r++) {
+                            for (var c = 0; c < 3; c++) {
+                              var cell = document.createElementNS(svgNS, 'rect');
+                              cell.setAttribute('x', x + 10 + c * 20);
+                              cell.setAttribute('y', y + 10 + r * 19);
+                              cell.setAttribute('width', 16);
+                              cell.setAttribute('height', 15);
+                              cell.setAttribute('rx', 3);
+                              var shadeIdx = pattern[r * 3 + c];
+                              cell.setAttribute('fill', cellsPalette[shadeIdx]);
+                              g.appendChild(cell);
+                            }
+                          }
+                          return g;
+                        }
+
+                        // Dibujar las 6 capas verdes y las 6 capas azules con desplazamiento diagonal
+                        var greenNodes = [];
+                        var blueNodes = [];
+                        for (var i = 0; i < 6; i++) {
+                          var xPos = 26 + i * 11;
+                          var yPos = 24 + i * 9;
+                          var isTense = (i === 5);
+
+                          var gCard = createMatrixCard(
+                            xPos,
+                            yPos,
+                            isTense ? greenPalettes.tenseBg : greenPalettes.controlBg,
+                            isTense ? greenPalettes.tenseStroke : greenPalettes.controlStroke,
+                            isTense ? greenPalettes.tenseCells : greenPalettes.controlCells,
+                            layerPatterns[i],
+                            'sp' + i
+                          );
+                          greenContainer.appendChild(gCard);
+                          greenNodes.push(gCard);
+
+                          var bCard = createMatrixCard(
+                            xPos,
+                            yPos,
+                            bluePalette.bg,
+                            bluePalette.stroke,
+                            bluePalette.cells,
+                            weightPatterns[i],
+                            null
+                          );
+                          blueContainer.appendChild(bCard);
+                          blueNodes.push(bCard);
+                        }
+
+                        // Dibujar la matriz roja única de respuestas BOLD
+                        var rCard = createMatrixCard(30, 41, redPalette.bg, redPalette.stroke, redPalette.cells, boldPattern, null);
+                        redContainer.appendChild(rCard);
+
+                        // Diccionario de contenidos explicativos (sin fórmulas y sin rayas de inciso)
+                        var infoMap = {
+                          overview: {
+                            theme: 'neutral',
+                            tag: 'Panorama del estudio',
+                            title: 'Cómo se combinan seis niveles del lenguaje para predecir la corteza cerebral',
+                            desc: 'Cada relato oral escuchado en el resonador se traduce en seis matrices apiladas de características lingüísticas (en verde). Multiplicar esas pistas por los pesos aprendidos en cada cubo cortical (en azul) genera una predicción de la oxigenación sanguínea registrada cada dos segundos (en rojo). Comparar el acierto usando las seis matrices frente a usar solo las cinco de control permite medir si el tiempo gramatical aporta señal propia.',
+                            meta: [
+                              ['Muestra', '10 participantes (943,305 vóxeles en total)'],
+                              ['Predictores', '39 de control + 4 de tiempo gramatical'],
+                              ['Historia de prueba', 'Where There\'s Smoke (291 volúmenes de 2.0 s)']
+                            ]
+                          },
+                          step_audio: {
+                            theme: 'neutral',
+                            tag: 'Etapa 1 de 3',
+                            title: 'Del sonido continuo de la historia al compás lento de la sangre',
+                            desc: 'Las transcripciones alineadas del audio carecen de puntuación ortográfica. El preprocesamiento limpia respiraciones y risas, convierte pausas breves (0.35 s) en comas y pausas largas (0.65 s) en puntos, y extrae las 43 variables cada 10 milisegundos (100 Hz). Luego, cada serie se suaviza con una curva vascular de 32 segundos y se muestrea cada 2.0 segundos para coincidir con las capturas del escáner.',
+                            meta: [
+                              ['Resolución inicial', '100 muestras por segundo (10 ms)'],
+                              ['Sincronización final', '1 muestra cada 2.0 segundos (0.5 Hz)'],
+                              ['Normalización', 'Estandarización independiente dentro de cada sesión']
+                            ]
+                          },
+                          weights: {
+                            theme: 'blue',
+                            tag: 'Etapa 2 de 3 (Matrices azules)',
+                            title: 'Pesos estimados de manera independiente en casi un millón de vóxeles',
+                            desc: 'Cada participante se analiza en su propia anatomía cerebral dividida en cubos de unos dos milímetros de lado. En cada vóxel, una regresión de cresta (Ridge) aprende qué combinación de las variables lingüísticas predice mejor sus subidas y bajadas de oxígeno, calibrando la penalización mediante bloques de historias completas para evitar filtraciones temporales.',
+                            meta: [
+                              ['Ejes de la matriz', 'Vóxeles corticales por Características (39 o 43)'],
+                              ['Vóxeles por persona', 'Entre 81,126 (UTS01) y 109,469 (UTS04)'],
+                              ['Validación interna', 'Bloques completos de historias en entrenamiento']
+                            ]
+                          },
+                          bold: {
+                            theme: 'red',
+                            tag: 'Señal biológica objetivo (Matriz roja)',
+                            title: 'Respuestas BOLD registradas por el resonador magnético funcional',
+                            desc: 'Representa las series reales de oxigenación sanguínea medidas cada dos segundos en la corteza mientras la persona escucha el relato. En la historia reservada para la evaluación final, cada participante escuchó exactamente la misma grabación entre cinco y diez veces en sesiones distintas, lo que permite promediar las repeticiones para atenuar el ruido fisiológico.',
+                            meta: [
+                              ['Ejes de la matriz', 'Vóxeles corticales por Volúmenes temporales (TRs)'],
+                              ['Repeticiones en prueba', '10 escuchas (UTS01 a UTS03) y 5 escuchas (UTS04 a UTS10)'],
+                              ['Corteza con señal repetible', '75.45% en promedio supera el umbral de confiabilidad']
+                            ]
+                          },
+                          step_eval: {
+                            theme: 'neutral',
+                            tag: 'Etapa 3 de 3',
+                            title: 'Comparación fuera de muestra, desplazamientos circulares y mapas 3D',
+                            desc: 'Sobre la historia nueva Where There\'s Smoke se resta el desempeño del modelo restringido (las 5 capas de control) al del modelo global (las 6 capas). Para descartar coincidencias casuales entre ondas lentas, las predicciones se rotan en bucle cientos de veces rompiendo su sincronía con el audio y se aplica corrección por comparaciones múltiples (FDR) en toda la corteza antes de proyectar los mapas 3D.',
+                            meta: [
+                              ['Modelo Global', 'Predice positivamente el 35.56% de la corteza en promedio'],
+                              ['Rotaciones circulares', '271 giros válidos (margen 20 s) y 260 (margen 32 s)'],
+                              ['Supervivencia tras FDR', '0 de 10 participantes muestran focos aislados de tiempo']
+                            ]
+                          },
+                          sp0: {
+                            theme: 'green',
+                            tag: 'Capa de control 1 de 5',
+                            title: 'Espacio fonético y fonológico (14 variables binarias)',
+                            desc: 'Describe cada sonido pronunciado según cómo vibran las cuerdas vocales y dónde se articulan los labios o la lengua. En el primer segundo de Where There\'s Smoke, la marca de pasado en reached suena físicamente como una consonante oclusiva sorda (/t/). Esta capa descuenta la reacción auditiva directa al sonido físico.',
+                            meta: [
+                              ['Naturaleza', '14 indicadores binarios de modo, lugar y sonoridad'],
+                              ['Ejemplo en el relato', 'Fonemas R IY1 CH T en la palabra reached (0.14 a 0.50 s)'],
+                              ['Rol en el estudio', 'Incluido tanto en el Modelo Restringido como en el Global']
+                            ]
+                          },
+                          sp1: {
+                            theme: 'green',
+                            tag: 'Capa de control 2 de 5',
+                            title: 'Espacio léxico estadístico (4 variables continuas)',
+                            desc: 'Cuantifica la presencia de cada palabra, su duración en segundos, su número de letras y su frecuencia habitual en inglés. Como más de la mitad de las marcas de tiempo verbal recae sobre palabras breves y muy frecuentes como was o is, este bloque evita confundir la facilidad de acceso léxico con un efecto gramatical.',
+                            meta: [
+                              ['Variables', 'Presencia, frecuencia Zipf, longitud y duración en segundos'],
+                              ['Ejemplo en el relato', ' Contraste entre was (0.16 s, muy común) y seatbelt (0.48 s)'],
+                              ['Rol en el estudio', 'Incluido tanto en el Modelo Restringido como en el Global']
+                            ]
+                          },
+                          sp2: {
+                            theme: 'green',
+                            tag: 'Capa de control 3 de 5',
+                            title: 'Espacio léxico categorial y verbos sin tiempo (8 variables binarias)',
+                            desc: 'Identifica sustantivos, adjetivos, adverbios, pronombres, preposiciones, conjunciones y determinantes, reservando un octavo canal para formas verbales no conjugadas (como crying o running). A la vez, excluye auxiliares modales (como could) y la contracción ambigua \'d para mantener limpio el contraste temporal.',
+                            meta: [
+                              ['Filtro clave', 'Separa la acción verbal sin tiempo de la conjugación temporal'],
+                              ['Ejemplo en el relato', 'crying (12.69 s) activa este control; was pasa a la capa 6'],
+                              ['Rol en el estudio', 'Incluido tanto en el Modelo Restringido como en el Global']
+                            ]
+                          },
+                          sp3: {
+                            theme: 'green',
+                            tag: 'Capa de control 4 de 5',
+                            title: 'Espacio sintáctico de dependencias (3 variables estructurales)',
+                            desc: 'Mide en cada palabra cuántas posiciones la separan del núcleo del que depende, su profundidad dentro del árbol jerárquico de la oración y si actúa como raíz principal de la cláusula. Controla el esfuerzo de memoria necesario para ensamblar la estructura gramatical.',
+                            meta: [
+                              ['Variables', 'Distancia de dependencia, profundidad jerárquica y nodo raíz'],
+                              ['Pregunta que controla', '¿Responde el vóxel al ensamblaje oracional o al tiempo verbal?'],
+                              ['Rol en el estudio', 'Incluido tanto en el Modelo Restringido como en el Global']
+                            ]
+                          },
+                          sp4: {
+                            theme: 'green',
+                            tag: 'Capa de control 5 de 5',
+                            title: 'Espacio léxico semántico mediante LSA sobre lemas (10 variables)',
+                            desc: 'Resume el tema de cada cláusula en 10 dimensiones continuas entrenadas solo en relatos de aprendizaje. En vez de usar redes neuronales modernas que filtran información morfosintáctica dentro de sus vectores, reduce antes cada verbo a su raíz sin conjugar (convirtiendo reached y reaches en reach) para controlar el tema sin absorber el tiempo verbal.',
+                            meta: [
+                              ['Unidad de análisis', 'Cláusulas delimitadas por pausas de al menos 0.65 segundos'],
+                              ['Prevención de sesgo', 'Lematización previa y exclusión estricta de la historia de prueba'],
+                              ['Rol en el estudio', 'Incluido tanto en el Modelo Restringido como en el Global']
+                            ]
+                          },
+                          sp5: {
+                            theme: 'tense',
+                            tag: 'Capa objetivo evaluada (6 de 6)',
+                            title: 'Espacio de tiempo gramatical (4 variables binarias de interés)',
+                            desc: 'Representa la oposición morfológica del inglés entre pasado y no-pasado mediante cuatro realizaciones: pasado regular con -ed (reached), pasado irregular (undid, ran, was), no-pasado en tercera persona singular con -s (sees, takes, is) y resto de formas de no-pasado (get, see, are). Es el único bloque ausente en el Modelo Restringido.',
+                            meta: [
+                              ['Distribución en el corpus', '21,354 verbos: 49.99% pasado y 50.01% no-pasado'],
+                              ['Peso de auxiliares', 'El 50.26% recae sobre formas conjugadas de be, have y do'],
+                              ['Rol en el estudio', 'Exclusivo del Modelo Global para medir su ganancia propia']
+                            ]
+                          }
+                        };
+
+                        var inspectorEl = document.getElementById('gv01-inspector');
+                        var tagEl = document.getElementById('gv01-tag');
+                        var titleEl = document.getElementById('gv01-panel-title');
+                        var descEl = document.getElementById('gv01-panel-desc');
+                        var metaEl = document.getElementById('gv01-panel-meta');
+
+                        function selectNode(key) {
+                          var data = infoMap[key] || infoMap.overview;
+
+                          // Actualizar botones de etapas y pastillas
+                          var allBtns = root.querySelectorAll('[data-select]');
+                          for (var b = 0; b < allBtns.length; b++) {
+                            var match = (allBtns[b].getAttribute('data-select') === key);
+                            if (allBtns[b].classList.contains('gv01-step-btn') || allBtns[b].classList.contains('gv01-pill')) {
+                              allBtns[b].classList.toggle('is-active', match);
+                            }
+                          }
+
+                          // Efecto rayos X sincronizado en las 6 capas verdes y 6 capas azules
+                          var isSpaceKey = (key.indexOf('sp') === 0);
+                          var selectedLayerIdx = isSpaceKey ? parseInt(key.replace('sp', ''), 10) : -1;
+
+                          for (var idx = 0; idx < 6; idx++) {
+                            if (isSpaceKey) {
+                              if (idx === selectedLayerIdx) {
+                                greenNodes[idx].style.opacity = '1';
+                                greenNodes[idx].style.transform = 'translate(-3px, -5px)';
+                                blueNodes[idx].style.opacity = '1';
+                                blueNodes[idx].style.transform = 'translate(-3px, -5px)';
+                              } else {
+                                // Las capas por delante se vuelven muy translúcidas para dejar ver la seleccionada
+                                var alpha = (idx > selectedLayerIdx) ? '0.14' : '0.32';
+                                greenNodes[idx].style.opacity = alpha;
+                                greenNodes[idx].style.transform = 'translate(0, 0)';
+                                blueNodes[idx].style.opacity = alpha;
+                                blueNodes[idx].style.transform = 'translate(0, 0)';
+                              }
+                            } else if (key === 'weights') {
+                              greenNodes[idx].style.opacity = '0.55';
+                              greenNodes[idx].style.transform = 'translate(0, 0)';
+                              blueNodes[idx].style.opacity = '1';
+                              blueNodes[idx].style.transform = 'translate(0, 0)';
+                            } else if (key === 'bold') {
+                              greenNodes[idx].style.opacity = '0.45';
+                              greenNodes[idx].style.transform = 'translate(0, 0)';
+                              blueNodes[idx].style.opacity = '0.45';
+                              blueNodes[idx].style.transform = 'translate(0, 0)';
+                            } else {
+                              greenNodes[idx].style.opacity = '1';
+                              greenNodes[idx].style.transform = 'translate(0, 0)';
+                              blueNodes[idx].style.opacity = '1';
+                              blueNodes[idx].style.transform = 'translate(0, 0)';
+                            }
+                          }
+
+                          rCard.style.opacity = (isSpaceKey || key === 'weights') ? '0.55' : '1';
+                          rCard.style.transform = (key === 'bold') ? 'translate(0, -4px)' : 'translate(0, 0)';
+
+                          // Actualizar panel inferior
+                          inspectorEl.setAttribute('data-theme', data.theme);
+                          tagEl.textContent = data.tag;
+                          titleEl.textContent = data.title;
+                          descEl.textContent = data.desc;
+
+                          var metaHtml = '';
+                          for (var m = 0; m < data.meta.length; m++) {
+                            metaHtml += '<span><b>' + data.meta[m][0] + ':</b> ' + data.meta[m][1] + '</span>';
+                          }
+                          metaEl.innerHTML = metaHtml;
+                        }
+
+                        // Eventos en botones y contenedores clicables
+                        root.addEventListener('click', function (e) {
+                          var layerTarget = e.target.closest('[data-layer-key]');
+                          if (layerTarget) {
+                            selectNode(layerTarget.getAttribute('data-layer-key'));
+                            return;
+                          }
+                          var btnTarget = e.target.closest('[data-select]');
+                          if (btnTarget) {
+                            selectNode(btnTarget.getAttribute('data-select'));
+                          }
+                        });
+
+                        selectNode('overview');
+                      })();
+                    </script>
                   </div>
                   <!-- [FIN ESPACIO VISUAL 01] -->
 
@@ -629,7 +1434,8 @@
                   <div class="distill-row">
                     <div class="distill-main">
                       <p>
-                        Para definir qué se mide exactamente en este estudio es necesario distinguir entre dos planos que
+                        Para definir qué se mide exactamente en este estudio es necesario distinguir entre dos planos
+                        que
                         en español suelen compartir nombre: la noción mental del tiempo (en inglés, <i>time</i>) y el
                         tiempo gramatical codificado en el verbo (<i>tense</i>). El primero alude a nuestra comprensión
                         general del ayer, el ahora y el mañana. El segundo se refiere únicamente a las marcas
@@ -646,7 +1452,8 @@
                       </p>
 
                       <div class="distill-example">
-                        <span class="distill-example-label">Referencia futura en Where There's Smoke (segundos 285.35 a 286.73)</span>
+                        <span class="distill-example-label">Referencia futura en Where There's Smoke (segundos 285.35 a
+                          286.73)</span>
                         <p><i>«He's gonna be [nice] when I <b>get</b> home.»</i></p>
                         <p class="translation">«Se va a portar bien cuando yo llegue a casa.»</p>
                       </div>
@@ -783,7 +1590,8 @@
                         <summary>Nota técnica 3. Alineación a 100 Hz</summary>
                         <div class="tech-note-body">
                           En la fase preliminar se repararon automáticamente los archivos <code>TextGrid</code> que
-                          venían en formato cronológico antiguo de Praat, guardándolos en <code>textgrids_repaired</code>
+                          venían en formato cronológico antiguo de Praat, guardándolos en
+                          <code>textgrids_repaired</code>
                           sin sobrescribir los originales, y se filtraron etiquetas no léxicas (<code>{BR}</code>,
                           <code>{LG}</code>, <code>{LS}</code>, <code>sp</code>). Los umbrales de puntuación se fijaron
                           en <code>0.35 s</code> para coma y <code>0.65 s</code> (percentil 75) para punto. La
@@ -826,7 +1634,8 @@
                         </li>
                       </ul>
 
-                      <h4 class="distill-subhead">Por qué se evitó usar modelos grandes de lenguaje en el control semántico</h4>
+                      <h4 class="distill-subhead">Por qué se evitó usar modelos grandes de lenguaje en el control
+                        semántico</h4>
 
                       <p>
                         El quinto espacio de control debía capturar el contenido temático de cada escena. En la
@@ -846,7 +1655,8 @@
                         <div class="tech-note-body">
                           Se agruparon las palabras en cláusulas delimitadas por pausas <code>&ge; 0.65 s</code>,
                           conservando únicamente sus lemas sin flexión y excluyendo muletillas orales (<i>uh, um, like,
-                            yeah, know</i>). Sobre una matriz TF-IDF (<code>min_df=3</code>, <code>max_df=0.85</code>) se
+                            yeah, know</i>). Sobre una matriz TF-IDF (<code>min_df=3</code>, <code>max_df=0.85</code>)
+                          se
                           aplicó descomposición en valores singulares truncada (<code>TruncatedSVD</code>) a 10
                           dimensiones. Este modelo LSA se ajustó únicamente con las narraciones de entrenamiento,
                           manteniendo aislada la historia de prueba <i>wheretheressmoke</i>.
@@ -874,7 +1684,8 @@
                     <div class="visual-placeholder" id="visual-slot-03">
                       <span class="visual-placeholder-badge">Espacio Visual 03</span>
                       <h4 class="visual-placeholder-title">
-                        Descomposición de los primeros segundos reales de <i>Where There's Smoke</i> en los 6 espacios (100 Hz)
+                        Descomposición de los primeros segundos reales de <i>Where There's Smoke</i> en los 6 espacios
+                        (100 Hz)
                       </h4>
                       <p class="visual-placeholder-spec">
                         <b>Diseño previsto (con los tiempos reales del TextGrid compartido):</b> Línea de tiempo
@@ -883,7 +1694,8 @@
                         activación simultánea de los 6 bloques y el explorador detallado de sus 43 columnas.
                       </p>
                       <p class="visual-placeholder-caption">
-                        <b>Descripción:</b> En un mismo intervalo del relato coinciden rasgos articulatorios, frecuencias
+                        <b>Descripción:</b> En un mismo intervalo del relato coinciden rasgos articulatorios,
+                        frecuencias
                         léxicas dispares, gerundios sin marca temporal y verbos conjugados regulares e irregulares.
                       </p>
                     </div>
@@ -942,7 +1754,8 @@
                     <div class="visual-placeholder" id="visual-slot-04">
                       <span class="visual-placeholder-badge">Espacio Visual 04</span>
                       <h4 class="visual-placeholder-title">
-                        Transformación temporal desde los eventos del habla (100 Hz) hasta las muestras del escáner (cada 2.0 s)
+                        Transformación temporal desde los eventos del habla (100 Hz) hasta las muestras del escáner
+                        (cada 2.0 s)
                       </h4>
                       <p class="visual-placeholder-spec">
                         <b>Diseño previsto:</b> Visualización interactiva de cómo los eventos breves de verbos reales de
@@ -1043,7 +1856,8 @@
                       <p>
                         Al calcular la diferencia bruta entre el modelo global y el modelo restringido sobre la historia
                         de evaluación, en promedio el 42.83% de los vóxeles de cada corteza arroja cifras positivas.
-                        Tomar ese porcentaje de manera literal llevaría a una conclusión errónea: cuando se añaden cuatro
+                        Tomar ese porcentaje de manera literal llevaría a una conclusión errónea: cuando se añaden
+                        cuatro
                         predictores a cualquier regresión evaluada sobre series ruidosas, alrededor de la mitad de los
                         puntos mejora unas milésimas y la otra mitad empeora en magnitud similar por simple azar, como
                         lo refleja una mediana cortical cercana a cero (-0.00053). Evaluar con rigor esos números
@@ -1054,7 +1868,8 @@
                       <h4 class="distill-subhead">El techo de ruido a partir de escuchas repetidas</h4>
 
                       <p>
-                        Una grabación de resonancia magnética mezcla la respuesta evocada por el relato con fluctuaciones
+                        Una grabación de resonancia magnética mezcla la respuesta evocada por el relato con
+                        fluctuaciones
                         cardíacas, respiratorias, ruido térmico del sensor y actividad cerebral espontánea ajena al
                         estímulo. Ningún modelo lingüístico debería ser juzgado contra ese ruido impredecible.
                       </p>
@@ -1109,8 +1924,10 @@
                       </p>
 
                       <p>
-                        Por último, dado que evaluar cerca de cien mil vóxeles a la vez en un mismo cerebro produce miles
-                        de coincidencias casuales si se usa un umbral individual sin ajuste, las probabilidades obtenidas
+                        Por último, dado que evaluar cerca de cien mil vóxeles a la vez en un mismo cerebro produce
+                        miles
+                        de coincidencias casuales si se usa un umbral individual sin ajuste, las probabilidades
+                        obtenidas
                         en cada participante se sometieron a una corrección de tasa de falsos descubrimientos (FDR) en
                         toda la corteza.
                       </p>
@@ -1122,7 +1939,8 @@
                         <div class="tech-note-body">
                           En los <code>291 TRs</code> de prueba se calcularon de forma exacta todas las rotaciones
                           circulares admisibles en tensores 3D de 512 MB: con margen de exclusión de
-                          <code>&plusmn;10 TRs</code> (<code>20 s</code>) resultan 271 rotaciones y una resolución mínima
+                          <code>&plusmn;10 TRs</code> (<code>20 s</code>) resultan 271 rotaciones y una resolución
+                          mínima
                           <code>p = 0.00368</code> tras corrección de continuidad; con margen de
                           <code>&plusmn;16 TRs</code> (<code>32 s</code>, 1 HRF completa) resultan 260 rotaciones y
                           <code>p = 0.00383</code>. Sobre esos valores se aplicó Benjamini-Hochberg FDR
@@ -1137,7 +1955,8 @@
                     <div class="visual-placeholder" id="visual-slot-06">
                       <span class="visual-placeholder-badge">Espacio Visual 06</span>
                       <h4 class="visual-placeholder-title">
-                        Estimación del techo de ruido entre repeticiones y explorador interactivo de desplazamientos circulares
+                        Estimación del techo de ruido entre repeticiones y explorador interactivo de desplazamientos
+                        circulares
                       </h4>
                       <p class="visual-placeholder-spec">
                         <b>Diseño previsto:</b> Gráfico interactivo doble que permite (1) visualizar cómo el promedio de
@@ -1188,7 +2007,8 @@
                         <summary>Nota técnica 9. Criterio de reporte grupal</summary>
                         <div class="tech-note-body">
                           Los promedios grupales describen la consistencia empírica a través de 10 replicaciones
-                          individuales en anatomía nativa, sin constituir una prueba de efectos aleatorios poblacionales.
+                          individuales en anatomía nativa, sin constituir una prueba de efectos aleatorios
+                          poblacionales.
                           Al resultar cero el conteo de vóxeles significativos tras FDR, la magnitud media en vóxeles
                           significativos se registra como no aplicable (<code>N/A</code>) en vez de <code>0.0</code>
                           para distinguir entre ausencia de detección estadística y efecto nulo puntual.
@@ -1363,8 +2183,10 @@
                       <p>
                         Este hallazgo requiere una lectura precisa. La ausencia de vóxeles significativos no significa
                         que el cerebro sea indiferente al tiempo verbal durante la comprensión de un relato. Lo que
-                        indica es que, a la resolución espacial de dos milímetros y temporal de dos segundos propia de la
-                        resonancia magnética funcional, no aparece una región macroscópica dedicada de forma aislada a la
+                        indica es que, a la resolución espacial de dos milímetros y temporal de dos segundos propia de
+                        la
+                        resonancia magnética funcional, no aparece una región macroscópica dedicada de forma aislada a
+                        la
                         conjugación temporal una vez descontados los niveles acústico, léxico, sintáctico y temático.
                         Tres factores documentados en las auditorías del proyecto ayudan a entender por qué ocurre esto:
                       </p>
@@ -1388,9 +2210,11 @@
                         <li>
                           <b>Cambio al presente histórico en <i>Where There's Smoke</i> y latencia vascular fija:</b>
                           Aunque la narradora abre el relato en pasado mientras cuenta cómo escapó del automóvil, en el
-                          segundo 108.9 (<i>«I see a figure up ahead»</i>) cambia al presente narrativo durante casi todo
+                          segundo 108.9 (<i>«I see a figure up ahead»</i>) cambia al presente narrativo durante casi
+                          todo
                           el resto de los diez minutos de grabación. Como consecuencia, de los 303 verbos con marca de
-                          tiempo presentes en la historia de prueba, <b>242 pertenecen al no-pasado (79.87%) y solo 61 al
+                          tiempo presentes en la historia de prueba, <b>242 pertenecen al no-pasado (79.87%) y solo 61
+                            al
                             pasado (20.13%)</b>, repartidos además entre regulares e irregulares. Esa escasez de formas
                           en pasado en el relato de evaluación, sumada al supuesto de una misma velocidad de respuesta
                           vascular en todas las áreas corticales, reduce de manera importante la potencia estadística.
@@ -1404,7 +2228,8 @@
                     <div class="visual-placeholder" id="visual-slot-08">
                       <span class="visual-placeholder-badge">Espacio Visual 08</span>
                       <h4 class="visual-placeholder-title">
-                        Sesgo hacia el presente narrativo en <i>Where There's Smoke</i> y transición hacia <i>Banded Ridge</i>
+                        Sesgo hacia el presente narrativo en <i>Where There's Smoke</i> y transición hacia <i>Banded
+                          Ridge</i>
                       </h4>
                       <p class="visual-placeholder-spec">
                         <b>Diseño previsto:</b> Gráfico en dos paneles: (A) contraste entre el equilibrio 50/50 del
@@ -1428,12 +2253,15 @@
                       <p>
                         A partir de estas evidencias, la continuación directa de esta línea de trabajo pasa por tres
                         ajustes concretos. El primero es sustituir la regresión de cresta estándar por <b>regresión de
-                          cresta por bandas (<i>Banded Ridge</i>)</b>, asignando un hiperparámetro de penalización propio
+                          cresta por bandas (<i>Banded Ridge</i>)</b>, asignando un hiperparámetro de penalización
+                        propio
                         a cada uno de los seis espacios de características para evitar que los bloques acústicos o
                         semánticos compriman la señal de los cuatro predictores morfológicos. El segundo consiste en
-                        aplicar esquemas de evaluación externa sobre historias que conserven la proporción equilibrada de
+                        aplicar esquemas de evaluación externa sobre historias que conserven la proporción equilibrada
+                        de
                         pasado y no-pasado del resto del corpus, comparando además la representación en cuatro canales
-                        frente a un contraste binario directo. El tercero es explorar funciones de respuesta vascular con
+                        frente a un contraste binario directo. El tercero es explorar funciones de respuesta vascular
+                        con
                         flexibilidad de latencia focalizadas en las regiones temporales y frontales donde el techo de
                         ruido ya demostró alta confiabilidad.
                       </p>
@@ -1526,7 +2354,8 @@
                           <i class="lnr lnr-database"></i>
                           <h4>Conjunto de datos ds003020</h4>
                           <span class="fun-fact-block-text">
-                            <a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel et al. (2023)</a> en
+                            <a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel et al.
+                              (2023)</a> en
                             <a href="https://openneuro.org/datasets/ds003020/" target="_blank">OpenNeuro</a>
                           </span>
                         </div>
@@ -1538,7 +2367,8 @@
                           <h4>Fotografía de cabecera</h4>
                           <span class="fun-fact-block-text">
                             <a href="https://unsplash.com/es/@whisperingshiba" target="_blank">Shawn Day</a> en
-                            <a href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM" target="_blank">Unsplash</a>
+                            <a href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM"
+                              target="_blank">Unsplash</a>
                           </span>
                         </div>
                       </div>
