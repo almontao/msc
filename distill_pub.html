@@ -5047,23 +5047,766 @@
 
                   <!-- [INICIO ESPACIO VISUAL 06] -->
                   <div class="distill-wide">
-                    <div class="visual-placeholder" id="visual-slot-06">
-                      <span class="visual-placeholder-badge">Espacio Visual 06</span>
-                      <h4 class="visual-placeholder-title">
-                        Estimación del techo de ruido entre repeticiones y explorador interactivo de desplazamientos
-                        circulares
-                      </h4>
-                      <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Gráfico interactivo doble que permite (1) visualizar cómo el promedio de
-                        múltiples escuchas aísla la respuesta consistente al relato frente al ruido fisiológico, y (2)
-                        deslizar en bloque la serie de predicciones a lo largo de los 291 volúmenes de prueba respetando
-                        los márgenes de exclusión de 20 y 32 segundos.
-                      </p>
-                      <p class="visual-placeholder-caption">
-                        <b>Descripción:</b> Los desplazamientos circulares conservan la autocorrelación natural de las
-                        ondas lentas mientras eliminan el alineamiento temporal con las palabras escuchadas.
-                      </p>
-                    </div>
+                    <style>
+                      .gv06-card {
+                        background-color: #ffffff;
+                        border: 1px solid #dfe7ec;
+                        border-radius: 12px;
+                        padding: 20px 22px 16px 22px;
+                        box-shadow: 0 4px 18px rgba(30, 35, 40, 0.03);
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
+
+                      .gv06-header {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 12px;
+                        margin-bottom: 12px;
+                        padding-bottom: 11px;
+                        border-bottom: 1px solid #eef2f5;
+                      }
+
+                      .gv06-kicker {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.09em;
+                        color: #0099cc;
+                        display: block;
+                        margin-bottom: 2px;
+                      }
+
+                      .gv06-title {
+                        font-size: 1.03em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0;
+                      }
+
+                      .gv06-tabs {
+                        display: inline-flex;
+                        background-color: #f1f5f8;
+                        border: 1px solid #dce5eb;
+                        border-radius: 8px;
+                        padding: 3px;
+                        gap: 2px;
+                      }
+
+                      .gv06-tab-btn {
+                        appearance: none;
+                        border: none;
+                        background: transparent;
+                        color: #526069;
+                        font-family: inherit;
+                        font-size: 0.76em;
+                        font-weight: 600;
+                        padding: 6px 12px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                        white-space: nowrap;
+                      }
+
+                      .gv06-tab-btn:hover {
+                        color: #1e2328;
+                      }
+
+                      .gv06-tab-btn.is-active {
+                        background-color: #ffffff;
+                        color: #007ea8;
+                        box-shadow: 0 1px 4px rgba(20, 30, 40, 0.09);
+                      }
+
+                      /* Controles específicos de cada pestaña */
+                      .gv06-subcontrols {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 10px;
+                        margin-bottom: 10px;
+                      }
+
+                      .gv06-subcontrols[hidden] {
+                        display: none !important;
+                      }
+
+                      .gv06-pill-group {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 6px;
+                      }
+
+                      .gv06-mini-btn {
+                        appearance: none;
+                        background-color: #f5f8fa;
+                        border: 1px solid #d8e2e8;
+                        color: #46535c;
+                        font-family: inherit;
+                        font-size: 0.74em;
+                        font-weight: 600;
+                        padding: 5px 10px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        transition: all 0.15s ease;
+                      }
+
+                      .gv06-mini-btn:hover {
+                        border-color: #93aebf;
+                        color: #1e2328;
+                      }
+
+                      .gv06-mini-btn.is-active {
+                        background-color: #1e2328;
+                        border-color: #1e2328;
+                        color: #ffffff;
+                      }
+
+                      .gv06-reroll-btn {
+                        appearance: none;
+                        background-color: #eef9fd;
+                        border: 1px solid #9ad9ec;
+                        color: #00779e;
+                        font-family: inherit;
+                        font-size: 0.74em;
+                        font-weight: 600;
+                        padding: 5px 11px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                      }
+
+                      .gv06-reroll-btn:hover {
+                        background-color: #dff3fb;
+                      }
+
+                      /* Deslizador táctil para rotaciones circulares */
+                      .gv06-slider-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        gap: 12px;
+                        width: 100%;
+                      }
+
+                      .gv06-slider-label {
+                        font-size: 0.78em;
+                        font-weight: 600;
+                        color: #2b363e;
+                        min-width: 175px;
+                      }
+
+                      .gv06-range {
+                        flex: 1;
+                        min-width: 160px;
+                        accent-color: #008eb8;
+                        cursor: pointer;
+                      }
+
+                      /* Barra de estado */
+                      .gv06-readout {
+                        background-color: #f7fafc;
+                        border: 1px solid #e3ebf0;
+                        border-radius: 7px;
+                        padding: 8px 13px;
+                        margin-bottom: 10px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: baseline;
+                        gap: 12px;
+                        font-size: 0.79em;
+                        color: #445058;
+                        min-height: 38px;
+                      }
+
+                      .gv06-readout b {
+                        color: #1e2328;
+                      }
+
+                      .gv06-status-pill {
+                        display: inline-block;
+                        font-weight: 600;
+                        padding: 1px 9px;
+                        border-radius: 99px;
+                        font-size: 0.92em;
+                      }
+
+                      .gv06-status-pill[data-tone="good"] {
+                        background-color: #dff4ee;
+                        color: #115c4a;
+                      }
+
+                      .gv06-status-pill[data-tone="blue"] {
+                        background-color: #e3f3fa;
+                        color: #006b94;
+                      }
+
+                      .gv06-status-pill[data-tone="warn"] {
+                        background-color: #fdf0e2;
+                        color: #965616;
+                      }
+
+                      .gv06-status-pill[data-tone="bad"] {
+                        background-color: #fae4e2;
+                        color: #9e3832;
+                      }
+
+                      .gv06-canvas-wrap {
+                        width: 100%;
+                        border: 1px solid #e5edf2;
+                        border-radius: 9px;
+                        background-color: #ffffff;
+                        overflow: hidden;
+                      }
+
+                      #gv06-canvas {
+                        display: block;
+                        width: 100%;
+                        height: 284px;
+                      }
+
+                      .gv06-foot {
+                        margin-top: 9px;
+                        font-size: 0.75em;
+                        color: #68757e;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        gap: 8px;
+                      }
+
+                      @media (max-width: 640px) {
+                        .gv06-card {
+                          padding: 16px 14px;
+                        }
+
+                        .gv06-tabs {
+                          width: 100%;
+                          display: flex;
+                        }
+
+                        .gv06-tab-btn {
+                          flex: 1;
+                          text-align: center;
+                          padding: 6px 5px;
+                          font-size: 0.73em;
+                        }
+
+                        #gv06-canvas {
+                          height: 266px;
+                        }
+                      }
+                    </style>
+
+                    <figure class="gv06-card" id="gv06-root" style="margin: 0;">
+                      <div class="gv06-header">
+                        <div>
+                          <span class="gv06-kicker">Figura 6</span>
+                          <h4 class="gv06-title">Controles de calidad de señal e inferencia por rotaciones circulares</h4>
+                        </div>
+
+                        <div class="gv06-tabs" role="tablist" aria-label="Etapas de validación">
+                          <button type="button" class="gv06-tab-btn is-active" data-tab="ceiling" role="tab" aria-selected="true">
+                            1. Techo de ruido (repeticiones)
+                          </button>
+                          <button type="button" class="gv06-tab-btn" data-tab="shifts" role="tab" aria-selected="false">
+                            2. Desfase circular (291 TRs)
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Subcontroles Pestaña 1: Techo de ruido -->
+                      <div class="gv06-subcontrols" id="gv06-ctrl-ceiling">
+                        <div class="gv06-pill-group">
+                          <button type="button" class="gv06-mini-btn is-active" data-ceil="r10">10 escuchas (UTS01 a UTS03)</button>
+                          <button type="button" class="gv06-mini-btn" data-ceil="r5">5 escuchas (UTS04 a UTS10)</button>
+                          <button type="button" class="gv06-mini-btn" data-ceil="noisy">Vóxel sin señal (&lt; 0.01)</button>
+                        </div>
+                        <button type="button" class="gv06-reroll-btn" id="gv06-reroll">Sortear nuevo ruido fisiológico</button>
+                      </div>
+
+                      <!-- Subcontroles Pestaña 2: Desplazamientos circulares -->
+                      <div class="gv06-subcontrols" id="gv06-ctrl-shifts" hidden>
+                        <div class="gv06-slider-row">
+                          <span class="gv06-slider-label" id="gv06-shift-lbl">Desfase: 0 TRs (0 s)</span>
+                          <input type="range" class="gv06-range" id="gv06-shift-slider" min="0" max="290" step="1" value="0" aria-label="Desplazamiento circular en TRs">
+                          <div class="gv06-pill-group">
+                            <button type="button" class="gv06-mini-btn is-active" data-preset="0">0 TR (Real)</button>
+                            <button type="button" class="gv06-mini-btn" data-preset="6">6 TR (&lt;20 s)</button>
+                            <button type="button" class="gv06-mini-btn" data-preset="13">13 TR (26 s)</button>
+                            <button type="button" class="gv06-mini-btn" data-preset="110">110 TR (Nulo)</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="gv06-readout" id="gv06-readout" aria-live="polite"></div>
+
+                      <div class="gv06-canvas-wrap">
+                        <canvas id="gv06-canvas"></canvas>
+                      </div>
+
+                      <div class="gv06-foot" id="gv06-foot"></div>
+                    </figure>
+
+                    <script>
+                      (function () {
+                        var root = document.getElementById('gv06-root');
+                        var canvas = document.getElementById('gv06-canvas');
+                        var readout = document.getElementById('gv06-readout');
+                        var foot = document.getElementById('gv06-foot');
+                        var ctrlCeil = document.getElementById('gv06-ctrl-ceiling');
+                        var ctrlShifts = document.getElementById('gv06-ctrl-shifts');
+                        var shiftSlider = document.getElementById('gv06-shift-slider');
+                        var shiftLbl = document.getElementById('gv06-shift-lbl');
+                        if (!root || !canvas) return;
+
+                        // [OPCIONAL PARA PC PRINCIPAL]: Puedes sustituir `null` por una matriz de repeticiones reales
+                        // extraídas de `individual_repeats` en HDF5 (ej. 10 filas x 60 TRs estandarizadas) para graficar
+                        // directamente un vóxel empírico en la Pestaña 1.
+                        var REAL_VOXEL_REPEATS = null;
+
+                        var activeTab = 'ceiling';
+                        var ceilMode = 'r10';
+                        var seedVal = 42;
+                        var currentShift = 0;
+
+                        function mulberry32(a) {
+                          return function () {
+                            a |= 0; a = (a + 0x6D2B79F5) | 0;
+                            var t = Math.imul(a ^ (a >>> 15), 1 | a);
+                            t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+                            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+                          };
+                        }
+
+                        function randNorm(rng) {
+                          var u = Math.max(1e-7, rng());
+                          var v = rng();
+                          return Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+                        }
+
+                        function calcVariance(arr) {
+                          var n = arr.length, m = 0, s = 0;
+                          for (var i = 0; i < n; i++) m += arr[i];
+                          m /= n;
+                          for (var j = 0; j < n; j++) {
+                            var d = arr[j] - m;
+                            s += d * d;
+                          }
+                          return s / n;
+                        }
+
+                        // Simulación y estimador exacto de Sahani y Linden (2003)
+                        var N_CEIL_PTS = 56;
+                        var underlyingSignal = [];
+                        for (var t0 = 0; t0 < N_CEIL_PTS; t0++) {
+                          underlyingSignal.push(
+                            0.90 * Math.sin(2 * Math.PI * t0 / 18.0) +
+                            0.50 * Math.cos(2 * Math.PI * t0 / 8.5 + 0.8)
+                          );
+                        }
+
+                        function computeCeilingData() {
+                          if (REAL_VOXEL_REPEATS && ceilMode === 'r10') {
+                            return REAL_VOXEL_REPEATS;
+                          }
+                          var rng = mulberry32(seedVal);
+                          var nRep = (ceilMode === 'r10') ? 10 : 5;
+                          var sigScale = (ceilMode === 'noisy') ? 0.06 : 0.78;
+                          var noiseScale = (ceilMode === 'noisy') ? 1.15 : 0.92;
+
+                          var reps = [];
+                          for (var r = 0; r < nRep; r++) {
+                            var row = [];
+                            for (var t = 0; t < N_CEIL_PTS; t++) {
+                              row.push(sigScale * underlyingSignal[t] + noiseScale * randNorm(rng));
+                            }
+                            reps.push(row);
+                          }
+
+                          var meanSeries = [];
+                          for (var k = 0; k < N_CEIL_PTS; k++) {
+                            var acc = 0;
+                            for (var rr = 0; rr < nRep; rr++) acc += reps[rr][k];
+                            meanSeries.push(acc / nRep);
+                          }
+
+                          var varMean = calcVariance(meanSeries);
+                          var sumResidVar = 0;
+                          for (var m = 0; m < nRep; m++) {
+                            var diff = [];
+                            for (var q = 0; q < N_CEIL_PTS; q++) diff.push(reps[m][q] - meanSeries[q]);
+                            sumResidVar += calcVariance(diff);
+                          }
+                          var meanResidVar = sumResidVar / nRep;
+                          var noiseVar = meanResidVar * (nRep / (nRep - 1));
+                          var sigPower = Math.max(0, varMean - (noiseVar / nRep));
+                          var ceiling = varMean > 0 ? Math.min(1, Math.max(0, sigPower / varMean)) : 0;
+
+                          return { reps: reps, mean: meanSeries, nRep: nRep, ceiling: ceiling };
+                        }
+
+                        // Datos para los 291 TRs de desplazamientos circulares
+                        var N_TRS = 291;
+                        var BUF_BASE = 10; // 20 s -> 271 rotaciones (indices 10..280)
+                        var BUF_SENS = 16; // 32 s -> 260 rotaciones (indices 16..275)
+                        var bold291 = new Float32Array(N_TRS);
+                        var pred291 = new Float32Array(N_TRS);
+
+                        for (var ti = 0; ti < N_TRS; ti++) {
+                          var slow = 0.82 * Math.sin(2 * Math.PI * ti / 34.0)
+                                   + 0.55 * Math.cos(2 * Math.PI * ti / 17.5 + 0.6)
+                                   + 0.42 * Math.sin(2 * Math.PI * ti / 61.0 + 1.7);
+                          var fastN = 0.34 * Math.sin(ti * 0.92 + 0.3) + 0.25 * Math.cos(ti * 1.43 + 1.9);
+                          bold291[ti] = slow + fastN;
+                          pred291[ti] = 0.78 * slow + 0.14 * Math.sin(2 * Math.PI * ti / 13.0);
+                        }
+
+                        var deltaCurve = new Float32Array(N_TRS);
+                        for (var sh = 0; sh < N_TRS; sh++) {
+                          var cov = 0;
+                          for (var ii = 0; ii < N_TRS; ii++) {
+                            var src = (ii - sh) % N_TRS;
+                            if (src < 0) src += N_TRS;
+                            cov += bold291[ii] * pred291[src];
+                          }
+                          deltaCurve[sh] = (cov / N_TRS) * 0.024;
+                        }
+
+                        function renderCeiling(ctx, cssW, cssH) {
+                          var d = computeCeilingData();
+                          var padL = 42, padR = 16, padT = 26, padB = 28;
+                          var plotW = cssW - padL - padR;
+                          var plotH = cssH - padT - padB;
+                          var midY = padT + plotH / 2;
+
+                          function xFn(i) { return padL + (i / (N_CEIL_PTS - 1)) * plotW; }
+                          function yFn(v) { return midY - (v / 2.6) * (plotH / 2); }
+
+                          ctx.strokeStyle = '#e6eef2';
+                          ctx.lineWidth = 1;
+                          ctx.beginPath();
+                          ctx.moveTo(padL, midY);
+                          ctx.lineTo(padL + plotW, midY);
+                          ctx.stroke();
+
+                          // Escuchas individuales ruidosas
+                          for (var r = 0; r < d.nRep; r++) {
+                            ctx.strokeStyle = 'rgba(207, 92, 84, 0.23)';
+                            ctx.lineWidth = 1.2;
+                            ctx.beginPath();
+                            for (var i = 0; i < N_CEIL_PTS; i++) {
+                              var rx = xFn(i), ry = yFn(d.reps[r][i]);
+                              if (i === 0) ctx.moveTo(rx, ry);
+                              else ctx.lineTo(rx, ry);
+                            }
+                            ctx.stroke();
+                          }
+
+                          // Señal subyacente de referencia (si es confiable)
+                          if (ceilMode !== 'noisy') {
+                            ctx.save();
+                            ctx.strokeStyle = '#63727d';
+                            ctx.setLineDash([4, 4]);
+                            ctx.lineWidth = 1.5;
+                            ctx.beginPath();
+                            for (var s = 0; s < N_CEIL_PTS; s++) {
+                              var sx = xFn(s), sy = yFn(0.78 * underlyingSignal[s]);
+                              if (s === 0) ctx.moveTo(sx, sy);
+                              else ctx.lineTo(sx, sy);
+                            }
+                            ctx.stroke();
+                            ctx.restore();
+                          }
+
+                          // Promedio entre repeticiones
+                          ctx.strokeStyle = '#b5433b';
+                          ctx.lineWidth = 2.6;
+                          ctx.beginPath();
+                          for (var k = 0; k < N_CEIL_PTS; k++) {
+                            var mx = xFn(k), my = yFn(d.mean[k]);
+                            if (k === 0) ctx.moveTo(mx, my);
+                            else ctx.lineTo(mx, my);
+                          }
+                          ctx.stroke();
+
+                          // Leyenda superior
+                          ctx.font = '600 10px Poppins, sans-serif';
+                          ctx.textBaseline = 'middle';
+                          ctx.fillStyle = 'rgba(207, 92, 84, 0.45)';
+                          ctx.fillRect(padL, 11, 12, 2.5);
+                          ctx.fillStyle = '#48555e';
+                          ctx.fillText('Escuchas individuales (' + d.nRep + ')', padL + 16, 12);
+
+                          ctx.fillStyle = '#b5433b';
+                          ctx.fillRect(padL + 172, 11, 12, 3);
+                          ctx.fillStyle = '#1e2328';
+                          ctx.fillText('Promedio BOLD evaluado', padL + 188, 12);
+
+                          // Eje inferior
+                          var axY = padT + plotH;
+                          ctx.strokeStyle = '#cfd9e0';
+                          ctx.beginPath();
+                          ctx.moveTo(padL, axY);
+                          ctx.lineTo(padL + plotW, axY);
+                          ctx.stroke();
+
+                          ctx.fillStyle = '#68757e';
+                          ctx.font = '500 9.5px Poppins, sans-serif';
+                          ctx.textAlign = 'center';
+                          for (var tr = 0; tr < N_CEIL_PTS; tr += 10) {
+                            ctx.fillText('TR ' + tr, xFn(tr), axY + 13);
+                          }
+
+                          ctx.textAlign = 'right';
+                          ctx.fillText('0', padL - 6, midY + 3);
+
+                          var isRel = d.ceiling > 0.01;
+                          var html = '<span><b>Repeticiones:</b> ' + d.nRep + ' sesiones</span>';
+                          html += '<span><b>Techo estimado (Sahani y Linden):</b> ' + d.ceiling.toFixed(3) + '</span>';
+                          if (isRel) {
+                            html += '<span class="gv06-status-pill" data-tone="good">Vóxel confiable (&gt; 0.01, abarca el 75.45% de la corteza)</span>';
+                          } else {
+                            html += '<span class="gv06-status-pill" data-tone="bad">Por debajo de 0.01: métricas normalizadas se reportan como N/A</span>';
+                          }
+                          readout.innerHTML = html;
+                          foot.innerHTML = '<span>Al promediar múltiples escuchas del mismo relato se atenúa el ruido fisiológico no sincronizado con el audio.</span>';
+                        }
+
+                        function renderShifts(ctx, cssW, cssH) {
+                          var padL = 44, padR = 16;
+                          var plotW = cssW - padL - padR;
+
+                          // Panel superior: ventana de 85 TRs mostrando serie BOLD fija vs predicción desplazada
+                          var topT = 22, topH = 112;
+                          var topMid = topT + topH / 2;
+                          var WIN = 85;
+
+                          function xTop(i) { return padL + (i / (WIN - 1)) * plotW; }
+                          function yTop(v) { return topMid - (v / 2.2) * (topH / 2); }
+
+                          ctx.strokeStyle = '#e8eff3';
+                          ctx.beginPath();
+                          ctx.moveTo(padL, topMid);
+                          ctx.lineTo(padL + plotW, topMid);
+                          ctx.stroke();
+
+                          // BOLD fijo
+                          ctx.strokeStyle = 'rgba(207, 92, 84, 0.65)';
+                          ctx.lineWidth = 1.8;
+                          ctx.beginPath();
+                          for (var i = 0; i < WIN; i++) {
+                            var bx = xTop(i), by = yTop(bold291[i]);
+                            if (i === 0) ctx.moveTo(bx, by);
+                            else ctx.lineTo(bx, by);
+                          }
+                          ctx.stroke();
+
+                          // Predicción rotada circularmente + marca del empalme si cae en la ventana
+                          ctx.strokeStyle = '#008eb8';
+                          ctx.lineWidth = 2.2;
+                          ctx.beginPath();
+                          for (var j = 0; j < WIN; j++) {
+                            var src = (j - currentShift) % N_TRS;
+                            if (src < 0) src += N_TRS;
+                            var px = xTop(j), py = yTop(pred291[src]);
+                            if (j === 0) ctx.moveTo(px, py);
+                            else ctx.lineTo(px, py);
+                          }
+                          ctx.stroke();
+
+                          if (currentShift > 0 && currentShift < WIN) {
+                            var seamX = xTop(currentShift);
+                            ctx.save();
+                            ctx.strokeStyle = '#147a63';
+                            ctx.setLineDash([3, 3]);
+                            ctx.beginPath();
+                            ctx.moveTo(seamX, topT);
+                            ctx.lineTo(seamX, topT + topH);
+                            ctx.stroke();
+                            ctx.fillStyle = '#147a63';
+                            ctx.font = '600 9px Poppins, sans-serif';
+                            ctx.textAlign = 'left';
+                            ctx.fillText('Empalme circular', Math.min(seamX + 4, padL + plotW - 82), topT + 9);
+                            ctx.restore();
+                          }
+
+                          ctx.font = '600 10px Poppins, sans-serif';
+                          ctx.fillStyle = '#cf5c54';
+                          ctx.fillRect(padL, 9, 11, 2.5);
+                          ctx.fillStyle = '#48555e';
+                          ctx.fillText('BOLD fija (primeros 85 TRs)', padL + 15, 10);
+
+                          ctx.fillStyle = '#008eb8';
+                          ctx.fillRect(padL + 180, 9, 11, 2.5);
+                          ctx.fillText('Predicción rotada en bucle', padL + 195, 10);
+
+                          // Panel inferior: mapa completo de los 291 TRs de rotación y zonas de exclusión
+                          var botT = 160, botH = 92;
+                          var botZero = botT + botH * 0.62;
+
+                          function xBot(s) { return padL + (s / (N_TRS - 1)) * plotW; }
+                          function yBot(dVal) { return botZero - (dVal / 0.016) * (botH * 0.50); }
+
+                          // Zonas excluidas: rojo (< 10 TRs = 20 s) y ámbar (10..15 TRs = 20 a 32 s)
+                          ctx.fillStyle = 'rgba(207, 92, 84, 0.20)';
+                          ctx.fillRect(xBot(0), botT, xBot(BUF_BASE) - xBot(0), botH);
+                          ctx.fillRect(xBot(N_TRS - BUF_BASE), botT, xBot(N_TRS - 1) - xBot(N_TRS - BUF_BASE), botH);
+
+                          ctx.fillStyle = 'rgba(224, 148, 72, 0.18)';
+                          ctx.fillRect(xBot(BUF_BASE), botT, xBot(BUF_SENS) - xBot(BUF_BASE), botH);
+                          ctx.fillRect(xBot(N_TRS - BUF_SENS), botT, xBot(N_TRS - BUF_BASE) - xBot(N_TRS - BUF_SENS), botH);
+
+                          ctx.strokeStyle = '#e5edf2';
+                          ctx.beginPath();
+                          ctx.moveTo(padL, botZero);
+                          ctx.lineTo(padL + plotW, botZero);
+                          ctx.stroke();
+
+                          ctx.strokeStyle = '#4a7c9b';
+                          ctx.lineWidth = 1.5;
+                          ctx.beginPath();
+                          for (var sh = 0; sh < N_TRS; sh++) {
+                            var dx = xBot(sh), dy = yBot(deltaCurve[sh]);
+                            if (sh === 0) ctx.moveTo(dx, dy);
+                            else ctx.lineTo(dx, dy);
+                          }
+                          ctx.stroke();
+
+                          // Marcador de posición actual del deslizador
+                          var curBX = xBot(currentShift);
+                          var curBY = yBot(deltaCurve[currentShift]);
+                          ctx.fillStyle = '#b5433b';
+                          ctx.beginPath();
+                          ctx.arc(curBX, curBY, 5.5, 0, Math.PI * 2);
+                          ctx.fill();
+                          ctx.strokeStyle = '#ffffff';
+                          ctx.lineWidth = 1.5;
+                          ctx.stroke();
+
+                          ctx.fillStyle = '#48555e';
+                          ctx.font = '600 9.5px Poppins, sans-serif';
+                          ctx.textAlign = 'left';
+                          ctx.fillText('Mapa completo de las 291 rotaciones posibles (zonas sombreadas en los extremos = márgenes excluidos)', padL, botT - 8);
+
+                          var axY = botT + botH;
+                          ctx.strokeStyle = '#cfd9e0';
+                          ctx.beginPath();
+                          ctx.moveTo(padL, axY);
+                          ctx.lineTo(padL + plotW, axY);
+                          ctx.stroke();
+
+                          ctx.fillStyle = '#68757e';
+                          ctx.font = '500 9.5px Poppins, sans-serif';
+                          ctx.textAlign = 'center';
+                          var ticks = [0, 16, 75, 145, 215, 275, 290];
+                          for (var tk = 0; tk < ticks.length; tk++) {
+                            ctx.fillText(ticks[tk] + ' TR', xBot(ticks[tk]), axY + 13);
+                          }
+
+                          shiftLbl.textContent = 'Desfase: ' + currentShift + ' TRs (' + (currentShift * 2) + ' s)';
+
+                          var tone = 'blue', badge = '';
+                          if (currentShift === 0) {
+                            tone = 'good';
+                            badge = 'Sincronía real con el relato (0 TRs)';
+                          } else if (currentShift < BUF_BASE || currentShift > N_TRS - BUF_BASE) {
+                            tone = 'bad';
+                            badge = 'Excluido por margen base (< 20 s de separación hemodinámica)';
+                          } else if (currentShift < BUF_SENS || currentShift > N_TRS - BUF_SENS) {
+                            tone = 'warn';
+                            badge = 'Zona intermedia: entra en margen base (271 giros), excluida en sensibilidad de 32 s (260 giros)';
+                          } else {
+                            tone = 'blue';
+                            badge = 'Rotación nula válida en ambos análisis (ondas suaves desacopladas del audio)';
+                          }
+
+                          readout.innerHTML =
+                            '<span class="gv06-status-pill" data-tone="' + tone + '">' + badge + '</span>' +
+                            '<span><b>Diferencia resultante en este giro:</b> ' + deltaCurve[currentShift].toFixed(4) + '</span>';
+
+                          foot.innerHTML =
+                            '<span>La distribución nula se compara en los ~100,000 vóxeles de cada corteza bajo corrección FDR (q &lt; 0.05).</span>';
+                        }
+
+                        function render() {
+                          var dpr = window.devicePixelRatio || 1;
+                          var cssW = canvas.clientWidth || 720;
+                          var cssH = canvas.clientHeight || 284;
+
+                          if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {
+                            canvas.width = Math.round(cssW * dpr);
+                            canvas.height = Math.round(cssH * dpr);
+                          }
+
+                          var ctx = canvas.getContext('2d');
+                          ctx.save();
+                          ctx.scale(dpr, dpr);
+                          ctx.clearRect(0, 0, cssW, cssH);
+
+                          if (activeTab === 'ceiling') renderCeiling(ctx, cssW, cssH);
+                          else renderShifts(ctx, cssW, cssH);
+
+                          ctx.restore();
+                        }
+
+                        root.addEventListener('click', function (e) {
+                          var tabBtn = e.target.closest('.gv06-tab-btn');
+                          if (tabBtn) {
+                            var nextTab = tabBtn.getAttribute('data-tab');
+                            if (nextTab && nextTab !== activeTab) {
+                              activeTab = nextTab;
+                              ctrlCeil.hidden = (activeTab !== 'ceiling');
+                              ctrlShifts.hidden = (activeTab !== 'shifts');
+                              var tbs = root.querySelectorAll('.gv06-tab-btn');
+                              for (var i = 0; i < tbs.length; i++) {
+                                var act = (tbs[i] === tabBtn);
+                                tbs[i].classList.toggle('is-active', act);
+                                tbs[i].setAttribute('aria-selected', act ? 'true' : 'false');
+                              }
+                              render();
+                            }
+                            return;
+                          }
+
+                          var ceilBtn = e.target.closest('[data-ceil]');
+                          if (ceilBtn) {
+                            ceilMode = ceilBtn.getAttribute('data-ceil');
+                            var cbs = ctrlCeil.querySelectorAll('[data-ceil]');
+                            for (var j = 0; j < cbs.length; j++) cbs[j].classList.toggle('is-active', cbs[j] === ceilBtn);
+                            render();
+                            return;
+                          }
+
+                          var preBtn = e.target.closest('[data-preset]');
+                          if (preBtn) {
+                            currentShift = parseInt(preBtn.getAttribute('data-preset'), 10);
+                            shiftSlider.value = currentShift;
+                            var pbs = ctrlShifts.querySelectorAll('[data-preset]');
+                            for (var k = 0; k < pbs.length; k++) pbs[k].classList.toggle('is-active', pbs[k] === preBtn);
+                            render();
+                          }
+                        });
+
+                        document.getElementById('gv06-reroll').addEventListener('click', function () {
+                          seedVal += 17;
+                          render();
+                        });
+
+                        shiftSlider.addEventListener('input', function () {
+                          currentShift = parseInt(shiftSlider.value, 10) || 0;
+                          var pbs = ctrlShifts.querySelectorAll('[data-preset]');
+                          for (var k = 0; k < pbs.length; k++) {
+                            pbs[k].classList.toggle('is-active', parseInt(pbs[k].getAttribute('data-preset'), 10) === currentShift);
+                          }
+                          render();
+                        });
+
+                        window.addEventListener('resize', render);
+                        render();
+                      })();
+                    </script>
                   </div>
                   <!-- [FIN ESPACIO VISUAL 06] -->
 
