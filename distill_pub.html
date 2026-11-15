@@ -3652,23 +3652,630 @@
 
                   <!-- [INICIO ESPACIO VISUAL 04] -->
                   <div class="distill-wide">
-                    <div class="visual-placeholder" id="visual-slot-04">
-                      <span class="visual-placeholder-badge">Espacio Visual 04</span>
-                      <h4 class="visual-placeholder-title">
-                        Transformación temporal desde los eventos del habla (100 Hz) hasta las muestras del escáner
-                        (cada 2.0 s)
-                      </h4>
-                      <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Visualización interactiva de cómo los eventos breves de verbos reales de
-                        <i>Where There's Smoke</i> se convierten en ondas lentas y superpuestas de demanda sanguínea
-                        muestreadas cada dos segundos. Incluye espacio preparado para superponer la traza BOLD real de
-                        un vóxel temporal cuando se extraiga del computador principal.
-                      </p>
-                      <p class="visual-placeholder-caption">
-                        <b>Descripción:</b> Debido a la inercia vascular, cada imagen tomada por el resonador refleja la
-                        huella acumulada de varios segundos previos de narración.
-                      </p>
-                    </div>
+                    <style>
+                      .gv04-card {
+                        background-color: #ffffff;
+                        border: 1px solid #dfe7ec;
+                        border-radius: 12px;
+                        padding: 20px 22px 16px 22px;
+                        box-shadow: 0 4px 18px rgba(30, 35, 40, 0.03);
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
+
+                      .gv04-header {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 12px;
+                        margin-bottom: 12px;
+                      }
+
+                      .gv04-kicker {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.09em;
+                        color: #0099cc;
+                        display: block;
+                        margin-bottom: 2px;
+                      }
+
+                      .gv04-title {
+                        font-size: 1.03em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0;
+                      }
+
+                      .gv04-toggle {
+                        display: inline-flex;
+                        background-color: #f1f5f8;
+                        border: 1px solid #dce5eb;
+                        border-radius: 8px;
+                        padding: 3px;
+                        gap: 2px;
+                      }
+
+                      .gv04-toggle-btn {
+                        appearance: none;
+                        border: none;
+                        background: transparent;
+                        color: #526069;
+                        font-family: inherit;
+                        font-size: 0.76em;
+                        font-weight: 600;
+                        padding: 6px 12px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                        white-space: nowrap;
+                      }
+
+                      .gv04-toggle-btn:hover {
+                        color: #1e2328;
+                      }
+
+                      .gv04-toggle-btn.is-active {
+                        background-color: #ffffff;
+                        color: #007ea8;
+                        box-shadow: 0 1px 4px rgba(20, 30, 40, 0.09);
+                      }
+
+                      .gv04-readout {
+                        background-color: #f7fafc;
+                        border: 1px solid #e3ebf0;
+                        border-radius: 7px;
+                        padding: 8px 13px;
+                        margin-bottom: 10px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: baseline;
+                        gap: 12px;
+                        font-size: 0.8em;
+                        color: #445058;
+                        min-height: 38px;
+                      }
+
+                      .gv04-readout b {
+                        color: #1e2328;
+                      }
+
+                      .gv04-tr-badge {
+                        display: inline-block;
+                        background-color: #fae3e1;
+                        color: #9e3832;
+                        font-weight: 600;
+                        padding: 1px 8px;
+                        border-radius: 99px;
+                        font-size: 0.92em;
+                      }
+
+                      .gv04-verbs-badge {
+                        display: inline-block;
+                        background-color: #e0f4ee;
+                        color: #125c4b;
+                        font-weight: 600;
+                        padding: 1px 8px;
+                        border-radius: 99px;
+                        font-size: 0.92em;
+                      }
+
+                      .gv04-canvas-wrap {
+                        width: 100%;
+                        border: 1px solid #e5edf2;
+                        border-radius: 9px;
+                        background-color: #ffffff;
+                        overflow: hidden;
+                      }
+
+                      #gv04-canvas {
+                        display: block;
+                        width: 100%;
+                        height: 286px;
+                        cursor: pointer;
+                      }
+
+                      .gv04-legend-bar {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 10px;
+                        margin-top: 10px;
+                        font-size: 0.76em;
+                        color: #66737c;
+                      }
+
+                      .gv04-legend-items {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 14px;
+                        align-items: center;
+                      }
+
+                      .gv04-key-line {
+                        display: inline-block;
+                        width: 14px;
+                        height: 3px;
+                        border-radius: 2px;
+                        margin-right: 5px;
+                        vertical-align: middle;
+                      }
+
+                      .gv04-key-dot {
+                        display: inline-block;
+                        width: 9px;
+                        height: 9px;
+                        border-radius: 50%;
+                        background-color: #cf5c54;
+                        margin-right: 5px;
+                        vertical-align: middle;
+                      }
+
+                      @media (max-width: 640px) {
+                        .gv04-card {
+                          padding: 16px 14px;
+                        }
+
+                        .gv04-toggle {
+                          width: 100%;
+                          display: flex;
+                        }
+
+                        .gv04-toggle-btn {
+                          flex: 1;
+                          text-align: center;
+                          padding: 6px 6px;
+                        }
+
+                        #gv04-canvas {
+                          height: 265px;
+                        }
+                      }
+                    </style>
+
+                    <figure class="gv04-card" id="gv04-root" style="margin: 0;">
+                      <div class="gv04-header">
+                        <div>
+                          <span class="gv04-kicker">Figura 4</span>
+                          <h4 class="gv04-title">Convolución hemodinámica y muestreo cada 2.0 segundos (TR)</h4>
+                        </div>
+
+                        <div class="gv04-toggle" role="tablist" aria-label="Modo de visualización hemodinámica">
+                          <button type="button" class="gv04-toggle-btn" data-mode="single" role="tab"
+                            aria-selected="false">
+                            1. Un verbo aislado
+                          </button>
+                          <button type="button" class="gv04-toggle-btn is-active" data-mode="story" role="tab"
+                            aria-selected="true">
+                            2. Superposición real (0 a 32 s)
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="gv04-readout" id="gv04-readout" aria-live="polite"></div>
+
+                      <div class="gv04-canvas-wrap">
+                        <canvas id="gv04-canvas"></canvas>
+                      </div>
+
+                      <div class="gv04-legend-bar">
+                        <div class="gv04-legend-items">
+                          <span><span class="gv04-key-line"
+                              style="background:#147a63; height:8px; width:6px;"></span>Pulsos verbales (100 Hz)</span>
+                          <span id="gv04-subwave-key"><span class="gv04-key-line"
+                              style="background:rgba(20,122,99,0.35);"></span>Olas individuales</span>
+                          <span><span class="gv04-key-line" style="background:#008eb8;"></span>Demanda vascular
+                            sumada</span>
+                          <span><span class="gv04-key-dot"></span>Muestras del escáner (0.5 Hz / cada 2.0 s)</span>
+                        </div>
+                        <span>Toca o pasa el cursor por los puntos rojos para ver qué verbos previos capta cada
+                          TR</span>
+                      </div>
+                    </figure>
+
+                    <script>
+                      (function () {
+                        var root = document.getElementById('gv04-root');
+                        var canvas = document.getElementById('gv04-canvas');
+                        var readout = document.getElementById('gv04-readout');
+                        var subwaveKey = document.getElementById('gv04-subwave-key');
+                        if (!root || !canvas) return;
+
+                        // [OPCIONAL PARA PC PRINCIPAL]: Si deseas dibujar de fondo la serie BOLD real estandarizada
+                        // de un vóxel auditivo/temporal durante los primeros 17 TRs (0 a 32 s) de wheretheressmoke,
+                        // reemplaza `null` por un arreglo de 17 números (ej. [-0.2, 0.1, 0.5, ...]).
+                        var REAL_VOXEL_BOLD_17_TRS = null;
+
+                        var FS = 100;
+                        var DURATION_SEC = 32.0;
+                        var N_SAMPLES = Math.round(DURATION_SEC * FS) + 1;
+                        var TR_SEC = 2.0;
+
+                        // Los 12 verbos conjugados en pasado en los primeros 32 segundos de Where There's Smoke
+                        var PAST_VERBS = [
+                          { t0: 0.14, t1: 0.50, word: 'reached' },
+                          { t0: 2.42, t1: 2.96, word: 'undid' },
+                          { t0: 5.82, t1: 5.96, word: 'hit' },
+                          { t0: 7.55, t1: 7.83, word: 'flung' },
+                          { t0: 9.07, t1: 9.46, word: 'ran' },
+                          { t0: 10.97, t1: 11.43, word: 'had' },
+                          { t0: 12.53, t1: 12.69, word: 'was' },
+                          { t0: 14.52, t1: 14.74, word: 'had' },
+                          { t0: 16.26, t1: 16.40, word: 'was' },
+                          { t0: 17.28, t1: 17.56, word: 'had' },
+                          { t0: 20.24, t1: 20.41, word: 'didn\'t' },
+                          { t0: 21.93, t1: 22.10, word: 'didn\'t' }
+                        ];
+
+                        // Kernel HRF canónico de doble gamma (Friston et al., 1998) a 100 Hz
+                        var hrfKernel = new Float32Array(N_SAMPLES);
+                        var kSum = 0;
+                        var gamma6 = 120.0;
+                        var gamma16 = 1307674368000.0;
+                        for (var i = 0; i < N_SAMPLES; i++) {
+                          var t = i / FS;
+                          var g1 = (Math.pow(t, 5) * Math.exp(-t)) / gamma6;
+                          var g2 = (Math.pow(t, 15) * Math.exp(-t)) / gamma16;
+                          var v = g1 - (g2 / 6.0);
+                          hrfKernel[i] = v;
+                          kSum += v;
+                        }
+                        for (var j = 0; j < N_SAMPLES; j++) {
+                          hrfKernel[j] /= kSum;
+                        }
+
+                        function convolveVerb(verb) {
+                          var out = new Float32Array(N_SAMPLES);
+                          var s0 = Math.round(verb.t0 * FS);
+                          var s1 = Math.max(s0 + 1, Math.round(verb.t1 * FS));
+                          for (var s = s0; s < s1; s++) {
+                            for (var k = 0; k < N_SAMPLES - s; k++) {
+                              out[s + k] += hrfKernel[k];
+                            }
+                          }
+                          return out;
+                        }
+
+                        var singleWave = convolveVerb(PAST_VERBS[0]);
+                        var individualWaves = PAST_VERBS.map(convolveVerb);
+                        var summedWave = new Float32Array(N_SAMPLES);
+                        for (var w = 0; w < individualWaves.length; w++) {
+                          for (var n = 0; n < N_SAMPLES; n++) {
+                            summedWave[n] += individualWaves[w][n];
+                          }
+                        }
+
+                        function normalizePeak(arr) {
+                          var mx = 0;
+                          for (var m = 0; m < arr.length; m++) {
+                            if (arr[m] > mx) mx = arr[m];
+                          }
+                          var norm = new Float32Array(arr.length);
+                          if (mx > 0) {
+                            for (var q = 0; q < arr.length; q++) norm[q] = arr[q] / mx;
+                          }
+                          return { norm: norm, maxRaw: mx };
+                        }
+
+                        var normSingle = normalizePeak(singleWave);
+                        var normStory = normalizePeak(summedWave);
+                        var scaledSubwaves = individualWaves.map(function (arr) {
+                          var out = new Float32Array(arr.length);
+                          for (var z = 0; z < arr.length; z++) out[z] = arr[z] / normStory.maxRaw;
+                          return out;
+                        });
+
+                        var mode = 'story';
+                        var selectedTR = 7; // 14.0 segundos por defecto en modo historia
+
+                        function render() {
+                          var dpr = window.devicePixelRatio || 1;
+                          var cssW = canvas.clientWidth || 720;
+                          var cssH = canvas.clientHeight || 286;
+
+                          if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {
+                            canvas.width = Math.round(cssW * dpr);
+                            canvas.height = Math.round(cssH * dpr);
+                          }
+
+                          var ctx = canvas.getContext('2d');
+                          ctx.save();
+                          ctx.scale(dpr, dpr);
+                          ctx.clearRect(0, 0, cssW, cssH);
+
+                          var padL = 48;
+                          var padR = 20;
+                          var plotW = cssW - padL - padR;
+
+                          var stimTop = 14;
+                          var stimBot = 52;
+                          var waveTop = 74;
+                          var waveBot = cssH - 46;
+                          var zeroY = waveTop + (waveBot - waveTop) * 0.80;
+                          var ampScale = (zeroY - waveTop) * 0.92;
+
+                          function tToX(sec) {
+                            return padL + (sec / DURATION_SEC) * plotW;
+                          }
+                          function valToY(val) {
+                            return zeroY - val * ampScale;
+                          }
+
+                          var activeVerbs = (mode === 'single') ? [PAST_VERBS[0]] : PAST_VERBS;
+                          var mainCurve = (mode === 'single') ? normSingle.norm : normStory.norm;
+                          var trTime = selectedTR * TR_SEC;
+                          var trSampleIdx = Math.min(N_SAMPLES - 1, Math.round(trTime * FS));
+
+                          // Calcular cuánto aporta cada verbo previo al TR seleccionado
+                          var contributors = [];
+                          for (var vIdx = 0; vIdx < activeVerbs.length; vIdx++) {
+                            var contribVal = (mode === 'single')
+                              ? normSingle.norm[trSampleIdx]
+                              : scaledSubwaves[vIdx][trSampleIdx];
+                            if (contribVal > 0.04) {
+                              contributors.push({ idx: vIdx, verb: activeVerbs[vIdx], weight: contribVal });
+                            }
+                          }
+
+                          // Ventana sombreada de influencia vascular previa al TR seleccionado (~2 a 10 s antes)
+                          var winStart = Math.max(0, trTime - 9.5);
+                          var winEnd = trTime;
+                          if (winEnd > winStart) {
+                            var wx0 = tToX(winStart);
+                            var wx1 = tToX(winEnd);
+                            ctx.fillStyle = 'rgba(4, 180, 224, 0.06)';
+                            ctx.fillRect(wx0, stimTop, wx1 - wx0, waveBot - stimTop + 8);
+                          }
+
+                          // Carril superior: impulsos discretos a 100 Hz
+                          ctx.fillStyle = '#f8fbfc';
+                          ctx.fillRect(padL, stimTop, plotW, stimBot - stimTop);
+                          ctx.strokeStyle = '#e5eef2';
+                          ctx.lineWidth = 1;
+                          ctx.strokeRect(padL, stimTop, plotW, stimBot - stimTop);
+
+                          ctx.fillStyle = '#687680';
+                          ctx.font = '600 10px Poppins, sans-serif';
+                          ctx.textAlign = 'left';
+                          ctx.fillText('100 Hz', 8, (stimTop + stimBot) / 2 + 3);
+
+                          for (var i = 0; i < activeVerbs.length; i++) {
+                            var vb = activeVerbs[i];
+                            var vx0 = tToX(vb.t0);
+                            var vx1 = tToX(vb.t1);
+                            var vw = Math.max(3, vx1 - vx0);
+
+                            var isFeeding = false;
+                            for (var c = 0; c < contributors.length; c++) {
+                              if (contributors[c].idx === i) { isFeeding = true; break; }
+                            }
+
+                            ctx.fillStyle = isFeeding ? '#147a63' : 'rgba(20, 122, 99, 0.34)';
+                            ctx.fillRect(vx0, stimTop + 6, vw, stimBot - stimTop - 12);
+
+                            if (mode === 'single' || cssW > 540 || i % 2 === 0) {
+                              ctx.save();
+                              ctx.fillStyle = isFeeding ? '#0f5444' : '#73828c';
+                              ctx.font = (isFeeding ? '600 ' : '500 ') + '9.5px Poppins, sans-serif';
+                              ctx.textAlign = 'center';
+                              var labelY = (i % 2 === 0 || mode === 'single') ? stimTop + 12 : stimBot - 5;
+                              ctx.fillText(vb.word, vx0 + vw / 2, labelY);
+                              ctx.restore();
+                            }
+                          }
+
+                          // Líneas guía del gráfico inferior
+                          ctx.strokeStyle = '#eef2f5';
+                          ctx.lineWidth = 1;
+                          for (var trG = 0; trG <= 16; trG += 2) {
+                            var gx = tToX(trG * TR_SEC);
+                            ctx.beginPath();
+                            ctx.moveTo(gx, waveTop);
+                            ctx.lineTo(gx, waveBot + 8);
+                            ctx.stroke();
+                          }
+
+                          // Línea base cero
+                          ctx.strokeStyle = '#cbd6de';
+                          ctx.lineWidth = 1.2;
+                          ctx.beginPath();
+                          ctx.moveTo(padL, zeroY);
+                          ctx.lineTo(padL + plotW, zeroY);
+                          ctx.stroke();
+
+                          ctx.fillStyle = '#687680';
+                          ctx.font = '600 10px Poppins, sans-serif';
+                          ctx.textAlign = 'left';
+                          ctx.fillText('BOLD', 8, waveTop + 12);
+                          ctx.font = '500 9.5px Poppins, sans-serif';
+                          ctx.fillText('0', 30, zeroY + 3);
+
+                          // En modo historia: dibujar olas individuales de cada verbo
+                          if (mode === 'story') {
+                            for (var sw = 0; sw < scaledSubwaves.length; sw++) {
+                              var subArr = scaledSubwaves[sw];
+                              var activeSub = false;
+                              for (var cs = 0; cs < contributors.length; cs++) {
+                                if (contributors[cs].idx === sw) { activeSub = true; break; }
+                              }
+                              ctx.strokeStyle = activeSub ? 'rgba(20, 122, 99, 0.48)' : 'rgba(20, 122, 99, 0.16)';
+                              ctx.lineWidth = activeSub ? 1.4 : 1.0;
+                              ctx.beginPath();
+                              for (var k = 0; k < N_SAMPLES; k += 3) {
+                                var sx = tToX(k / FS);
+                                var sy = valToY(subArr[k]);
+                                if (k === 0) ctx.moveTo(sx, sy);
+                                else ctx.lineTo(sx, sy);
+                              }
+                              ctx.stroke();
+                            }
+                          }
+
+                          // Opcional: serie BOLD real si se configura en PC principal
+                          if (Array.isArray(REAL_VOXEL_BOLD_17_TRS) && REAL_VOXEL_BOLD_17_TRS.length === 17) {
+                            ctx.strokeStyle = 'rgba(95, 108, 118, 0.55)';
+                            ctx.setLineDash([4, 3]);
+                            ctx.lineWidth = 1.6;
+                            ctx.beginPath();
+                            for (var rb = 0; rb < 17; rb++) {
+                              var rbx = tToX(rb * TR_SEC);
+                              var rby = valToY(REAL_VOXEL_BOLD_17_TRS[rb]);
+                              if (rb === 0) ctx.moveTo(rbx, rby);
+                              else ctx.lineTo(rbx, rby);
+                            }
+                            ctx.stroke();
+                            ctx.setLineDash([]);
+                          }
+
+                          // Área y curva principal convolucionada a 100 Hz
+                          ctx.fillStyle = 'rgba(0, 142, 184, 0.09)';
+                          ctx.beginPath();
+                          ctx.moveTo(tToX(0), zeroY);
+                          for (var m = 0; m < N_SAMPLES; m += 2) {
+                            ctx.lineTo(tToX(m / FS), valToY(mainCurve[m]));
+                          }
+                          ctx.lineTo(tToX(DURATION_SEC), zeroY);
+                          ctx.closePath();
+                          ctx.fill();
+
+                          ctx.strokeStyle = '#008eb8';
+                          ctx.lineWidth = 2.4;
+                          ctx.beginPath();
+                          for (var n = 0; n < N_SAMPLES; n += 2) {
+                            var cx = tToX(n / FS);
+                            var cy = valToY(mainCurve[n]);
+                            if (n === 0) ctx.moveTo(cx, cy);
+                            else ctx.lineTo(cx, cy);
+                          }
+                          ctx.stroke();
+
+                          // Línea guía vertical del TR seleccionado
+                          var selX = tToX(trTime);
+                          var selVal = mainCurve[trSampleIdx];
+                          var selY = valToY(selVal);
+
+                          ctx.strokeStyle = 'rgba(207, 92, 84, 0.55)';
+                          ctx.setLineDash([3, 3]);
+                          ctx.lineWidth = 1.3;
+                          ctx.beginPath();
+                          ctx.moveTo(selX, stimTop);
+                          ctx.lineTo(selX, waveBot + 8);
+                          ctx.stroke();
+                          ctx.setLineDash([]);
+
+                          // Los 17 puntos de muestreo al TR (cada 2.0 s)
+                          for (var tr = 0; tr <= 16; tr++) {
+                            var tSec = tr * TR_SEC;
+                            var idx = Math.min(N_SAMPLES - 1, Math.round(tSec * FS));
+                            var px = tToX(tSec);
+                            var py = valToY(mainCurve[idx]);
+                            var isSel = (tr === selectedTR);
+
+                            ctx.strokeStyle = isSel ? '#b5433b' : 'rgba(207, 92, 84, 0.35)';
+                            ctx.lineWidth = isSel ? 1.8 : 1.0;
+                            ctx.beginPath();
+                            ctx.moveTo(px, zeroY);
+                            ctx.lineTo(px, py);
+                            ctx.stroke();
+
+                            ctx.fillStyle = isSel ? '#b5433b' : '#cf5c54';
+                            ctx.beginPath();
+                            ctx.arc(px, py, isSel ? 6.2 : 4.2, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.strokeStyle = '#ffffff';
+                            ctx.lineWidth = 1.5;
+                            ctx.stroke();
+                          }
+
+                          // Eje horizontal inferior (segundos y número de TR)
+                          var axisY = cssH - 26;
+                          ctx.strokeStyle = '#cfd9e0';
+                          ctx.lineWidth = 1;
+                          ctx.beginPath();
+                          ctx.moveTo(padL, axisY);
+                          ctx.lineTo(padL + plotW, axisY);
+                          ctx.stroke();
+
+                          ctx.fillStyle = '#62707a';
+                          ctx.font = '500 10px Poppins, sans-serif';
+                          ctx.textAlign = 'center';
+                          var stepLabel = cssW < 500 ? 4 : 2;
+                          for (var trTick = 0; trTick <= 16; trTick++) {
+                            if (trTick % (stepLabel / 2) !== 0) continue;
+                            var tx = tToX(trTick * TR_SEC);
+                            ctx.beginPath();
+                            ctx.moveTo(tx, axisY);
+                            ctx.lineTo(tx, axisY + 4);
+                            ctx.stroke();
+                            ctx.fillText((trTick * 2) + ' s', tx, axisY + 14);
+                          }
+
+                          ctx.restore();
+                          subwaveKey.style.display = (mode === 'story') ? 'inline' : 'none';
+                          updateReadout(trTime, selVal, contributors);
+                        }
+
+                        function updateReadout(trTime, selVal, contributors) {
+                          var h = '<span class="gv04-tr-badge">Volumen TR ' + selectedTR + ' (' + trTime.toFixed(1) + ' s)</span>';
+                          h += '<span><b>Amplitud muestreada:</b> ' + selVal.toFixed(2) + '</span>';
+
+                          if (contributors.length > 0) {
+                            contributors.sort(function (a, b) { return b.weight - a.weight; });
+                            var topNames = contributors.slice(0, 3).map(function (c) {
+                              return '«' + c.verb.word + '» (' + c.verb.t0.toFixed(1) + ' s)';
+                            });
+                            h += '<span class="gv04-verbs-badge">Refleja verbos previos: ' + topNames.join(', ') + '</span>';
+                          } else if (selVal < -0.02) {
+                            h += '<span>Fase de descenso posestímulo (debajo de la línea base tras apagarse los verbos previos)</span>';
+                          } else {
+                            h += '<span>Sin respuesta vascular acumulada todavía en este instante</span>';
+                          }
+                          readout.innerHTML = h;
+                        }
+
+                        function pickNearestTR(clientX) {
+                          var rect = canvas.getBoundingClientRect();
+                          var padL = 48, padR = 20;
+                          var plotW = rect.width - padL - padR;
+                          if (plotW <= 0) return;
+                          var ratio = Math.min(1, Math.max(0, (clientX - rect.left - padL) / plotW));
+                          var sec = ratio * DURATION_SEC;
+                          var nearest = Math.min(16, Math.max(0, Math.round(sec / TR_SEC)));
+                          if (nearest !== selectedTR) {
+                            selectedTR = nearest;
+                            render();
+                          }
+                        }
+
+                        canvas.addEventListener('mousemove', function (e) { pickNearestTR(e.clientX); });
+                        canvas.addEventListener('click', function (e) { pickNearestTR(e.clientX); });
+                        canvas.addEventListener('touchmove', function (e) {
+                          if (e.touches && e.touches[0]) pickNearestTR(e.touches[0].clientX);
+                        }, { passive: true });
+
+                        root.addEventListener('click', function (e) {
+                          var btn = e.target.closest('.gv04-toggle-btn');
+                          if (!btn) return;
+                          var nextMode = btn.getAttribute('data-mode');
+                          if (nextMode && nextMode !== mode) {
+                            mode = nextMode;
+                            selectedTR = (mode === 'single') ? 3 : 7; // 6.0 s para pulso único, 14.0 s para historia
+                            var btns = root.querySelectorAll('.gv04-toggle-btn');
+                            for (var i = 0; i < btns.length; i++) {
+                              var act = (btns[i] === btn);
+                              btns[i].classList.toggle('is-active', act);
+                              btns[i].setAttribute('aria-selected', act ? 'true' : 'false');
+                            }
+                            render();
+                          }
+                        });
+
+                        window.addEventListener('resize', render);
+                        render();
+                      })();
+                    </script>
                   </div>
                   <!-- [FIN ESPACIO VISUAL 04] -->
 
