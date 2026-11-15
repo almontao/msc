@@ -7499,6 +7499,1871 @@
                     </div>
                   </div>
 
+                  <!-- ================================================================== -->
+                  <!-- ANEXO TÉCNICO: ARQUITECTURA REPRODUCIBLE DEL PIPELINE              -->
+                  <!-- ================================================================== -->
+
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Anexo técnico</span>
+                    <h3>Arquitectura e ingeniería reproducible del pipeline</h3>
+                  </div>
+
+                  <div class="distill-row">
+                    <div class="distill-main">
+                      <p>
+                        El procesamiento de los diez participantes se estructuró en un flujo modular en Python diseñado
+                        para ejecutarse íntegramente en CPU bajo presupuestos acotados de memoria RAM. La arquitectura
+                        separa de manera estricta los datos originales en formato BIDS (tratados siempre en modo de solo
+                        lectura) frente a los artefactos derivados, registrando metadatos, validaciones de integridad y
+                        tiempos de cómputo en bases de datos SQLite locales.
+                      </p>
+
+                      <p>
+                        Cada etapa incorpora puntos de control atómicos sobre archivos Parquet para reanudar ejecuciones
+                        sin recalcular pasos previos, inferencia neuronal en una sola pasada por historia y operaciones
+                        matriciales vectorizadas por bloques espaciales y temporales. A continuación se resumen las
+                        cuatro fases del sistema; al seleccionar cualquiera de ellas o pulsar el botón superior se abre
+                        el mapa interactivo completo con los 21 módulos del repositorio, sus conexiones animadas de
+                        entrada y salida, y las decisiones técnicas de cada script.
+                      </p>
+                    </div>
+
+                    <aside class="distill-margin">
+                      <details class="tech-note">
+                        <summary>Nota técnica 10. Entorno y trazabilidad</summary>
+                        <div class="tech-note-body">
+                          El repositorio se compone de 11 orquestadores numerados (<code>scripts/00a</code> a
+                          <code>06</code>) y 7 módulos centrales en <code>src/</code> gobernados por invariantes
+                          globales en <code>src/config.py</code>. La telemetría de ejecución por script y por sujeto se
+                          registra automáticamente mediante operaciones <code>UPSERT</code> en la tabla
+                          <code>audit_execution_times</code>.
+                        </div>
+                      </details>
+                    </aside>
+                  </div>
+
+                  <!-- [INICIO ESPACIO VISUAL 09: ARQUITECTURA DEL PIPELINE] -->
+                  <div class="distill-wide" id="gv09-wrapper">
+                    <style>
+                      .gv09-card {
+                        background-color: #ffffff;
+                        border: 1px solid #dfe7ec;
+                        border-radius: 12px;
+                        padding: 20px 22px 18px 22px;
+                        box-shadow: 0 4px 18px rgba(24, 38, 50, 0.035);
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
+
+                      .gv09-top {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 12px;
+                        margin-bottom: 16px;
+                        padding-bottom: 12px;
+                        border-bottom: 1px solid #edf2f6;
+                      }
+
+                      .gv09-kicker {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.09em;
+                        color: #0099cc;
+                        display: block;
+                        margin-bottom: 2px;
+                      }
+
+                      .gv09-title {
+                        font-size: 1.04em;
+                        font-weight: 600;
+                        color: #1e262c;
+                        margin: 0;
+                      }
+
+                      .gv09-open-btn {
+                        appearance: none;
+                        background-color: #0088b8;
+                        border: 1px solid #0077a3;
+                        color: #ffffff;
+                        font-family: inherit;
+                        font-size: 0.79em;
+                        font-weight: 600;
+                        padding: 8px 15px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.18s ease;
+                        white-space: nowrap;
+                      }
+
+                      .gv09-open-btn:hover {
+                        background-color: #04b4e0;
+                        border-color: #04b4e0;
+                      }
+
+                      .gv09-preview-grid {
+                        display: grid;
+                        grid-template-columns: repeat(4, 1fr);
+                        gap: 12px;
+                      }
+
+                      .gv09-phase-card {
+                        appearance: none;
+                        text-align: left;
+                        background: linear-gradient(180deg, #fafcfe 0%, #f3f8fb 100%);
+                        border: 1px solid #dbe6ee;
+                        border-top: 3px solid #0099cc;
+                        border-radius: 9px;
+                        padding: 13px 13px 12px 13px;
+                        cursor: pointer;
+                        transition: all 0.18s ease;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                      }
+
+                      .gv09-phase-card:nth-child(1) {
+                        border-top-color: #3b6482;
+                      }
+
+                      .gv09-phase-card:nth-child(2) {
+                        border-top-color: #14826b;
+                      }
+
+                      .gv09-phase-card:nth-child(3) {
+                        border-top-color: #0088b8;
+                      }
+
+                      .gv09-phase-card:nth-child(4) {
+                        border-top-color: #04b4e0;
+                      }
+
+                      .gv09-phase-card:hover {
+                        transform: translateY(-2px);
+                        border-color: #8acbe2;
+                        box-shadow: 0 6px 16px rgba(0, 136, 184, 0.09);
+                      }
+
+                      .gv09-phase-num {
+                        font-size: 0.7em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.08em;
+                        color: #007ea8;
+                        margin-bottom: 4px;
+                        display: block;
+                      }
+
+                      .gv09-phase-name {
+                        font-size: 0.86em;
+                        font-weight: 600;
+                        color: #1e262c;
+                        line-height: 1.32;
+                        margin-bottom: 6px;
+                        display: block;
+                      }
+
+                      .gv09-phase-desc {
+                        font-size: 0.75em;
+                        color: #54636e;
+                        line-height: 1.48;
+                        margin-bottom: 10px;
+                        display: block;
+                      }
+
+                      .gv09-phase-scripts {
+                        font-size: 0.7em;
+                        font-weight: 600;
+                        color: #2b5470;
+                        background-color: #e7f1f7;
+                        padding: 3px 7px;
+                        border-radius: 5px;
+                        display: inline-block;
+                        align-self: flex-start;
+                      }
+
+                      .gv09-preview-foot {
+                        margin-top: 12px;
+                        font-size: 0.76em;
+                        color: #667580;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        gap: 8px;
+                      }
+
+                      /* Pop-up a pantalla completa */
+                      .gv09-modal-backdrop {
+                        position: fixed;
+                        inset: 0;
+                        z-index: 99999;
+                        background-color: rgba(16, 26, 34, 0.76);
+                        backdrop-filter: blur(3px);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 14px;
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
+
+                      .gv09-modal-backdrop[hidden] {
+                        display: none !important;
+                      }
+
+                      .gv09-modal-dialog {
+                        background-color: #ffffff;
+                        width: min(97vw, 1720px);
+                        height: min(94vh, 960px);
+                        border-radius: 12px;
+                        box-shadow: 0 22px 54px rgba(10, 20, 30, 0.32);
+                        display: flex;
+                        flex-direction: column;
+                        overflow: hidden;
+                      }
+
+                      .gv09-modal-bar {
+                        padding: 10px 18px;
+                        background-color: #f8fbfd;
+                        border-bottom: 1px solid #e3ecf2;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 10px;
+                      }
+
+                      .gv09-modal-title-group {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        gap: 10px;
+                      }
+
+                      .gv09-modal-title {
+                        font-size: 0.95em;
+                        font-weight: 600;
+                        color: #1e262c;
+                        margin: 0;
+                      }
+
+                      .gv09-cfg-btn {
+                        appearance: none;
+                        background-color: #eef5f9;
+                        border: 1px solid #c5d7e3;
+                        color: #294c66;
+                        font-family: inherit;
+                        font-size: 0.74em;
+                        font-weight: 600;
+                        padding: 4px 11px;
+                        border-radius: 99px;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                      }
+
+                      .gv09-cfg-btn:hover,
+                      .gv09-cfg-btn.is-active {
+                        background-color: #2c4d66;
+                        border-color: #2c4d66;
+                        color: #ffffff;
+                      }
+
+                      /* Botonera manual paso a paso */
+                      .gv09-bar-actions {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        gap: 6px;
+                      }
+
+                      .gv09-stepper {
+                        display: inline-flex;
+                        align-items: center;
+                        background-color: #eef4f8;
+                        border: 1px solid #d3e0ea;
+                        border-radius: 7px;
+                        padding: 2px;
+                        gap: 2px;
+                      }
+
+                      .gv09-nav-btn {
+                        appearance: none;
+                        border: none;
+                        background-color: #ffffff;
+                        color: #1e262c;
+                        font-family: inherit;
+                        font-size: 0.75em;
+                        font-weight: 600;
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        transition: background-color 0.15s ease;
+                      }
+
+                      .gv09-nav-btn:hover {
+                        background-color: #e1f2fa;
+                        color: #006f99;
+                      }
+
+                      .gv09-step-counter {
+                        font-size: 0.74em;
+                        font-weight: 600;
+                        color: #41525e;
+                        padding: 0 9px;
+                        min-width: 86px;
+                        text-align: center;
+                      }
+
+                      .gv09-reset-btn {
+                        appearance: none;
+                        background-color: #ffffff;
+                        border: 1px solid #cfdbe3;
+                        color: #465662;
+                        font-family: inherit;
+                        font-size: 0.75em;
+                        font-weight: 600;
+                        padding: 6px 11px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                      }
+
+                      .gv09-reset-btn:hover,
+                      .gv09-reset-btn.is-active {
+                        background-color: #eaf4fa;
+                        border-color: #0088cc;
+                        color: #006b99;
+                      }
+
+                      .gv09-close-btn {
+                        appearance: none;
+                        background-color: #f1f5f8;
+                        border: 1px solid #cfdbe3;
+                        color: #26323b;
+                        font-family: inherit;
+                        font-size: 0.77em;
+                        font-weight: 600;
+                        padding: 6px 12px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                      }
+
+                      .gv09-close-btn:hover {
+                        background-color: #e2eaf0;
+                      }
+
+                      /* Área de trabajo dividida */
+                      .gv09-workspace {
+                        flex: 1;
+                        display: grid;
+                        grid-template-columns: minmax(0, 1fr) 375px;
+                        min-height: 0;
+                        overflow: hidden;
+                      }
+
+                      .gv09-canvas-pane {
+                        overflow: auto;
+                        -webkit-overflow-scrolling: touch;
+                        background-color: #fbfdfe;
+                        padding: 10px 14px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                      }
+
+                      #gv09-svg {
+                        display: block;
+                        width: 100%;
+                        min-width: 1120px;
+                        max-height: 100%;
+                        height: auto;
+                        margin: 0 auto;
+                        user-select: none;
+                      }
+
+                      /* Flechas ocultas por defecto; solo se muestran las activas */
+                      .gv09-edge {
+                        fill: none;
+                        opacity: 0;
+                        pointer-events: none;
+                        transition: opacity 0.2s ease;
+                      }
+
+                      .gv09-edge.is-in {
+                        opacity: 1;
+                        stroke: #d97706;
+                        stroke-width: 2.6;
+                        stroke-linecap: round;
+                        stroke-dasharray: 2 7;
+                        animation: gv09FlowIn 0.9s linear infinite;
+                      }
+
+                      .gv09-edge.is-out {
+                        opacity: 1;
+                        stroke: #0088cc;
+                        stroke-width: 2.6;
+                        stroke-linecap: butt;
+                        stroke-dasharray: 11 6;
+                        animation: gv09FlowOut 0.9s linear infinite;
+                      }
+
+                      @keyframes gv09FlowIn {
+                        from {
+                          stroke-dashoffset: 18;
+                        }
+
+                        to {
+                          stroke-dashoffset: 0;
+                        }
+                      }
+
+                      @keyframes gv09FlowOut {
+                        from {
+                          stroke-dashoffset: 34;
+                        }
+
+                        to {
+                          stroke-dashoffset: 0;
+                        }
+                      }
+
+                      .gv09-node {
+                        cursor: pointer;
+                        transition: opacity 0.2s ease;
+                      }
+
+                      .gv09-node.is-dimmed {
+                        opacity: 0.48;
+                      }
+
+                      .gv09-node:hover {
+                        opacity: 1;
+                      }
+
+                      .gv09-node:hover .gv09-node-frame {
+                        stroke-width: 2.2;
+                      }
+
+                      .gv09-node.is-selected .gv09-node-frame {
+                        stroke: #0088cc !important;
+                        stroke-width: 2.8 !important;
+                        filter: drop-shadow(0 4px 12px rgba(0, 136, 204, 0.2));
+                      }
+
+                      /* Etiquetas flotantes ENTRADA / SALIDA sobre vecinos conectados */
+                      .gv09-role-tag {
+                        display: none;
+                      }
+
+                      .gv09-node.is-upstream .gv09-role-in {
+                        display: block;
+                      }
+
+                      .gv09-node.is-downstream .gv09-role-out {
+                        display: block;
+                      }
+
+                      /* Panel lateral / inferior de notas */
+                      .gv09-inspector-pane {
+                        border-left: 1px solid #e1ebf1;
+                        background-color: #ffffff;
+                        padding: 18px 20px;
+                        overflow-y: auto;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 12px;
+                      }
+
+                      .gv09-insp-badge-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 6px;
+                      }
+
+                      .gv09-insp-phase {
+                        font-size: 0.7em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.08em;
+                        color: #007ea8;
+                        background-color: #e8f6fb;
+                        padding: 3px 9px;
+                        border-radius: 99px;
+                      }
+
+                      .gv09-insp-kind {
+                        font-size: 0.71em;
+                        font-weight: 600;
+                        color: #5a6975;
+                      }
+
+                      .gv09-insp-title {
+                        font-size: 1.02em;
+                        font-weight: 600;
+                        color: #1e262c;
+                        margin: 0;
+                        line-height: 1.35;
+                      }
+
+                      .gv09-files-wrap {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 6px;
+                      }
+
+                      .gv09-file-chip {
+                        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                        font-size: 0.74em;
+                        background-color: #f0f5f9;
+                        border: 1px solid #d4e1ea;
+                        color: #234257;
+                        padding: 3px 8px;
+                        border-radius: 5px;
+                        text-decoration: none;
+                      }
+
+                      a.gv09-file-chip:hover {
+                        background-color: #e1eff8;
+                        border-color: #0088b8;
+                        color: #00668c;
+                      }
+
+                      .gv09-insp-block {
+                        border-top: 1px solid #eef3f6;
+                        padding-top: 10px;
+                      }
+
+                      .gv09-insp-label {
+                        display: block;
+                        font-size: 0.71em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.06em;
+                        color: #556570;
+                        margin-bottom: 5px;
+                      }
+
+                      .gv09-insp-text {
+                        font-size: 0.82em !important;
+                        line-height: 1.62 !important;
+                        color: #333f48 !important;
+                        margin: 0 !important;
+                      }
+
+                      .gv09-io-box {
+                        background-color: #f7fafc;
+                        border: 1px solid #e4edf2;
+                        border-radius: 7px;
+                        padding: 8px 10px;
+                        font-size: 0.77em;
+                        line-height: 1.52;
+                        color: #384650;
+                        margin-bottom: 6px;
+                      }
+
+                      .gv09-io-box.in-box {
+                        border-left: 3px solid #d97706;
+                        background-color: #fffcf7;
+                      }
+
+                      .gv09-io-box.out-box {
+                        border-left: 3px solid #0088cc;
+                        background-color: #f5fbff;
+                      }
+
+                      .gv09-io-box:last-child {
+                        margin-bottom: 0;
+                      }
+
+                      .gv09-io-box b {
+                        color: #18364a;
+                      }
+
+                      .gv09-flow-legend {
+                        margin-top: auto;
+                        padding-top: 10px;
+                        border-top: 1px solid #eef3f6;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+                        font-size: 0.74em;
+                        color: #4c5c68;
+                      }
+
+                      .gv09-legend-row {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+                      }
+
+                      @media (max-width: 1024px) {
+                        .gv09-preview-grid {
+                          grid-template-columns: repeat(2, 1fr);
+                        }
+
+                        .gv09-modal-backdrop {
+                          padding: 0;
+                        }
+
+                        .gv09-modal-dialog {
+                          width: 100vw;
+                          height: 100vh;
+                          height: 100dvh;
+                          max-height: none;
+                          border-radius: 0;
+                        }
+
+                        .gv09-workspace {
+                          grid-template-columns: 1fr;
+                          grid-template-rows: 55% 45%;
+                        }
+
+                        .gv09-canvas-pane {
+                          align-items: flex-start;
+                        }
+
+                        #gv09-svg {
+                          max-height: none;
+                        }
+
+                        .gv09-inspector-pane {
+                          border-left: none;
+                          border-top: 2px solid #d5e3ec;
+                          padding: 14px 16px;
+                        }
+                      }
+
+                      @media (max-width: 560px) {
+                        .gv09-card {
+                          padding: 16px 14px;
+                        }
+
+                        .gv09-preview-grid {
+                          grid-template-columns: 1fr;
+                        }
+
+                        .gv09-open-btn {
+                          width: 100%;
+                          text-align: center;
+                        }
+                      }
+                    </style>
+
+                    <!-- Tarjeta resumen en el post -->
+                    <figure class="gv09-card" id="gv09-card-root" style="margin: 0;">
+                      <div class="gv09-top">
+                        <div>
+                          <span class="gv09-kicker">Mapa del repositorio</span>
+                          <h4 class="gv09-title">Flujo de datos, extractores, modelos y exportación cortical</h4>
+                        </div>
+                        <button type="button" class="gv09-open-btn" id="gv09-open-btn">
+                          Explorar arquitectura completa &#x2922;
+                        </button>
+                      </div>
+
+                      <div class="gv09-preview-grid">
+                        <button type="button" class="gv09-phase-card" data-open-node="fix_00b">
+                          <div>
+                            <span class="gv09-phase-num">Fase 0</span>
+                            <span class="gv09-phase-name">Ingesta BIDS, rescate y auditorías</span>
+                            <span class="gv09-phase-desc">
+                              Inspección y reparación no destructiva de TextGrids cronológicos, conteo O(1) de
+                              repeticiones HDF5, metadatos SQLite y ajuste LSA sin fuga de datos.
+                            </span>
+                          </div>
+                          <span class="gv09-phase-scripts">scripts 00a, 00b, 00c, 01a, 01b, 01c</span>
+                        </button>
+
+                        <button type="button" class="gv09-phase-card" data-open-node="nlp_pass">
+                          <div>
+                            <span class="gv09-phase-num">Fase 1</span>
+                            <span class="gv09-phase-name">Extracción multipista a 100 Hz</span>
+                            <span class="gv09-phase-desc">
+                              Puntuación acústica por silencios, inferencia única con en_core_web_trf y proyección en 6
+                              archivos Parquet por historia validando 43 columnas exactas.
+                            </span>
+                          </div>
+                          <span class="gv09-phase-scripts">script 02 + extractors.py</span>
+                        </button>
+
+                        <button type="button" class="gv09-phase-card" data-open-node="prep_04">
+                          <div>
+                            <span class="gv09-phase-num">Fase 2</span>
+                            <span class="gv09-phase-name">Convolución HRF y regresión VEM</span>
+                            <span class="gv09-phase-desc">
+                              Convolución FFT doble gamma en paralelo, remuestreo polifásico a 0.5 Hz, Z-score
+                              intra-sesión y ajuste RidgeCV (39 vs. 43) en lotes de 10,000 vóxeles.
+                            </span>
+                          </div>
+                          <span class="gv09-phase-scripts">scripts 03, 04 + hemodynamics.py</span>
+                        </button>
+
+                        <button type="button" class="gv09-phase-card" data-open-node="null_fdr">
+                          <div>
+                            <span class="gv09-phase-num">Fase 3</span>
+                            <span class="gv09-phase-name">Inferencia nula, reportes y PyCortex</span>
+                            <span class="gv09-phase-desc">
+                              Techo de ruido de Sahani y Linden, rotaciones circulares en bloques 3D de 512 MB, control
+                              FDR, reportes con criterio N/A y visores WebGL de 3 capas.
+                            </span>
+                          </div>
+                          <span class="gv09-phase-scripts">scripts 05, 06 + standard_ridge.py</span>
+                        </button>
+                      </div>
+
+                      <div class="gv09-preview-foot">
+                        <span>Pulsa cualquier fase para abrir el plano interactivo enfocado en esa etapa</span>
+                        <span>18 módulos en Python (11 scripts en scripts/ y 7 librerías internas en src/)</span>
+                      </div>
+                    </figure>
+
+                    <!-- Pop-up a pantalla completa -->
+                    <div class="gv09-modal-backdrop" id="gv09-modal" hidden role="dialog" aria-modal="true"
+                      aria-labelledby="gv09-modal-title">
+                      <div class="gv09-modal-dialog">
+                        <div class="gv09-modal-bar">
+                          <div class="gv09-modal-title-group">
+                            <h4 class="gv09-modal-title" id="gv09-modal-title">Arquitectura implementada del pipeline
+                              VEM</h4>
+                            <button type="button" class="gv09-cfg-btn" id="gv09-cfg-btn">
+                              Parámetros globales: src/config.py
+                            </button>
+                          </div>
+
+                          <div class="gv09-bar-actions">
+                            <div class="gv09-stepper" role="group" aria-label="Navegación paso a paso">
+                              <button type="button" class="gv09-nav-btn" id="gv09-prev-btn"
+                                title="Nodo anterior (Flecha izquierda)">&#x25C0; Anterior</button>
+                              <span class="gv09-step-counter" id="gv09-step-counter">Paso 1 de 21</span>
+                              <button type="button" class="gv09-nav-btn" id="gv09-next-btn"
+                                title="Siguiente nodo (Flecha derecha)">Siguiente &#x25B6;</button>
+                            </div>
+                            <button type="button" class="gv09-reset-btn" id="gv09-overview-btn">Vista limpia</button>
+                            <button type="button" class="gv09-close-btn" id="gv09-close-btn">Cerrar &#x2715;</button>
+                          </div>
+                        </div>
+
+                        <div class="gv09-workspace">
+                          <div class="gv09-canvas-pane" id="gv09-canvas-pane">
+                            <svg id="gv09-svg" viewBox="0 0 1400 812"
+                              aria-label="Diagrama interactivo del pipeline computacional"></svg>
+                          </div>
+
+                          <aside class="gv09-inspector-pane" id="gv09-inspector" aria-live="polite">
+                            <div class="gv09-insp-badge-row">
+                              <span class="gv09-insp-phase" id="gv09-i-phase"></span>
+                              <span class="gv09-insp-kind" id="gv09-i-kind"></span>
+                            </div>
+
+                            <h5 class="gv09-insp-title" id="gv09-i-title"></h5>
+                            <div class="gv09-files-wrap" id="gv09-i-files"></div>
+
+                            <div class="gv09-insp-block">
+                              <span class="gv09-insp-label">Función en el sistema</span>
+                              <p class="gv09-insp-text" id="gv09-i-purpose"></p>
+                            </div>
+
+                            <div class="gv09-insp-block">
+                              <span class="gv09-insp-label">Entradas y salidas</span>
+                              <div class="gv09-io-box in-box" id="gv09-i-in"></div>
+                              <div class="gv09-io-box out-box" id="gv09-i-out"></div>
+                            </div>
+
+                            <div class="gv09-insp-block">
+                              <span class="gv09-insp-label">Decisiones de ingeniería y controles</span>
+                              <p class="gv09-insp-text" id="gv09-i-eng"></p>
+                            </div>
+
+                            <div class="gv09-flow-legend">
+                              <div class="gv09-legend-row">
+                                <svg width="36" height="12" viewBox="0 0 36 12" aria-hidden="true">
+                                  <line x1="2" y1="6" x2="27" y2="6" stroke="#d97706" stroke-width="2.6"
+                                    stroke-linecap="round" stroke-dasharray="2 6"></line>
+                                  <polygon points="30,2 35,6 30,10 25,6" fill="#d97706"></polygon>
+                                </svg>
+                                <span><b>Entrada al nodo</b> (puntos ámbar + rombo)</span>
+                              </div>
+                              <div class="gv09-legend-row">
+                                <svg width="36" height="12" viewBox="0 0 36 12" aria-hidden="true">
+                                  <line x1="2" y1="6" x2="27" y2="6" stroke="#0088cc" stroke-width="2.6"
+                                    stroke-dasharray="9 4"></line>
+                                  <polygon points="26,2 35,6 26,10" fill="#0088cc"></polygon>
+                                </svg>
+                                <span><b>Salida del nodo</b> (trazos azules + flecha)</span>
+                              </div>
+                            </div>
+                          </aside>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <script>
+                    window.GV09_SPEC = (function () {
+                      // Cuando el repositorio sea público tras la publicación oficial de la tesis,
+                      // reemplaza `null` por la URL base de GitHub (con barra final), por ejemplo:
+                      // 'https://github.com/amontenegrot/grammatical_tense_vem/blob/main/'
+                      var REPO_BASE_URL = null;
+
+                      var LANES = [
+                        { x: 16, y: 14, w: 328, h: 784, title: '0. Preliminares y Auditorías', tint: '#f6fafd', border: '#dce8f0' },
+                        { x: 362, y: 14, w: 332, h: 784, title: '1. Extracción Multipista (100 Hz)', tint: '#f5fbf9', border: '#d6ebe4' },
+                        { x: 712, y: 14, w: 332, h: 784, title: '2. Puente HRF y Modelos VEM', tint: '#f5fafd', border: '#d5e6f0' },
+                        { x: 1062, y: 14, w: 322, h: 784, title: '3. Inferencia, Reportes y Mapas 3D', tint: '#f3f9fc', border: '#cbe3ef' }
+                      ];
+
+                      var NODES = {
+                        cfg_global: {
+                          id: 'cfg_global',
+                          isGlobalConfig: true,
+                          phase: 'Configuración transversal',
+                          kind: 'Módulo central de constantes',
+                          title: 'Parámetros e invariantes globales del proyecto',
+                          files: ['src/config.py'],
+                          purpose: 'Centraliza todas las rutas del sistema, parámetros neurobiológicos (100 Hz, TR = 2.0 s, HRF de 32 s), umbrales de puntuación acústica (0.35 s y 0.65 s), hiperparámetros de LSA y Ridge, y el orden inmutable de las 43 columnas.',
+                          inputs: 'Rutas base de proyecto y corpus local ds003020.',
+                          outputs: 'Constantes importadas por los 11 scripts y los 6 módulos restantes de src/.',
+                          eng: 'Fija SPACES_DIMENSIONS y FEATURE_COLUMNS_ORDER en un único punto para impedir desalineaciones silenciosas entre extracción, convolución y regresión. Define presupuestos explícitos de memoria: VOXEL_BATCH_SIZE = 10000 (~2 GB RAM) y NULL_DISTRIBUTION_CHUNK_BYTES = 512 MB.'
+                        },
+
+                        bids_raw: {
+                          id: 'bids_raw', col: 0, x: 34, y: 60, w: 292, h: 74, glyph: 'db',
+                          label: 'Repositorio OpenNeuro ds003020', sub: 'stimuli/*.wav, TextGrids y *.hf5 (solo lectura)',
+                          phase: 'Fase 0', kind: 'Fuente BIDS inmutable',
+                          title: 'Repositorio crudo y derivados BIDS (ds003020 v4.0.0)',
+                          files: ['src/config.py', 'src/data_loader.py'],
+                          purpose: 'Punto de partida validado del estudio: grabaciones originales en stimuli/*.wav, transcripciones alineadas en derivatives/TextGrids y series BOLD preprocesadas en derivatives/preprocessed_data/*.hf5 (llaves "data" e "individual_repeats").',
+                          inputs: 'Archivos originales publicados por LeBel et al. (2023) en OpenNeuro.',
+                          outputs: 'Lectura estrictamente de solo consulta hacia rescate, auditoría y modelado.',
+                          eng: 'Separación física total entre DATA_DIR (crudo/BIDS) y PROJECT_ROOT/data/processed para garantizar que ningún script modifique ni sobrescriba los archivos originales.'
+                        },
+
+                        inspect_00a: {
+                          id: 'inspect_00a', col: 0, x: 34, y: 152, w: 292, h: 68, glyph: 'qa',
+                          label: 'Inspección de cabeceras Praat', sub: 'scripts/00a_inspect_bak.py (diagnóstico)',
+                          phase: 'Fase 0', kind: 'Utilidad de inspección',
+                          title: 'Inspección forense de cabeceras TextGrid no estándar',
+                          files: ['scripts/00a_inspect_bak.py'],
+                          purpose: 'Examina línea por línea la representación cruda (primeras 25 líneas con repr) de archivos problemáticos o respaldos .bak como legacy.TextGrid para identificar discrepancias frente al formato ooTextFile estándar.',
+                          inputs: 'Archivos .TextGrid o .TextGrid.bak en DIR_TEXTGRIDS.',
+                          outputs: 'Diagnóstico de estructura interna para diseñar el conversor cronológico.',
+                          eng: 'Permitió comprobar que ciertas historias del corpus venían serializadas en el formato antiguo "Praat chronological TextGrid text file" basado en pares de líneas.'
+                        },
+
+                        fix_00b: {
+                          id: 'fix_00b', col: 0, x: 34, y: 238, w: 292, h: 74, glyph: 'proc',
+                          label: 'Rescate de TextGrids cronológicos', sub: 'scripts/00b_fix_chronological_textgrids.py',
+                          phase: 'Fase 0', kind: 'Preprocesamiento no destructivo',
+                          title: 'Conversión automática a formato estándar ooTextFile',
+                          files: ['scripts/00b_fix_chronological_textgrids.py', 'src/features/text_parser.py'],
+                          purpose: 'Escanea dinámicamente todas las historias disponibles, prueba su lectura estándar con la librería tgt y, solo cuando falla, reinterpreta los pares cronológicos de tiempos y texto reconstruyendo sus capas IntervalTier.',
+                          inputs: 'Todos los archivos .TextGrid y .TextGrid.bak de DIR_TEXTGRIDS.',
+                          outputs: 'Archivos reparados en formato largo estándar dentro de textgrids_repaired/.',
+                          eng: 'Nunca sobrescribe el archivo original. La función resolve_textgrid_path() prioriza la versión reparada cuando existe y recurre al original en el resto de historias.'
+                        },
+
+                        tg_repaired: {
+                          id: 'tg_repaired', col: 0, x: 34, y: 330, w: 292, h: 72, glyph: 'db',
+                          label: 'Inventario unificado de TextGrids', sub: 'Fuentes crudas + textgrids_repaired/',
+                          phase: 'Fase 0', kind: 'Almacén derivado',
+                          title: 'Alineaciones palabra y fonema listas para consumo',
+                          files: ['src/features/text_parser.py'],
+                          purpose: 'Expone a todo el pipeline una interfaz única de consulta sobre las transcripciones alineadas al audio, combinando los originales válidos y los rescatados.',
+                          inputs: 'Salida de 00b_fix_chronological_textgrids.py y DIR_TEXTGRIDS.',
+                          outputs: 'Capas alineadas word y phone verificadas para todas las narraciones.',
+                          eng: 'discover_available_stories() desacopla la disponibilidad técnica del archivo respecto a criterios metodológicos de exclusión.'
+                        },
+
+                        debug_00c: {
+                          id: 'debug_00c', col: 0, x: 34, y: 420, w: 292, h: 68, glyph: 'qa',
+                          label: 'Diagnóstico integral pre-ejecución', sub: 'scripts/00c_debug_story.py (5 pruebas)',
+                          phase: 'Fase 0', kind: 'Verificación pre-vuelo',
+                          title: 'Prueba controlada extremo a extremo por historia o lote',
+                          files: ['scripts/00c_debug_story.py'],
+                          purpose: 'Verifica en cinco pasos lectura tgt, presencia de capas word y phone, reconstrucción de texto, inferencia spaCy y extracción de prueba antes de corridas masivas.',
+                          inputs: 'TextGrids resueltos y modelo en_core_web_trf.',
+                          outputs: 'Confirmación de viabilidad o trazas detalladas de error por historia.',
+                          eng: 'Permite validar historias puntuales por línea de comandos en pocos segundos antes de ejecutar la extracción completa del corpus.'
+                        },
+
+                        audit_01ac: {
+                          id: 'audit_01ac', col: 0, x: 34, y: 506, w: 292, h: 78, glyph: 'proc',
+                          label: 'Auditorías BIDS e historia de prueba', sub: '01a_audit_dataset + 01c_audit_test_story',
+                          phase: 'Fase 0', kind: 'Orquestadores de auditoría',
+                          title: 'Cruce de sesiones, audios WAV y repeticiones reales en HDF5',
+                          files: ['scripts/01a_audit_dataset.py', 'scripts/01c_audit_test_story.py', 'src/data_loader.py'],
+                          purpose: 'Cruza archivos WAV, TextGrids parseables y sesiones fMRI HDF5 para los 10 sujetos (01a), e inspecciona las repeticiones individuales de wheretheressmoke junto a su perfil de 303 verbos conjugados con tiempo (01c).',
+                          inputs: 'Directorios stimuli/, TextGrids y preprocessed_data/*.hf5.',
+                          outputs: 'Tablas audit_sessions, audit_subjects, audit_stories y audit_test_story_coverage.',
+                          eng: 'Lee duraciones WAV solo desde cabecera y cuenta las 5 a 10 repeticiones de individual_repeats consultando únicamente dimensiones shape con h5py en O(1), sin cargar matrices BOLD a RAM.'
+                        },
+
+                        sqlite_db: {
+                          id: 'sqlite_db', col: 0, x: 34, y: 602, w: 292, h: 74, glyph: 'db',
+                          label: 'Bases SQLite, reportes CSV y telemetría', sub: 'audit_metadata.sqlite (db_manager.py)',
+                          phase: 'Fase 0', kind: 'Persistencia relacional',
+                          title: 'Gestión segura de metadatos y tiempos de cómputo',
+                          files: ['src/db_manager.py'],
+                          purpose: 'Almacena las tablas maestras que gobiernan qué historias y sesiones procesan las fases siguientes, exporta respaldos CSV y registra los tiempos de ejecución.',
+                          inputs: 'DataFrames de auditoría (01a, 01b, 01c, 05) y cronómetros de cada script.',
+                          outputs: 'Consultas limpias hacia entrenamiento LSA, extracción, Ridge e interpretación.',
+                          eng: 'Verifica existencia previa del archivo para no crear bases fantasma vacías, cierra conexiones en bloques finally y aplica UPSERT en audit_execution_times.'
+                        },
+
+                        lsa_01b: {
+                          id: 'lsa_01b', col: 0, x: 34, y: 694, w: 292, h: 78, glyph: 'subproc',
+                          label: 'Entrenamiento semántico LSA (solo Train)', sub: '01b_train_semantic_model.py (10 dim.)',
+                          phase: 'Fase 0', kind: 'Ajuste semántico sin fuga de datos',
+                          title: 'Pipeline TF-IDF + TruncatedSVD sobre raíces sin conjugación',
+                          files: ['scripts/01b_train_semantic_model.py'],
+                          purpose: 'Segmenta cláusulas en pausas >= 0.65 s, lematiza eliminando flexión verbal, filtra 22 muletillas orales y entrena el espacio semántico excluyendo estrictamente wheretheressmoke.',
+                          inputs: 'Inventario audit_stories (excluyendo TEST_STORY) y en_core_web_trf.',
+                          outputs: 'semantic_lsa_model.joblib y reporte JSON/SQLite de cobertura léxica y OOV.',
+                          eng: 'Ejecuta nlp.pipe con n_process=1 y lotes de 256 para evitar bloqueos en CPU y cuantifica formalmente la cobertura léxica sobre la historia reservada.'
+                        },
+
+                        nlp_pass: {
+                          id: 'nlp_pass', col: 1, x: 378, y: 60, w: 300, h: 82, glyph: 'proc',
+                          label: 'Puntuación acústica e inferencia única', sub: '02_extract_features.py + text_parser.py',
+                          phase: 'Fase 1', kind: 'Motor NLP Single-Pass',
+                          title: 'Reconstrucción sintáctica por silencios e inferencia compartida',
+                          files: ['scripts/02_extract_features.py', 'src/features/text_parser.py'],
+                          purpose: 'Limpia ruidos vocales, inserta comas (>= 0.35 s) y puntos (>= 0.65 s), indexa cada caracter con su tiempo exacto en el audio e invoca una sola vez en_core_web_trf por historia.',
+                          inputs: 'TextGrid validado de cada historia y artefacto semantic_lsa_model.joblib.',
+                          outputs: 'Objeto Doc de spaCy enriquecido y tabla df_align caracter-tiempo.',
+                          eng: 'Inferir el modelo transformer una sola vez por historia y reutilizar ese Doc en los extractores categorial, sintáctico, semántico y de tiempo gramatical evita multiplicar el costo en CPU.'
+                        },
+
+                        sp_phono: {
+                          id: 'sp_phono', col: 1, x: 378, y: 164, w: 300, h: 72, glyph: 'space_ctrl', dims: 14,
+                          label: '1. Espacio fonético-fonológico', sub: '14 rasgos articulatorios ARPABET (int8)',
+                          phase: 'Fase 1', kind: 'Extractor de control (columnas 1 a 14)',
+                          title: 'PhonologicalExtractor: rasgos articulatorios binarios',
+                          files: ['src/features/extractors.py'],
+                          purpose: 'Traduce cada intervalo de la capa phone en 14 indicadores binarios a 100 Hz (vocalicidad, sonoridad, punto y modo de articulación).',
+                          inputs: 'Intervalos de la capa phone del TextGrid.',
+                          outputs: 'DataFrame (muestras_100Hz x 14) tipado en int8.',
+                          eng: 'Tipado compacto en int8 (1 byte por celda) para reducir a la octava parte el peso en memoria a resolución de 10 ms.'
+                        },
+
+                        sp_stats: {
+                          id: 'sp_stats', col: 1, x: 378, y: 250, w: 300, h: 72, glyph: 'space_ctrl', dims: 4,
+                          label: '2. Espacio léxico-estadístico', sub: '4 variables: Zipf, longitud y duración (float32)',
+                          phase: 'Fase 1', kind: 'Extractor de control (columnas 15 a 18)',
+                          title: 'LexicalStatsExtractor: familiaridad y extensión física',
+                          files: ['src/features/extractors.py'],
+                          purpose: 'Proyecta presencia de palabra, frecuencia logarítmica Zipf en inglés (wordfreq), longitud en caracteres y duración acústica en segundos.',
+                          inputs: 'Tabla de alineación temporal df_align.',
+                          outputs: 'DataFrame (muestras_100Hz x 4) en float32.',
+                          eng: 'Descuenta la facilidad de acceso léxico de auxiliares breves y muy frecuentes como was, is, had y do.'
+                        },
+
+                        sp_cat: {
+                          id: 'sp_cat', col: 1, x: 378, y: 336, w: 300, h: 72, glyph: 'space_ctrl', dims: 8,
+                          label: '3. Espacio léxico-categorial', sub: '8 canales POS y verbos sin tiempo (int8)',
+                          phase: 'Fase 1', kind: 'Extractor de control (columnas 19 a 26)',
+                          title: 'LexicalCategoricalExtractor: categorías y formas no conjugadas',
+                          files: ['src/features/extractors.py'],
+                          purpose: 'Codifica 7 categorías gramaticales generales más el canal non_finite_verb exclusivo para infinitivos (VB), gerundios (VBG) y participios (VBN).',
+                          inputs: 'Doc de spaCy alineado mediante punto medio de caracteres.',
+                          outputs: 'DataFrame (muestras_100Hz x 8) en int8.',
+                          eng: 'Absorbe la respuesta cerebral general ante acciones verbales no conjugadas sin contaminar el espacio de tiempo gramatical.'
+                        },
+
+                        sp_synt: {
+                          id: 'sp_synt', col: 1, x: 378, y: 422, w: 300, h: 72, glyph: 'space_ctrl', dims: 3,
+                          label: '4. Espacio sintáctico', sub: '3 métricas: distancia, profundidad y raíz (int16)',
+                          phase: 'Fase 1', kind: 'Extractor de control (columnas 27 a 29)',
+                          title: 'SyntacticExtractor: complejidad jerárquica de dependencias',
+                          files: ['src/features/extractors.py'],
+                          purpose: 'Mide distancia lineal hacia el núcleo |token.i - token.head.i|, número de ancestros en el árbol y condición de nodo raíz (ROOT).',
+                          inputs: 'Árbol de dependencias del Doc de spaCy.',
+                          outputs: 'DataFrame (muestras_100Hz x 3) en int16.',
+                          eng: 'Controla el costo de integración estructural en las posiciones donde suelen ubicarse los verbos conjugados.'
+                        },
+
+                        sp_sem: {
+                          id: 'sp_sem', col: 1, x: 378, y: 508, w: 300, h: 72, glyph: 'space_ctrl', dims: 10,
+                          label: '5. Espacio léxico-semántico LSA', sub: '10 dimensiones continuas por cláusula (float32)',
+                          phase: 'Fase 1', kind: 'Extractor de control (columnas 30 a 39)',
+                          title: 'SemanticLSAExtractor: tema clausal libre de flexión verbal',
+                          files: ['src/features/extractors.py'],
+                          purpose: 'Agrupa los tokens ya inferidos en cláusulas delimitadas por pausas >= 0.65 s, filtra sus lemas y proyecta las 10 dimensiones del modelo LSA.',
+                          inputs: 'Doc de spaCy, df_align y semantic_lsa_model.joblib.',
+                          outputs: 'DataFrame (muestras_100Hz x 10) en float32.',
+                          eng: 'Reutiliza los lemas ya calculados en la pasada única de spaCy y evita filtrar marcas temporales dentro del control semántico.'
+                        },
+
+                        sp_tense: {
+                          id: 'sp_tense', col: 1, x: 378, y: 594, w: 300, h: 74, glyph: 'space_target', dims: 4,
+                          label: '6. Espacio de tiempo gramatical', sub: '4 variables objetivo: pasado vs. no-pasado (int8)',
+                          phase: 'Fase 1', kind: 'Espacio de interés (columnas 40 a 43)',
+                          title: 'FiniteTenseExtractor: realizaciones morfológicas de tiempo gramatical',
+                          files: ['src/features/extractors.py'],
+                          purpose: 'Extrae past_regular (VBD con -ed), past_irregular (resto de VBD), non_past_marked_3sg (VBZ) y non_past_unmarked (VBP) en verbos léxicos y auxiliares.',
+                          inputs: 'Etiquetas morfosintácticas pos_ y tag_ del Doc de spaCy.',
+                          outputs: 'DataFrame (muestras_100Hz x 4) en int8.',
+                          eng: 'Excluye verbos modales (MD) y la contracción ambigua \'d, generando únicamente las 4 variables operativas sin columnas redundantes.'
+                        },
+
+                        parquet_100hz: {
+                          id: 'parquet_100hz', col: 1, x: 378, y: 690, w: 300, h: 82, glyph: 'db',
+                          label: 'Almacén Parquet 100 Hz + SQLite muestra', sub: '6 archivos por historia (validación 43 cols)',
+                          phase: 'Fase 1', kind: 'Almacenamiento columnar validado',
+                          title: 'Verificación de invariantes y persistencia a alta resolución',
+                          files: ['scripts/02_extract_features.py'],
+                          purpose: 'Valida la presencia y orden exacto de las 43 columnas, guarda 6 archivos Parquet por historia y exporta odetostepfather a features_presentation.sqlite.',
+                          inputs: 'Los 6 DataFrames a 100 Hz generados para cada narración.',
+                          outputs: 'data/processed/features_high_resolution/{story}_{space}.parquet.',
+                          eng: 'Usa raise ValueError explícito en lugar de assert (activo incluso bajo python -O) y verifica la existencia de los 6 archivos Parquet en cada punto de control.'
+                        },
+
+                        hrf_03: {
+                          id: 'hrf_03', col: 2, x: 728, y: 60, w: 300, h: 90, glyph: 'proc',
+                          label: 'Convolución HRF y remuestreo paralelo', sub: '03_apply_hrf.py + hemodynamics.py (FFT 32 s)',
+                          phase: 'Fase 2', kind: 'Procesamiento paralelo en frecuencia',
+                          title: 'Filtro doble gamma de Friston y reducción polifásica 200:1',
+                          files: ['scripts/03_apply_hrf.py', 'src/features/hemodynamics.py'],
+                          purpose: 'Concatena los 6 espacios en orden canónico, convoluciona cada columna con la HRF de 32 s vía FFT y remuestrea de 100 Hz a 0.5 Hz (TR = 2.0 s) con filtro antialiasing.',
+                          inputs: 'Los 6 archivos Parquet a 100 Hz de cada historia.',
+                          outputs: 'Matrices consolidadas alineadas a los volúmenes fMRI.',
+                          eng: 'Distribuye las historias entre todos los núcleos con ProcessPoolExecutor(max_workers=cpu_count()) manteniendo exactamente 43 predictores sin inflación FIR.'
+                        },
+
+                        parquet_tr: {
+                          id: 'parquet_tr', col: 2, x: 728, y: 176, w: 300, h: 82, glyph: 'db',
+                          label: 'Matrices predictoras al TR (0.5 Hz)', sub: '{story}_fmri_features.parquet (43 columnas)',
+                          phase: 'Fase 2', kind: 'Almacén funcional',
+                          title: 'Predictores sincronizados al ritmo del escáner',
+                          files: ['scripts/03_apply_hrf.py'],
+                          purpose: 'Persiste en formato Parquet (pyarrow) una matriz (TRs x 43) por historia, lista para ensamblarse con las sesiones BOLD de cualquier participante.',
+                          inputs: 'Salida verificada de apply_hrf_and_downsample().',
+                          outputs: 'Archivos en data/processed/features_fmri_tr/.',
+                          eng: 'Punto de control intermedio: las matrices lingüísticas al TR se calculan una sola vez para toda la cohorte.'
+                        },
+
+                        prep_04: {
+                          id: 'prep_04', col: 2, x: 728, y: 284, w: 300, h: 96, glyph: 'proc',
+                          label: 'Ensamblaje float32, Z-score y GroupKFold', sub: '04_train_voxelwise_standard_ridge.py',
+                          phase: 'Fase 2', kind: 'Preparación por sujeto en RAM acotada',
+                          title: 'Estandarización por sesión, promedio de prueba y bloques por relato',
+                          files: ['scripts/04_train_voxelwise_standard_ridge.py', 'src/models/standard_ridge.py'],
+                          purpose: 'Convierte X e Y a float32, aplica puntaje Z independiente a cada sesión y a cada escucha repetida, promedia wheretheressmoke y arma 3 pliegues por historia completa.',
+                          inputs: 'Parquets al TR, archivos HDF5 del sujeto y tabla audit_sessions.',
+                          outputs: 'Matrices x_train, y_train, x_test, y_test_avg y particiones Story-Blocked CV.',
+                          eng: 'Fija OMP, OPENBLAS y MKL al 100% de hilos lógicos antes de importar NumPy, recorta al mínimo común de TRs y libera memoria con gc.collect().'
+                        },
+
+                        mod_rest: {
+                          id: 'mod_rest', col: 2, x: 728, y: 408, w: 300, h: 168, glyph: 'vem_39',
+                          label: 'Modelo Restringido (39 predictores)', sub: 'RidgeCV primal: solo los 5 bloques de control',
+                          phase: 'Fase 2', kind: 'Regresión a nivel de vóxel de control',
+                          title: 'Ajuste independiente sin tiempo gramatical (columnas 1 a 39)',
+                          files: ['src/models/standard_ridge.py'],
+                          purpose: 'Entrena RidgeCV en Himalaya usando únicamente los 5 espacios de control (39 columnas), seleccionando por vóxel entre 20 valores alpha (0.01 a 10,000) en lotes de 10,000 vóxeles.',
+                          inputs: 'x_train[:, :39] e y_train agrupados en 3 pliegues de historias.',
+                          outputs: 'Predicciones fuera de muestra y_pred_r y acierto base r2_restricted.',
+                          eng: 'Recalibra su propia penalización L2 sin las 4 columnas objetivo para que los controles absorban toda la varianza compartida que puedan explicar por sí mismos.'
+                        },
+
+                        mod_glob: {
+                          id: 'mod_glob', col: 2, x: 728, y: 600, w: 300, h: 172, glyph: 'vem_43',
+                          label: 'Modelo Global (43 predictores)', sub: 'RidgeCV primal: 5 controles + Tiempo gramatical',
+                          phase: 'Fase 2', kind: 'Regresión a nivel de vóxel completa',
+                          title: 'Ajuste completo incorporando el espacio de tiempo gramatical',
+                          files: ['src/models/standard_ridge.py'],
+                          purpose: 'Entrena RidgeCV bajo las mismas particiones de historias usando las 43 columnas completas (los 39 controles más las 4 variables de tiempo gramatical).',
+                          inputs: 'x_train (43 columnas) e y_train en lotes espaciales de 10,000 vóxeles.',
+                          outputs: 'Predicciones fuera de muestra y_pred_g y acierto completo r2_global.',
+                          eng: 'El particionado espacial en bloques de 10,000 vóxeles mantiene el consumo de RAM por debajo de ~2 GB durante el ajuste de los 943,305 modelos.'
+                        },
+
+                        ceiling_sl: {
+                          id: 'ceiling_sl', col: 3, x: 1078, y: 60, w: 290, h: 112, glyph: 'proc',
+                          label: 'Techo de ruido (Sahani y Linden)', sub: 'compute_noise_ceiling() sobre 5 a 10 escuchas',
+                          phase: 'Fase 3', kind: 'Estimador de límite biológico',
+                          title: 'Varianza explicable con corrección por muestra finita',
+                          files: ['src/models/standard_ridge.py', 'scripts/04_train_voxelwise_standard_ridge.py'],
+                          purpose: 'Descompone la varianza entre las repeticiones estandarizadas de wheretheressmoke aplicando el factor R/(R-1) para estimar el R² máximo alcanzable en cada vóxel.',
+                          inputs: 'Matrices estandarizadas de individual_repeats por participante.',
+                          outputs: 'Vector r2_noise_ceiling en anatomía nativa.',
+                          eng: 'Aplica el piso NOISE_CEILING_MIN_THRESHOLD = 0.01 (superado en el 75.45% de la corteza) y asigna NaN por debajo para evitar divisiones inestables.'
+                        },
+
+                        var_part: {
+                          id: 'var_part', col: 3, x: 1078, y: 202, w: 290, h: 112, glyph: 'proc',
+                          label: 'Aislamiento y normalización de señal', sub: 'Ganancia predictiva bruta y sobre techo',
+                          phase: 'Fase 3', kind: 'Partición de varianza fuera de muestra',
+                          title: 'Cálculo del aporte exclusivo del tiempo gramatical',
+                          files: ['src/models/standard_ridge.py'],
+                          purpose: 'Obtiene delta_r2_tense = r2_global - r2_restricted sobre la serie BOLD promediada de prueba, tanto en escala directa como normalizada por el techo de ruido.',
+                          inputs: 'r2_global, r2_restricted y r2_noise_ceiling.',
+                          outputs: 'Vectores continuos de diferencia predictiva en cada vóxel.',
+                          eng: 'Implementa _r2_score_batch() vectorizado en float32 replicando los casos borde de varianza nula de scikit-learn.'
+                        },
+
+                        null_fdr: {
+                          id: 'null_fdr', col: 3, x: 1078, y: 344, w: 290, h: 124, glyph: 'proc',
+                          label: 'Rotaciones 3D exhaustivas y FDR', sub: 'Bloques de 512 MB (márgenes de 20 s y 32 s)',
+                          phase: 'Fase 3', kind: 'Inferencia no paramétrica vectorizada',
+                          title: 'Desplazamientos circulares sin reemplazo y Benjamini-Hochberg',
+                          files: ['src/models/standard_ridge.py'],
+                          purpose: 'Evalúa las 271 rotaciones válidas del margen base (±10 TRs) y las 260 de sensibilidad (±16 TRs), aplicando corrección de continuidad y FDR (q < 0.05) en toda la corteza.',
+                          inputs: 'Series predichas y_pred_g, y_pred_r y serie observada y_te_batch.',
+                          outputs: 'Archivo {sub}_voxelwise_results.parquet con 17 columnas por vóxel.',
+                          eng: 'Precalcula una sola vez SS_tot, vectoriza los giros en arreglos 3D acotados a 512 MB y deriva el análisis de sensibilidad de 32 s filtrando la misma matriz nula sin recalcular.'
+                        },
+
+                        stats_05: {
+                          id: 'stats_05', col: 3, x: 1078, y: 498, w: 290, h: 114, glyph: 'db',
+                          label: 'Síntesis estadística y protocolo N/A', sub: '05_statistical_interpretation.py (MD/CSV/SQL)',
+                          phase: 'Fase 3', kind: 'Reportes cuantitativos auditables',
+                          title: 'Caracterización en 5 niveles y resguardo frente a hallazgos nulos',
+                          files: ['scripts/05_statistical_interpretation.py'],
+                          purpose: 'Resume medianas, rangos intercuartílicos, percentiles, cobertura de techo y estabilidad al margen por participante y en la cohorte de 10 cerebros.',
+                          inputs: 'Los 10 archivos *_voxelwise_results.parquet.',
+                          outputs: 'Reporte Markdown, tabla CSV y registro SQLite audit_statistical_summary.',
+                          eng: 'Reporta estrictamente la cadena "N/A" cuando ningún vóxel supera FDR, evitando confundir ausencia de detección estadística con una magnitud igual a 0.0.'
+                        },
+
+                        pycortex_06: {
+                          id: 'pycortex_06', col: 3, x: 1078, y: 642, w: 290, h: 130, glyph: 'cortex',
+                          label: 'Visores corticales 3D en PyCortex', sub: '06_generate_cortical_maps.py (3 capas WebGL)',
+                          phase: 'Fase 3', kind: 'Proyección en superficie nativa',
+                          title: 'Exportación estática autónoma de mapas tridimensionales',
+                          files: ['scripts/06_generate_cortical_maps.py'],
+                          purpose: 'Proyecta los resultados sobre la malla anatómica individual de cada sujeto en tres capas: 1 (Modelo Global), 2a (Tiempo gramatical FDR < 0.05) y 2b (Continuo sin filtro).',
+                          inputs: 'Parquets de resultados por vóxel y transformaciones en pycortex-db.',
+                          outputs: '10 visores interactivos WebGL en cortical_maps_web/sub-UTSXX/.',
+                          eng: 'Configura de forma segura el filestore local, ajusta escalas al percentil 99 dinámico y enmascara con NaN bajo umbral para transparencia nativa sobre los surcos.'
+                        }
+                      };
+
+                      var EDGES = [
+                        ['bids_raw', 'inspect_00a'],
+                        ['bids_raw', 'fix_00b'],
+                        ['inspect_00a', 'fix_00b'],
+                        ['fix_00b', 'tg_repaired'],
+                        ['tg_repaired', 'debug_00c'],
+                        ['bids_raw', 'audit_01ac'],
+                        ['tg_repaired', 'audit_01ac'],
+                        ['audit_01ac', 'sqlite_db'],
+                        ['sqlite_db', 'lsa_01b'],
+                        ['tg_repaired', 'lsa_01b'],
+                        ['tg_repaired', 'nlp_pass'],
+                        ['sqlite_db', 'nlp_pass'],
+                        ['lsa_01b', 'sp_sem'],
+                        ['nlp_pass', 'sp_phono'],
+                        ['nlp_pass', 'sp_stats'],
+                        ['nlp_pass', 'sp_cat'],
+                        ['nlp_pass', 'sp_synt'],
+                        ['nlp_pass', 'sp_sem'],
+                        ['nlp_pass', 'sp_tense'],
+                        ['sp_phono', 'parquet_100hz'],
+                        ['sp_stats', 'parquet_100hz'],
+                        ['sp_cat', 'parquet_100hz'],
+                        ['sp_synt', 'parquet_100hz'],
+                        ['sp_sem', 'parquet_100hz'],
+                        ['sp_tense', 'parquet_100hz'],
+                        ['parquet_100hz', 'hrf_03'],
+                        ['hrf_03', 'parquet_tr'],
+                        ['parquet_tr', 'prep_04'],
+                        ['sqlite_db', 'prep_04'],
+                        ['bids_raw', 'prep_04'],
+                        ['prep_04', 'mod_rest'],
+                        ['prep_04', 'mod_glob'],
+                        ['prep_04', 'ceiling_sl'],
+                        ['mod_rest', 'var_part'],
+                        ['mod_glob', 'var_part'],
+                        ['ceiling_sl', 'var_part'],
+                        ['var_part', 'null_fdr'],
+                        ['mod_rest', 'null_fdr'],
+                        ['mod_glob', 'null_fdr'],
+                        ['null_fdr', 'stats_05'],
+                        ['stats_05', 'sqlite_db'],
+                        ['null_fdr', 'pycortex_06']
+                      ];
+
+                      var STEP_ORDER = [
+                        'cfg_global',
+                        'bids_raw', 'inspect_00a', 'fix_00b', 'tg_repaired', 'debug_00c',
+                        'audit_01ac', 'sqlite_db', 'lsa_01b', 'nlp_pass',
+                        'sp_phono', 'sp_stats', 'sp_cat', 'sp_synt', 'sp_sem', 'sp_tense',
+                        'parquet_100hz', 'hrf_03', 'parquet_tr', 'prep_04',
+                        'mod_rest', 'mod_glob', 'ceiling_sl', 'var_part',
+                        'null_fdr', 'stats_05', 'pycortex_06'
+                      ];
+
+                      return {
+                        REPO_BASE_URL: REPO_BASE_URL,
+                        LANES: LANES,
+                        NODES: NODES,
+                        EDGES: EDGES,
+                        STEP_ORDER: STEP_ORDER
+                      };
+                    })();
+                  </script>
+
+                  <script>
+                    window.GV09_RENDER = (function () {
+                      var S = window.GV09_SPEC;
+                      var svgNS = 'http://www.w3.org/2000/svg';
+
+                      function el(tag, attrs) {
+                        var node = document.createElementNS(svgNS, tag);
+                        if (attrs) {
+                          for (var k in attrs) {
+                            if (Object.prototype.hasOwnProperty.call(attrs, k)) {
+                              node.setAttribute(k, attrs[k]);
+                            }
+                          }
+                        }
+                        return node;
+                      }
+
+                      // Cilindro vectorial para bases de datos (BIDS, SQLite, Parquet, HDF5)
+                      function drawDbIcon(g, x, y) {
+                        var stroke = '#2c5370', fillTop = '#d7e9f5', fillBody = '#e9f3f9';
+                        g.appendChild(el('path', {
+                          d: 'M ' + x + ' ' + (y + 6) + ' L ' + x + ' ' + (y + 24) +
+                            ' A 11 4.5 0 0 0 ' + (x + 22) + ' ' + (y + 24) +
+                            ' L ' + (x + 22) + ' ' + (y + 6) + ' Z',
+                          fill: fillBody, stroke: stroke, 'stroke-width': '1.5'
+                        }));
+                        g.appendChild(el('ellipse', {
+                          cx: x + 11, cy: y + 6, rx: 11, ry: 4.5,
+                          fill: fillTop, stroke: stroke, 'stroke-width': '1.5'
+                        }));
+                        g.appendChild(el('path', {
+                          d: 'M ' + x + ' ' + (y + 15) + ' A 11 4 0 0 0 ' + (x + 22) + ' ' + (y + 15),
+                          fill: 'none', stroke: stroke, 'stroke-width': '1.2'
+                        }));
+                      }
+
+                      // Miniatura exacta del número de dimensiones (14, 4, 8, 3, 10 o 4 celdas) a la derecha de cada extractor
+                      function drawExactDimsBadge(g, rightX, midY, nDims, isTarget) {
+                        var cols = (nDims > 8) ? 5 : 4;
+                        var rows = Math.ceil(nDims / cols);
+                        var cellS = 5.5, gap = 2;
+                        var totalW = cols * cellS + (cols - 1) * gap;
+                        var totalH = rows * cellS + (rows - 1) * gap;
+                        var startX = rightX - totalW - 12;
+                        var startY = midY - totalH / 2;
+
+                        g.appendChild(el('rect', {
+                          x: startX - 4, y: startY - 4, width: totalW + 8, height: totalH + 8, rx: 4,
+                          fill: isTarget ? '#d7f2ea' : '#e5f4ee',
+                          stroke: isTarget ? '#14826b' : '#65a892', 'stroke-width': '1.1'
+                        }));
+
+                        for (var i = 0; i < nDims; i++) {
+                          var r = Math.floor(i / cols);
+                          var c = i % cols;
+                          var shade = isTarget
+                            ? ((i % 2 === 0) ? '#117864' : '#3ca38c')
+                            : ((i % 3 === 0) ? '#357d66' : '#6cb39b');
+                          g.appendChild(el('rect', {
+                            x: startX + c * (cellS + gap),
+                            y: startY + r * (cellS + gap),
+                            width: cellS, height: cellS, rx: 1.2, fill: shade
+                          }));
+                        }
+                      }
+
+                      // Representación estilo Gallant Lab (X * W -> Y_hat) dentro de los nodos Modelo Restringido y Global
+                      function drawGallantModelDiagram(g, x, y, w, isGlobal) {
+                        var boxY = y + 60;
+                        var boxH = 92;
+                        g.appendChild(el('rect', {
+                          x: x + 12, y: boxY, width: w - 24, height: boxH, rx: 7,
+                          fill: '#ffffff', stroke: isGlobal ? '#b5dfd4' : '#d5e2eb', 'stroke-width': '1.2'
+                        }));
+
+                        // 1. Pila de matrices X (5 controles + sexta casilla vacía o activa)
+                        var sx = x + 28, sy = boxY + 14;
+                        for (var k = 0; k < 5; k++) {
+                          g.appendChild(el('rect', {
+                            x: sx + k * 4, y: sy + k * 3.5, width: 32, height: 38, rx: 4,
+                            fill: '#d9efe6', stroke: '#4d967d', 'stroke-width': '1.2'
+                          }));
+                        }
+                        if (isGlobal) {
+                          var gx = sx + 22, gy = sy + 19;
+                          g.appendChild(el('rect', {
+                            x: gx, y: gy, width: 32, height: 38, rx: 4,
+                            fill: '#c6efe3', stroke: '#0f7560', 'stroke-width': '1.8'
+                          }));
+                          for (var r = 0; r < 2; r++) {
+                            for (var c = 0; c < 2; c++) {
+                              g.appendChild(el('rect', {
+                                x: gx + 6 + c * 11, y: gy + 7 + r * 12, width: 8, height: 8, rx: 1.5,
+                                fill: ((r + c) % 2 === 0) ? '#0f7560' : '#5bb8a2'
+                              }));
+                            }
+                          }
+                        } else {
+                          g.appendChild(el('rect', {
+                            x: sx + 22, y: sy + 19, width: 32, height: 38, rx: 4,
+                            fill: 'rgba(255,255,255,0.75)', stroke: '#9db0bd', 'stroke-width': '1.3', 'stroke-dasharray': '3,2'
+                          }));
+                        }
+
+                        var lblX = el('text', { x: sx + 27, y: boxY + 84, 'text-anchor': 'middle', 'font-size': '9.2', 'font-weight': '600', fill: '#485a66' });
+                        lblX.textContent = isGlobal ? 'X (6 bloques: 43)' : 'X (5 controles: 39)';
+                        g.appendChild(lblX);
+
+                        // Signo por
+                        var mul = el('text', { x: x + 106, y: boxY + 46, 'text-anchor': 'middle', 'font-size': '15', 'font-weight': '700', fill: '#3f515e' });
+                        mul.textContent = '×';
+                        g.appendChild(mul);
+
+                        // 2. Pila de matrices azules de pesos W
+                        var wx = x + 122, wy = boxY + 16;
+                        var nW = isGlobal ? 6 : 5;
+                        for (var b = 0; b < nW; b++) {
+                          g.appendChild(el('rect', {
+                            x: wx + b * 3.8, y: wy + b * 3.5, width: 30, height: 36, rx: 4,
+                            fill: '#dceef9', stroke: '#3c8ec2', 'stroke-width': '1.2'
+                          }));
+                        }
+                        var lastWx = wx + (nW - 1) * 3.8, lastWy = wy + (nW - 1) * 3.5;
+                        for (var wr = 0; wr < 2; wr++) {
+                          for (var wc = 0; wc < 2; wc++) {
+                            g.appendChild(el('rect', {
+                              x: lastWx + 6 + wc * 10, y: lastWy + 7 + wr * 11, width: 7, height: 7, rx: 1.5,
+                              fill: ((wr + wc) % 2 === 0) ? '#2b6f9e' : '#7cb8e0'
+                            }));
+                          }
+                        }
+
+                        var lblW = el('text', { x: wx + 24, y: boxY + 84, 'text-anchor': 'middle', 'font-size': '9.2', 'font-weight': '600', fill: '#485a66' });
+                        lblW.textContent = isGlobal ? 'Pesos W (43)' : 'Pesos W (39)';
+                        g.appendChild(lblW);
+
+                        // Flecha hacia serie predicha
+                        var eq = el('text', { x: x + 193, y: boxY + 45, 'text-anchor': 'middle', 'font-size': '14', 'font-weight': '700', fill: '#3f515e' });
+                        eq.textContent = '→';
+                        g.appendChild(eq);
+
+                        // 3. Onda predicha para los vóxeles del lote
+                        var px = x + 210, py = boxY + 20;
+                        g.appendChild(el('rect', {
+                          x: px, y: py, width: 64, height: 42, rx: 5,
+                          fill: isGlobal ? '#eef9f6' : '#f3f8fb',
+                          stroke: isGlobal ? '#14826b' : '#58829e', 'stroke-width': '1.3'
+                        }));
+                        var wavePath = isGlobal
+                          ? ('M ' + (px + 6) + ' ' + (py + 26) + ' Q ' + (px + 18) + ' ' + (py + 8) + ', ' + (px + 30) + ' ' + (py + 24) + ' T ' + (px + 58) + ' ' + (py + 15))
+                          : ('M ' + (px + 6) + ' ' + (py + 25) + ' Q ' + (px + 18) + ' ' + (py + 13) + ', ' + (px + 30) + ' ' + (py + 23) + ' T ' + (px + 58) + ' ' + (py + 19));
+                        g.appendChild(el('path', {
+                          d: wavePath, fill: 'none',
+                          stroke: isGlobal ? '#117864' : '#2c6b94', 'stroke-width': '2'
+                        }));
+
+                        var lblY = el('text', { x: px + 32, y: boxY + 84, 'text-anchor': 'middle', 'font-size': '9.2', 'font-weight': '600', fill: '#485a66' });
+                        lblY.textContent = isGlobal ? 'Predicción (43)' : 'Predicción (39)';
+                        g.appendChild(lblY);
+                      }
+
+                      // Silueta cortical doble para el nodo de PyCortex
+                      function drawCortexPair(g, x, y) {
+                        for (var h = 0; h < 2; h++) {
+                          var ox = x + h * 26;
+                          g.appendChild(el('path', {
+                            d: 'M ' + (ox + 2) + ' ' + (y + 18) +
+                              ' C ' + (ox + 1) + ' ' + (y + 5) + ', ' + (ox + 12) + ' ' + (y + 1) + ', ' + (ox + 20) + ' ' + (y + 5) +
+                              ' C ' + (ox + 26) + ' ' + (y + 8) + ', ' + (ox + 26) + ' ' + (y + 19) + ', ' + (ox + 20) + ' ' + (y + 23) +
+                              ' C ' + (ox + 14) + ' ' + (y + 25) + ', ' + (ox + 10) + ' ' + (y + 19) + ', ' + (ox + 6) + ' ' + (y + 21) + ' Z',
+                            fill: '#d9eef9', stroke: '#0077a3', 'stroke-width': '1.4'
+                          }));
+                          g.appendChild(el('circle', { cx: ox + 14, cy: y + 13, r: 3.8, fill: h === 0 ? '#04b4e0' : '#14826b', opacity: '0.8' }));
+                        }
+                      }
+
+                      // Etiqueta flotante ENTRADA / SALIDA en la esquina superior derecha de vecinos conectados
+                      function appendRoleTag(g, x, y, w, isInput) {
+                        var tagW = 58, tagH = 16;
+                        var tx = x + w - tagW - 8;
+                        var ty = y - 8;
+                        var subG = el('g', { 'class': 'gv09-role-tag ' + (isInput ? 'gv09-role-in' : 'gv09-role-out') });
+                        subG.appendChild(el('rect', {
+                          x: tx, y: ty, width: tagW, height: tagH, rx: 8,
+                          fill: isInput ? '#fef3c7' : '#e0f4fc',
+                          stroke: isInput ? '#d97706' : '#0088cc',
+                          'stroke-width': '1.2'
+                        }));
+                        var txt = el('text', {
+                          x: tx + tagW / 2, y: ty + 11.2,
+                          'text-anchor': 'middle', 'font-size': '8.5', 'font-weight': '700',
+                          fill: isInput ? '#92400e' : '#005f8f'
+                        });
+                        txt.textContent = isInput ? 'ENTRADA' : 'SALIDA';
+                        subG.appendChild(txt);
+                        g.appendChild(subG);
+                      }
+
+                      // Ruteo limpio de curvas: usa márgenes laterales cuando salta cajas en la misma columna
+                      function computeCleanEdgePath(a, b) {
+                        if (a.col === b.col) {
+                          var gapY = b.y - (a.y + a.h);
+                          // Vecinos verticales inmediatos: línea recta corta
+                          if (gapY >= 0 && gapY < 42) {
+                            var cx = a.x + a.w / 2;
+                            return 'M ' + cx + ' ' + (a.y + a.h) + ' L ' + cx + ' ' + (b.y - 5);
+                          }
+                          // Salto entre cajas de la misma columna: arco limpio por el margen izquierdo del carril
+                          var railX = a.x - 13;
+                          var sy = a.y + a.h / 2;
+                          var ey = b.y + b.h / 2;
+                          return 'M ' + a.x + ' ' + sy +
+                            ' C ' + (railX - 4) + ' ' + sy + ', ' +
+                            (railX - 4) + ' ' + ey + ', ' +
+                            (b.x - 5) + ' ' + ey;
+                        }
+
+                        // Salto de retorno largo (stats_05 -> sqlite_db) por el corredor inferior
+                        if (a.id === 'stats_05' && b.id === 'sqlite_db') {
+                          var sxB = a.x + a.w / 2;
+                          var exB = b.x + b.w / 2;
+                          return 'M ' + sxB + ' ' + (a.y + a.h) +
+                            ' L ' + sxB + ' 786 L ' + exB + ' 786 L ' + exB + ' ' + (b.y + b.h + 5);
+                        }
+
+                        // Salto superior de 2 columnas (bids_raw o sqlite_db -> prep_04)
+                        if (b.col - a.col > 1) {
+                          var corridorY = (a.y < 300) ? 46 : 784;
+                          var startY = (a.y < 300) ? a.y : (a.y + a.h);
+                          var endX = b.x + 40;
+                          var endY = (a.y < 300) ? (b.y - 5) : (b.y + b.h + 5);
+                          return 'M ' + (a.x + a.w * 0.75) + ' ' + startY +
+                            ' L ' + (a.x + a.w * 0.75) + ' ' + corridorY +
+                            ' L ' + endX + ' ' + corridorY +
+                            ' L ' + endX + ' ' + endY;
+                        }
+
+                        // Columnas adyacentes: curva Bézier suave en el callejón entre carriles
+                        var p1x = a.x + a.w, p1y = a.y + a.h / 2;
+                        var p2x = b.x - 5, p2y = b.y + b.h / 2;
+                        var midOff = Math.max(22, (p2x - p1x) * 0.5);
+                        return 'M ' + p1x + ' ' + p1y +
+                          ' C ' + (p1x + midOff) + ' ' + p1y + ', ' +
+                          (p2x - midOff) + ' ' + p2y + ', ' +
+                          p2x + ' ' + p2y;
+                      }
+
+                      function buildDiagram(svg) {
+                        svg.innerHTML = '';
+
+                        // Marcadores diferenciados en forma y color: Rombo ámbar para Entrada, Flecha azul para Salida
+                        var defs = el('defs');
+
+                        var mkInEnd = el('marker', {
+                          id: 'gv09-mk-in-end', viewBox: '0 0 12 12', refX: '9', refY: '6',
+                          markerWidth: '6.5', markerHeight: '6.5', orient: 'auto'
+                        });
+                        mkInEnd.appendChild(el('polygon', { points: '6,1 11,6 6,11 1,6', fill: '#d97706' }));
+                        defs.appendChild(mkInEnd);
+
+                        var mkInStart = el('marker', {
+                          id: 'gv09-mk-in-start', viewBox: '0 0 10 10', refX: '5', refY: '5',
+                          markerWidth: '4.5', markerHeight: '4.5', orient: 'auto'
+                        });
+                        mkInStart.appendChild(el('circle', { cx: '5', cy: '5', r: '3.2', fill: '#ffffff', stroke: '#d97706', 'stroke-width': '2' }));
+                        defs.appendChild(mkInStart);
+
+                        var mkOutEnd = el('marker', {
+                          id: 'gv09-mk-out-end', viewBox: '0 0 12 12', refX: '9', refY: '6',
+                          markerWidth: '6.5', markerHeight: '6.5', orient: 'auto'
+                        });
+                        mkOutEnd.appendChild(el('polygon', { points: '1,1.5 11,6 1,10.5', fill: '#0088cc' }));
+                        defs.appendChild(mkOutEnd);
+
+                        var mkOutStart = el('marker', {
+                          id: 'gv09-mk-out-start', viewBox: '0 0 10 10', refX: '5', refY: '5',
+                          markerWidth: '4.2', markerHeight: '4.2', orient: 'auto'
+                        });
+                        mkOutStart.appendChild(el('circle', { cx: '5', cy: '5', r: '3.5', fill: '#0088cc' }));
+                        defs.appendChild(mkOutStart);
+
+                        svg.appendChild(defs);
+
+                        // 1. Carriles de las 4 fases
+                        var lanesGroup = el('g');
+                        for (var l = 0; l < S.LANES.length; l++) {
+                          var ln = S.LANES[l];
+                          lanesGroup.appendChild(el('rect', {
+                            x: ln.x, y: ln.y, width: ln.w, height: ln.h, rx: 12,
+                            fill: ln.tint, stroke: ln.border, 'stroke-width': '1.3'
+                          }));
+                          var hdr = el('text', {
+                            x: ln.x + 18, y: ln.y + 27,
+                            'font-size': '12.2', 'font-weight': '700', fill: '#234156'
+                          });
+                          hdr.textContent = ln.title;
+                          lanesGroup.appendChild(hdr);
+                        }
+                        svg.appendChild(lanesGroup);
+
+                        // 2. Nodos primero y capa de flechas activas encima para máxima nitidez
+                        var nodesGroup = el('g');
+                        var edgesGroup = el('g');
+                        var nodeRefs = {};
+                        var edgeRefs = [];
+
+                        for (var id in S.NODES) {
+                          if (!Object.prototype.hasOwnProperty.call(S.NODES, id)) continue;
+                          var nd = S.NODES[id];
+                          if (nd.isGlobalConfig) continue;
+
+                          var g = el('g', { 'class': 'gv09-node', 'data-node-id': id });
+
+                          var fillBg = '#ffffff', strokeCol = '#b6c9d6', dash = null;
+                          if (nd.glyph === 'db') { fillBg = '#f3f9fd'; strokeCol = '#54809c'; }
+                          else if (nd.glyph === 'qa') { fillBg = '#f9fbfc'; strokeCol = '#8ca0ae'; dash = '4,3'; }
+                          else if (nd.glyph === 'subproc') { fillBg = '#f2f9fc'; strokeCol = '#0088b8'; }
+                          else if (nd.glyph === 'space_ctrl') { fillBg = '#f6fbf9'; strokeCol = '#68ab96'; }
+                          else if (nd.glyph === 'space_target') { fillBg = '#eaf8f3'; strokeCol = '#117864'; }
+                          else if (nd.glyph === 'vem_39') { fillBg = '#f8fbfd'; strokeCol = '#658da8'; }
+                          else if (nd.glyph === 'vem_43') { fillBg = '#f0faf6'; strokeCol = '#117864'; }
+                          else if (nd.glyph === 'cortex') { fillBg = '#eef8fd'; strokeCol = '#0088b8'; }
+
+                          var frameAttrs = {
+                            'class': 'gv09-node-frame',
+                            x: nd.x, y: nd.y, width: nd.w, height: nd.h, rx: 9,
+                            fill: fillBg, stroke: strokeCol,
+                            'stroke-width': (nd.glyph === 'space_target' || nd.glyph === 'vem_43') ? '2' : '1.4'
+                          };
+                          if (dash) frameAttrs['stroke-dasharray'] = dash;
+                          g.appendChild(el('rect', frameAttrs));
+
+                          var textX = nd.x + 14;
+
+                          if (nd.glyph === 'db') {
+                            drawDbIcon(g, nd.x + 12, nd.y + (nd.h - 29) / 2);
+                            textX = nd.x + 44;
+                          } else if (nd.glyph === 'subproc') {
+                            g.appendChild(el('line', {
+                              x1: nd.x + 7, y1: nd.y, x2: nd.x + 7, y2: nd.y + nd.h,
+                              stroke: '#0088b8', 'stroke-width': '1.4'
+                            }));
+                            textX = nd.x + 17;
+                          }
+
+                          if (nd.glyph === 'vem_39' || nd.glyph === 'vem_43') {
+                            var mTitle = el('text', {
+                              x: nd.x + 14, y: nd.y + 24,
+                              'font-size': '11.8', 'font-weight': '700', fill: '#1b252c'
+                            });
+                            mTitle.textContent = nd.label;
+                            g.appendChild(mTitle);
+
+                            var mSub = el('text', {
+                              x: nd.x + 14, y: nd.y + 42,
+                              'font-size': '10', fill: '#526470'
+                            });
+                            mSub.textContent = nd.sub;
+                            g.appendChild(mSub);
+
+                            drawGallantModelDiagram(g, nd.x, nd.y, nd.w, nd.glyph === 'vem_43');
+                          } else if (nd.glyph === 'cortex') {
+                            var cTitle = el('text', {
+                              x: nd.x + 14, y: nd.y + 26,
+                              'font-size': '11.8', 'font-weight': '700', fill: '#1b252c'
+                            });
+                            cTitle.textContent = nd.label;
+                            g.appendChild(cTitle);
+
+                            var cSub = el('text', {
+                              x: nd.x + 14, y: nd.y + 44,
+                              'font-size': '10', fill: '#526470'
+                            });
+                            cSub.textContent = nd.sub;
+                            g.appendChild(cSub);
+
+                            drawCortexPair(g, nd.x + 16, nd.y + 66);
+                            var cCaption = el('text', {
+                              x: nd.x + 78, y: nd.y + 82,
+                              'font-size': '9.8', 'font-weight': '600', fill: '#23597a'
+                            });
+                            cCaption.textContent = 'Capas 1, 2a y 2b por sujeto';
+                            g.appendChild(cCaption);
+                          } else {
+                            var midY = nd.y + nd.h / 2;
+                            var mainTxt = el('text', {
+                              x: textX, y: midY - 5,
+                              'font-size': '11.5', 'font-weight': '600', fill: '#1b252c'
+                            });
+                            mainTxt.textContent = nd.label;
+                            g.appendChild(mainTxt);
+
+                            var subTxt = el('text', {
+                              x: textX, y: midY + 13,
+                              'font-size': '9.8', fill: '#556773'
+                            });
+                            subTxt.textContent = nd.sub;
+                            g.appendChild(subTxt);
+
+                            if (nd.dims) {
+                              drawExactDimsBadge(g, nd.x + nd.w, midY, nd.dims, nd.glyph === 'space_target');
+                            }
+                          }
+
+                          appendRoleTag(g, nd.x, nd.y, nd.w, true);
+                          appendRoleTag(g, nd.x, nd.y, nd.w, false);
+
+                          nodesGroup.appendChild(g);
+                          nodeRefs[id] = g;
+                        }
+
+                        for (var e = 0; e < S.EDGES.length; e++) {
+                          var srcId = S.EDGES[e][0], dstId = S.EDGES[e][1];
+                          var nA = S.NODES[srcId], nB = S.NODES[dstId];
+                          if (!nA || !nB) continue;
+                          var pathEl = el('path', {
+                            'class': 'gv09-edge',
+                            d: computeCleanEdgePath(nA, nB)
+                          });
+                          edgesGroup.appendChild(pathEl);
+                          edgeRefs.push({ from: srcId, to: dstId, el: pathEl });
+                        }
+
+                        svg.appendChild(nodesGroup);
+                        svg.appendChild(edgesGroup);
+
+                        return { edgeRefs: edgeRefs, nodeRefs: nodeRefs };
+                      }
+
+                      return { buildDiagram: buildDiagram };
+                    })();
+                  </script>
+
+                  <script>
+                    (function () {
+                      var S = window.GV09_SPEC;
+                      var R = window.GV09_RENDER;
+                      var cardRoot = document.getElementById('gv09-card-root');
+                      var modal = document.getElementById('gv09-modal');
+                      var svg = document.getElementById('gv09-svg');
+                      var canvasPane = document.getElementById('gv09-canvas-pane');
+                      var openBtn = document.getElementById('gv09-open-btn');
+                      var closeBtn = document.getElementById('gv09-close-btn');
+                      var cfgBtn = document.getElementById('gv09-cfg-btn');
+                      var prevBtn = document.getElementById('gv09-prev-btn');
+                      var nextBtn = document.getElementById('gv09-next-btn');
+                      var stepCounter = document.getElementById('gv09-step-counter');
+                      var overviewBtn = document.getElementById('gv09-overview-btn');
+
+                      if (!S || !R || !cardRoot || !modal || !svg) return;
+
+                      // Montar el modal directamente en document.body para evitar recortes del contenedor breezycv
+                      if (modal.parentNode !== document.body) {
+                        document.body.appendChild(modal);
+                      }
+
+                      var refs = R.buildDiagram(svg);
+                      var currentStepIdx = 1; // Inicia en bids_raw (índice 1 de STEP_ORDER)
+                      var isOverviewMode = false;
+
+                      var elPhase = document.getElementById('gv09-i-phase');
+                      var elKind = document.getElementById('gv09-i-kind');
+                      var elTitle = document.getElementById('gv09-i-title');
+                      var elFiles = document.getElementById('gv09-i-files');
+                      var elPurpose = document.getElementById('gv09-i-purpose');
+                      var elIn = document.getElementById('gv09-i-in');
+                      var elOut = document.getElementById('gv09-i-out');
+                      var elEng = document.getElementById('gv09-i-eng');
+
+                      function renderFilesChips(filesList) {
+                        var html = '';
+                        for (var f = 0; f < filesList.length; f++) {
+                          var fp = filesList[f];
+                          if (S.REPO_BASE_URL) {
+                            html += '<a class="gv09-file-chip" href="' + S.REPO_BASE_URL + fp + '" target="_blank" rel="noopener">' + fp + ' &#x2197;</a>';
+                          } else {
+                            html += '<span class="gv09-file-chip">' + fp + '</span>';
+                          }
+                        }
+                        elFiles.innerHTML = html;
+                      }
+
+                      function showCleanOverview() {
+                        isOverviewMode = true;
+                        overviewBtn.classList.add('is-active');
+                        cfgBtn.classList.remove('is-active');
+                        stepCounter.textContent = 'Vista general';
+
+                        // Ocultar todas las flechas para lectura limpia del plano
+                        for (var i = 0; i < refs.edgeRefs.length; i++) {
+                          var ed = refs.edgeRefs[i].el;
+                          ed.setAttribute('class', 'gv09-edge');
+                          ed.removeAttribute('marker-start');
+                          ed.removeAttribute('marker-end');
+                        }
+
+                        // Mostrar todos los nodos nítidos al 100% sin etiquetas flotantes
+                        for (var k in refs.nodeRefs) {
+                          if (!Object.prototype.hasOwnProperty.call(refs.nodeRefs, k)) continue;
+                          var gNode = refs.nodeRefs[k];
+                          gNode.classList.remove('is-selected', 'is-dimmed', 'is-upstream', 'is-downstream');
+                        }
+
+                        elPhase.textContent = '4 fases completas';
+                        elKind.textContent = '18 archivos en Python';
+                        elTitle.textContent = 'Vista panorámica del repositorio completo';
+                        elPurpose.textContent = 'El sistema articula desde el rescate no destructivo de transcripciones Praat y auditorías O(1) sobre HDF5 hasta la regresión Ridge por lotes espaciales, rotaciones circulares 3D y exportación de visores WebGL individuales.';
+                        elIn.innerHTML = '<b>Entrada global:</b> Corpus abierto OpenNeuro ds003020 v4.0.0 (audios WAV, TextGrids y series BOLD preprocesadas de 10 sujetos).';
+                        elOut.innerHTML = '<b>Salida global:</b> Matrices Parquet a 100 Hz y 0.5 Hz, bases SQLite auditables, tablas estadísticas y 10 visores corticales 3D.';
+                        elEng.textContent = 'Haz clic sobre cualquier bloque del diagrama o usa los botones Anterior y Siguiente para inspeccionar únicamente sus flechas de entrada (ámbar) y de salida (azul).';
+                        renderFilesChips(['scripts/00a..06', 'src/config.py', 'src/features/*', 'src/models/*']);
+                      }
+
+                      function selectNode(nodeId, autoScroll) {
+                        var nd = S.NODES[nodeId] || S.NODES.bids_raw;
+                        isOverviewMode = false;
+                        overviewBtn.classList.remove('is-active');
+                        cfgBtn.classList.toggle('is-active', nd.id === 'cfg_global');
+
+                        var idxInOrder = S.STEP_ORDER.indexOf(nd.id);
+                        if (idxInOrder >= 0) {
+                          currentStepIdx = idxInOrder;
+                        }
+                        stepCounter.textContent = 'Paso ' + (currentStepIdx + 1) + ' de ' + S.STEP_ORDER.length;
+
+                        var upstreamSet = {};
+                        var downstreamSet = {};
+
+                        // Activar exclusivamente las flechas conectadas al nodo elegido
+                        for (var i = 0; i < refs.edgeRefs.length; i++) {
+                          var ed = refs.edgeRefs[i];
+                          var pathEl = ed.el;
+                          var isIncoming = (ed.to === nd.id);
+                          var isOutgoing = (ed.from === nd.id);
+
+                          if (nd.id !== 'cfg_global' && isIncoming) {
+                            upstreamSet[ed.from] = true;
+                            pathEl.setAttribute('class', 'gv09-edge is-in');
+                            pathEl.setAttribute('marker-start', 'url(#gv09-mk-in-start)');
+                            pathEl.setAttribute('marker-end', 'url(#gv09-mk-in-end)');
+                          } else if (nd.id !== 'cfg_global' && isOutgoing) {
+                            downstreamSet[ed.to] = true;
+                            pathEl.setAttribute('class', 'gv09-edge is-out');
+                            pathEl.setAttribute('marker-start', 'url(#gv09-mk-out-start)');
+                            pathEl.setAttribute('marker-end', 'url(#gv09-mk-out-end)');
+                          } else {
+                            pathEl.setAttribute('class', 'gv09-edge');
+                            pathEl.removeAttribute('marker-start');
+                            pathEl.removeAttribute('marker-end');
+                          }
+                        }
+
+                        // Actualizar estado visual y etiquetas ENTRADA / SALIDA en los nodos
+                        for (var k in refs.nodeRefs) {
+                          if (!Object.prototype.hasOwnProperty.call(refs.nodeRefs, k)) continue;
+                          var gNode = refs.nodeRefs[k];
+                          var isSel = (k === nd.id);
+                          var isUp = !!upstreamSet[k];
+                          var isDown = !!downstreamSet[k];
+                          var keepLit = (nd.id === 'cfg_global') || isSel || isUp || isDown;
+
+                          gNode.classList.toggle('is-selected', isSel);
+                          gNode.classList.toggle('is-upstream', isUp);
+                          gNode.classList.toggle('is-downstream', isDown);
+                          gNode.classList.toggle('is-dimmed', !keepLit);
+                        }
+
+                        // Llenar panel técnico
+                        elPhase.textContent = nd.phase;
+                        elKind.textContent = nd.kind;
+                        elTitle.textContent = nd.title;
+                        elPurpose.textContent = nd.purpose;
+                        elIn.innerHTML = '<b>Entrada:</b> ' + nd.inputs;
+                        elOut.innerHTML = '<b>Salida:</b> ' + nd.outputs;
+                        elEng.textContent = nd.eng;
+                        renderFilesChips(nd.files);
+
+                        // Desplazar suavemente el lienzo en pantallas pequeñas o móviles
+                        if (autoScroll && !nd.isGlobalConfig) {
+                          if (canvasPane.scrollWidth > canvasPane.clientWidth) {
+                            var svgW = svg.clientWidth || 1120;
+                            var targetX = ((nd.x + nd.w / 2) / 1400) * svgW - canvasPane.clientWidth / 2;
+                            canvasPane.scrollTo({ left: Math.max(0, targetX), behavior: 'smooth' });
+                          }
+                          if (canvasPane.scrollHeight > canvasPane.clientHeight) {
+                            var svgH = svg.clientHeight || 812;
+                            var targetY = ((nd.y + nd.h / 2) / 812) * svgH - canvasPane.clientHeight / 2;
+                            canvasPane.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+                          }
+                        }
+                      }
+
+                      function stepBy(delta) {
+                        var len = S.STEP_ORDER.length;
+                        if (isOverviewMode) {
+                          currentStepIdx = (delta > 0) ? 0 : (len - 1);
+                        } else {
+                          currentStepIdx = (currentStepIdx + delta + len) % len;
+                        }
+                        selectNode(S.STEP_ORDER[currentStepIdx], true);
+                      }
+
+                      function openModalWithNode(nodeId) {
+                        modal.hidden = false;
+                        document.body.style.overflow = 'hidden';
+                        selectNode(nodeId || 'bids_raw', true);
+                      }
+
+                      function closeModal() {
+                        modal.hidden = true;
+                        document.body.style.overflow = '';
+                      }
+
+                      openBtn.addEventListener('click', function () {
+                        openModalWithNode('bids_raw');
+                      });
+
+                      cardRoot.addEventListener('click', function (e) {
+                        var pCard = e.target.closest('[data-open-node]');
+                        if (pCard) openModalWithNode(pCard.getAttribute('data-open-node'));
+                      });
+
+                      svg.addEventListener('click', function (e) {
+                        var nTarget = e.target.closest('[data-node-id]');
+                        if (nTarget) {
+                          selectNode(nTarget.getAttribute('data-node-id'), false);
+                        }
+                      });
+
+                      cfgBtn.addEventListener('click', function () {
+                        selectNode('cfg_global', false);
+                      });
+
+                      prevBtn.addEventListener('click', function () { stepBy(-1); });
+                      nextBtn.addEventListener('click', function () { stepBy(1); });
+                      overviewBtn.addEventListener('click', showCleanOverview);
+
+                      closeBtn.addEventListener('click', closeModal);
+                      modal.addEventListener('click', function (e) {
+                        if (e.target === modal) closeModal();
+                      });
+
+                      document.addEventListener('keydown', function (e) {
+                        if (modal.hidden) return;
+                        if (e.key === 'Escape') closeModal();
+                        else if (e.key === 'ArrowRight') { e.preventDefault(); stepBy(1); }
+                        else if (e.key === 'ArrowLeft') { e.preventDefault(); stepBy(-1); }
+                      });
+
+                      selectNode('bids_raw', false);
+                    })();
+                  </script>
+                  <!-- [FIN ESPACIO VISUAL 09: ARQUITECTURA DEL PIPELINE] -->
+
+
+
+
+
+
                   <div class="distill-section-header">
                     <span class="distill-section-num">Recursos abiertos</span>
                     <h3>Agradecimientos y fuentes públicas</h3>
