@@ -4329,23 +4329,610 @@
 
                   <!-- [INICIO ESPACIO VISUAL 05] -->
                   <div class="distill-wide">
-                    <div class="visual-placeholder" id="visual-slot-05">
-                      <span class="visual-placeholder-badge">Espacio Visual 05</span>
-                      <h4 class="visual-placeholder-title">
-                        Partición de varianza: modelo restringido (39 variables) frente a modelo global (43 variables)
-                      </h4>
-                      <p class="visual-placeholder-spec">
-                        <b>Diseño previsto (con cuadrículas apiladas estilo Gallant Lab):</b> Esquema interactivo que
-                        permite alternar la presencia del sexto bloque verde (Tiempo gramatical) durante la predicción
-                        fuera de muestra sobre <i>Where There's Smoke</i> para ilustrar de forma visual de dónde sale la
-                        diferencia predictiva en cada vóxel.
-                      </p>
-                      <p class="visual-placeholder-caption">
-                        <b>Descripción:</b> Ambos modelos se ponen a prueba sobre una narración excluida del
-                        entrenamiento para cuantificar qué fracción de acierto depende exclusivamente de las marcas
-                        temporales del verbo.
-                      </p>
-                    </div>
+                    <style>
+                      .gv05-card {
+                        background-color: #ffffff;
+                        border: 1px solid #dfe7ec;
+                        border-radius: 12px;
+                        padding: 20px 22px 18px 22px;
+                        box-shadow: 0 4px 18px rgba(30, 35, 40, 0.03);
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
+
+                      .gv05-header {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 12px;
+                        margin-bottom: 14px;
+                        padding-bottom: 12px;
+                        border-bottom: 1px solid #eef2f5;
+                      }
+
+                      .gv05-kicker {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.09em;
+                        color: #0099cc;
+                        display: block;
+                        margin-bottom: 2px;
+                      }
+
+                      .gv05-title {
+                        font-size: 1.03em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0;
+                      }
+
+                      .gv05-toggle {
+                        display: inline-flex;
+                        background-color: #f1f5f8;
+                        border: 1px solid #dce5eb;
+                        border-radius: 8px;
+                        padding: 3px;
+                        gap: 2px;
+                        flex-wrap: wrap;
+                      }
+
+                      .gv05-toggle-btn {
+                        appearance: none;
+                        border: none;
+                        background: transparent;
+                        color: #526069;
+                        font-family: inherit;
+                        font-size: 0.75em;
+                        font-weight: 600;
+                        padding: 6px 11px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                        white-space: nowrap;
+                      }
+
+                      .gv05-toggle-btn:hover {
+                        color: #1e2328;
+                      }
+
+                      .gv05-toggle-btn.is-active {
+                        background-color: #ffffff;
+                        color: #007ea8;
+                        box-shadow: 0 1px 4px rgba(20, 30, 40, 0.09);
+                      }
+
+                      /* Retícula principal: matrices proporcionales a la izquierda + curvas a la derecha */
+                      .gv05-body {
+                        display: grid;
+                        grid-template-columns: 268px minmax(0, 1fr);
+                        gap: 18px;
+                        align-items: stretch;
+                      }
+
+                      .gv05-matrices-panel {
+                        background-color: #fbfdfe;
+                        border: 1px solid #e6eef2;
+                        border-radius: 9px;
+                        padding: 12px 12px 10px 12px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                      }
+
+                      .gv05-panel-sub {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.06em;
+                        color: #526069;
+                        text-align: center;
+                        margin-bottom: 8px;
+                      }
+
+                      .gv05-stacks-pair {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 10px;
+                        align-items: start;
+                      }
+
+                      .gv05-stack-col {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                      }
+
+                      .gv05-stack-head {
+                        font-size: 0.76em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin-bottom: 2px;
+                        text-align: center;
+                      }
+
+                      .gv05-stack-count {
+                        font-size: 0.7em;
+                        color: #687680;
+                        margin-bottom: 6px;
+                      }
+
+                      /* Bloques proporcionales exactos (altura total = 43 unidades) */
+                      .gv05-prop-box {
+                        width: 100%;
+                        height: 196px;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 2px;
+                        padding: 4px;
+                        border-radius: 8px;
+                        border: 1.5px solid #9ec9ae;
+                        background-color: #eef7f1;
+                      }
+
+                      .gv05-prop-box.global-box {
+                        border-color: #1b856d;
+                        background-color: #e9f6f2;
+                      }
+
+                      .gv05-seg {
+                        border-radius: 4px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 9.5px;
+                        font-weight: 600;
+                        color: #1f4730;
+                        background-color: #c7e5d2;
+                        overflow: hidden;
+                        white-space: nowrap;
+                      }
+
+                      .gv05-seg.lsa-seg {
+                        background-color: #c5dfee;
+                        color: #1c4966;
+                      }
+
+                      .gv05-seg.tense-seg {
+                        background-color: #19856c;
+                        color: #ffffff;
+                        transition: transform 0.2s ease, box-shadow 0.2s ease;
+                      }
+
+                      .gv05-seg.empty-seg {
+                        background-color: transparent;
+                        border: 1px dashed #b3c4ce;
+                        color: #7c8b95;
+                        font-weight: 500;
+                      }
+
+                      .gv05-cv-note {
+                        margin-top: 10px;
+                        padding-top: 8px;
+                        border-top: 1px solid #e6eef2;
+                        font-size: 0.72em;
+                        line-height: 1.45;
+                        color: #5d6b75;
+                        text-align: center;
+                      }
+
+                      /* Panel derecho: series temporales y medidores de acierto */
+                      .gv05-waves-panel {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        min-width: 0;
+                      }
+
+                      .gv05-canvas-box {
+                        border: 1px solid #e5edf2;
+                        border-radius: 9px;
+                        background-color: #ffffff;
+                        overflow: hidden;
+                      }
+
+                      #gv05-canvas {
+                        display: block;
+                        width: 100%;
+                        height: 198px;
+                      }
+
+                      .gv05-metrics-bar {
+                        margin-top: 10px;
+                        background-color: #f7fafc;
+                        border: 1px solid #e3ebf0;
+                        border-radius: 8px;
+                        padding: 10px 14px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 10px;
+                        font-size: 0.79em;
+                      }
+
+                      .gv05-metric-pair {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 14px;
+                        color: #435059;
+                      }
+
+                      .gv05-delta-pill {
+                        font-weight: 600;
+                        padding: 2px 10px;
+                        border-radius: 99px;
+                        font-size: 0.94em;
+                      }
+
+                      .gv05-delta-pill[data-state="gain"] {
+                        background-color: #dff4ee;
+                        color: #115c4a;
+                      }
+
+                      .gv05-delta-pill[data-state="shared"] {
+                        background-color: #e8eef2;
+                        color: #384650;
+                      }
+
+                      .gv05-delta-pill[data-state="overfit"] {
+                        background-color: #fae6e4;
+                        color: #9c3a34;
+                      }
+
+                      .gv05-desc {
+                        margin: 10px 0 0 0 !important;
+                        font-size: 0.83em !important;
+                        line-height: 1.58 !important;
+                        color: #364149 !important;
+                      }
+
+                      @media (max-width: 820px) {
+                        .gv05-body {
+                          grid-template-columns: 1fr;
+                        }
+
+                        .gv05-prop-box {
+                          height: 168px;
+                        }
+                      }
+
+                      @media (max-width: 560px) {
+                        .gv05-card {
+                          padding: 16px 14px;
+                        }
+
+                        .gv05-toggle {
+                          width: 100%;
+                        }
+
+                        .gv05-toggle-btn {
+                          flex: 1;
+                          text-align: center;
+                          padding: 6px 5px;
+                          font-size: 0.72em;
+                        }
+                      }
+                    </style>
+
+                    <figure class="gv05-card" id="gv05-root" style="margin: 0;">
+                      <div class="gv05-header">
+                        <div>
+                          <span class="gv05-kicker">Figura 5</span>
+                          <h4 class="gv05-title">Partición de varianza fuera de muestra: 39 controles frente a 43
+                            variables</h4>
+                        </div>
+
+                        <div class="gv05-toggle" role="tablist" aria-label="Escenarios de comparación en un vóxel">
+                          <button type="button" class="gv05-toggle-btn" data-case="gain" role="tab"
+                            aria-selected="false">
+                            1. Si aporta señal única
+                          </button>
+                          <button type="button" class="gv05-toggle-btn is-active" data-case="shared" role="tab"
+                            aria-selected="true">
+                            2. Varianza absorbida
+                          </button>
+                          <button type="button" class="gv05-toggle-btn" data-case="overfit" role="tab"
+                            aria-selected="false">
+                            3. Sobreajuste leve
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="gv05-body">
+                        <!-- Columna izquierda: proporción exacta 39 vs 43 -->
+                        <div class="gv05-matrices-panel">
+                          <span class="gv05-panel-sub">Arquitecturas comparadas</span>
+
+                          <div class="gv05-stacks-pair">
+                            <div class="gv05-stack-col">
+                              <span class="gv05-stack-head">Restringido</span>
+                              <span class="gv05-stack-count">39 controles (90.7%)</span>
+                              <div class="gv05-prop-box">
+                                <div class="gv05-seg" style="flex: 14;">Fonológico (14)</div>
+                                <div class="gv05-seg" style="flex: 4;">Estad. (4)</div>
+                                <div class="gv05-seg" style="flex: 8;">Categorial (8)</div>
+                                <div class="gv05-seg" style="flex: 3;">Sint. (3)</div>
+                                <div class="gv05-seg lsa-seg" style="flex: 10;">LSA (10)</div>
+                                <div class="gv05-seg empty-seg" style="flex: 4;">Omitido</div>
+                              </div>
+                            </div>
+
+                            <div class="gv05-stack-col">
+                              <span class="gv05-stack-head">Global</span>
+                              <span class="gv05-stack-count">43 totales <br> (100%)</span>
+                              <div class="gv05-prop-box global-box">
+                                <div class="gv05-seg" style="flex: 14;">Fonológico (14)</div>
+                                <div class="gv05-seg" style="flex: 4;">Estad. (4)</div>
+                                <div class="gv05-seg" style="flex: 8;">Categorial (8)</div>
+                                <div class="gv05-seg" style="flex: 3;">Sint. (3)</div>
+                                <div class="gv05-seg lsa-seg" style="flex: 10;">LSA (10)</div>
+                                <div class="gv05-seg tense-seg" id="gv05-tense-block" style="flex: 4;">Tiempo (4)</div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="gv05-cv-note">
+                            Pesos Ridge calibrados por separado en bloques de historias completas y evaluados en
+                            <i>Where There's Smoke</i> (291 TRs).
+                          </div>
+                        </div>
+
+                        <!-- Columna derecha: predicciones sobre BOLD -->
+                        <div class="gv05-waves-panel">
+                          <div class="gv05-canvas-box">
+                            <canvas id="gv05-canvas"></canvas>
+                          </div>
+
+                          <div class="gv05-metrics-bar">
+                            <div class="gv05-metric-pair">
+                              <span><b style="color:#526875;">Acierto Restringido (39):</b> <span
+                                  id="gv05-r2-res"></span></span>
+                              <span><b style="color:#147a63;">Acierto Global (43):</b> <span
+                                  id="gv05-r2-glob"></span></span>
+                            </div>
+                            <span class="gv05-delta-pill" id="gv05-delta-pill" data-state="shared"></span>
+                          </div>
+
+                          <p class="gv05-desc" id="gv05-desc"></p>
+                        </div>
+                      </div>
+                    </figure>
+
+                    <script>
+                      (function () {
+                        var root = document.getElementById('gv05-root');
+                        var canvas = document.getElementById('gv05-canvas');
+                        if (!root || !canvas) return;
+
+                        // [OPCIONAL PARA PC PRINCIPAL]: Para graficar en el escenario 2 un vóxel real del giro temporal
+                        // superior (por ejemplo de UTS03 en wheretheressmoke, ventana de 45 TRs), reemplaza `null` por
+                        // un objeto { bold: [...45], res: [...45], glob: [...45], r2Res: '0.104', r2Glob: '0.105' }.
+                        var REAL_VOXEL_EXAMPLE = null;
+
+                        var N_PTS = 45; // Ventana legible de 45 TRs (90 segundos)
+                        var baseWave = [];
+                        var tenseBump = [];
+                        var noiseJit = [];
+
+                        for (var i = 0; i < N_PTS; i++) {
+                          var w = 0.72 * Math.sin(2 * Math.PI * i / 15.0)
+                            + 0.48 * Math.cos(2 * Math.PI * i / 9.2 + 0.6)
+                            + 0.30 * Math.sin(2 * Math.PI * i / 23.0 + 1.4);
+                          baseWave.push(w);
+
+                          // Pulsos localizados donde ocurrirían giros verbales específicos
+                          var b1 = Math.exp(-Math.pow((i - 10) / 2.2, 2)) * 0.85;
+                          var b2 = Math.exp(-Math.pow((i - 24) / 2.4, 2)) * -0.80;
+                          var b3 = Math.exp(-Math.pow((i - 36) / 2.1, 2)) * 0.90;
+                          tenseBump.push(b1 + b2 + b3);
+
+                          noiseJit.push(0.38 * Math.sin(i * 1.9 + 0.4) + 0.28 * Math.cos(i * 3.1 + 1.1));
+                        }
+
+                        var SCENARIOS = {
+                          gain: {
+                            r2Res: '0.072',
+                            r2Glob: '0.108',
+                            deltaText: 'Ganancia neta: +0.036',
+                            state: 'gain',
+                            desc: 'Escenario hipotético de huella exclusiva: en los tramos sombreados, el Modelo Global (línea verde) captura subidas y bajadas de la actividad BOLD (línea roja) que los 39 controles por sí solos no logran anticipar.',
+                            getSeries: function () {
+                              var bold = [], res = [], glob = [];
+                              for (var k = 0; k < N_PTS; k++) {
+                                bold.push(baseWave[k] + tenseBump[k] + noiseJit[k] * 0.65);
+                                res.push(baseWave[k] * 0.78);
+                                glob.push((baseWave[k] + tenseBump[k]) * 0.82);
+                              }
+                              return { bold: bold, res: res, glob: glob, showZones: true };
+                            }
+                          },
+                          shared: {
+                            r2Res: REAL_VOXEL_EXAMPLE ? REAL_VOXEL_EXAMPLE.r2Res : '0.094',
+                            r2Glob: REAL_VOXEL_EXAMPLE ? REAL_VOXEL_EXAMPLE.r2Glob : '0.095',
+                            deltaText: 'Diferencia: +0.001 (no significativa)',
+                            state: 'shared',
+                            desc: 'Comportamiento observado en la red del lenguaje: ambos modelos predicen con solidez la onda cerebral, pero como el tiempo verbal viaja unido a auxiliares frecuentes (be, have, do) y a la raíz sintáctica, al recalibrar los 39 controles solos sus pesos absorben esa misma trayectoria.',
+                            getSeries: function () {
+                              if (REAL_VOXEL_EXAMPLE) {
+                                return { bold: REAL_VOXEL_EXAMPLE.bold, res: REAL_VOXEL_EXAMPLE.res, glob: REAL_VOXEL_EXAMPLE.glob, showZones: false };
+                              }
+                              var bold = [], res = [], glob = [];
+                              for (var k = 0; k < N_PTS; k++) {
+                                bold.push(baseWave[k] + noiseJit[k] * 0.72);
+                                res.push(baseWave[k] * 0.82);
+                                glob.push(baseWave[k] * 0.83 + 0.04 * Math.sin(k * 0.9));
+                              }
+                              return { bold: bold, res: res, glob: glob, showZones: false };
+                            }
+                          },
+                          overfit: {
+                            r2Res: '0.024',
+                            r2Glob: '0.021',
+                            deltaText: 'Diferencia: -0.003 (sobreajuste leve)',
+                            state: 'overfit',
+                            desc: 'Comportamiento frecuente en regiones con poco ajuste lingüístico: añadir 4 columnas adicionales sin señal exclusiva introduce pequeñas oscilaciones que empeoran unas milésimas la predicción en la historia nueva, situando la mediana cortical en -0.00053.',
+                            getSeries: function () {
+                              var bold = [], res = [], glob = [];
+                              for (var k = 0; k < N_PTS; k++) {
+                                bold.push(0.45 * baseWave[k] + noiseJit[k] * 1.15);
+                                res.push(0.36 * baseWave[k]);
+                                glob.push(0.36 * baseWave[k] - 0.16 * Math.sin(k * 1.7));
+                              }
+                              return { bold: bold, res: res, glob: glob, showZones: false };
+                            }
+                          }
+                        };
+
+                        var currentCase = 'shared';
+                        var r2ResEl = document.getElementById('gv05-r2-res');
+                        var r2GlobEl = document.getElementById('gv05-r2-glob');
+                        var pillEl = document.getElementById('gv05-delta-pill');
+                        var descEl = document.getElementById('gv05-desc');
+                        var tenseBlock = document.getElementById('gv05-tense-block');
+
+                        function drawCurve(ctx, pts, xFn, yFn, color, width, dashed) {
+                          ctx.save();
+                          ctx.strokeStyle = color;
+                          ctx.lineWidth = width;
+                          if (dashed) ctx.setLineDash([5, 4]);
+                          ctx.beginPath();
+                          for (var i = 0; i < pts.length; i++) {
+                            var x = xFn(i);
+                            var y = yFn(pts[i]);
+                            if (i === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+                          }
+                          ctx.stroke();
+                          ctx.restore();
+                        }
+
+                        function render() {
+                          var sc = SCENARIOS[currentCase];
+                          var data = sc.getSeries();
+                          var dpr = window.devicePixelRatio || 1;
+                          var cssW = canvas.clientWidth || 520;
+                          var cssH = 198;
+
+                          if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {
+                            canvas.width = Math.round(cssW * dpr);
+                            canvas.height = Math.round(cssH * dpr);
+                          }
+
+                          var ctx = canvas.getContext('2d');
+                          ctx.save();
+                          ctx.scale(dpr, dpr);
+                          ctx.clearRect(0, 0, cssW, cssH);
+
+                          var padL = 38, padR = 14, padT = 28, padB = 26;
+                          var plotW = cssW - padL - padR;
+                          var plotH = cssH - padT - padB;
+                          var midY = padT + plotH / 2;
+
+                          function xFn(idx) { return padL + (idx / (N_PTS - 1)) * plotW; }
+                          function yFn(val) { return midY - (val / 2.15) * (plotH / 2); }
+
+                          // Leyenda superior integrada en el lienzo
+                          ctx.font = '600 10px Poppins, sans-serif';
+                          ctx.textBaseline = 'middle';
+
+                          ctx.fillStyle = '#cf5c54';
+                          ctx.fillRect(padL, 11, 12, 3);
+                          ctx.fillStyle = '#424f58';
+                          ctx.fillText('BOLD real', padL + 16, 13);
+
+                          var lx2 = padL + 92;
+                          ctx.fillStyle = '#5c7688';
+                          ctx.fillRect(lx2, 11, 12, 2.5);
+                          ctx.fillStyle = '#424f58';
+                          ctx.fillText('Restringido (39)', lx2 + 16, 13);
+
+                          var lx3 = lx2 + 115;
+                          ctx.fillStyle = '#147a63';
+                          ctx.fillRect(lx3, 11, 12, 3);
+                          ctx.fillStyle = '#125c4b';
+                          ctx.fillText('Global (43)', lx3 + 16, 13);
+
+                          // Zonas donde divergen en el escenario 1
+                          if (data.showZones) {
+                            var centers = [10, 24, 36];
+                            ctx.fillStyle = 'rgba(20, 122, 99, 0.08)';
+                            for (var z = 0; z < centers.length; z++) {
+                              var zx0 = xFn(centers[z] - 3);
+                              var zx1 = xFn(centers[z] + 3);
+                              ctx.fillRect(zx0, padT, zx1 - zx0, plotH);
+                            }
+                          }
+
+                          // Línea cero y rejilla suave
+                          ctx.strokeStyle = '#e5edf2';
+                          ctx.lineWidth = 1;
+                          ctx.beginPath();
+                          ctx.moveTo(padL, midY);
+                          ctx.lineTo(padL + plotW, midY);
+                          ctx.stroke();
+
+                          ctx.fillStyle = '#73828c';
+                          ctx.font = '500 9.5px Poppins, sans-serif';
+                          ctx.textAlign = 'right';
+                          ctx.fillText('+Z', padL - 6, padT + 8);
+                          ctx.fillText('0', padL - 6, midY);
+                          ctx.fillText('-Z', padL - 6, padT + plotH - 8);
+
+                          // Curvas: BOLD registrada (roja suave), Restringida (punteada gris-azulada), Global (esmeralda)
+                          drawCurve(ctx, data.bold, xFn, yFn, 'rgba(207, 92, 84, 0.55)', 1.8, false);
+                          drawCurve(ctx, data.res, xFn, yFn, '#526f82', 2.0, true);
+                          drawCurve(ctx, data.glob, xFn, yFn, '#147a63', 2.3, false);
+
+                          // Eje inferior de volúmenes TR
+                          var axY = padT + plotH;
+                          ctx.strokeStyle = '#cfd9e0';
+                          ctx.beginPath();
+                          ctx.moveTo(padL, axY);
+                          ctx.lineTo(padL + plotW, axY);
+                          ctx.stroke();
+
+                          ctx.textAlign = 'center';
+                          ctx.fillStyle = '#68757e';
+                          for (var t = 0; t < N_PTS; t += 10) {
+                            var tx = xFn(t);
+                            ctx.fillText('TR ' + t, tx, axY + 13);
+                          }
+
+                          ctx.restore();
+
+                          // Actualizar indicadores inferiores
+                          r2ResEl.textContent = sc.r2Res;
+                          r2GlobEl.textContent = sc.r2Glob;
+                          pillEl.textContent = sc.deltaText;
+                          pillEl.setAttribute('data-state', sc.state);
+                          descEl.textContent = sc.desc;
+
+                          tenseBlock.style.boxShadow = (currentCase === 'gain')
+                            ? '0 0 0 2px #0f5242'
+                            : 'none';
+                        }
+
+                        root.addEventListener('click', function (e) {
+                          var btn = e.target.closest('.gv05-toggle-btn');
+                          if (!btn) return;
+                          var next = btn.getAttribute('data-case');
+                          if (next && SCENARIOS[next] && next !== currentCase) {
+                            currentCase = next;
+                            var btns = root.querySelectorAll('.gv05-toggle-btn');
+                            for (var i = 0; i < btns.length; i++) {
+                              var act = (btns[i] === btn);
+                              btns[i].classList.toggle('is-active', act);
+                              btns[i].setAttribute('aria-selected', act ? 'true' : 'false');
+                            }
+                            render();
+                          }
+                        });
+
+                        window.addEventListener('resize', render);
+                        render();
+                      })();
+                    </script>
                   </div>
                   <!-- [FIN ESPACIO VISUAL 05] -->
 
