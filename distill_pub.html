@@ -5303,11 +5303,13 @@
                       <div class="gv06-header">
                         <div>
                           <span class="gv06-kicker">Figura 6</span>
-                          <h4 class="gv06-title">Controles de calidad de señal e inferencia por rotaciones circulares</h4>
+                          <h4 class="gv06-title">Controles de calidad de señal e inferencia por rotaciones circulares
+                          </h4>
                         </div>
 
                         <div class="gv06-tabs" role="tablist" aria-label="Etapas de validación">
-                          <button type="button" class="gv06-tab-btn is-active" data-tab="ceiling" role="tab" aria-selected="true">
+                          <button type="button" class="gv06-tab-btn is-active" data-tab="ceiling" role="tab"
+                            aria-selected="true">
                             1. Techo de ruido (repeticiones)
                           </button>
                           <button type="button" class="gv06-tab-btn" data-tab="shifts" role="tab" aria-selected="false">
@@ -5319,18 +5321,22 @@
                       <!-- Subcontroles Pestaña 1: Techo de ruido -->
                       <div class="gv06-subcontrols" id="gv06-ctrl-ceiling">
                         <div class="gv06-pill-group">
-                          <button type="button" class="gv06-mini-btn is-active" data-ceil="r10">10 escuchas (UTS01 a UTS03)</button>
+                          <button type="button" class="gv06-mini-btn is-active" data-ceil="r10">10 escuchas (UTS01 a
+                            UTS03)</button>
                           <button type="button" class="gv06-mini-btn" data-ceil="r5">5 escuchas (UTS04 a UTS10)</button>
-                          <button type="button" class="gv06-mini-btn" data-ceil="noisy">Vóxel sin señal (&lt; 0.01)</button>
+                          <button type="button" class="gv06-mini-btn" data-ceil="noisy">Vóxel sin señal (&lt;
+                            0.01)</button>
                         </div>
-                        <button type="button" class="gv06-reroll-btn" id="gv06-reroll">Sortear nuevo ruido fisiológico</button>
+                        <button type="button" class="gv06-reroll-btn" id="gv06-reroll">Sortear nuevo ruido
+                          fisiológico</button>
                       </div>
 
                       <!-- Subcontroles Pestaña 2: Desplazamientos circulares -->
                       <div class="gv06-subcontrols" id="gv06-ctrl-shifts" hidden>
                         <div class="gv06-slider-row">
                           <span class="gv06-slider-label" id="gv06-shift-lbl">Desfase: 0 TRs (0 s)</span>
-                          <input type="range" class="gv06-range" id="gv06-shift-slider" min="0" max="290" step="1" value="0" aria-label="Desplazamiento circular en TRs">
+                          <input type="range" class="gv06-range" id="gv06-shift-slider" min="0" max="290" step="1"
+                            value="0" aria-label="Desplazamiento circular en TRs">
                           <div class="gv06-pill-group">
                             <button type="button" class="gv06-mini-btn is-active" data-preset="0">0 TR (Real)</button>
                             <button type="button" class="gv06-mini-btn" data-preset="6">6 TR (&lt;20 s)</button>
@@ -5456,8 +5462,8 @@
 
                         for (var ti = 0; ti < N_TRS; ti++) {
                           var slow = 0.82 * Math.sin(2 * Math.PI * ti / 34.0)
-                                   + 0.55 * Math.cos(2 * Math.PI * ti / 17.5 + 0.6)
-                                   + 0.42 * Math.sin(2 * Math.PI * ti / 61.0 + 1.7);
+                            + 0.55 * Math.cos(2 * Math.PI * ti / 17.5 + 0.6)
+                            + 0.42 * Math.sin(2 * Math.PI * ti / 61.0 + 1.7);
                           var fastN = 0.34 * Math.sin(ti * 0.92 + 0.3) + 0.25 * Math.cos(ti * 1.43 + 1.9);
                           bold291[ti] = slow + fastN;
                           pred291[ti] = 0.78 * slow + 0.14 * Math.sin(2 * Math.PI * ti / 13.0);
@@ -6159,11 +6165,13 @@
                       <div class="gv07-header">
                         <div>
                           <span class="gv07-kicker">Figura 7</span>
-                          <h4 class="gv07-title">Resultados en los 10 cerebros individuales y lectura de capas corticales</h4>
+                          <h4 class="gv07-title">Resultados en los 10 cerebros individuales y lectura de capas
+                            corticales</h4>
                         </div>
 
                         <div class="gv07-tabs" role="tablist" aria-label="Vistas de resultados">
-                          <button type="button" class="gv07-tab-btn is-active" data-tab="cohort" role="tab" aria-selected="true">
+                          <button type="button" class="gv07-tab-btn is-active" data-tab="cohort" role="tab"
+                            aria-selected="true">
                             1. Consistencia en los 10 sujetos
                           </button>
                           <button type="button" class="gv07-tab-btn" data-tab="layers" role="tab" aria-selected="false">
@@ -6178,9 +6186,14 @@
                       <div class="gv07-panel" id="gv07-panel-cohort">
                         <div class="gv07-legend-row">
                           <div class="gv07-legend-items">
-                            <span><span class="gv07-swatch" style="background:#edf1f4; border:1px solid #cfd9e0;"></span>100% corteza del sujeto</span>
-                            <span><span class="gv07-swatch" style="background:#cbe4f2; border:1px solid #9ec8e0;"></span>Corteza con techo &gt; 0.01</span>
-                            <span><span class="gv07-swatch" style="background:#e05a37;"></span>Modelo Global positivo (43 var.)</span>
+                            <span><span class="gv07-swatch"
+                                style="background:#edf1f4; border:1px solid #cfd9e0;"></span>100% corteza del
+                              sujeto</span>
+                            <span><span class="gv07-swatch"
+                                style="background:#cbe4f2; border:1px solid #9ec8e0;"></span>Corteza con techo &gt;
+                              0.01</span>
+                            <span><span class="gv07-swatch" style="background:#e05a37;"></span>Modelo Global positivo
+                              (43 var.)</span>
                           </div>
                           <span>Tiempo tras FDR</span>
                         </div>
@@ -6425,8 +6438,8 @@
 
                             var trackHtml =
                               '<div class="gv07-track">' +
-                                '<div class="gv07-bar-ceil" style="width:' + s.ceil + '%;"></div>' +
-                                '<div class="gv07-bar-glob" style="width:' + s.glob + '%;"></div>' +
+                              '<div class="gv07-bar-ceil" style="width:' + s.ceil + '%;"></div>' +
+                              '<div class="gv07-bar-glob" style="width:' + s.glob + '%;"></div>' +
                               '</div>';
 
                             var fdrHtml = '<div class="gv07-fdr-col">0 vóx. (0%)</div>';
@@ -6733,24 +6746,683 @@
 
                   <!-- [INICIO ESPACIO VISUAL 08] -->
                   <div class="distill-wide">
-                    <div class="visual-placeholder" id="visual-slot-08">
-                      <span class="visual-placeholder-badge">Espacio Visual 08</span>
-                      <h4 class="visual-placeholder-title">
-                        Sesgo hacia el presente narrativo en <i>Where There's Smoke</i> y transición hacia <i>Banded
-                          Ridge</i>
-                      </h4>
-                      <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Gráfico en dos paneles: (A) contraste entre el equilibrio 50/50 del
-                        corpus general y el 79.87% de no-pasado en <i>Where There's Smoke</i> (mostrando el giro al
-                        presente histórico desde el segundo 109); y (B) comparación mediante las cuadrículas verdes de
-                        Gallant Lab entre <i>Standard Ridge</i> (un parámetro compartido entre los 6 espacios) y
-                        <i>Banded Ridge</i> (un parámetro independiente por cada espacio).
-                      </p>
-                      <p class="visual-placeholder-caption">
-                        <b>Descripción:</b> Asignar una regularización independiente a cada bloque lingüístico y evaluar
-                        sobre estímulos balanceados son los dos ajustes directos que se desprenden de este diagnóstico.
-                      </p>
-                    </div>
+                    <style>
+                      .gv08-card {
+                        background-color: #ffffff;
+                        border: 1px solid #dfe7ec;
+                        border-radius: 12px;
+                        padding: 20px 22px 16px 22px;
+                        box-shadow: 0 4px 18px rgba(30, 35, 40, 0.03);
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
+
+                      .gv08-header {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 12px;
+                        margin-bottom: 12px;
+                        padding-bottom: 11px;
+                        border-bottom: 1px solid #eef2f5;
+                      }
+
+                      .gv08-kicker {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.09em;
+                        color: #0099cc;
+                        display: block;
+                        margin-bottom: 2px;
+                      }
+
+                      .gv08-title {
+                        font-size: 1.03em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0;
+                      }
+
+                      .gv08-tabs {
+                        display: inline-flex;
+                        background-color: #f1f5f8;
+                        border: 1px solid #dce5eb;
+                        border-radius: 8px;
+                        padding: 3px;
+                        gap: 2px;
+                      }
+
+                      .gv08-tab-btn {
+                        appearance: none;
+                        border: none;
+                        background: transparent;
+                        color: #526069;
+                        font-family: inherit;
+                        font-size: 0.76em;
+                        font-weight: 600;
+                        padding: 6px 12px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                        white-space: nowrap;
+                      }
+
+                      .gv08-tab-btn:hover {
+                        color: #1e2328;
+                      }
+
+                      .gv08-tab-btn.is-active {
+                        background-color: #ffffff;
+                        color: #007ea8;
+                        box-shadow: 0 1px 4px rgba(20, 30, 40, 0.09);
+                      }
+
+                      .gv08-panel[hidden] {
+                        display: none !important;
+                      }
+
+                      .gv08-readout {
+                        background-color: #f7fafc;
+                        border: 1px solid #e3ebf0;
+                        border-radius: 7px;
+                        padding: 8px 13px;
+                        margin-bottom: 12px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: baseline;
+                        gap: 12px;
+                        font-size: 0.79em;
+                        color: #445058;
+                        min-height: 38px;
+                      }
+
+                      .gv08-readout b {
+                        color: #1e2328;
+                      }
+
+                      /* Pestaña 1: Barras comparativas + perfil de 10 minutos */
+                      .gv08-comp-bars {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 12px;
+                        margin-bottom: 12px;
+                      }
+
+                      .gv08-bar-card {
+                        background-color: #f9fbfc;
+                        border: 1px solid #e5edf2;
+                        border-radius: 8px;
+                        padding: 9px 12px;
+                      }
+
+                      .gv08-bar-head {
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: 0.75em;
+                        font-weight: 600;
+                        color: #2c3740;
+                        margin-bottom: 5px;
+                      }
+
+                      .gv08-bar-track {
+                        position: relative;
+                        display: flex;
+                        height: 22px;
+                        border-radius: 5px;
+                        overflow: hidden;
+                      }
+
+                      .gv08-bar-mid {
+                        position: absolute;
+                        left: 50%;
+                        top: 0;
+                        bottom: 0;
+                        border-left: 1.5px dashed rgba(255, 255, 255, 0.75);
+                        z-index: 2;
+                      }
+
+                      .gv08-seg-past {
+                        background-color: #156b57;
+                        color: #ffffff;
+                        font-size: 0.72em;
+                        font-weight: 600;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        white-space: nowrap;
+                      }
+
+                      .gv08-seg-np {
+                        background-color: #2b94ab;
+                        color: #ffffff;
+                        font-size: 0.72em;
+                        font-weight: 600;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        white-space: nowrap;
+                      }
+
+                      .gv08-canvas-wrap {
+                        border: 1px solid #e5edf2;
+                        border-radius: 9px;
+                        background-color: #ffffff;
+                        overflow: hidden;
+                      }
+
+                      #gv08-timeline-canvas {
+                        display: block;
+                        width: 100%;
+                        height: 204px;
+                        cursor: pointer;
+                      }
+
+                      /* Pestaña 2: Standard Ridge vs Banded Ridge */
+                      .gv08-knob-bar {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        gap: 12px;
+                        background-color: #f8fafc;
+                        border: 1px solid #e4ecf0;
+                        border-radius: 8px;
+                        padding: 8px 13px;
+                        margin-bottom: 12px;
+                        font-size: 0.78em;
+                        color: #36424a;
+                      }
+
+                      .gv08-knob-range {
+                        flex: 1;
+                        min-width: 150px;
+                        accent-color: #008eb8;
+                        cursor: pointer;
+                      }
+
+                      .gv08-ridge-grid {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 14px;
+                      }
+
+                      .gv08-ridge-col {
+                        border: 1px solid #e3ebf0;
+                        border-radius: 9px;
+                        padding: 13px 14px;
+                        background-color: #fbfdfe;
+                      }
+
+                      .gv08-ridge-col.banded-col {
+                        border-color: #a8d9cc;
+                        background-color: #f6fbf9;
+                      }
+
+                      .gv08-ridge-title {
+                        font-size: 0.85em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0 0 2px 0;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                      }
+
+                      .gv08-ridge-sub {
+                        font-size: 0.73em;
+                        color: #62707a;
+                        display: block;
+                        margin-bottom: 11px;
+                      }
+
+                      .gv08-tag-chip {
+                        font-size: 0.78em;
+                        padding: 2px 8px;
+                        border-radius: 99px;
+                        background-color: #e8eef2;
+                        color: #46545e;
+                      }
+
+                      .gv08-ridge-col.banded-col .gv08-tag-chip {
+                        background-color: #daf2eb;
+                        color: #115c4a;
+                      }
+
+                      .gv08-space-rows {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+                      }
+
+                      .gv08-sp-row {
+                        display: grid;
+                        grid-template-columns: 112px minmax(0, 1fr) 54px;
+                        gap: 8px;
+                        align-items: center;
+                        font-size: 0.74em;
+                      }
+
+                      .gv08-sp-name {
+                        font-weight: 600;
+                        color: #2f3b44;
+                        white-space: nowrap;
+                      }
+
+                      .gv08-sp-row.is-tense .gv08-sp-name {
+                        color: #115c4a;
+                        font-weight: 700;
+                      }
+
+                      .gv08-weight-well {
+                        height: 15px;
+                        background-color: #eaeff3;
+                        border-radius: 4px;
+                        overflow: hidden;
+                        padding: 2px;
+                      }
+
+                      .gv08-weight-fill {
+                        height: 100%;
+                        border-radius: 3px;
+                        background-color: #4a90c2;
+                        transition: width 0.2s ease;
+                      }
+
+                      .gv08-sp-row.is-tense .gv08-weight-fill {
+                        background-color: #168067;
+                      }
+
+                      .gv08-dial-tag {
+                        font-size: 0.88em;
+                        text-align: right;
+                        color: #5b6973;
+                        font-weight: 600;
+                      }
+
+                      .gv08-foot {
+                        margin-top: 10px;
+                        font-size: 0.75em;
+                        color: #66737c;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        gap: 8px;
+                      }
+
+                      @media (max-width: 720px) {
+
+                        .gv08-comp-bars,
+                        .gv08-ridge-grid {
+                          grid-template-columns: 1fr;
+                        }
+                      }
+
+                      @media (max-width: 560px) {
+                        .gv08-card {
+                          padding: 16px 14px;
+                        }
+
+                        .gv08-tabs {
+                          width: 100%;
+                          display: flex;
+                        }
+
+                        .gv08-tab-btn {
+                          flex: 1;
+                          text-align: center;
+                          padding: 6px 5px;
+                          font-size: 0.72em;
+                        }
+                      }
+                    </style>
+
+                    <figure class="gv08-card" id="gv08-root" style="margin: 0;">
+                      <div class="gv08-header">
+                        <div>
+                          <span class="gv08-kicker">Figura 8</span>
+                          <h4 class="gv08-title">Diagnóstico del estímulo de evaluación y salto hacia <i>Banded
+                              Ridge</i></h4>
+                        </div>
+
+                        <div class="gv08-tabs" role="tablist" aria-label="Factores de sensibilidad y siguiente paso">
+                          <button type="button" class="gv08-tab-btn is-active" data-tab="imbalance" role="tab"
+                            aria-selected="true">
+                            1. Sesgo en Where There's Smoke
+                          </button>
+                          <button type="button" class="gv08-tab-btn" data-tab="banded" role="tab" aria-selected="false">
+                            2. De Standard a Banded Ridge
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="gv08-readout" id="gv08-readout" aria-live="polite"></div>
+
+                      <!-- PANEL 1: Desbalance temporal real a lo largo de los 10 minutos -->
+                      <div class="gv08-panel" id="gv08-panel-imbalance">
+                        <div class="gv08-comp-bars">
+                          <div class="gv08-bar-card">
+                            <div class="gv08-bar-head">
+                              <span>Corpus completo (entrenamiento y prueba)</span>
+                              <span>21,354 verbos</span>
+                            </div>
+                            <div class="gv08-bar-track">
+                              <div class="gv08-bar-mid"></div>
+                              <div class="gv08-seg-past" style="width: 49.99%;">49.99% Pasado</div>
+                              <div class="gv08-seg-np" style="width: 50.01%;">50.01% No-pasado</div>
+                            </div>
+                          </div>
+
+                          <div class="gv08-bar-card">
+                            <div class="gv08-bar-head">
+                              <span>Historia de prueba: <i>Where There's Smoke</i></span>
+                              <span>303 verbos</span>
+                            </div>
+                            <div class="gv08-bar-track">
+                              <div class="gv08-bar-mid"></div>
+                              <div class="gv08-seg-past" style="width: 20.13%;">20.1% (61)</div>
+                              <div class="gv08-seg-np" style="width: 79.87%;">79.9% No-pasado (242)</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="gv08-canvas-wrap">
+                          <canvas id="gv08-timeline-canvas"></canvas>
+                        </div>
+                      </div>
+
+                      <!-- PANEL 2: Standard Ridge (1 perilla) vs Banded Ridge (6 perillas) -->
+                      <div class="gv08-panel" id="gv08-panel-banded" hidden>
+                        <div class="gv08-knob-bar">
+                          <span><b>Freno exigido por los bloques grandes (fonética y LSA):</b></span>
+                          <input type="range" class="gv08-knob-range" id="gv08-pen-slider" min="15" max="90" step="1"
+                            value="72" aria-label="Nivel de regularización exigido por bloques densos">
+                          <span id="gv08-pen-val" style="font-weight:600; color:#007ea8;">Alto</span>
+                        </div>
+
+                        <div class="gv08-ridge-grid">
+                          <div class="gv08-ridge-col">
+                            <h5 class="gv08-ridge-title">
+                              <span>Standard Ridge</span>
+                              <span class="gv08-tag-chip">Diseño actual</span>
+                            </h5>
+                            <span class="gv08-ridge-sub">1 sola perilla de penalización compartida entre las 43
+                              columnas</span>
+                            <div class="gv08-space-rows" id="gv08-std-rows"></div>
+                          </div>
+
+                          <div class="gv08-ridge-col banded-col">
+                            <h5 class="gv08-ridge-title">
+                              <span>Banded Ridge</span>
+                              <span class="gv08-tag-chip">Siguiente paso</span>
+                            </h5>
+                            <span class="gv08-ridge-sub">6 perillas independientes calibradas por espacio
+                              lingüístico</span>
+                            <div class="gv08-space-rows" id="gv08-bnd-rows"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="gv08-foot" id="gv08-foot"></div>
+                    </figure>
+
+                    <script>
+                      (function () {
+                        var root = document.getElementById('gv08-root');
+                        var readout = document.getElementById('gv08-readout');
+                        var foot = document.getElementById('gv08-foot');
+                        var pImb = document.getElementById('gv08-panel-imbalance');
+                        var pBnd = document.getElementById('gv08-panel-banded');
+                        var tCanvas = document.getElementById('gv08-timeline-canvas');
+                        var penSlider = document.getElementById('gv08-pen-slider');
+                        var penValEl = document.getElementById('gv08-pen-val');
+                        var stdRowsEl = document.getElementById('gv08-std-rows');
+                        var bndRowsEl = document.getElementById('gv08-bnd-rows');
+                        if (!root || !tCanvas) return;
+
+                        // Conteo minuto a minuto de los 303 verbos con marca de tiempo en Where There's Smoke (61 pasado + 242 no-pasado)
+                        var MINUTES = [
+                          { min: 'Min 1', range: '0:00 a 1:00', past: 18, np: 7, scene: 'Escape del automóvil en el semáforo en rojo (predomina el pasado narrativo).' },
+                          { min: 'Min 2', range: '1:00 a 2:00', past: 14, np: 11, scene: 'Caminata nocturna y giro al presente histórico en el seg. 108.9 («I see a figure up ahead»).' },
+                          { min: 'Min 3', range: '2:00 a 3:00', past: 4, np: 33, scene: 'Encuentro con la mujer descalza y búsqueda de fósforos en los bolsillos.' },
+                          { min: 'Min 4', range: '3:00 a 4:00', past: 10, np: 25, scene: 'Encendido de la única cerilla y diálogo sobre la discusión previa.' },
+                          { min: 'Min 5', range: '4:00 a 5:00', past: 3, np: 32, scene: 'Conversación en presente sobre sus empleos y planes de vida.' },
+                          { min: 'Min 6', range: '5:00 a 6:00', past: 2, np: 26, scene: 'Recorrido hacia los apartamentos junto a la carretera.' },
+                          { min: 'Min 7', range: '6:00 a 7:00', past: 1, np: 32, scene: 'Puerta número cuatro, luz azul del televisor y niño dormido.' },
+                          { min: 'Min 8', range: '7:00 a 8:00', past: 0, np: 36, scene: 'Cartón de cigarrillos bajo la cama y charla afuera (0 verbos en pasado en todo el minuto).' },
+                          { min: 'Min 9', range: '8:00 a 9:00', past: 7, np: 25, scene: 'Mapa dibujado a mano («I drew out this map»), regalo de cigarrillos y despedida.' },
+                          { min: 'Min 10', range: '9:00 a 10:02', past: 2, np: 15, scene: 'Regreso a casa («I smoked... it took me») y cierre en presente («I still miss the smoking»).' }
+                        ];
+
+                        var SPACES_META = [
+                          { name: '1. Fonológico (14)', baseSens: 1.0, bndDial: 'Alto', bndWeight: 62 },
+                          { name: '2. Estadístico (4)', baseSens: 0.85, bndDial: 'Medio', bndWeight: 70 },
+                          { name: '3. Categorial (8)', baseSens: 0.90, bndDial: 'Medio', bndWeight: 64 },
+                          { name: '4. Sintáctico (3)', baseSens: 0.80, bndDial: 'Medio', bndWeight: 58 },
+                          { name: '5. Semántico LSA (10)', baseSens: 1.0, bndDial: 'Alto', bndWeight: 74 },
+                          { name: '6. Tiempo verbal (4)', baseSens: 1.35, bndDial: 'Propio', bndWeight: 66, isTense: true }
+                        ];
+
+                        var activeTab = 'imbalance';
+                        var selMinIdx = 1; // Minuto 2 seleccionado inicialmente (donde ocurre el giro del seg. 108.9)
+
+                        function renderTimeline() {
+                          var dpr = window.devicePixelRatio || 1;
+                          var cssW = tCanvas.clientWidth || 700;
+                          var cssH = 204;
+
+                          if (tCanvas.width !== Math.round(cssW * dpr) || tCanvas.height !== Math.round(cssH * dpr)) {
+                            tCanvas.width = Math.round(cssW * dpr);
+                            tCanvas.height = Math.round(cssH * dpr);
+                          }
+
+                          var ctx = tCanvas.getContext('2d');
+                          ctx.save();
+                          ctx.scale(dpr, dpr);
+                          ctx.clearRect(0, 0, cssW, cssH);
+
+                          var padL = 42, padR = 16, padT = 26, padB = 30;
+                          var plotW = cssW - padL - padR;
+                          var plotH = cssH - padT - padB;
+                          var maxCount = 40;
+                          var slotW = plotW / MINUTES.length;
+                          var barW = Math.min(38, slotW * 0.62);
+
+                          // Líneas horizontales guía
+                          ctx.strokeStyle = '#edf2f5';
+                          ctx.lineWidth = 1;
+                          ctx.fillStyle = '#73828c';
+                          ctx.font = '500 9.5px Poppins, sans-serif';
+                          ctx.textAlign = 'right';
+
+                          for (var yTick = 0; yTick <= 40; yTick += 20) {
+                            var gy = padT + plotH - (yTick / maxCount) * plotH;
+                            ctx.beginPath();
+                            ctx.moveTo(padL, gy);
+                            ctx.lineTo(padL + plotW, gy);
+                            ctx.stroke();
+                            ctx.fillText(yTick, padL - 6, gy + 3);
+                          }
+
+                          // Marca vertical del giro al presente histórico (segundo 108.9 = minuto 1.815)
+                          var shiftX = padL + 1.815 * slotW;
+                          ctx.save();
+                          ctx.strokeStyle = '#008eb8';
+                          ctx.setLineDash([4, 3]);
+                          ctx.lineWidth = 1.4;
+                          ctx.beginPath();
+                          ctx.moveTo(shiftX, padT - 6);
+                          ctx.lineTo(shiftX, padT + plotH);
+                          ctx.stroke();
+                          ctx.fillStyle = '#00779e';
+                          ctx.font = '600 9.5px Poppins, sans-serif';
+                          ctx.textAlign = 'left';
+                          ctx.fillText('Seg. 108.9: giro al presente narrativo', Math.min(shiftX + 5, cssW - 205), padT - 9);
+                          ctx.restore();
+
+                          // Barras apiladas minuto a minuto (Pasado abajo en esmeralda, No-pasado arriba en azul petróleo)
+                          for (var i = 0; i < MINUTES.length; i++) {
+                            var m = MINUTES[i];
+                            var cx = padL + (i + 0.5) * slotW;
+                            var bx = cx - barW / 2;
+                            var hPast = (m.past / maxCount) * plotH;
+                            var hNp = (m.np / maxCount) * plotH;
+                            var yBase = padT + plotH;
+
+                            if (i === selMinIdx) {
+                              ctx.fillStyle = 'rgba(0, 153, 204, 0.08)';
+                              ctx.fillRect(padL + i * slotW + 2, padT - 2, slotW - 4, plotH + 2);
+                            }
+
+                            // Segmento Pasado
+                            if (hPast > 0) {
+                              ctx.fillStyle = '#156b57';
+                              ctx.fillRect(bx, yBase - hPast, barW, hPast);
+                            }
+
+                            // Segmento No-pasado
+                            if (hNp > 0) {
+                              ctx.fillStyle = '#2b94ab';
+                              ctx.fillRect(bx, yBase - hPast - hNp, barW, hNp);
+                            }
+
+                            if (i === selMinIdx) {
+                              ctx.strokeStyle = '#1e2328';
+                              ctx.lineWidth = 1.5;
+                              ctx.strokeRect(bx - 0.5, yBase - hPast - hNp - 0.5, barW + 1, hPast + hNp + 1);
+                            }
+
+                            ctx.fillStyle = (i === selMinIdx) ? '#1e2328' : '#66737c';
+                            ctx.font = (i === selMinIdx ? '700 ' : '500 ') + '9.5px Poppins, sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.fillText(cssW < 520 ? ('M' + (i + 1)) : m.min, cx, yBase + 14);
+                          }
+
+                          ctx.restore();
+
+                          var curM = MINUTES[selMinIdx];
+                          var totM = curM.past + curM.np;
+                          var npPct = Math.round((curM.np / totM) * 100);
+                          readout.innerHTML =
+                            '<span><b>' + curM.min + ' (' + curM.range + '):</b> ' + curM.past + ' en pasado vs. ' + curM.np + ' en no-pasado (' + npPct + '% presente)</span>' +
+                            '<span>' + curM.scene + '</span>';
+
+                          foot.innerHTML =
+                            '<span>Toca cualquier columna para ver el conteo por minuto en Where There\'s Smoke.</span>' +
+                            '<span>Con solo 61 verbos en pasado divididos en dos canales, cae la potencia fuera de muestra.</span>';
+                        }
+
+                        function buildRidgeDOM() {
+                          stdRowsEl.innerHTML = '';
+                          bndRowsEl.innerHTML = '';
+
+                          for (var i = 0; i < SPACES_META.length; i++) {
+                            var sp = SPACES_META[i];
+                            var r1 = document.createElement('div');
+                            r1.className = 'gv08-sp-row' + (sp.isTense ? ' is-tense' : '');
+                            r1.innerHTML =
+                              '<span class="gv08-sp-name">' + sp.name + '</span>' +
+                              '<div class="gv08-weight-well"><div class="gv08-weight-fill" id="gv08-std-w-' + i + '"></div></div>' +
+                              '<span class="gv08-dial-tag" id="gv08-std-d-' + i + '">Común</span>';
+                            stdRowsEl.appendChild(r1);
+
+                            var r2 = document.createElement('div');
+                            r2.className = 'gv08-sp-row' + (sp.isTense ? ' is-tense' : '');
+                            r2.innerHTML =
+                              '<span class="gv08-sp-name">' + sp.name + '</span>' +
+                              '<div class="gv08-weight-well"><div class="gv08-weight-fill" id="gv08-bnd-w-' + i + '"></div></div>' +
+                              '<span class="gv08-dial-tag">' + sp.bndDial + '</span>';
+                            bndRowsEl.appendChild(r2);
+                          }
+                        }
+                        buildRidgeDOM();
+
+                        function updateBandedView() {
+                          var pen = parseInt(penSlider.value, 10) || 72;
+                          var lbl = pen > 65 ? 'Alto' : (pen > 38 ? 'Moderado' : 'Bajo');
+                          penValEl.textContent = lbl + ' (' + pen + '%)';
+
+                          for (var i = 0; i < SPACES_META.length; i++) {
+                            var sp = SPACES_META[i];
+                            // En Standard Ridge un freno global alto comprime con fuerza el bloque pequeño de 4 canales binarios
+                            var rawStd = sp.isTense
+                              ? Math.max(7, 88 - pen * 1.02)
+                              : Math.max(24, 95 - pen * 0.52 * sp.baseSens);
+
+                            document.getElementById('gv08-std-w-' + i).style.width = Math.round(rawStd) + '%';
+                            document.getElementById('gv08-std-d-' + i).textContent = lbl;
+
+                            // En Banded Ridge cada bloque conserva su propio hiperparámetro óptimo
+                            var bndVal = sp.isTense
+                              ? sp.bndWeight
+                              : Math.max(28, 96 - pen * 0.50 * sp.baseSens);
+                            document.getElementById('gv08-bnd-w-' + i).style.width = Math.round(bndVal) + '%';
+                          }
+
+                          readout.innerHTML =
+                            '<span><b>Efecto de la regularización:</b> al subir el freno común para estabilizar 14 rasgos fonológicos y 10 dimensiones LSA, Standard Ridge encoge en exceso los 4 canales binarios de tiempo verbal.</span>';
+
+                          foot.innerHTML =
+                            '<span>Las barras azules y verdes representan la magnitud relativa preservada en los pesos del modelo.</span>' +
+                            '<span>Banded Ridge calibra una constante propia por espacio sin aplastar bloques de menor dimensión.</span>';
+                        }
+
+                        function syncTab() {
+                          var isImb = (activeTab === 'imbalance');
+                          pImb.hidden = !isImb;
+                          pBnd.hidden = isImb;
+                          if (isImb) renderTimeline();
+                          else updateBandedView();
+                        }
+
+                        tCanvas.addEventListener('click', function (e) {
+                          var rect = tCanvas.getBoundingClientRect();
+                          var padL = 42, padR = 16;
+                          var plotW = rect.width - padL - padR;
+                          if (plotW <= 0) return;
+                          var idx = Math.floor(((e.clientX - rect.left - padL) / plotW) * MINUTES.length);
+                          if (idx >= 0 && idx < MINUTES.length) {
+                            selMinIdx = idx;
+                            renderTimeline();
+                          }
+                        });
+
+                        tCanvas.addEventListener('mousemove', function (e) {
+                          var rect = tCanvas.getBoundingClientRect();
+                          var padL = 42, padR = 16;
+                          var plotW = rect.width - padL - padR;
+                          if (plotW <= 0) return;
+                          var idx = Math.floor(((e.clientX - rect.left - padL) / plotW) * MINUTES.length);
+                          if (idx >= 0 && idx < MINUTES.length && idx !== selMinIdx) {
+                            selMinIdx = idx;
+                            renderTimeline();
+                          }
+                        });
+
+                        penSlider.addEventListener('input', updateBandedView);
+
+                        root.addEventListener('click', function (e) {
+                          var tBtn = e.target.closest('.gv08-tab-btn');
+                          if (!tBtn) return;
+                          var next = tBtn.getAttribute('data-tab');
+                          if (next && next !== activeTab) {
+                            activeTab = next;
+                            var tbs = root.querySelectorAll('.gv08-tab-btn');
+                            for (var i = 0; i < tbs.length; i++) {
+                              var act = (tbs[i] === tBtn);
+                              tbs[i].classList.toggle('is-active', act);
+                              tbs[i].setAttribute('aria-selected', act ? 'true' : 'false');
+                            }
+                            syncTab();
+                          }
+                        });
+
+                        window.addEventListener('resize', function () {
+                          if (activeTab === 'imbalance') renderTimeline();
+                        });
+
+                        syncTab();
+                      })();
+                    </script>
                   </div>
                   <!-- [FIN ESPACIO VISUAL 08] -->
 
