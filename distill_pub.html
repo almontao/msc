@@ -2411,26 +2411,1196 @@
                   </div>
 
                   <!-- [INICIO ESPACIO VISUAL 03] -->
-                  <div class="distill-wide">
-                    <div class="visual-placeholder" id="visual-slot-03">
-                      <span class="visual-placeholder-badge">Espacio Visual 03</span>
-                      <h4 class="visual-placeholder-title">
-                        Descomposición de los primeros segundos reales de <i>Where There's Smoke</i> en los 6 espacios
-                        (100 Hz)
-                      </h4>
-                      <p class="visual-placeholder-spec">
-                        <b>Diseño previsto (con los tiempos reales del TextGrid compartido):</b> Línea de tiempo
-                        interactiva de los segundos 0.0 a 13.3 del relato (<i>«I reached over... I had no shoes on, I
-                          was crying»</i>), mostrando arriba las palabras, fonemas ARPABET y pausas reales, y debajo la
-                        activación simultánea de los 6 bloques y el explorador detallado de sus 43 columnas.
-                      </p>
-                      <p class="visual-placeholder-caption">
-                        <b>Descripción:</b> En un mismo intervalo del relato coinciden rasgos articulatorios,
-                        frecuencias
-                        léxicas dispares, gerundios sin marca temporal y verbos conjugados regulares e irregulares.
-                      </p>
+                  <div class="distill-wide" id="gv03-container">
+                    <style>
+                      .gv03-card {
+                        background-color: #ffffff;
+                        border: 1px solid #dfe7ec;
+                        border-radius: 12px;
+                        padding: 20px 22px 16px 22px;
+                        box-shadow: 0 4px 18px rgba(30, 35, 40, 0.03);
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
+
+                      .gv03-top {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: flex-start;
+                        gap: 12px;
+                        margin-bottom: 12px;
+                      }
+
+                      .gv03-kicker {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.09em;
+                        color: #0099cc;
+                        display: block;
+                        margin-bottom: 2px;
+                      }
+
+                      .gv03-title {
+                        font-size: 1.03em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0;
+                      }
+
+                      .gv03-expand-btn {
+                        appearance: none;
+                        background-color: #eef9fd;
+                        border: 1px solid #8ad6eb;
+                        color: #00779e;
+                        font-family: inherit;
+                        font-size: 0.78em;
+                        font-weight: 600;
+                        padding: 7px 13px;
+                        border-radius: 7px;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                        white-space: nowrap;
+                      }
+
+                      .gv03-expand-btn:hover {
+                        background-color: #04b4e0;
+                        border-color: #04b4e0;
+                        color: #ffffff;
+                      }
+
+                      /* Selector de las 3 escenas clave del relato */
+                      .gv03-scenes-bar {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 6px;
+                        margin-bottom: 12px;
+                      }
+
+                      .gv03-scene-btn {
+                        appearance: none;
+                        background-color: #f4f7f9;
+                        border: 1px solid #dce4ea;
+                        color: #4b5862;
+                        font-family: inherit;
+                        font-size: 0.75em;
+                        font-weight: 600;
+                        padding: 5px 11px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                      }
+
+                      .gv03-scene-btn:hover {
+                        border-color: #9ab0bf;
+                        color: #1e2328;
+                      }
+
+                      .gv03-scene-btn.is-active {
+                        background-color: #1e2328;
+                        border-color: #1e2328;
+                        color: #ffffff;
+                      }
+
+                      .gv03-readout {
+                        background-color: #f7fafc;
+                        border: 1px solid #e3ebf0;
+                        border-radius: 7px;
+                        padding: 8px 12px;
+                        margin-bottom: 10px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: baseline;
+                        gap: 12px;
+                        font-size: 0.79em;
+                        color: #46525a;
+                        min-height: 36px;
+                      }
+
+                      .gv03-readout b {
+                        color: #1e2328;
+                      }
+
+                      .gv03-pill-on {
+                        display: inline-block;
+                        background-color: #dff4ee;
+                        color: #115c4a;
+                        font-weight: 600;
+                        padding: 1px 8px;
+                        border-radius: 99px;
+                        font-size: 0.92em;
+                      }
+
+                      .gv03-pill-off {
+                        color: #78858f;
+                      }
+
+                      .gv03-mini-scroll {
+                        width: 100%;
+                        overflow-x: auto;
+                        -webkit-overflow-scrolling: touch;
+                        border: 1px solid #e4ecf0;
+                        border-radius: 8px;
+                        background-color: #ffffff;
+                      }
+
+                      .gv03-mini-stage {
+                        min-width: 520px;
+                        width: 100%;
+                      }
+
+                      #gv03-mini-canvas {
+                        display: block;
+                        width: 100%;
+                        height: 256px;
+                        cursor: crosshair;
+                      }
+
+                      .gv03-foot {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 8px;
+                        margin-top: 10px;
+                        font-size: 0.76em;
+                        color: #68757e;
+                      }
+
+                      /* Estilos del Pop-up de pantalla completa (montado en document.body) */
+                      .gv03-modal-backdrop {
+                        position: fixed;
+                        inset: 0;
+                        z-index: 99999;
+                        background-color: rgba(18, 24, 30, 0.74);
+                        backdrop-filter: blur(3px);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 18px;
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
+
+                      .gv03-modal-backdrop[hidden] {
+                        display: none !important;
+                      }
+
+                      .gv03-modal-dialog {
+                        background-color: #ffffff;
+                        width: min(96vw, 1540px);
+                        max-height: 92vh;
+                        border-radius: 12px;
+                        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+                        display: flex;
+                        flex-direction: column;
+                        overflow: hidden;
+                      }
+
+                      .gv03-modal-head {
+                        padding: 14px 20px;
+                        border-bottom: 1px solid #e6edf2;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 12px;
+                        background-color: #fbfdfe;
+                      }
+
+                      .gv03-modal-title {
+                        font-size: 0.98em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0;
+                      }
+
+                      .gv03-modal-controls {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        gap: 8px;
+                      }
+
+                      .gv03-close-btn {
+                        appearance: none;
+                        background-color: #f1f5f8;
+                        border: 1px solid #d4dfe6;
+                        color: #2c363e;
+                        font-family: inherit;
+                        font-size: 0.8em;
+                        font-weight: 600;
+                        padding: 6px 13px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                      }
+
+                      .gv03-close-btn:hover {
+                        background-color: #e3eaef;
+                      }
+
+                      .gv03-modal-subbar {
+                        padding: 8px 20px;
+                        background-color: #f6fafc;
+                        border-bottom: 1px solid #e6edf2;
+                        font-size: 0.8em;
+                        color: #424e57;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 10px;
+                      }
+
+                      .gv03-modal-scroll {
+                        flex: 1;
+                        overflow: auto;
+                        -webkit-overflow-scrolling: touch;
+                        position: relative;
+                        background-color: #ffffff;
+                      }
+
+                      .gv03-modal-matrix-wrap {
+                        display: flex;
+                        align-items: flex-start;
+                        min-width: 100%;
+                      }
+
+                      /* Columna izquierda fija (sticky) con los 43 nombres exactos */
+                      .gv03-sticky-col {
+                        position: sticky;
+                        left: 0;
+                        z-index: 6;
+                        width: 190px;
+                        flex-shrink: 0;
+                        background-color: #ffffff;
+                        border-right: 1px solid #dce6ec;
+                        box-shadow: 3px 0 8px rgba(20, 30, 40, 0.04);
+                      }
+
+                      .gv03-sticky-row-label {
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        padding: 0 8px 0 10px;
+                        font-size: 10px;
+                        line-height: 12px;
+                        color: #3a464e;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                      }
+
+                      .gv03-sticky-row-label.is-target {
+                        color: #115c4a;
+                        font-weight: 600;
+                        background-color: #f1faf7;
+                      }
+
+                      .gv03-sticky-row-label.is-lit {
+                        background-color: #e6f4fb;
+                        font-weight: 600;
+                        color: #006b96;
+                      }
+
+                      .gv03-sticky-row-label.is-target.is-lit {
+                        background-color: #d6f2e9;
+                        color: #0b4a3b;
+                      }
+
+                      #gv03-full-canvas {
+                        display: block;
+                        cursor: crosshair;
+                      }
+
+                      @media (max-width: 767px) {
+                        .gv03-card {
+                          padding: 16px 14px;
+                        }
+
+                        .gv03-modal-backdrop {
+                          padding: 0;
+                        }
+
+                        .gv03-modal-dialog {
+                          width: 100vw;
+                          height: 100vh;
+                          height: 100dvh;
+                          max-height: none;
+                          border-radius: 0;
+                        }
+
+                        .gv03-modal-head {
+                          padding: 11px 14px;
+                        }
+
+                        .gv03-modal-subbar {
+                          padding: 8px 14px;
+                          font-size: 0.75em;
+                        }
+
+                        .gv03-sticky-col {
+                          width: 142px;
+                        }
+
+                        .gv03-sticky-row-label {
+                          font-size: 9.2px;
+                          padding: 0 5px 0 7px;
+                        }
+                      }
+                    </style>
+
+                    <figure class="gv03-card" id="gv03-card-root" style="margin: 0;">
+                      <div class="gv03-top">
+                        <div>
+                          <span class="gv03-kicker">Figura 3</span>
+                          <h4 class="gv03-title">Activación simultánea de los 6 espacios a 100 Hz en <i>Where There's
+                              Smoke</i></h4>
+                        </div>
+                        <button type="button" class="gv03-expand-btn" id="gv03-open-modal">
+                          Ampliar matriz (43 filas) &#x2922;
+                        </button>
+                      </div>
+
+                      <div class="gv03-scenes-bar" role="tablist" aria-label="Escenas reales del relato">
+                        <button type="button" class="gv03-scene-btn is-active" data-scene="escape">
+                          1. Escape inicial en pasado (0.0 a 3.8 s)
+                        </button>
+                        <button type="button" class="gv03-scene-btn" data-scene="street">
+                          2. Giro al presente y modal (117.5 a 120.2 s)
+                        </button>
+                        <button type="button" class="gv03-scene-btn" data-scene="smoked">
+                          3. Doble función de «smoked» (561.0 a 566.5 s)
+                        </button>
+                      </div>
+
+                      <div class="gv03-readout" id="gv03-mini-readout" aria-live="polite"></div>
+
+                      <div class="gv03-mini-scroll">
+                        <div class="gv03-mini-stage">
+                          <canvas id="gv03-mini-canvas"></canvas>
+                        </div>
+                      </div>
+
+                      <div class="gv03-foot">
+                        <span id="gv03-scene-note"></span>
+                        <span>Pulsa «Ampliar matriz» para inspeccionar las 43 filas individuales y el tramo
+                          extendido</span>
+                      </div>
+                    </figure>
+
+                    <!-- Plantilla del Pop-up de pantalla completa -->
+                    <div class="gv03-modal-backdrop" id="gv03-modal" hidden role="dialog" aria-modal="true"
+                      aria-labelledby="gv03-modal-title">
+                      <div class="gv03-modal-dialog">
+                        <div class="gv03-modal-head">
+                          <h4 class="gv03-modal-title" id="gv03-modal-title">
+                            Inspección completa de las 43 características a 100 Hz (<i>Where There's Smoke</i>)
+                          </h4>
+                          <div class="gv03-modal-controls">
+                            <button type="button" class="gv03-scene-btn is-active" data-modal-scene="escape">1. Escape
+                              (0 a 13.4 s)</button>
+                            <button type="button" class="gv03-scene-btn" data-modal-scene="street">2. Calle (117.5 a
+                              130.6 s)</button>
+                            <button type="button" class="gv03-scene-btn" data-modal-scene="smoked">3. Cierre (561.0 a
+                              572.6 s)</button>
+                            <button type="button" class="gv03-close-btn" id="gv03-close-modal">Cerrar &#x2715;</button>
+                          </div>
+                        </div>
+
+                        <div class="gv03-modal-subbar">
+                          <div id="gv03-full-readout"></div>
+                          <span style="color:#6c7983; font-size:0.92em;">Desliza horizontalmente para recorrer la línea
+                            de tiempo</span>
+                        </div>
+
+                        <div class="gv03-modal-scroll" id="gv03-modal-scroll">
+                          <div class="gv03-modal-matrix-wrap">
+                            <div class="gv03-sticky-col" id="gv03-sticky-col"></div>
+                            <canvas id="gv03-full-canvas"></canvas>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
+
+                  <script>
+                    window.GV03_DATA = (function () {
+                      var ROW_NAMES = [
+                        '1. vocalic', '2. consonantal', '3. voiceless', '4. voiced',
+                        '5. bilabial', '6. labiodental', '7. dental_alveolar', '8. palatal_velar',
+                        '9. stop', '10. fricative', '11. affricate', '12. nasal',
+                        '13. liquid', '14. approximant',
+                        '15. word_presence', '16. lexical_freq', '17. word_length', '18. word_duration',
+                        '19. noun', '20. adjective', '21. adverb', '22. pronoun',
+                        '23. preposition', '24. conjunction', '25. determiner', '26. non_finite_verb',
+                        '27. dep_distance', '28. syntactic_depth', '29. is_root',
+                        '30. semantic_dim_0', '31. semantic_dim_1', '32. semantic_dim_2', '33. semantic_dim_3',
+                        '34. semantic_dim_4', '35. semantic_dim_5', '36. semantic_dim_6', '37. semantic_dim_7',
+                        '38. semantic_dim_8', '39. semantic_dim_9',
+                        '40. past_regular', '41. past_irregular', '42. non_past_3sg', '43. non_past_unm'
+                      ];
+
+                      var BANDS = [
+                        { name: '1. Fonológico (14)', start: 0, count: 14, color: '#3e8c61' },
+                        { name: '2. Estadístico (4)', start: 14, count: 4, color: '#4c9470' },
+                        { name: '3. Categorial (8)', start: 18, count: 8, color: '#3e8c61' },
+                        { name: '4. Sintáctico (3)', start: 26, count: 3, color: '#4c9470' },
+                        { name: '5. Semántico LSA (10)', start: 29, count: 10, color: '#3b82a6' },
+                        { name: '6. Tiempo verbal (4)', start: 39, count: 4, color: '#147a63', isTarget: true }
+                      ];
+
+                      var TENSE_LABELS = ['past_regular (-ed)', 'past_irregular', 'non_past_marked_3sg (-s)', 'non_past_unmarked'];
+                      var CAT_LABELS = ['noun', 'adjective', 'adverb', 'pronoun', 'preposition', 'conjunction', 'determiner', 'non_finite_verb'];
+
+                      var VOWELS = { AA: 1, AE: 1, AH: 1, AO: 1, AW: 1, AY: 1, EH: 1, ER: 1, EY: 1, IH: 1, IY: 1, OW: 1, OY: 1, UH: 1, UW: 1 };
+                      var VOICELESS = { CH: 1, F: 1, HH: 1, K: 1, P: 1, S: 1, SH: 1, T: 1, TH: 1 };
+                      var BILABIAL = { B: 1, M: 1, P: 1, W: 1 };
+                      var LABIODENTAL = { F: 1, V: 1 };
+                      var DENTAL_ALV = { D: 1, DH: 1, L: 1, N: 1, R: 1, S: 1, T: 1, TH: 1, Z: 1 };
+                      var PALATAL_VEL = { CH: 1, G: 1, JH: 1, K: 1, NG: 1, SH: 1, Y: 1, ZH: 1 };
+                      var STOP = { B: 1, D: 1, G: 1, K: 1, P: 1, T: 1 };
+                      var FRICATIVE = { DH: 1, F: 1, HH: 1, S: 1, SH: 1, TH: 1, V: 1, Z: 1, ZH: 1 };
+                      var AFFRICATE = { CH: 1, JH: 1 };
+                      var NASAL = { M: 1, N: 1, NG: 1 };
+                      var LIQUID = { L: 1, R: 1 };
+                      var APPROX = { W: 1, Y: 1 };
+
+                      function phoneTo14(raw) {
+                        var ph = raw.replace(/[012]/g, '');
+                        var isV = !!VOWELS[ph];
+                        var isVL = !!VOICELESS[ph];
+                        return [
+                          isV ? 1 : 0, isV ? 0 : 1, isVL ? 1 : 0, isVL ? 0 : 1,
+                          BILABIAL[ph] ? 1 : 0, LABIODENTAL[ph] ? 1 : 0, DENTAL_ALV[ph] ? 1 : 0, PALATAL_VEL[ph] ? 1 : 0,
+                          STOP[ph] ? 1 : 0, FRICATIVE[ph] ? 1 : 0, AFFRICATE[ph] ? 1 : 0, NASAL[ph] ? 1 : 0,
+                          LIQUID[ph] ? 1 : 0, APPROX[ph] ? 1 : 0
+                        ];
+                      }
+
+                      // [NOTA PARA PC PRINCIPAL]: Los vectores de 10 valores en `clauses` representan las proyecciones
+                      // constantes por cláusula de LSA (cortadas en pausas >= 0.65 s). Pueden sustituirse por los valores
+                      // exactos de wheretheressmoke_semantic.parquet si se requiere.
+                      var SCENES = {
+                        escape: {
+                          shortStart: 0.0,
+                          shortEnd: 3.85,
+                          fullStart: 0.0,
+                          fullEnd: 13.4,
+                          defaultCursor: 0.32,
+                          note: 'En 3.8 segundos aparecen un pasado regular terminado en /t/ (reached), un pasado irregular (undid), una coma por pausa (0.58 s) y cierre de oración (0.89 s).',
+                          pauses: [[0.96, 1.54, ','], [3.64, 4.54, '.'], [5.37, 5.82, ','], [9.46, 10.51, '.']],
+                          clauses: [
+                            [0.01, 3.64, [0.68, 0.28, 0.82, 0.18, 0.56, 0.42, 0.74, 0.22, 0.50, 0.32]],
+                            [4.54, 9.46, [0.34, 0.84, 0.46, 0.72, 0.24, 0.78, 0.30, 0.64, 0.20, 0.56]],
+                            [10.88, 13.25, [0.76, 0.42, 0.22, 0.62, 0.80, 0.26, 0.52, 0.74, 0.66, 0.36]]
+                          ],
+                          words: [
+                            [0.01, 0.14, 'I', 7.4, 3, 1, 1, 0, -1], [0.14, 0.50, 'reached', 4.7, -1, 0, 0, 1, 0], [0.50, 0.96, 'over', 6.2, 2, 1, 1, 0, -1],
+                            [1.54, 1.69, 'and', 7.4, 5, 1, 1, 0, -1], [1.73, 2.38, 'secretly', 4.2, 2, 1, 2, 0, -1], [2.42, 2.96, 'undid', 2.9, -1, 4, 1, 0, 1],
+                            [2.96, 3.10, 'my', 6.7, 6, 1, 3, 0, -1], [3.17, 3.64, 'seatbelt', 3.4, 0, 2, 2, 0, -1],
+                            [4.54, 4.66, 'And', 7.4, 5, 7, 1, 0, -1], [4.66, 4.84, 'when', 6.6, 2, 3, 2, 0, -1], [4.84, 5.10, 'his', 6.7, 6, 1, 3, 0, -1],
+                            [5.14, 5.37, 'foot', 5.0, 0, 1, 2, 0, -1], [5.82, 5.96, 'hit', 5.3, -1, 5, 1, 0, 1], [5.96, 6.03, 'the', 7.7, 6, 1, 3, 0, -1],
+                            [6.03, 6.38, 'brake', 4.1, 0, 2, 2, 0, -1], [6.38, 6.49, 'at', 6.9, 4, 3, 2, 0, -1], [6.49, 6.57, 'the', 7.7, 6, 3, 4, 0, -1],
+                            [6.57, 6.80, 'red', 5.4, 1, 1, 4, 0, -1], [6.80, 7.18, 'light', 5.6, 0, 3, 3, 0, -1], [7.45, 7.55, 'I', 7.4, 3, 1, 1, 0, -1],
+                            [7.55, 7.83, 'flung', 3.5, -1, 0, 0, 1, 1], [7.83, 8.03, 'open', 5.7, 1, 1, 1, 0, -1], [8.03, 8.09, 'the', 7.7, 6, 1, 2, 0, -1],
+                            [8.09, 8.45, 'door', 5.4, 0, 3, 1, 0, -1], [8.88, 8.98, 'and', 7.4, 5, 5, 1, 0, -1], [8.98, 9.07, 'I', 7.4, 3, 1, 2, 0, -1],
+                            [9.07, 9.46, 'ran', 4.9, -1, 6, 1, 0, 1], [10.88, 10.97, 'I', 7.4, 3, 1, 1, 0, -1], [10.97, 11.43, 'had', 6.8, -1, 0, 0, 1, 1],
+                            [11.54, 11.68, 'no', 6.6, 6, 1, 2, 0, -1], [11.68, 12.03, 'shoes', 4.9, 0, 2, 1, 0, -1], [12.03, 12.41, 'on', 7.0, 2, 3, 1, 0, -1],
+                            [12.41, 12.53, 'I', 7.4, 3, 2, 2, 0, -1], [12.53, 12.69, 'was', 7.0, -1, 1, 2, 0, 1], [12.69, 13.25, 'crying', 4.6, 7, 6, 1, 0, -1]
+                          ],
+                          phones: [
+                            [0.01, 0.14, 'AY1'], [0.14, 0.22, 'R'], [0.22, 0.32, 'IY1'], [0.32, 0.45, 'CH'], [0.45, 0.50, 'T'],
+                            [0.50, 0.68, 'OW1'], [0.68, 0.75, 'V'], [0.75, 0.96, 'ER0'], [1.54, 1.62, 'AE1'], [1.62, 1.65, 'N'],
+                            [1.65, 1.69, 'D'], [1.73, 1.76, 'S'], [1.76, 1.86, 'IY1'], [1.86, 1.94, 'K'], [1.94, 1.97, 'R'],
+                            [1.97, 2.03, 'AH0'], [2.03, 2.07, 'T'], [2.07, 2.14, 'L'], [2.14, 2.38, 'IY0'], [2.42, 2.54, 'AH0'],
+                            [2.54, 2.64, 'N'], [2.64, 2.68, 'D'], [2.68, 2.83, 'IH1'], [2.83, 2.96, 'D'], [2.96, 2.99, 'M'],
+                            [2.99, 3.10, 'AY1'], [3.17, 3.20, 'S'], [3.20, 3.31, 'IY1'], [3.31, 3.35, 'T'], [3.35, 3.39, 'B'],
+                            [3.39, 3.44, 'EH2'], [3.44, 3.59, 'L'], [3.59, 3.64, 'T'], [4.54, 4.60, 'AE1'], [4.60, 4.63, 'N'],
+                            [4.63, 4.66, 'D'], [4.66, 4.72, 'W'], [4.72, 4.78, 'IH1'], [4.78, 4.84, 'N'], [4.84, 4.92, 'HH'],
+                            [4.92, 4.97, 'IH1'], [4.97, 5.10, 'Z'], [5.14, 5.19, 'F'], [5.19, 5.31, 'UH1'], [5.31, 5.37, 'T'],
+                            [5.82, 5.87, 'HH'], [5.87, 5.91, 'IH1'], [5.91, 5.96, 'T'], [5.96, 6.00, 'DH'], [6.00, 6.03, 'AH0'],
+                            [6.03, 6.11, 'B'], [6.11, 6.18, 'R'], [6.18, 6.32, 'EY1'], [6.32, 6.38, 'K'], [6.38, 6.43, 'AE1'],
+                            [6.43, 6.49, 'T'], [6.49, 6.52, 'DH'], [6.52, 6.57, 'AH0'], [6.57, 6.64, 'R'], [6.64, 6.72, 'EH1'],
+                            [6.72, 6.80, 'D'], [6.80, 6.93, 'L'], [6.93, 7.06, 'AY1'], [7.06, 7.18, 'T'], [7.45, 7.55, 'AY1'],
+                            [7.55, 7.65, 'F'], [7.65, 7.70, 'L'], [7.70, 7.75, 'AH1'], [7.75, 7.83, 'NG'], [7.83, 7.92, 'OW1'],
+                            [7.92, 7.97, 'P'], [7.97, 8.00, 'AH0'], [8.00, 8.03, 'N'], [8.03, 8.06, 'DH'], [8.06, 8.09, 'AH0'],
+                            [8.09, 8.18, 'D'], [8.18, 8.38, 'AO1'], [8.38, 8.45, 'R'], [8.88, 8.93, 'AE1'], [8.93, 8.97, 'N'],
+                            [8.97, 8.98, 'D'], [8.98, 9.07, 'AY1'], [9.07, 9.16, 'R'], [9.16, 9.37, 'AE1'], [9.37, 9.46, 'N'],
+                            [10.88, 10.97, 'AY1'], [10.97, 11.07, 'HH'], [11.07, 11.28, 'AE1'], [11.28, 11.43, 'D'], [11.54, 11.60, 'N'],
+                            [11.60, 11.68, 'OW1'], [11.68, 11.83, 'SH'], [11.83, 12.00, 'UW1'], [12.00, 12.03, 'Z'], [12.03, 12.25, 'AA1'],
+                            [12.25, 12.41, 'N'], [12.41, 12.53, 'AY1'], [12.53, 12.58, 'W'], [12.58, 12.64, 'AH0'], [12.64, 12.69, 'Z'],
+                            [12.69, 12.78, 'K'], [12.78, 12.82, 'R'], [12.82, 13.06, 'AY1'], [13.06, 13.09, 'IH0'], [13.09, 13.25, 'NG']
+                          ]
+                        },
+                        street: {
+                          shortStart: 117.45,
+                          shortEnd: 120.25,
+                          fullStart: 117.45,
+                          fullEnd: 130.6,
+                          defaultCursor: 118.48,
+                          note: 'Muestra el presente histórico (comes, it\'s) junto al filtrado del modal could (que no enciende tiempo ni categoría) y el infinitivo see en control.',
+                          pauses: [[120.09, 120.68, ','], [123.58, 123.92, ',']],
+                          clauses: [
+                            [117.50, 123.58, [0.30, 0.74, 0.62, 0.32, 0.50, 0.82, 0.20, 0.44, 0.68, 0.24]],
+                            [123.92, 130.49, [0.72, 0.36, 0.26, 0.78, 0.66, 0.32, 0.60, 0.80, 0.42, 0.58]]
+                          ],
+                          words: [
+                            [117.50, 117.92, 'And', 7.4, 5, 3, 1, 0, -1], [117.92, 117.99, 'the', 7.7, 6, 1, 2, 0, -1], [117.99, 118.34, 'person', 5.6, 0, 1, 1, 0, -1],
+                            [118.34, 118.62, 'comes', 5.4, -1, 0, 0, 1, 2], [118.62, 118.97, 'closer', 4.9, 2, 1, 1, 0, -1], [118.97, 119.06, 'and', 7.4, 5, 2, 1, 0, -1],
+                            [119.06, 119.11, 'I', 7.4, 3, 2, 2, 0, -1], [119.11, 119.27, 'could', 6.4, -1, 1, 2, 0, -1], [119.27, 119.44, 'see', 6.2, 7, 5, 1, 0, -1],
+                            [119.44, 119.59, 'it\'s', 6.5, -1, 1, 2, 0, 2], [119.59, 119.64, 'a', 7.4, 6, 1, 4, 0, -1], [119.64, 120.09, 'woman', 5.6, 0, 2, 3, 0, -1],
+                            [120.68, 120.78, 'and', 7.4, 5, 4, 1, 0, -1], [120.78, 120.91, 'then', 6.3, 2, 3, 1, 0, -1], [120.91, 121.02, 'I', 7.4, 3, 2, 1, 0, -1],
+                            [121.02, 121.25, 'can', 6.6, -1, 1, 1, 0, -1], [121.25, 121.55, 'see', 6.2, 7, 0, 0, 1, -1], [121.73, 121.89, 'she', 6.5, 3, 1, 2, 0, -1],
+                            [121.89, 122.02, 'has', 6.5, -1, 2, 1, 0, 2], [122.02, 122.10, 'her', 6.4, 6, 1, 3, 0, -1], [122.10, 122.49, 'hands', 5.4, 0, 2, 2, 0, -1],
+                            [122.49, 122.59, 'in', 7.3, 4, 3, 2, 0, -1], [122.59, 122.82, 'her', 6.4, 6, 1, 4, 0, -1], [123.11, 123.58, 'face', 5.5, 0, 2, 3, 0, -1],
+                            [124.07, 124.30, 'she\'s', 5.8, -1, 1, 1, 0, 2], [124.30, 124.76, 'crying', 4.6, 7, 0, 0, 1, -1], [125.07, 125.21, 'And', 7.4, 5, 3, 1, 0, -1],
+                            [125.21, 125.43, 'then', 6.3, 2, 2, 1, 0, -1], [125.43, 125.64, 'she', 6.5, 3, 1, 1, 0, -1], [125.64, 125.90, 'sees', 4.7, -1, 0, 0, 1, 2],
+                            [125.90, 126.01, 'me', 6.6, 3, 1, 1, 0, -1], [126.01, 126.15, 'and', 7.4, 5, 3, 1, 0, -1], [126.15, 126.31, 'she', 6.5, 3, 1, 2, 0, -1],
+                            [126.31, 126.80, 'composes', 3.1, -1, 4, 1, 0, 2], [126.80, 127.24, 'herself', 4.9, 3, 1, 2, 0, -1], [127.61, 127.94, 'and', 7.4, 5, 2, 1, 0, -1],
+                            [127.94, 128.08, 'she', 6.5, 3, 1, 2, 0, -1], [128.08, 128.31, 'gets', 5.4, -1, 5, 1, 0, 2], [128.31, 128.87, 'closer', 4.9, 2, 1, 2, 0, -1],
+                            [128.87, 128.98, 'and', 7.4, 5, 2, 2, 0, -1], [128.98, 129.05, 'I', 7.4, 3, 1, 3, 0, -1], [129.19, 129.37, 'see', 6.2, -1, 4, 2, 0, 3],
+                            [129.37, 129.53, 'she', 6.5, 3, 1, 4, 0, -1], [129.53, 129.77, 'has', 6.5, -1, 2, 3, 0, 2], [129.77, 129.89, 'no', 6.6, 6, 1, 5, 0, -1],
+                            [129.89, 130.24, 'shoes', 4.9, 0, 2, 4, 0, -1], [130.24, 130.49, 'on', 7.0, 2, 3, 4, 0, -1]
+                          ],
+                          phones: [
+                            [117.50, 117.71, 'AE1'], [117.71, 117.89, 'N'], [117.89, 117.92, 'D'], [117.92, 117.95, 'DH'], [117.95, 117.99, 'AH0'],
+                            [117.99, 118.08, 'P'], [118.08, 118.18, 'ER1'], [118.18, 118.26, 'S'], [118.26, 118.29, 'AH0'], [118.29, 118.34, 'N'],
+                            [118.34, 118.44, 'K'], [118.44, 118.48, 'AH1'], [118.48, 118.53, 'M'], [118.53, 118.62, 'Z'], [118.62, 118.70, 'K'],
+                            [118.70, 118.74, 'L'], [118.74, 118.86, 'OW1'], [118.86, 118.93, 'S'], [118.93, 118.97, 'ER0'], [118.97, 119.00, 'AH0'],
+                            [119.00, 119.03, 'N'], [119.03, 119.06, 'D'], [119.06, 119.11, 'AY1'], [119.11, 119.20, 'K'], [119.20, 119.23, 'UH1'],
+                            [119.23, 119.27, 'D'], [119.27, 119.36, 'S'], [119.36, 119.44, 'IY1'], [119.44, 119.49, 'IH1'], [119.49, 119.55, 'T'],
+                            [119.55, 119.59, 'S'], [119.59, 119.64, 'AH0'], [119.64, 119.77, 'W'], [119.77, 119.81, 'UH1'], [119.81, 119.89, 'M'],
+                            [119.89, 119.94, 'AH0'], [119.94, 120.09, 'N'], [120.68, 120.71, 'AH0'], [120.71, 120.75, 'N'], [120.75, 120.78, 'D'],
+                            [120.78, 120.81, 'DH'], [120.81, 120.87, 'EH1'], [120.87, 120.91, 'N'], [120.91, 121.02, 'AY1'], [121.02, 121.11, 'K'],
+                            [121.11, 121.14, 'AH0'], [121.14, 121.25, 'N'], [121.25, 121.32, 'S'], [121.32, 121.55, 'IY1'], [121.73, 121.81, 'SH'],
+                            [121.81, 121.89, 'IY1'], [121.89, 121.92, 'HH'], [121.92, 121.99, 'AE1'], [121.99, 122.02, 'Z'], [122.02, 122.05, 'HH'],
+                            [122.05, 122.10, 'ER1'], [122.10, 122.22, 'HH'], [122.22, 122.38, 'AE1'], [122.38, 122.43, 'N'], [122.43, 122.46, 'D'],
+                            [122.46, 122.49, 'Z'], [122.49, 122.54, 'IH1'], [122.54, 122.59, 'N'], [122.59, 122.62, 'HH'], [122.62, 122.82, 'ER0'],
+                            [123.11, 123.15, 'F'], [123.15, 123.40, 'EY1'], [123.40, 123.58, 'S'], [123.92, 124.07, 'OW1'], [124.07, 124.20, 'SH'],
+                            [124.20, 124.23, 'IY1'], [124.23, 124.30, 'Z'], [124.30, 124.38, 'K'], [124.38, 124.44, 'R'], [124.44, 124.66, 'AY1'],
+                            [124.66, 124.69, 'IH0'], [124.69, 124.76, 'NG'], [125.07, 125.15, 'AE1'], [125.15, 125.18, 'N'], [125.18, 125.21, 'D'],
+                            [125.21, 125.24, 'DH'], [125.24, 125.35, 'EH1'], [125.35, 125.43, 'N'], [125.43, 125.56, 'SH'], [125.56, 125.64, 'IY1'],
+                            [125.64, 125.69, 'S'], [125.69, 125.87, 'IY1'], [125.87, 125.90, 'Z'], [125.90, 125.96, 'M'], [125.96, 126.01, 'IY1'],
+                            [126.01, 126.07, 'AE1'], [126.07, 126.11, 'N'], [126.11, 126.15, 'D'], [126.15, 126.22, 'SH'], [126.22, 126.31, 'IY1'],
+                            [126.31, 126.38, 'K'], [126.38, 126.41, 'AH0'], [126.41, 126.47, 'M'], [126.47, 126.52, 'P'], [126.52, 126.65, 'OW1'],
+                            [126.65, 126.69, 'Z'], [126.69, 126.77, 'AH0'], [126.77, 126.80, 'Z'], [126.80, 126.83, 'HH'], [126.83, 126.92, 'ER0'],
+                            [126.92, 127.00, 'S'], [127.00, 127.06, 'EH1'], [127.06, 127.20, 'L'], [127.20, 127.24, 'F'], [127.61, 127.77, 'AE1'],
+                            [127.77, 127.90, 'N'], [127.90, 127.94, 'D'], [127.94, 128.02, 'SH'], [128.02, 128.08, 'IY1'], [128.08, 128.14, 'G'],
+                            [128.14, 128.22, 'IH1'], [128.22, 128.27, 'T'], [128.27, 128.31, 'S'], [128.31, 128.43, 'K'], [128.43, 128.46, 'L'],
+                            [128.46, 128.55, 'OW1'], [128.55, 128.68, 'Z'], [128.68, 128.87, 'ER0'], [128.87, 128.92, 'AE1'], [128.92, 128.95, 'N'],
+                            [128.95, 128.98, 'D'], [128.98, 129.05, 'AY1'], [129.19, 129.22, 'S'], [129.22, 129.37, 'IY1'], [129.37, 129.48, 'SH'],
+                            [129.48, 129.53, 'IY1'], [129.53, 129.62, 'HH'], [129.62, 129.68, 'AE1'], [129.68, 129.77, 'Z'], [129.77, 129.84, 'N'],
+                            [129.84, 129.89, 'OW1'], [129.89, 130.02, 'SH'], [130.02, 130.19, 'UW1'], [130.19, 130.24, 'Z'], [130.24, 130.42, 'AA1'],
+                            [130.42, 130.49, 'N']
+                          ]
+                        },
+                        smoked: {
+                          shortStart: 560.95,
+                          shortEnd: 566.45,
+                          fullStart: 560.95,
+                          fullEnd: 572.6,
+                          defaultCursor: 561.28,
+                          note: 'La misma palabra acústica (smoked) activa primero Tiempo gramatical (561.2 s, I smoked) y cuatro segundos después Control categorial (565.5 s, have never smoked).',
+                          pauses: [[563.74, 564.28, ','], [566.33, 567.16, '.'], [570.19, 570.96, '.']],
+                          clauses: [
+                            [560.98, 566.33, [0.82, 0.55, 0.30, 0.68, 0.44, 0.72, 0.25, 0.58, 0.36, 0.62]],
+                            [567.16, 570.19, [0.40, 0.25, 0.78, 0.35, 0.70, 0.28, 0.64, 0.48, 0.75, 0.20]],
+                            [570.96, 572.47, [0.62, 0.68, 0.42, 0.54, 0.32, 0.60, 0.72, 0.30, 0.46, 0.76]]
+                          ],
+                          words: [
+                            [560.98, 561.12, 'I', 7.4, 3, 1, 1, 0, -1], [561.12, 561.43, 'smoked', 4.5, -1, 0, 0, 1, 0], [561.43, 561.83, 'all', 6.8, 6, 2, 2, 0, -1],
+                            [561.83, 562.17, 'seven', 5.1, 1, 1, 2, 0, -1], [562.17, 562.79, 'cigarettes', 4.3, 0, 3, 1, 0, -1], [562.92, 563.05, 'on', 7.0, 4, 4, 1, 0, -1],
+                            [563.05, 563.13, 'the', 7.7, 6, 1, 3, 0, -1], [563.13, 563.30, 'way', 6.1, 0, 2, 2, 0, -1], [563.30, 563.74, 'home', 5.9, 2, 1, 3, 0, -1],
+                            [564.28, 564.39, 'And', 7.4, 5, 6, 1, 0, -1], [564.39, 564.65, 'people', 6.3, 0, 5, 1, 0, -1], [564.65, 564.97, 'who', 6.5, 3, 3, 3, 0, -1],
+                            [564.97, 565.14, 'have', 6.9, -1, 2, 3, 0, 3], [565.14, 565.38, 'never', 6.0, 2, 1, 3, 0, -1], [565.38, 565.68, 'smoked', 4.5, 7, 4, 2, 0, -1],
+                            [565.68, 566.33, 'cigarettes', 4.3, 0, 1, 3, 0, -1], [567.16, 567.48, 'just', 6.4, 2, 1, 1, 0, -1], [567.48, 567.76, 'think', 6.3, -1, 0, 0, 1, 3],
+                            [567.76, 568.15, 'ick', 2.8, 1, 1, 1, 0, -1], [568.63, 569.36, 'disgusting', 4.2, 1, 2, 1, 0, -1], [569.36, 569.50, 'and', 7.4, 5, 1, 2, 0, -1],
+                            [569.50, 570.19, 'poison', 4.4, 0, 2, 2, 0, -1], [570.96, 571.16, 'But', 7.1, 5, 4, 1, 0, -1], [571.16, 571.57, 'unless', 5.1, 5, 3, 2, 0, -1],
+                            [571.57, 571.76, 'you\'ve', 5.6, -1, 1, 2, 0, 3], [571.76, 572.05, 'had', 6.8, 7, 0, 0, 1, -1], [572.05, 572.47, 'them', 6.5, 3, 1, 1, 0, -1]
+                          ],
+                          phones: [
+                            [560.98, 561.12, 'AY1'], [561.12, 561.17, 'S'], [561.17, 561.22, 'M'], [561.22, 561.33, 'OW1'], [561.33, 561.36, 'K'], [561.36, 561.43, 'T'],
+                            [561.43, 561.74, 'AO1'], [561.74, 561.83, 'L'], [561.83, 561.91, 'S'], [561.91, 561.99, 'EH1'], [561.99, 562.04, 'V'], [562.04, 562.07, 'AH0'],
+                            [562.07, 562.17, 'N'], [562.17, 562.23, 'S'], [562.23, 562.32, 'IH2'], [562.32, 562.41, 'G'], [562.41, 562.49, 'ER0'], [562.49, 562.59, 'EH1'],
+                            [562.59, 562.63, 'T'], [562.63, 562.79, 'S'], [562.92, 563.01, 'AA1'], [563.01, 563.05, 'N'], [563.05, 563.08, 'DH'], [563.08, 563.13, 'AH1'],
+                            [563.13, 563.21, 'W'], [563.21, 563.30, 'EY1'], [563.30, 563.39, 'HH'], [563.39, 563.65, 'OW1'], [563.65, 563.74, 'M'], [564.28, 564.33, 'AE1'],
+                            [564.33, 564.36, 'N'], [564.36, 564.39, 'D'], [564.39, 564.42, 'P'], [564.42, 564.52, 'IY1'], [564.52, 564.55, 'P'], [564.55, 564.60, 'AH0'],
+                            [564.60, 564.65, 'L'], [564.65, 564.68, 'HH'], [564.68, 564.97, 'UW1'], [564.97, 565.06, 'HH'], [565.06, 565.11, 'AE1'], [565.11, 565.14, 'V'],
+                            [565.14, 565.23, 'N'], [565.23, 565.27, 'EH1'], [565.27, 565.32, 'V'], [565.32, 565.38, 'ER0'], [565.38, 565.48, 'S'], [565.48, 565.55, 'M'],
+                            [565.55, 565.62, 'OW1'], [565.62, 565.65, 'K'], [565.65, 565.68, 'T'], [565.68, 565.77, 'S'], [565.77, 565.85, 'IH2'], [565.85, 565.93, 'G'],
+                            [565.93, 566.00, 'ER0'], [566.00, 566.09, 'EH1'], [566.09, 566.15, 'T'], [566.15, 566.33, 'S'], [567.16, 567.24, 'JH'], [567.24, 567.33, 'AH0'],
+                            [567.33, 567.45, 'S'], [567.45, 567.48, 'T'], [567.48, 567.52, 'TH'], [567.52, 567.58, 'IH1'], [567.58, 567.71, 'NG'], [567.71, 567.76, 'K'],
+                            [567.76, 567.90, 'IH1'], [567.90, 568.15, 'K'], [568.63, 568.68, 'D'], [568.68, 568.72, 'IH2'], [568.72, 568.84, 'S'], [568.84, 568.91, 'G'],
+                            [568.91, 569.06, 'AH1'], [569.06, 569.10, 'S'], [569.10, 569.20, 'T'], [569.20, 569.25, 'IH0'], [569.25, 569.36, 'NG'], [569.36, 569.40, 'AE1'],
+                            [569.40, 569.46, 'N'], [569.46, 569.50, 'D'], [569.50, 569.61, 'P'], [569.61, 569.83, 'OY1'], [569.83, 569.90, 'Z'], [569.90, 569.96, 'AH0'],
+                            [569.96, 570.19, 'N'], [570.96, 571.03, 'B'], [571.03, 571.09, 'AH1'], [571.09, 571.16, 'T'], [571.16, 571.21, 'AH0'], [571.21, 571.25, 'N'],
+                            [571.25, 571.33, 'L'], [571.33, 571.41, 'EH1'], [571.41, 571.57, 'S'], [571.57, 571.67, 'Y'], [571.67, 571.70, 'UW1'], [571.70, 571.76, 'V'],
+                            [571.76, 571.83, 'HH'], [571.83, 572.00, 'AE1'], [572.00, 572.05, 'D'], [572.05, 572.08, 'DH'], [572.08, 572.20, 'EH1'], [572.20, 572.47, 'M']
+                          ]
+                        }
+                      };
+
+                      var cache = {};
+                      function getMatrix(key) {
+                        if (cache[key]) return cache[key];
+                        var sc = SCENES[key];
+                        var nSteps = Math.round((sc.fullEnd - sc.fullStart) * 100);
+                        var mat = new Array(43);
+                        for (var r = 0; r < 43; r++) mat[r] = new Float32Array(nSteps);
+
+                        for (var p = 0; p < sc.phones.length; p++) {
+                          var ph = sc.phones[p];
+                          var v14 = phoneTo14(ph[2]);
+                          var i0 = Math.max(0, Math.round((ph[0] - sc.fullStart) * 100));
+                          var i1 = Math.min(nSteps, Math.round((ph[1] - sc.fullStart) * 100));
+                          for (var k = i0; k < i1; k++) {
+                            for (var f = 0; f < 14; f++) mat[f][k] = v14[f];
+                          }
+                        }
+
+                        for (var w = 0; w < sc.words.length; w++) {
+                          var wd = sc.words[w];
+                          var w0 = Math.max(0, Math.round((wd[0] - sc.fullStart) * 100));
+                          var w1 = Math.min(nSteps, Math.round((wd[1] - sc.fullStart) * 100));
+                          var durN = Math.min(1, (wd[1] - wd[0]) / 0.65);
+                          var zipfN = Math.min(1, Math.max(0.15, (wd[3] - 2.0) / 6.0));
+                          var lenN = Math.min(1, wd[2].length / 10.0);
+                          var depN = Math.min(1, wd[5] / 7.0);
+                          var depH = Math.min(1, wd[6] / 5.0);
+
+                          for (var t = w0; t < w1; t++) {
+                            mat[14][t] = 1.0; mat[15][t] = zipfN; mat[16][t] = lenN; mat[17][t] = durN;
+                            if (wd[4] >= 0) mat[18 + wd[4]][t] = 1.0;
+                            mat[26][t] = depN; mat[27][t] = depH; mat[28][t] = wd[7] ? 1.0 : 0.0;
+                            if (wd[8] >= 0) mat[39 + wd[8]][t] = 1.0;
+                          }
+                        }
+
+                        for (var c = 0; c < sc.clauses.length; c++) {
+                          var cl = sc.clauses[c];
+                          var c0 = Math.max(0, Math.round((cl[0] - sc.fullStart) * 100));
+                          var c1 = Math.min(nSteps, Math.round((cl[1] - sc.fullStart) * 100));
+                          for (var tc = c0; tc < c1; tc++) {
+                            for (var d = 0; d < 10; d++) mat[29 + d][tc] = cl[2][d];
+                          }
+                        }
+
+                        // Resumen en 6 bandas para la vista compacta del artículo
+                        var bands6 = new Array(6);
+                        for (var b = 0; b < 6; b++) {
+                          bands6[b] = new Float32Array(nSteps);
+                          var sRow = BANDS[b].start;
+                          var cnt = BANDS[b].count;
+                          for (var col = 0; col < nSteps; col++) {
+                            var sum = 0;
+                            var mx = 0;
+                            for (var rr = sRow; rr < sRow + cnt; rr++) {
+                              sum += mat[rr][col];
+                              if (mat[rr][col] > mx) mx = mat[rr][col];
+                            }
+                            bands6[b][col] = (b === 0 || b === 1 || b === 4) ? Math.min(1, (sum / cnt) * 1.9) : mx;
+                          }
+                        }
+
+                        cache[key] = { nSteps: nSteps, mat: mat, bands6: bands6 };
+                        return cache[key];
+                      }
+
+                      return {
+                        ROW_NAMES: ROW_NAMES,
+                        BANDS: BANDS,
+                        TENSE_LABELS: TENSE_LABELS,
+                        CAT_LABELS: CAT_LABELS,
+                        SCENES: SCENES,
+                        getMatrix: getMatrix
+                      };
+                    })();
+                  </script>
+
+                  <script>
+                    (function () {
+                      var D = window.GV03_DATA;
+                      var cardRoot = document.getElementById('gv03-card-root');
+                      var miniCanvas = document.getElementById('gv03-mini-canvas');
+                      var miniReadout = document.getElementById('gv03-mini-readout');
+                      var sceneNote = document.getElementById('gv03-scene-note');
+                      var modal = document.getElementById('gv03-modal');
+                      var fullCanvas = document.getElementById('gv03-full-canvas');
+                      var fullReadout = document.getElementById('gv03-full-readout');
+                      var stickyCol = document.getElementById('gv03-sticky-col');
+                      var modalScroll = document.getElementById('gv03-modal-scroll');
+
+                      if (!D || !cardRoot || !miniCanvas || !modal) return;
+
+                      // Mover el modal a document.body para que escape del contenedor de breezycv
+                      if (modal.parentNode !== document.body) {
+                        document.body.appendChild(modal);
+                      }
+
+                      var activeScene = 'escape';
+                      var cursorTime = D.SCENES.escape.defaultCursor;
+                      var isModalOpen = false;
+
+                      // Coordenadas verticales exactas compartidas entre etiquetas sticky y canvas completo
+                      var FULL_ROW_Y = [];
+                      var FULL_BAND_BOUNDS = [];
+                      var FULL_TOTAL_H = 0;
+                      var stickyLabelNodes = [];
+
+                      function initStickyLabels() {
+                        var y = 42;
+                        var rowH = 12;
+                        var gap = 1.5;
+                        var bandGap = 8;
+                        FULL_ROW_Y = [];
+                        FULL_BAND_BOUNDS = [];
+                        stickyCol.innerHTML = '';
+                        stickyLabelNodes = [];
+
+                        var topHdr = document.createElement('div');
+                        topHdr.className = 'gv03-sticky-row-label';
+                        topHdr.style.top = '8px';
+                        topHdr.style.height = '26px';
+                        topHdr.style.fontWeight = '700';
+                        topHdr.style.color = '#55636d';
+                        topHdr.textContent = 'Palabras y pausas';
+                        stickyCol.appendChild(topHdr);
+
+                        var rIdx = 0;
+                        for (var b = 0; b < D.BANDS.length; b++) {
+                          var bTop = y;
+                          for (var k = 0; k < D.BANDS[b].count; k++) {
+                            FULL_ROW_Y.push(y);
+                            var lbl = document.createElement('div');
+                            lbl.className = 'gv03-sticky-row-label' + (D.BANDS[b].isTarget ? ' is-target' : '');
+                            lbl.style.top = y + 'px';
+                            lbl.style.height = rowH + 'px';
+                            lbl.style.borderLeft = '3px solid ' + D.BANDS[b].color;
+                            lbl.textContent = D.ROW_NAMES[rIdx];
+                            stickyCol.appendChild(lbl);
+                            stickyLabelNodes.push(lbl);
+                            y += rowH + gap;
+                            rIdx++;
+                          }
+                          FULL_BAND_BOUNDS.push({ top: bTop, bottom: y - gap, band: D.BANDS[b] });
+                          y += bandGap;
+                        }
+
+                        FULL_TOTAL_H = y + 22;
+                        stickyCol.style.height = FULL_TOTAL_H + 'px';
+                      }
+                      initStickyLabels();
+
+                      function buildReadoutHTML(sc, built, tSec) {
+                        var idx = Math.min(built.nSteps - 1, Math.max(0, Math.floor((tSec - sc.fullStart) * 100)));
+                        var wHit = null, phHit = null, pzHit = null;
+
+                        for (var i = 0; i < sc.words.length; i++) {
+                          if (tSec >= sc.words[i][0] && tSec <= sc.words[i][1]) { wHit = sc.words[i]; break; }
+                        }
+                        for (var j = 0; j < sc.phones.length; j++) {
+                          if (tSec >= sc.phones[j][0] && tSec <= sc.phones[j][1]) { phHit = sc.phones[j]; break; }
+                        }
+                        for (var p = 0; p < sc.pauses.length; p++) {
+                          if (tSec >= sc.pauses[p][0] && tSec <= sc.pauses[p][1]) { pzHit = sc.pauses[p]; break; }
+                        }
+
+                        var phCnt = 0;
+                        for (var r = 0; r < 14; r++) { if (built.mat[r][idx] > 0) phCnt++; }
+
+                        var h = '<span><b>Instante:</b> ' + tSec.toFixed(2) + ' s</span>';
+                        if (wHit) {
+                          h += '<span><b>Palabra:</b> «' + wHit[2] + '»</span>';
+                          if (phHit) h += '<span><b>Fonema:</b> /' + phHit[2].replace(/[012]/g, '') + '/ (' + phCnt + ' rasgos)</span>';
+                          if (wHit[4] >= 0) {
+                            h += '<span><b>Categoría:</b> ' + D.CAT_LABELS[wHit[4]] + '</span>';
+                          } else if (wHit[4] === -1 && wHit[8] === -1) {
+                            h += '<span class="gv03-pill-off"><b>Filtro:</b> modal excluido</span>';
+                          }
+                          if (wHit[8] >= 0) {
+                            h += '<span class="gv03-pill-on">Tiempo: ' + D.TENSE_LABELS[wHit[8]] + ' = 1</span>';
+                          } else {
+                            h += '<span class="gv03-pill-off">Tiempo gramatical: 0</span>';
+                          }
+                        } else if (pzHit) {
+                          var dur = (pzHit[1] - pzHit[0]).toFixed(2);
+                          h += '<span><b>Pausa acústica (' + dur + ' s):</b> signo «' + pzHit[2] + '»</span>';
+                        } else {
+                          h += '<span class="gv03-pill-off">Silencio breve o respiración filtrada</span>';
+                        }
+                        return { html: h, colIdx: idx };
+                      }
+
+                      // Renderizado de la vista incrustada corta (6 bandas resumen)
+                      function renderMini() {
+                        var sc = D.SCENES[activeScene];
+                        var built = D.getMatrix(activeScene);
+                        var dpr = window.devicePixelRatio || 1;
+                        var cssW = miniCanvas.clientWidth || 640;
+                        var cssH = 256;
+
+                        if (miniCanvas.width !== Math.round(cssW * dpr) || miniCanvas.height !== Math.round(cssH * dpr)) {
+                          miniCanvas.width = Math.round(cssW * dpr);
+                          miniCanvas.height = Math.round(cssH * dpr);
+                        }
+
+                        var ctx = miniCanvas.getContext('2d');
+                        ctx.save();
+                        ctx.scale(dpr, dpr);
+                        ctx.clearRect(0, 0, cssW, cssH);
+
+                        var leftPad = 148;
+                        var rightPad = 14;
+                        var plotW = cssW - leftPad - rightPad;
+                        var t0 = sc.shortStart;
+                        var t1 = sc.shortEnd;
+                        var dur = t1 - t0;
+
+                        function tToX(t) { return leftPad + ((t - t0) / dur) * plotW; }
+
+                        // Carril superior de palabras (solo ventana corta)
+                        ctx.fillStyle = '#fbfdfe';
+                        ctx.fillRect(leftPad, 6, plotW, 30);
+                        ctx.strokeStyle = '#e3ecf0';
+                        ctx.strokeRect(leftPad, 6, plotW, 30);
+
+                        ctx.textAlign = 'right';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillStyle = '#62707a';
+                        ctx.font = '600 10.5px Poppins, sans-serif';
+                        ctx.fillText('Palabras y pausas', leftPad - 12, 21);
+
+                        for (var p = 0; p < sc.pauses.length; p++) {
+                          var pz = sc.pauses[p];
+                          if (pz[1] <= t0 || pz[0] >= t1) continue;
+                          var px0 = Math.max(leftPad, tToX(pz[0]));
+                          var px1 = Math.min(leftPad + plotW, tToX(pz[1]));
+                          ctx.fillStyle = 'rgba(0, 153, 204, 0.08)';
+                          ctx.fillRect(px0, 6, Math.max(2, px1 - px0), 30);
+                          ctx.fillStyle = '#0086b3';
+                          ctx.font = '700 12px Poppins, sans-serif';
+                          ctx.textAlign = 'center';
+                          ctx.fillText(pz[2], (px0 + px1) / 2, 22);
+                        }
+
+                        for (var w = 0; w < sc.words.length; w++) {
+                          var wd = sc.words[w];
+                          if (wd[1] <= t0 || wd[0] >= t1) continue;
+                          var wx0 = Math.max(leftPad, tToX(wd[0]));
+                          var wx1 = Math.min(leftPad + plotW, tToX(wd[1]));
+                          var ww = Math.max(2, wx1 - wx0);
+                          var hasT = (wd[8] >= 0);
+                          var isMod = (wd[4] === -1 && wd[8] === -1);
+
+                          ctx.fillStyle = hasT ? '#dcf3ec' : (isMod ? '#fdf0ef' : '#edf2f6');
+                          ctx.fillRect(wx0, 9, ww, 24);
+                          if (hasT) {
+                            ctx.fillStyle = '#147a63';
+                            ctx.fillRect(wx0, 31, ww, 2);
+                          }
+                          if (ww > 18) {
+                            ctx.fillStyle = hasT ? '#0d4f40' : (isMod ? '#993f39' : '#26313a');
+                            ctx.font = (hasT ? '600 ' : '500 ') + '10.5px Poppins, sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.fillText(wd[2], wx0 + ww / 2, 21);
+                          }
+                        }
+
+                        // Dibujar las 6 bandas resumen
+                        var iStart = Math.max(0, Math.round((t0 - sc.fullStart) * 100));
+                        var iEnd = Math.min(built.nSteps, Math.round((t1 - sc.fullStart) * 100));
+                        var nVis = Math.max(1, iEnd - iStart);
+                        var stepW = plotW / nVis;
+                        var drawW = Math.max(1.2, stepW + 0.4);
+
+                        for (var b = 0; b < 6; b++) {
+                          var by = 46 + b * 31;
+                          var bh = 23;
+                          var bInfo = D.BANDS[b];
+
+                          ctx.fillStyle = bInfo.isTarget ? '#f0faf6' : '#f7fafc';
+                          ctx.fillRect(leftPad, by, plotW, bh);
+                          ctx.fillStyle = bInfo.color;
+                          ctx.fillRect(leftPad - 6, by, 3, bh);
+
+                          ctx.textAlign = 'right';
+                          ctx.fillStyle = bInfo.isTarget ? '#115c4a' : '#26313a';
+                          ctx.font = (bInfo.isTarget ? '700 ' : '600 ') + '10.5px Poppins, sans-serif';
+                          ctx.fillText(bInfo.name, leftPad - 12, by + bh / 2);
+
+                          var arr = built.bands6[b];
+                          for (var k = 0; k < nVis; k++) {
+                            var val = arr[iStart + k];
+                            if (val <= 0.02) continue;
+                            var cx = leftPad + k * stepW;
+                            if (bInfo.isTarget) {
+                              ctx.fillStyle = '#147a63';
+                            } else if (b === 4) {
+                              ctx.fillStyle = 'rgba(59, 130, 166, ' + (0.22 + 0.72 * val).toFixed(2) + ')';
+                            } else {
+                              ctx.fillStyle = 'rgba(62, 140, 97, ' + (0.24 + 0.72 * val).toFixed(2) + ')';
+                            }
+                            ctx.fillRect(cx, by + 2, drawW, bh - 4);
+                          }
+                        }
+
+                        // Eje de segundos
+                        var axY = 236;
+                        ctx.strokeStyle = '#cfd9e0';
+                        ctx.beginPath();
+                        ctx.moveTo(leftPad, axY);
+                        ctx.lineTo(leftPad + plotW, axY);
+                        ctx.stroke();
+
+                        ctx.fillStyle = '#68757e';
+                        ctx.font = '500 10px Poppins, sans-serif';
+                        ctx.textAlign = 'center';
+                        for (var s = Math.ceil(t0 * 2) / 2; s <= t1; s += 0.5) {
+                          var tx = tToX(s);
+                          ctx.beginPath();
+                          ctx.moveTo(tx, axY);
+                          ctx.lineTo(tx, axY + 4);
+                          ctx.stroke();
+                          ctx.fillText(s.toFixed(1) + ' s', tx, axY + 12);
+                        }
+
+                        var cClamped = Math.min(t1, Math.max(t0, cursorTime));
+                        var curX = tToX(cClamped);
+                        ctx.strokeStyle = '#1e2328';
+                        ctx.lineWidth = 1.3;
+                        ctx.beginPath();
+                        ctx.moveTo(curX, 6);
+                        ctx.lineTo(curX, axY);
+                        ctx.stroke();
+
+                        ctx.restore();
+                        sceneNote.textContent = sc.note;
+                        miniReadout.innerHTML = buildReadoutHTML(sc, built, cClamped).html;
+                      }
+
+                      // Renderizado del Pop-up completo (43 filas individuales + ancho panorámico)
+                      function renderFull() {
+                        if (!isModalOpen) return;
+                        var sc = D.SCENES[activeScene];
+                        var built = D.getMatrix(activeScene);
+                        var dpr = window.devicePixelRatio || 1;
+
+                        var availW = modalScroll.clientWidth - stickyCol.offsetWidth - 4;
+                        var dur = sc.fullEnd - sc.fullStart;
+                        // Garantiza al menos 96 px por segundo para lectura nítida en celular y escritorio
+                        var cssW = Math.max(availW, Math.round(dur * 96));
+                        var cssH = FULL_TOTAL_H;
+
+                        fullCanvas.style.width = cssW + 'px';
+                        fullCanvas.style.height = cssH + 'px';
+                        if (fullCanvas.width !== Math.round(cssW * dpr) || fullCanvas.height !== Math.round(cssH * dpr)) {
+                          fullCanvas.width = Math.round(cssW * dpr);
+                          fullCanvas.height = Math.round(cssH * dpr);
+                        }
+
+                        var ctx = fullCanvas.getContext('2d');
+                        ctx.save();
+                        ctx.scale(dpr, dpr);
+                        ctx.clearRect(0, 0, cssW, cssH);
+
+                        var padR = 18;
+                        var plotW = cssW - padR;
+                        function tToX(t) { return ((t - sc.fullStart) / dur) * plotW; }
+
+                        // Carril superior de palabras y pausas
+                        ctx.fillStyle = '#fbfdfe';
+                        ctx.fillRect(0, 6, plotW, 30);
+                        ctx.strokeStyle = '#e4ecf0';
+                        ctx.strokeRect(0, 6, plotW, 30);
+                        ctx.textBaseline = 'middle';
+
+                        for (var p = 0; p < sc.pauses.length; p++) {
+                          var pz = sc.pauses[p];
+                          var px0 = tToX(pz[0]), px1 = tToX(pz[1]);
+                          ctx.fillStyle = 'rgba(0, 153, 204, 0.09)';
+                          ctx.fillRect(px0, 6, Math.max(2, px1 - px0), 30);
+                          ctx.fillStyle = '#0086b3';
+                          ctx.font = '700 12px Poppins, sans-serif';
+                          ctx.textAlign = 'center';
+                          ctx.fillText(pz[2], (px0 + px1) / 2, 21);
+                        }
+
+                        for (var w = 0; w < sc.words.length; w++) {
+                          var wd = sc.words[w];
+                          var wx0 = tToX(wd[0]), wx1 = tToX(wd[1]);
+                          var ww = Math.max(2, wx1 - wx0);
+                          var hasT = (wd[8] >= 0);
+                          var isMod = (wd[4] === -1 && wd[8] === -1);
+
+                          ctx.fillStyle = hasT ? '#dcf3ec' : (isMod ? '#fdf0ef' : '#edf2f6');
+                          ctx.fillRect(wx0, 9, ww, 24);
+                          if (hasT) {
+                            ctx.fillStyle = '#147a63';
+                            ctx.fillRect(wx0, 31, ww, 2);
+                          }
+                          if (ww > 14) {
+                            ctx.fillStyle = hasT ? '#0d4f40' : (isMod ? '#993f39' : '#26313a');
+                            ctx.font = (hasT ? '600 ' : '500 ') + '10.5px Poppins, sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.fillText(wd[2], wx0 + ww / 2, 21);
+                          }
+                        }
+
+                        // Fondos de banda y las 43 filas
+                        for (var b = 0; b < FULL_BAND_BOUNDS.length; b++) {
+                          var bb = FULL_BAND_BOUNDS[b];
+                          ctx.fillStyle = bb.band.isTarget ? '#f1faf7' : (b % 2 === 0 ? '#f9fbfc' : '#f4f8fa');
+                          ctx.fillRect(0, bb.top - 1, plotW, (bb.bottom - bb.top) + 2);
+                        }
+
+                        var stepW = plotW / built.nSteps;
+                        var drawW = Math.max(1.15, stepW + 0.35);
+
+                        for (var r = 0; r < 43; r++) {
+                          var ry = FULL_ROW_Y[r];
+                          var arr = built.mat[r];
+                          var isLsa = (r >= 29 && r <= 38);
+                          var isT = (r >= 39);
+
+                          for (var c = 0; c < built.nSteps; c++) {
+                            var v = arr[c];
+                            if (v <= 0.01) continue;
+                            if (isT) ctx.fillStyle = '#147a63';
+                            else if (isLsa) ctx.fillStyle = 'rgba(59, 130, 166, ' + (0.22 + 0.72 * v).toFixed(2) + ')';
+                            else ctx.fillStyle = 'rgba(62, 140, 97, ' + (0.26 + 0.70 * v).toFixed(2) + ')';
+                            ctx.fillRect(c * stepW, ry + 1, drawW, 10);
+                          }
+                        }
+
+                        // Eje inferior de tiempo
+                        var axY = FULL_BAND_BOUNDS[5].bottom + 10;
+                        ctx.strokeStyle = '#cfd9e0';
+                        ctx.beginPath();
+                        ctx.moveTo(0, axY);
+                        ctx.lineTo(plotW, axY);
+                        ctx.stroke();
+
+                        ctx.fillStyle = '#68757e';
+                        ctx.font = '500 10px Poppins, sans-serif';
+                        ctx.textAlign = 'center';
+                        for (var s = Math.ceil(sc.fullStart); s <= Math.floor(sc.fullEnd); s++) {
+                          var tx = tToX(s);
+                          ctx.beginPath();
+                          ctx.moveTo(tx, axY);
+                          ctx.lineTo(tx, axY + 4);
+                          ctx.stroke();
+                          ctx.fillText(s + ' s', tx, axY + 12);
+                        }
+
+                        var cClamped = Math.min(sc.fullEnd, Math.max(sc.fullStart, cursorTime));
+                        var curX = tToX(cClamped);
+                        ctx.strokeStyle = '#1e2328';
+                        ctx.lineWidth = 1.3;
+                        ctx.beginPath();
+                        ctx.moveTo(curX, 6);
+                        ctx.lineTo(curX, axY);
+                        ctx.stroke();
+
+                        ctx.restore();
+
+                        var rData = buildReadoutHTML(sc, built, cClamped);
+                        fullReadout.innerHTML = rData.html;
+
+                        // Resaltar en la columna izquierda fija las filas activas en ese milisegundo
+                        for (var n = 0; n < 43; n++) {
+                          stickyLabelNodes[n].classList.toggle('is-lit', built.mat[n][rData.colIdx] > 0.05);
+                        }
+                      }
+
+                      function setScene(key) {
+                        if (!D.SCENES[key]) return;
+                        activeScene = key;
+                        cursorTime = D.SCENES[key].defaultCursor;
+
+                        var b1 = cardRoot.querySelectorAll('[data-scene]');
+                        for (var i = 0; i < b1.length; i++) b1[i].classList.toggle('is-active', b1[i].getAttribute('data-scene') === key);
+
+                        var b2 = modal.querySelectorAll('[data-modal-scene]');
+                        for (var j = 0; j < b2.length; j++) b2[j].classList.toggle('is-active', b2[j].getAttribute('data-modal-scene') === key);
+
+                        renderMini();
+                        if (isModalOpen) {
+                          modalScroll.scrollLeft = 0;
+                          renderFull();
+                        }
+                      }
+
+                      function scrubMini(clientX) {
+                        var rect = miniCanvas.getBoundingClientRect();
+                        var leftPad = 148, rightPad = 14;
+                        var plotW = rect.width - leftPad - rightPad;
+                        if (plotW <= 0) return;
+                        var ratio = Math.min(1, Math.max(0, (clientX - rect.left - leftPad) / plotW));
+                        var sc = D.SCENES[activeScene];
+                        cursorTime = sc.shortStart + ratio * (sc.shortEnd - sc.shortStart);
+                        renderMini();
+                      }
+
+                      function scrubFull(clientX) {
+                        var rect = fullCanvas.getBoundingClientRect();
+                        var plotW = rect.width - 18;
+                        if (plotW <= 0) return;
+                        var ratio = Math.min(1, Math.max(0, (clientX - rect.left) / plotW));
+                        var sc = D.SCENES[activeScene];
+                        cursorTime = sc.fullStart + ratio * (sc.fullEnd - sc.fullStart);
+                        renderFull();
+                      }
+
+                      miniCanvas.addEventListener('mousemove', function (e) { scrubMini(e.clientX); });
+                      miniCanvas.addEventListener('click', function (e) { scrubMini(e.clientX); });
+                      miniCanvas.addEventListener('touchmove', function (e) {
+                        if (e.touches && e.touches[0]) scrubMini(e.touches[0].clientX);
+                      }, { passive: true });
+
+                      fullCanvas.addEventListener('mousemove', function (e) { scrubFull(e.clientX); });
+                      fullCanvas.addEventListener('click', function (e) { scrubFull(e.clientX); });
+
+                      cardRoot.addEventListener('click', function (e) {
+                        var scBtn = e.target.closest('[data-scene]');
+                        if (scBtn) setScene(scBtn.getAttribute('data-scene'));
+                      });
+
+                      document.getElementById('gv03-open-modal').addEventListener('click', function () {
+                        isModalOpen = true;
+                        modal.hidden = false;
+                        document.body.style.overflow = 'hidden';
+                        renderFull();
+                      });
+
+                      function closeModal() {
+                        isModalOpen = false;
+                        modal.hidden = true;
+                        document.body.style.overflow = '';
+                        renderMini();
+                      }
+
+                      document.getElementById('gv03-close-modal').addEventListener('click', closeModal);
+                      modal.addEventListener('click', function (e) {
+                        if (e.target === modal) closeModal();
+                        var mBtn = e.target.closest('[data-modal-scene]');
+                        if (mBtn) setScene(mBtn.getAttribute('data-modal-scene'));
+                      });
+
+                      document.addEventListener('keydown', function (e) {
+                        if (e.key === 'Escape' && isModalOpen) closeModal();
+                      });
+
+                      window.addEventListener('resize', function () {
+                        renderMini();
+                        if (isModalOpen) renderFull();
+                      });
+
+                      renderMini();
+                    })();
+                  </script>
                   <!-- [FIN ESPACIO VISUAL 03] -->
 
 
