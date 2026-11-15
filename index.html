@@ -23,8 +23,7 @@
   <script src="breezycv_base/js/modernizr.custom.js"></script>
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
       delimiters: [
         {left: '$$', right: '$$', display: true},
         {left: '$', right: '$', display: false}
@@ -189,7 +188,8 @@
                             <h3>Tabla 1: <span>Glosario de convenciones y conceptos clave del estudio</span></h3>
                           </div>
 
-                          <div class="fw-table" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
+                          <div class="fw-table"
+                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
                             <table style="min-width: 520px; text-align: left;">
                               <thead>
                                 <tr class="heading-row">
@@ -208,7 +208,8 @@
                                 </tr>
                                 <tr>
                                   <td><b>TR (Tiempo de Repetición)</b></td>
-                                  <td>El compás temporal en el que el escáner adquiere un volumen cerebral completo (cada
+                                  <td>El compás temporal en el que el escáner adquiere un volumen cerebral completo
+                                    (cada
                                     2.0 segundos, equivalente a 0.5 Hz).</td>
                                   <td>Determina la escala temporal final a la que deben sincronizarse todas las matrices
                                     de características.</td>
@@ -288,7 +289,8 @@
                               direction TB
                               HRF@{ shape: hex, label: "Convolución HRF canónica" }
                               REM@{ shape: rounded, label: "Remuestreo polifásico al TR" }
-                              CV@{ shape: rounded, label: "Validación cruzada agrupada por historia<br>(selección de penalización Ridge)" }
+                              CV@{ shape: rounded, label: "Validación cruzada agrupada por historia<br>(selección de
+                              penalización Ridge)" }
 
                               RESTRICT@{ shape: subproc, label: "Modelo<br>restringido" }
                               GLOBAL@{ shape: subproc, label: "Modelo<br>global" }
@@ -500,7 +502,8 @@
                             <h4>Tabla 2: Estructura del espacio de tiempo gramatical y distribución en el corpus</h4>
                           </div>
 
-                          <div class="fw-table" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
+                          <div class="fw-table"
+                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
                             <table style="min-width: 520px; text-align: left;">
                               <thead>
                                 <tr class="heading-row">
@@ -515,26 +518,30 @@
                                   <td rowspan="2"><b>Pasado (49.99%)</b></td>
                                   <td><b>Pasado regular</b> (<code>past_regular</code>)</td>
                                   <td>Verbos en pasado (etiqueta <code>VBD</code>) con terminación ortográfica en
-                                    <i>-ed</i>.</td>
+                                    <i>-ed</i>.
+                                  </td>
                                   <td><i>walked, called, looked, decided</i></td>
                                 </tr>
                                 <tr>
                                   <td><b>Pasado irregular</b> (<code>past_irregular</code>)</td>
                                   <td>Verbos léxicos irregulares y formas de pasado de auxiliares y cópulas (etiqueta
-                                    <code>VBD</code> sin <i>-ed</i>).</td>
+                                    <code>VBD</code> sin <i>-ed</i>).
+                                  </td>
                                   <td><i>was, were, had, went, saw, did</i></td>
                                 </tr>
                                 <tr>
                                   <td rowspan="2"><b>No-pasado (50.01%)</b></td>
                                   <td><b>No-pasado marcado (3.ª pers.)</b> (<code>non_past_marked_3sg</code>)</td>
                                   <td>Presente con flexión explícita de tercera persona singular (etiqueta
-                                    <code>VBZ</code>).</td>
+                                    <code>VBZ</code>).
+                                  </td>
                                   <td><i>is, has, does, makes, seems, says</i></td>
                                 </tr>
                                 <tr>
                                   <td><b>No-pasado no marcado</b> (<code>non_past_unmarked</code>)</td>
                                   <td>Formas conjugadas de presente para el resto de personas gramaticales (etiqueta
-                                    <code>VBP</code>).</td>
+                                    <code>VBP</code>).
+                                  </td>
                                   <td><i>am, are, have, do, go, know, think</i></td>
                                 </tr>
                               </tbody>
@@ -680,7 +687,8 @@
                           <p>
                             Este espacio captura cuatro propiedades cuantitativas de cada palabra pronunciada: un
                             indicador binario de presencia de palabra (<code>word_presence</code>), su frecuencia de uso
-                            en el idioma inglés medida en la escala logarítmica de Zipf (<code>lexical_frequency</code>),
+                            en el idioma inglés medida en la escala logarítmica de Zipf
+                            (<code>lexical_frequency</code>),
                             su longitud en número de caracteres (<code>word_length_chars</code>) y su duración acústica
                             en segundos (<code>word_duration_secs</code>).
                           </p>
@@ -707,7 +715,8 @@
 
                           <!-- 3. Léxico-Categorial -->
                           <div class="block-title" style="margin-top: 25px;">
-                            <h4>3. Espacio Léxico-Categorial (8 características de control) y filtro morfológico del verbo</h4>
+                            <h4>3. Espacio Léxico-Categorial (8 características de control) y filtro morfológico del
+                              verbo</h4>
                           </div>
 
                           <p>
@@ -721,7 +730,8 @@
                           <p>
                             La octava columna (<code>non_finite_verb</code>) recoge de manera exclusiva las <b>formas
                               verbales sin marca de tiempo</b>: infinitivos (etiqueta <code>VB</code>, como <i>walk</i>
-                            en <i>to walk</i>), gerundios o participios presentes (<code>VBG</code>, como <i>walking</i>)
+                            en <i>to walk</i>), gerundios o participios presentes (<code>VBG</code>, como
+                            <i>walking</i>)
                             y participios pasados (<code>VBN</code>, como <i>vanished</i> en <i>had vanished</i>). En
                             este punto el pipeline aplica tres reglas de separación entre el espacio categorial de
                             control y nuestro espacio de interés:
@@ -750,7 +760,8 @@
                           <!-- Gráfica 2: Diagrama Sankey en Plotly (Árbol de decisión morfosintáctica) -->
                           <div style="margin: 25px 0 10px 0;">
                             <p style="text-align: center;">
-                              <b>Gráfica 2: Flujo de clasificación morfosintáctica entre el espacio categorial de control y el espacio de tiempo gramatical</b>
+                              <b>Gráfica 2: Flujo de clasificación morfosintáctica entre el espacio categorial de
+                                control y el espacio de tiempo gramatical</b>
                             </p>
                             <div id="plotly-verb-decision-tree"
                               style="width: 100%; height: 430px; border: 1px solid #e5e5e5; border-radius: 8px; background-color: #ffffff; overflow: hidden;">
@@ -827,7 +838,7 @@
                                 link: {
                                   source: [0, 0, 1, 2, 2, 2, 4, 5, 6, 6, 6, 6],
                                   target: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-                                  value:  [55, 45, 55, 6, 11, 28, 6, 11, 6, 8, 6, 8],
+                                  value: [55, 45, 55, 6, 11, 28, 6, 11, 6, 8, 6, 8],
                                   color: [
                                     'rgba(165, 166, 167, 0.28)',
                                     'rgba(4, 180, 224, 0.28)',
@@ -923,90 +934,134 @@
                           <!-- Gráfica 3: Árbol sintáctico de dependencias en SVG limpio (paleta main.css) -->
                           <div style="margin: 25px 0 10px 0;">
                             <p style="text-align: center;">
-                              <b>Gráfica 3: Árbol sintáctico de dependencias y cálculo de distancia, profundidad y raíz</b>
+                              <b>Gráfica 3: Árbol sintáctico de dependencias y cálculo de distancia, profundidad y
+                                raíz</b>
                             </p>
 
                             <div
                               style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #e5e5e5; border-radius: 8px; background-color: #fcfcfc; padding: 18px 12px;">
-                              <svg viewBox="0 0 880 250" style="width: 100%; min-width: 680px; height: auto; display: block; font-family: 'Poppins', Helvetica, sans-serif;">
+                              <svg viewBox="0 0 880 250"
+                                style="width: 100%; min-width: 680px; height: auto; display: block; font-family: 'Poppins', Helvetica, sans-serif;">
                                 <defs>
-                                  <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                  <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6"
+                                    markerHeight="6" orient="auto-start-reverse">
                                     <path d="M 0 1 L 10 5 L 0 9 z" fill="#04b4e0" />
                                   </marker>
-                                  <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                  <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6"
+                                    markerHeight="6" orient="auto-start-reverse">
                                     <path d="M 0 1 L 10 5 L 0 9 z" fill="#0099cc" />
                                   </marker>
-                                  <marker id="arrow-gray" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                  <marker id="arrow-gray" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6"
+                                    markerHeight="6" orient="auto-start-reverse">
                                     <path d="M 0 1 L 10 5 L 0 9 z" fill="#888888" />
                                   </marker>
                                 </defs>
 
                                 <!-- Fondo de la cláusula subordinada -->
-                                <rect x="155" y="128" width="540" height="106" rx="6" fill="#f2f7f9" stroke="#b5dbe8" stroke-dasharray="4,3" />
-                                <text x="425" y="226" text-anchor="middle" font-size="10.5" fill="#0099cc" font-weight="500">
-                                  Cláusula subordinada intercalada (aumenta la profundidad sintáctica de 1 a 4 escalones)
+                                <rect x="155" y="128" width="540" height="106" rx="6" fill="#f2f7f9" stroke="#b5dbe8"
+                                  stroke-dasharray="4,3" />
+                                <text x="425" y="226" text-anchor="middle" font-size="10.5" fill="#0099cc"
+                                  font-weight="500">
+                                  Cláusula subordinada intercalada (aumenta la profundidad sintáctica de 1 a 4
+                                  escalones)
                                 </text>
 
                                 <!-- Arco principal de larga distancia: fainted -> musician -->
-                                <path d="M 805 135 C 805 15, 95 15, 95 132" fill="none" stroke="#04b4e0" stroke-width="2.4" marker-end="url(#arrow-cyan)" />
-                                <rect x="305" y="18" width="285" height="22" rx="4" fill="#e6f7fc" stroke="#04b4e0" stroke-width="1" />
-                                <text x="447" y="33" text-anchor="middle" font-size="11" fill="#222222" font-weight="600">
+                                <path d="M 805 135 C 805 15, 95 15, 95 132" fill="none" stroke="#04b4e0"
+                                  stroke-width="2.4" marker-end="url(#arrow-cyan)" />
+                                <rect x="305" y="18" width="285" height="22" rx="4" fill="#e6f7fc" stroke="#04b4e0"
+                                  stroke-width="1" />
+                                <text x="447" y="33" text-anchor="middle" font-size="11" fill="#222222"
+                                  font-weight="600">
                                   Distancia de dependencia = 12 posiciones (sujeto)
                                 </text>
 
                                 <!-- Arco relcl: musician -> played -->
-                                <path d="M 105 135 C 105 75, 255 75, 255 132" fill="none" stroke="#0099cc" stroke-width="1.8" marker-end="url(#arrow-blue)" />
-                                <text x="180" y="84" text-anchor="middle" font-size="10" fill="#0099cc">subordinada rel. (dist = 2)</text>
+                                <path d="M 105 135 C 105 75, 255 75, 255 132" fill="none" stroke="#0099cc"
+                                  stroke-width="1.8" marker-end="url(#arrow-blue)" />
+                                <text x="180" y="84" text-anchor="middle" font-size="10" fill="#0099cc">subordinada rel.
+                                  (dist = 2)</text>
 
                                 <!-- Arcos internos de la cláusula subordinada -->
-                                <path d="M 245 135 C 245 105, 185 105, 185 132" fill="none" stroke="#888888" stroke-width="1.4" marker-end="url(#arrow-gray)" />
-                                <path d="M 265 135 C 265 88, 395 88, 395 132" fill="none" stroke="#0099cc" stroke-width="1.6" marker-end="url(#arrow-blue)" />
-                                <text x="330" y="96" text-anchor="middle" font-size="9.5" fill="#555555">objeto (dist = 3)</text>
+                                <path d="M 245 135 C 245 105, 185 105, 185 132" fill="none" stroke="#888888"
+                                  stroke-width="1.4" marker-end="url(#arrow-gray)" />
+                                <path d="M 265 135 C 265 88, 395 88, 395 132" fill="none" stroke="#0099cc"
+                                  stroke-width="1.6" marker-end="url(#arrow-blue)" />
+                                <text x="330" y="96" text-anchor="middle" font-size="9.5" fill="#555555">objeto (dist =
+                                  3)</text>
 
-                                <path d="M 405 135 C 405 98, 520 98, 520 132" fill="none" stroke="#888888" stroke-width="1.4" marker-end="url(#arrow-gray)" />
-                                <path d="M 270 135 C 270 62, 645 62, 645 132" fill="none" stroke="#888888" stroke-width="1.4" marker-end="url(#arrow-gray)" />
-                                <path d="M 795 135 C 795 100, 730 100, 730 132" fill="none" stroke="#888888" stroke-width="1.4" marker-end="url(#arrow-gray)" />
+                                <path d="M 405 135 C 405 98, 520 98, 520 132" fill="none" stroke="#888888"
+                                  stroke-width="1.4" marker-end="url(#arrow-gray)" />
+                                <path d="M 270 135 C 270 62, 645 62, 645 132" fill="none" stroke="#888888"
+                                  stroke-width="1.4" marker-end="url(#arrow-gray)" />
+                                <path d="M 795 135 C 795 100, 730 100, 730 132" fill="none" stroke="#888888"
+                                  stroke-width="1.4" marker-end="url(#arrow-gray)" />
 
                                 <!-- Nodos de palabras -->
                                 <rect x="42" y="138" width="105" height="62" rx="5" fill="#ffffff" stroke="#d5d5d5" />
-                                <text x="94" y="157" text-anchor="middle" font-size="12" font-weight="600" fill="#222222">The musician</text>
-                                <text x="94" y="174" text-anchor="middle" font-size="10" fill="#555555">raíz = 0 | dist = 12</text>
-                                <text x="94" y="189" text-anchor="middle" font-size="10" fill="#0099cc" font-weight="500">profundidad = 1</text>
+                                <text x="94" y="157" text-anchor="middle" font-size="12" font-weight="600"
+                                  fill="#222222">The musician</text>
+                                <text x="94" y="174" text-anchor="middle" font-size="10" fill="#555555">raíz = 0 | dist
+                                  = 12</text>
+                                <text x="94" y="189" text-anchor="middle" font-size="10" fill="#0099cc"
+                                  font-weight="500">profundidad = 1</text>
 
                                 <rect x="162" y="138" width="52" height="62" rx="5" fill="#ffffff" stroke="#e5e5e5" />
-                                <text x="188" y="157" text-anchor="middle" font-size="11.5" font-weight="600" fill="#222222">who</text>
-                                <text x="188" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist = 1</text>
-                                <text x="188" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof = 3</text>
+                                <text x="188" y="157" text-anchor="middle" font-size="11.5" font-weight="600"
+                                  fill="#222222">who</text>
+                                <text x="188" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist =
+                                  1</text>
+                                <text x="188" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof =
+                                  3</text>
 
                                 <rect x="222" y="138" width="76" height="62" rx="5" fill="#ffffff" stroke="#0099cc" />
-                                <text x="260" y="157" text-anchor="middle" font-size="11.5" font-weight="600" fill="#222222">played</text>
-                                <text x="260" y="174" text-anchor="middle" font-size="9.5" fill="#555555">dist = 2</text>
-                                <text x="260" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc" font-weight="500">prof = 2</text>
+                                <text x="260" y="157" text-anchor="middle" font-size="11.5" font-weight="600"
+                                  fill="#222222">played</text>
+                                <text x="260" y="174" text-anchor="middle" font-size="9.5" fill="#555555">dist =
+                                  2</text>
+                                <text x="260" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc"
+                                  font-weight="500">prof = 2</text>
 
                                 <rect x="308" y="138" width="142" height="62" rx="5" fill="#ffffff" stroke="#e5e5e5" />
-                                <text x="379" y="157" text-anchor="middle" font-size="11.5" font-weight="600" fill="#222222">that ... melody</text>
-                                <text x="379" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist = 3</text>
-                                <text x="379" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof = 3</text>
+                                <text x="379" y="157" text-anchor="middle" font-size="11.5" font-weight="600"
+                                  fill="#222222">that ... melody</text>
+                                <text x="379" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist =
+                                  3</text>
+                                <text x="379" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof =
+                                  3</text>
 
                                 <rect x="460" y="138" width="115" height="62" rx="5" fill="#ffffff" stroke="#e5e5e5" />
-                                <text x="517" y="157" text-anchor="middle" font-size="11.5" font-weight="600" fill="#222222">on the guitar</text>
-                                <text x="517" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist = 3</text>
-                                <text x="517" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc" font-weight="600">prof = 4</text>
+                                <text x="517" y="157" text-anchor="middle" font-size="11.5" font-weight="600"
+                                  fill="#222222">on the guitar</text>
+                                <text x="517" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist =
+                                  3</text>
+                                <text x="517" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc"
+                                  font-weight="600">prof = 4</text>
 
                                 <rect x="585" y="138" width="102" height="62" rx="5" fill="#ffffff" stroke="#e5e5e5" />
-                                <text x="636" y="157" text-anchor="middle" font-size="11" font-weight="600" fill="#222222">during ... fest.</text>
-                                <text x="636" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist = 8</text>
-                                <text x="636" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof = 3</text>
+                                <text x="636" y="157" text-anchor="middle" font-size="11" font-weight="600"
+                                  fill="#222222">during ... fest.</text>
+                                <text x="636" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist =
+                                  8</text>
+                                <text x="636" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof =
+                                  3</text>
 
                                 <rect x="702" y="138" width="64" height="62" rx="5" fill="#ffffff" stroke="#e5e5e5" />
-                                <text x="734" y="157" text-anchor="middle" font-size="11.5" font-weight="600" fill="#222222">suddenly</text>
-                                <text x="734" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist = 1</text>
-                                <text x="734" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof = 1</text>
+                                <text x="734" y="157" text-anchor="middle" font-size="11.5" font-weight="600"
+                                  fill="#222222">suddenly</text>
+                                <text x="734" y="174" text-anchor="middle" font-size="9.5" fill="#666666">dist =
+                                  1</text>
+                                <text x="734" y="189" text-anchor="middle" font-size="9.5" fill="#0099cc">prof =
+                                  1</text>
 
-                                <rect x="774" y="134" width="88" height="70" rx="6" fill="#e6f7fc" stroke="#04b4e0" stroke-width="2" />
-                                <text x="818" y="154" text-anchor="middle" font-size="12.5" font-weight="700" fill="#222222">fainted</text>
-                                <text x="818" y="172" text-anchor="middle" font-size="10" font-weight="600" fill="#04b4e0">RAÍZ (is_root = 1)</text>
-                                <text x="818" y="188" text-anchor="middle" font-size="9.5" fill="#555555">dist = 0 | prof = 0</text>
+                                <rect x="774" y="134" width="88" height="70" rx="6" fill="#e6f7fc" stroke="#04b4e0"
+                                  stroke-width="2" />
+                                <text x="818" y="154" text-anchor="middle" font-size="12.5" font-weight="700"
+                                  fill="#222222">fainted</text>
+                                <text x="818" y="172" text-anchor="middle" font-size="10" font-weight="600"
+                                  fill="#04b4e0">RAÍZ (is_root = 1)</text>
+                                <text x="818" y="188" text-anchor="middle" font-size="9.5" fill="#555555">dist = 0 |
+                                  prof = 0</text>
                               </svg>
                             </div>
                           </div>
@@ -1063,56 +1118,89 @@
                           <!-- Gráfica 4: Explorador interactivo de los 6 espacios y las 43 características -->
                           <div style="margin: 30px 0 15px 0;">
                             <p style="text-align: center; margin-bottom: 12px;">
-                              <b>Gráfica 4: Arquitectura interactiva de la matriz de diseño a 100 Hz (43 predictores en 6 espacios)</b>
+                              <b>Gráfica 4: Arquitectura interactiva de la matriz de diseño a 100 Hz (43 predictores en
+                                6 espacios)</b>
                             </p>
 
-                            <div style="border: 1px solid #e5e5e5; border-radius: 8px; background-color: #ffffff; padding: 18px;">
+                            <div
+                              style="border: 1px solid #e5e5e5; border-radius: 8px; background-color: #ffffff; padding: 18px;">
 
                               <!-- Cabecera de proporción: 39 controles vs 4 interés -->
                               <div style="display: flex; width: 100%; font-size: 0.82em; margin-bottom: 6px;">
-                                <div style="width: 90.70%; padding-right: 6px; color: #555555; border-bottom: 2px solid #b5dbe8; padding-bottom: 3px;">
-                                  <b>Cinco espacios de control: 39 predictores (90.7%)</b> (Modelo Restringido y base del Modelo Global)
+                                <div
+                                  style="width: 90.70%; padding-right: 6px; color: #555555; border-bottom: 2px solid #b5dbe8; padding-bottom: 3px;">
+                                  <b>Cinco espacios de control: 39 predictores (90.7%)</b> (Modelo Restringido y base
+                                  del Modelo Global)
                                 </div>
-                                <div style="width: 9.30%; text-align: right; color: #0099cc; border-bottom: 2px solid #04b4e0; padding-bottom: 3px; white-space: nowrap;">
+                                <div
+                                  style="width: 9.30%; text-align: right; color: #0099cc; border-bottom: 2px solid #04b4e0; padding-bottom: 3px; white-space: nowrap;">
                                   <b>Interés: 4 (9.3%)</b>
                                 </div>
                               </div>
 
                               <!-- Barra proporcional interactiva de las 43 columnas -->
-                              <div id="f43-bar-container" style="display: flex; width: 100%; height: 38px; border-radius: 6px; overflow: hidden; border: 1px solid #d5d5d5; margin-bottom: 16px; cursor: pointer;">
-                                <div data-space="phonological" style="width: 32.56%; background-color: #f5f5f5; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 600; color: #222222; transition: all 0.2s;" title="1. Fonético-Fonológico (14 columnas)">
+                              <div id="f43-bar-container"
+                                style="display: flex; width: 100%; height: 38px; border-radius: 6px; overflow: hidden; border: 1px solid #d5d5d5; margin-bottom: 16px; cursor: pointer;">
+                                <div data-space="phonological"
+                                  style="width: 32.56%; background-color: #f5f5f5; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 600; color: #222222; transition: all 0.2s;"
+                                  title="1. Fonético-Fonológico (14 columnas)">
                                   1. Fonológico (14)
                                 </div>
-                                <div data-space="lexical_stats" style="width: 9.30%; background-color: #fcfcfc; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 600; color: #222222; transition: all 0.2s;" title="2. Léxico-Estadístico (4 columnas)">
+                                <div data-space="lexical_stats"
+                                  style="width: 9.30%; background-color: #fcfcfc; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 600; color: #222222; transition: all 0.2s;"
+                                  title="2. Léxico-Estadístico (4 columnas)">
                                   2. Estad. (4)
                                 </div>
-                                <div data-space="categorical" style="width: 18.60%; background-color: #f5f5f5; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 600; color: #222222; transition: all 0.2s;" title="3. Léxico-Categorial (8 columnas)">
+                                <div data-space="categorical"
+                                  style="width: 18.60%; background-color: #f5f5f5; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 600; color: #222222; transition: all 0.2s;"
+                                  title="3. Léxico-Categorial (8 columnas)">
                                   3. Categorial (8)
                                 </div>
-                                <div data-space="syntactic" style="width: 6.98%; background-color: #fcfcfc; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.76em; font-weight: 600; color: #222222; transition: all 0.2s;" title="4. Sintáctico (3 columnas)">
+                                <div data-space="syntactic"
+                                  style="width: 6.98%; background-color: #fcfcfc; border-right: 1px solid #d5d5d5; display: flex; align-items: center; justify-content: center; font-size: 0.76em; font-weight: 600; color: #222222; transition: all 0.2s;"
+                                  title="4. Sintáctico (3 columnas)">
                                   4. Sint. (3)
                                 </div>
-                                <div data-space="semantic" style="width: 23.26%; background-color: #f2f7f9; border-right: 2px solid #04b4e0; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 600; color: #222222; transition: all 0.2s;" title="5. Léxico-Semántico LSA (10 columnas)">
+                                <div data-space="semantic"
+                                  style="width: 23.26%; background-color: #f2f7f9; border-right: 2px solid #04b4e0; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 600; color: #222222; transition: all 0.2s;"
+                                  title="5. Léxico-Semántico LSA (10 columnas)">
                                   5. Semántico LSA (10)
                                 </div>
-                                <div data-space="tense" style="width: 9.30%; background-color: #e6f7fc; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 700; color: #0099cc; transition: all 0.2s;" title="6. Tiempo Gramatical (4 columnas)">
+                                <div data-space="tense"
+                                  style="width: 9.30%; background-color: #e6f7fc; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 700; color: #0099cc; transition: all 0.2s;"
+                                  title="6. Tiempo Gramatical (4 columnas)">
                                   6. Tiempo (4)
                                 </div>
                               </div>
 
                               <!-- Botonera de selección por espacio -->
                               <div id="f43-tabs" style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px;">
-                                <button type="button" data-space="phonological" class="btn btn-primary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">1. Fonológico (14)</button>
-                                <button type="button" data-space="lexical_stats" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">2. Léxico-Estadístico (4)</button>
-                                <button type="button" data-space="categorical" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">3. Léxico-Categorial (8)</button>
-                                <button type="button" data-space="syntactic" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">4. Sintáctico (3)</button>
-                                <button type="button" data-space="semantic" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">5. Semántico LSA (10)</button>
-                                <button type="button" data-space="tense" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">6. Tiempo Gramatical (4)</button>
-                                <button type="button" data-space="all" class="btn btn-secondary" style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">Ver las 43 columnas</button>
+                                <button type="button" data-space="phonological" class="btn btn-primary"
+                                  style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">1. Fonológico
+                                  (14)</button>
+                                <button type="button" data-space="lexical_stats" class="btn btn-secondary"
+                                  style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">2.
+                                  Léxico-Estadístico (4)</button>
+                                <button type="button" data-space="categorical" class="btn btn-secondary"
+                                  style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">3.
+                                  Léxico-Categorial (8)</button>
+                                <button type="button" data-space="syntactic" class="btn btn-secondary"
+                                  style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">4. Sintáctico
+                                  (3)</button>
+                                <button type="button" data-space="semantic" class="btn btn-secondary"
+                                  style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">5. Semántico LSA
+                                  (10)</button>
+                                <button type="button" data-space="tense" class="btn btn-secondary"
+                                  style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">6. Tiempo
+                                  Gramatical (4)</button>
+                                <button type="button" data-space="all" class="btn btn-secondary"
+                                  style="padding: 0.45em 1.1em; font-size: 0.85em; margin-bottom: 0;">Ver las 43
+                                  columnas</button>
                               </div>
 
                               <!-- Tarjeta de contenido dinámico con clases nativas de main.css -->
-                              <div id="f43-detail-panel" class="lm-info-block" style="text-align: left; padding: 18px 20px; margin-bottom: 0;">
+                              <div id="f43-detail-panel" class="lm-info-block"
+                                style="text-align: left; padding: 18px 20px; margin-bottom: 0;">
                               </div>
 
                             </div>
@@ -1317,7 +1405,8 @@
                             <h4>Tabla 3: Resumen de dimensiones y roles de los 6 espacios de características</h4>
                           </div>
 
-                          <div class="fw-table" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
+                          <div class="fw-table"
+                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
                             <table style="min-width: 520px; text-align: left;">
                               <thead>
                                 <tr class="heading-row">
@@ -1404,7 +1493,8 @@
                             a la que se encadenan los sonidos y las palabras en el habla. Sin embargo, el resonador
                             magnético funcional no registra de forma directa la actividad eléctrica rápida de las
                             neuronas; mide la señal <b>BOLD</b> (<i>Blood-Oxygen-Level-Dependent</i>), que capta las
-                            variaciones locales en la concentración de oxígeno dentro de los vasos sanguíneos cerebrales.
+                            variaciones locales en la concentración de oxígeno dentro de los vasos sanguíneos
+                            cerebrales.
                           </p>
 
                           <p>
@@ -1472,7 +1562,8 @@
 
                           <p>
                             En términos computacionales, esta operación se ejecuta en paralelo a través de todos los
-                            núcleos del procesador mediante la Transformada Rápida de Fourier (<code>fftconvolve</code>),
+                            núcleos del procesador mediante la Transformada Rápida de Fourier
+                            (<code>fftconvolve</code>),
                             recortando la cola transitoria final para conservar la duración exacta de cada relato.
                           </p>
 
@@ -1524,32 +1615,38 @@
 
                           <!-- Gráfica 5: Flujo de Transformación Temporal en Mermaid -->
                           <div style="margin: 30px 0 10px 0; text-align: center;">
-                            <p><b>Gráfica 5: Proceso de transformación hemodinámica, remuestreo polifásico y estandarización</b></p>
+                            <p><b>Gráfica 5: Proceso de transformación hemodinámica, remuestreo polifásico y
+                                estandarización</b></p>
 
                             <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
                               flowchart TB
                               subgraph ENTRADA ["1. Predictores Lingüísticos a Alta Resolución"]
                               direction TB
-                              P_100["43 Características a 100 Hz<br>(1 muestra cada 10 milisegundos)<br>Eventos discretos alineados al audio"]
+                              P_100["43 Características a 100 Hz<br>(1 muestra cada 10 milisegundos)<br>Eventos
+                              discretos alineados al audio"]
                               end
 
                               subgraph FILTRO ["2. Modelado de la Respuesta Vascular"]
                               direction TB
-                              KERNEL["HRF Canónica de Doble Gamma (Friston et al., 1998)<br>Ventana de 32 s | Pico ~5.1 s | Valle ~15.5 s"]
-                              CONV_OP["Convolución Temporal por FFT en Paralelo<br>Aplicada uniformemente a las 43 columnas"]
+                              KERNEL["HRF Canónica de Doble Gamma (Friston et al., 1998)<br>Ventana de 32 s | Pico ~5.1
+                              s | Valle ~15.5 s"]
+                              CONV_OP["Convolución Temporal por FFT en Paralelo<br>Aplicada uniformemente a las 43
+                              columnas"]
                               KERNEL e1@--> CONV_OP
                               end
 
                               subgraph SINCRO ["3. Remuestreo y Emparejamiento Funcional"]
                               direction TB
-                              POLY["Remuestreo Polifásico con Filtro Antialiasing<br>Reducción de 100 Hz a 0.5 Hz (factor 200:1)"]
+                              POLY["Remuestreo Polifásico con Filtro Antialiasing<br>Reducción de 100 Hz a 0.5 Hz
+                              (factor 200:1)"]
                               TR_SYNC["Matriz Predictora Final a 0.5 Hz<br>1 fila por cada TR de fMRI (2.0 segundos)"]
                               POLY e2@--> TR_SYNC
                               end
 
                               subgraph NORMALIZACION ["4. Estandarización Intra-Sesión"]
                               direction TB
-                              Z_SCORE["Conversión a float32 y Puntaje Z Independiente por Corrida<br>Control de derivas de línea base del escáner"]
+                              Z_SCORE["Conversión a float32 y Puntaje Z Independiente por Corrida<br>Control de derivas
+                              de línea base del escáner"]
                               end
 
                               P_100 e3@--> CONV_OP
@@ -1577,7 +1674,8 @@
 
                           <!-- Gráfica 6: Simulación interactiva HRF en Plotly -->
                           <div class="block-title" style="margin-top: 25px; clear: both;">
-                            <h4>Gráfica 6: Simulación interactiva de la evolución temporal del BOLD y su muestreo al TR</h4>
+                            <h4>Gráfica 6: Simulación interactiva de la evolución temporal del BOLD y su muestreo al TR
+                            </h4>
                           </div>
 
                           <p>
@@ -1914,7 +2012,8 @@
                             secuencia de sonidos vocálicos y consonánticos, una frecuencia de uso léxico, un papel como
                             verbo raíz que conecta sujeto y objeto, una carga semántica asociada a la escena y una marca
                             morfológica de no-pasado en tercera persona singular. Intentar separar estas influencias
-                            mediante una regresión por mínimos cuadrados ordinarios produciría estimaciones numéricamente
+                            mediante una regresión por mínimos cuadrados ordinarios produciría estimaciones
+                            numéricamente
                             inestables: debido a la colinealidad entre las variables lingüísticas, los coeficientes
                             crecerían sin control compensándose unos a otros y fallarían al predecir datos nuevos.
                           </p>
@@ -1987,11 +2086,13 @@
                               </div>
                             </div>
                             <div class="col-xs-12 col-sm-4">
-                              <div class="lm-info-block" style="text-align: left; padding: 18px; border-color: #04b4e0;">
+                              <div class="lm-info-block"
+                                style="text-align: left; padding: 18px; border-color: #04b4e0;">
                                 <h4>3. Diferencia predictiva ($\Delta R^2$)</h4>
                                 <p style="font-size: 0.92em; margin-top: 8px; margin-bottom: 0;">
                                   Es la resta entre el coeficiente de determinación fuera de muestra del Modelo Global y
-                                  el del Modelo Restringido ($\Delta R^2 = R^2_{\text{global}} - R^2_{\text{restringido}}$).
+                                  el del Modelo Restringido ($\Delta R^2 = R^2_{\text{global}} -
+                                  R^2_{\text{restringido}}$).
                                   Cuantifica la ganancia predictiva atribuible al tiempo gramatical.
                                 </p>
                               </div>
@@ -2016,14 +2117,17 @@
 
                           <!-- Gráfica 7: Mecánica de la Partición de Varianza en Mermaid -->
                           <div style="margin: 30px 0 10px 0; text-align: center;">
-                            <p><b>Gráfica 7: Flujo de estimación a nivel de vóxel y partición de varianza predictiva</b></p>
+                            <p><b>Gráfica 7: Flujo de estimación a nivel de vóxel y partición de varianza predictiva</b>
+                            </p>
 
                             <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
                               flowchart TB
                               subgraph DATOS_IN ["1. Entrenamiento y Calibración (Historias de Ajuste)"]
                               direction TB
-                              CV_BLOCK["Validación Cruzada por Bloques de Historias (3 pliegues)<br>Sin filtración temporal por autocorrelación"]
-                              GRID_ALPHA["Búsqueda del Parámetro de Regularización Ridge<br>(20 valores candidatos: 0.01 a 10,000)"]
+                              CV_BLOCK["Validación Cruzada por Bloques de Historias (3 pliegues)<br>Sin filtración
+                              temporal por autocorrelación"]
+                              GRID_ALPHA["Búsqueda del Parámetro de Regularización Ridge<br>(20 valores candidatos: 0.01
+                              a 10,000)"]
                               CV_BLOCK e1@--> GRID_ALPHA
                               end
 
@@ -2031,17 +2135,20 @@
                               direction TB
 
                               subgraph RIDGE_RESTR ["Ruta de Control"]
-                              M_RESTR_FIT["Modelo Restringido (39 predictores de control)<br>Pesos de sonido, léxico, categorías, sintaxis y LSA"]
+                              M_RESTR_FIT["Modelo Restringido (39 predictores de control)<br>Pesos de sonido, léxico,
+                              categorías, sintaxis y LSA"]
                               end
 
                               subgraph RIDGE_GLOB ["Ruta Completa"]
-                              M_GLOB_FIT["Modelo Global (43 predictores totales)<br>Pesos de control + 4 de Tiempo Gramatical"]
+                              M_GLOB_FIT["Modelo Global (43 predictores totales)<br>Pesos de control + 4 de Tiempo
+                              Gramatical"]
                               end
                               end
 
                               subgraph PRUEBA_EXTERNA ["3. Evaluación Fuera de Muestra (Historia Reservada)"]
                               direction TB
-                              TEST_STORY["wheretheressmoke<br>Estímulo reservado + serie BOLD promediada entre repeticiones"]
+                              TEST_STORY["wheretheressmoke<br>Estímulo reservado + serie BOLD promediada entre
+                              repeticiones"]
                               R2_RESTR["Desempeño R² del Modelo Restringido<br>(Línea base sin tiempo gramatical)"]
                               R2_GLOB["Desempeño R² del Modelo Global<br>(Con tiempo gramatical)"]
 
@@ -2051,7 +2158,8 @@
 
                               subgraph METRICA_DELTA ["4. Aislamiento de la Contribución Gramatical"]
                               direction TB
-                              DELTA_CALC["Delta de los Modelos (ΔR² por vóxel)<br>Diferencia: R² Global menos R² Restringido"]
+                              DELTA_CALC["Delta de los Modelos (ΔR² por vóxel)<br>Diferencia: R² Global menos R²
+                              Restringido"]
                               end
 
                               GRID_ALPHA e4@--> M_RESTR_FIT
@@ -2122,7 +2230,8 @@
                           <div class="white-space-20"></div>
 
                           <div class="block-title">
-                            <h3>Estimación de la reproducibilidad mediante <span>repeticiones de la historia de prueba</span></h3>
+                            <h3>Estimación de la reproducibilidad mediante <span>repeticiones de la historia de
+                                prueba</span></h3>
                           </div>
 
                           <p>
@@ -2170,7 +2279,8 @@
                               obtiene el promedio de esas variaciones residuales.
                             </li>
                             <li>
-                              Como la serie promediada incluye en su cálculo a cada una de las repeticiones individuales,
+                              Como la serie promediada incluye en su cálculo a cada una de las repeticiones
+                              individuales,
                               la resta directa subestima ligeramente la magnitud real del ruido al trabajar con un
                               número finito de escuchas; por ello se aplica un factor de corrección por muestra finita
                               que recupera la varianza de ruido independiente.
@@ -2202,7 +2312,8 @@
                             <h4>Tabla 4: Familias de estimadores de techo de ruido consideradas</h4>
                           </div>
 
-                          <div class="fw-table" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
+                          <div class="fw-table"
+                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 25px;">
                             <table style="min-width: 600px; text-align: left;">
                               <thead>
                                 <tr class="heading-row">
@@ -2256,7 +2367,8 @@
                           <div class="white-space-10"></div>
 
                           <div class="block-title">
-                            <h3>Normalización del desempeño predictivo <span>respecto a la varianza explicable</span></h3>
+                            <h3>Normalización del desempeño predictivo <span>respecto a la varianza explicable</span>
+                            </h3>
                           </div>
 
                           <p>
@@ -2280,21 +2392,26 @@
 
                           <!-- Gráfica 8: Mecánica del Techo de Ruido en Mermaid -->
                           <div style="margin: 30px 0 10px 0; text-align: center;">
-                            <p><b>Gráfica 8: De las repeticiones BOLD reales al techo de ruido y la normalización por vóxel</b></p>
+                            <p><b>Gráfica 8: De las repeticiones BOLD reales al techo de ruido y la normalización por
+                                vóxel</b></p>
 
                             <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
                               flowchart TB
-                              subgraph REPETICIONES ["1. Repeticiones BOLD Reales de la Historia de Prueba (individual_repeats)"]
+                              subgraph REPETICIONES ["1. Repeticiones BOLD Reales de la Historia de Prueba
+                              (individual_repeats)"]
                               direction TB
-                              REP_RAW["Repeticiones Independientes por Participante<br>(10 para UTS01-UTS03; 5 para UTS04-UTS10)"]
-                              REP_Z["Estandarización Z Independiente por Repetición<br>(Misma política que el resto de las historias)"]
+                              REP_RAW["Repeticiones Independientes por Participante<br>(10 para UTS01-UTS03; 5 para
+                              UTS04-UTS10)"]
+                              REP_Z["Estandarización Z Independiente por Repetición<br>(Misma política que el resto de
+                              las historias)"]
                               REP_RAW e1@--> REP_Z
                               end
 
                               subgraph DESCOMPOSICION ["2. Descomposición de Varianza (Sahani y Linden, 2003)"]
                               direction TB
                               VAR_MEAN["Varianza del Promedio entre Repeticiones"]
-                              VAR_RESID["Varianza Residual de Cada Repetición frente al Promedio<br>(con corrección de sesgo R / (R - 1))"]
+                              VAR_RESID["Varianza Residual de Cada Repetición frente al Promedio<br>(con corrección de
+                              sesgo R / (R - 1))"]
                               VAR_SIGNAL["Varianza de Señal Reproducible<br>(Promedio menos Ruido Independiente)"]
                               VAR_MEAN e2@--> VAR_SIGNAL
                               VAR_RESID e3@--> VAR_SIGNAL
@@ -2302,12 +2419,14 @@
 
                               subgraph TECHO ["3. Techo de Ruido por Vóxel"]
                               direction TB
-                              CEIL["Techo de Ruido (R² máximo biológicamente alcanzable)<br>Supera el umbral de 0.01 en el 75.45% de la corteza en promedio"]
+                              CEIL["Techo de Ruido (R² máximo biológicamente alcanzable)<br>Supera el umbral de 0.01 en
+                              el 75.45% de la corteza en promedio"]
                               end
 
                               subgraph NORMALIZACION ["4. Normalización de las Métricas del Modelo"]
                               direction TB
-                              NORM["R² Global, R² Restringido y Delta Normalizados<br>(Reportado como N/A si el techo no supera 0.01)"]
+                              NORM["R² Global, R² Restringido y Delta Normalizados<br>(Reportado como N/A si el techo no
+                              supera 0.01)"]
                               end
 
                               REP_Z e4@--> VAR_MEAN
@@ -2332,7 +2451,8 @@
 
                           <!-- Gráfica 9: Simulación interactiva del Techo de Ruido en Plotly -->
                           <div class="block-title" style="margin-top: 25px; clear: both;">
-                            <h4>Gráfica 9: Simulación interactiva de repeticiones ruidosas, su promedio y el techo de ruido estimado</h4>
+                            <h4>Gráfica 9: Simulación interactiva de repeticiones ruidosas, su promedio y el techo de
+                              ruido estimado</h4>
                           </div>
 
                           <p>
@@ -2352,7 +2472,8 @@
 
                           <div
                             style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 15px; margin: 0 0 20px 0;">
-                            <button id="noise-ceiling-reroll-btn" type="button" class="btn btn-primary" style="margin-bottom: 0;">
+                            <button id="noise-ceiling-reroll-btn" type="button" class="btn btn-primary"
+                              style="margin-bottom: 0;">
                               Generar nueva simulación
                             </button>
                             <div id="noise-ceiling-readout" style="font-size: 0.92em; text-align: right;">
@@ -2523,7 +2644,8 @@
                           </script>
 
                           <p>
-                            Establecer este techo biológico de referencia permite situar en proporción cualquier ganancia
+                            Establecer este techo biológico de referencia permite situar en proporción cualquier
+                            ganancia
                             predictiva de los modelos, pero aún resta responder la pregunta inferencial decisiva: ¿puede
                             la diferencia $\Delta R^2$ observada en un vóxel explicarse por meras coincidencias del azar
                             entre dos series temporales suaves? Esa verificación es el propósito de la etapa de
@@ -2545,7 +2667,8 @@
                           <div class="white-space-20"></div>
 
                           <div class="block-title">
-                            <h3>Por qué una diferencia positiva entre modelos <span>no implica significancia estadística</span></h3>
+                            <h3>Por qué una diferencia positiva entre modelos <span>no implica significancia
+                                estadística</span></h3>
                           </div>
 
                           <p>
@@ -2573,7 +2696,8 @@
                           <div class="white-space-20"></div>
 
                           <div class="block-title">
-                            <h3>Autocorrelación temporal de la señal BOLD y <span>límites de las permutaciones simples</span></h3>
+                            <h3>Autocorrelación temporal de la señal BOLD y <span>límites de las permutaciones
+                                simples</span></h3>
                           </div>
 
                           <p>
@@ -2671,7 +2795,8 @@
                           <div class="white-space-20"></div>
 
                           <div class="block-title">
-                            <h3>Control de comparaciones múltiples en toda la corteza <span>(FDR de Benjamini-Hochberg)</span></h3>
+                            <h3>Control de comparaciones múltiples en toda la corteza <span>(FDR de
+                                Benjamini-Hochberg)</span></h3>
                           </div>
 
                           <p>
@@ -2687,13 +2812,15 @@
                             bajo el margen de sensibilidad de 16 TRs) se someten a la corrección de la <b>Tasa de Falsos
                               Descubrimientos</b> (<i>False Discovery Rate</i> o FDR) mediante el procedimiento de
                             Benjamini-Hochberg con un nivel de exigencia de <b>$q < 0.05$</b>. Solo los vóxeles que
-                            superan este ajuste global pueden atribuirse de manera estadísticamente defendible al aporte
-                            del tiempo gramatical.
+                                superan este ajuste global pueden atribuirse de manera estadísticamente defendible al
+                                aporte
+                                del tiempo gramatical.
                           </p>
 
                           <!-- Gráfica 10: Mecánica de Validación Estadística en Mermaid -->
                           <div style="margin: 30px 0 10px 0; text-align: center;">
-                            <p><b>Gráfica 10: Flujo de validación estadística mediante rotaciones circulares exhaustivas y corrección FDR</b></p>
+                            <p><b>Gráfica 10: Flujo de validación estadística mediante rotaciones circulares exhaustivas
+                                y corrección FDR</b></p>
 
                             <div class="mermaid" style="text-align: center; margin-bottom: 20px;">
                               flowchart TB
@@ -2708,9 +2835,13 @@
 
                               subgraph PERMUTACION ["2. Construcción Vectorizada de la Distribución Nula"]
                               direction TB
-                              ROT["Desplazamientos Circulares Exhaustivos en Bloque<br>(Preserva autocorrelación temporal de las ondas)"]
-                              BUFFER["Márgenes de Exclusión por Autocorrelación HRF<br>Base: ≥ 10 TRs (20 s, 271 rotaciones, p mín = 0.00368)<br>Sensibilidad: ≥ 16 TRs (32 s, 260 rotaciones, p mín = 0.00383)"]
-                              DELTA_NULL["Matriz de Deltas Nulos por Vóxel<br>(Cálculo vectorizado en bloques 3D de 512 MB)"]
+                              ROT["Desplazamientos Circulares Exhaustivos en Bloque<br>(Preserva autocorrelación
+                              temporal de las ondas)"]
+                              BUFFER["Márgenes de Exclusión por Autocorrelación HRF<br>Base: ≥ 10 TRs (20 s, 271
+                              rotaciones, p mín = 0.00368)<br>Sensibilidad: ≥ 16 TRs (32 s, 260 rotaciones, p mín =
+                              0.00383)"]
+                              DELTA_NULL["Matriz de Deltas Nulos por Vóxel<br>(Cálculo vectorizado en bloques 3D de 512
+                              MB)"]
 
                               ROT e3@--> BUFFER
                               BUFFER e4@--> DELTA_NULL
@@ -2718,43 +2849,48 @@
 
                               subgraph INFERENCIA_VOXEL ["3. Probabilidad Empírica con Corrección de Continuidad"]
                               direction TB
-                              P_VAL["Valor p Empírico por Vóxel<br>p = (Rotaciones con ΔR² nulo ≥ ΔR² observado + 1) / (N + 1)"]
+                              P_VAL["Valor p Empírico por Vóxel<br>p = (Rotaciones con ΔR² nulo ≥ ΔR² observado + 1) /
+                              (N + 1)"]
                               end
 
                               subgraph CEREBRO_COMPLETO ["4. Control de Comparaciones Múltiples"]
                               direction TB
-                              WHOLE_BRAIN["Volumen Cortical Completo del Participante<br>(81,126 a 109,469 pruebas simultáneas)"]
-                              FDR_PROC["Corrección FDR Benjamini-Hochberg (q < 0.05)<br>Evaluada en margen base y en margen de sensibilidad"]
-                              SURVIVAL["Vóxeles Significativos Corregidos<br>(Si el conteo es 0, se reporta N/A en magnitud)"]
+                              WHOLE_BRAIN["Volumen Cortical Completo del Participante<br>(81,126 a 109,469 pruebas
+                              simultáneas)"]
+                              FDR_PROC["Corrección FDR Benjamini-Hochberg (q < 0.05)<br>Evaluada en margen base y en
+                                margen de sensibilidad"]
+                                SURVIVAL["Vóxeles Significativos Corregidos<br>(Si el conteo es 0, se reporta N/A en
+                                magnitud)"]
 
-                              WHOLE_BRAIN e5@--> FDR_PROC
-                              FDR_PROC e6@--> SURVIVAL
-                              end
+                                WHOLE_BRAIN e5@--> FDR_PROC
+                                FDR_PROC e6@--> SURVIVAL
+                                end
 
-                              DELTA_OBS e7@--> P_VAL
-                              DELTA_NULL e8@--> P_VAL
-                              P_VAL e9@--> WHOLE_BRAIN
+                                DELTA_OBS e7@--> P_VAL
+                                DELTA_NULL e8@--> P_VAL
+                                P_VAL e9@--> WHOLE_BRAIN
 
-                              style REALIDAD fill:#fcfcfc,stroke:#e5e5e5,stroke-width:1px
-                              style PERMUTACION fill:#f5f5f5,stroke:#d5d5d5,stroke-width:1px
-                              style INFERENCIA_VOXEL fill:#f2f7f9,stroke:#b5dbe8,stroke-width:1px
-                              style CEREBRO_COMPLETO fill:#e6f7fc,stroke:#04b4e0,stroke-width:1.5px
+                                style REALIDAD fill:#fcfcfc,stroke:#e5e5e5,stroke-width:1px
+                                style PERMUTACION fill:#f5f5f5,stroke:#d5d5d5,stroke-width:1px
+                                style INFERENCIA_VOXEL fill:#f2f7f9,stroke:#b5dbe8,stroke-width:1px
+                                style CEREBRO_COMPLETO fill:#e6f7fc,stroke:#04b4e0,stroke-width:1.5px
 
-                              e1@{ animation: fast }
-                              e2@{ animation: fast }
-                              e3@{ animation: fast }
-                              e4@{ animation: fast }
-                              e5@{ animation: fast }
-                              e6@{ animation: fast }
-                              e7@{ animation: fast }
-                              e8@{ animation: fast }
-                              e9@{ animation: fast }
+                                e1@{ animation: fast }
+                                e2@{ animation: fast }
+                                e3@{ animation: fast }
+                                e4@{ animation: fast }
+                                e5@{ animation: fast }
+                                e6@{ animation: fast }
+                                e7@{ animation: fast }
+                                e8@{ animation: fast }
+                                e9@{ animation: fast }
                             </div>
                           </div>
 
                           <!-- Gráfica 11: Plotly interactivo con avance automático pausado y control manual -->
                           <div class="block-title" style="margin-top: 25px; clear: both;">
-                            <h4>Gráfica 11: Explorador interactivo de desplazamientos circulares y márgenes de exclusión</h4>
+                            <h4>Gráfica 11: Explorador interactivo de desplazamientos circulares y márgenes de exclusión
+                            </h4>
                           </div>
 
                           <p>
@@ -3144,7 +3280,8 @@
                           <div class="white-space-10"></div>
 
                           <div class="block-title">
-                            <h3>Resultados empíricos en la cohorte e <span>interpretación de los hallazgos nulos</span></h3>
+                            <h3>Resultados empíricos en la cohorte e <span>interpretación de los hallazgos nulos</span>
+                            </h3>
                           </div>
 
                           <p>
@@ -3162,9 +3299,11 @@
 
                           <ol style="line-height: 1.75; margin-bottom: 20px;">
                             <li>
-                              <b>El sistema completo sí predice con éxito la respuesta cerebral al habla naturalista:</b>
+                              <b>El sistema completo sí predice con éxito la respuesta cerebral al habla
+                                naturalista:</b>
                               En promedio, el <b>75.45% de los vóxeles de cada cerebro</b> posee un techo de ruido
-                              confiable (superior a 0.01 a partir de las 5 o 10 repeticiones de <i>wheretheressmoke</i>),
+                              confiable (superior a 0.01 a partir de las 5 o 10 repeticiones de
+                              <i>wheretheressmoke</i>),
                               y el <b>Modelo Global de 43 características logra predicciones positivas fuera de muestra
                                 en el 35.56% de toda la corteza</b> (entre 27,000 y 42,000 vóxeles por persona, con
                               máximos de $R^2$ de hasta 0.1091 en las áreas auditivas y temporales del lenguaje).
@@ -3183,10 +3322,12 @@
 
                           <!-- Tabla 5: Resultados Empíricos Reales de los 10 Participantes -->
                           <div class="block-title" style="margin-top: 20px;">
-                            <h4>Tabla 5: Resumen cuantitativo por participante en la historia de evaluación (wheretheressmoke)</h4>
+                            <h4>Tabla 5: Resumen cuantitativo por participante en la historia de evaluación
+                              (wheretheressmoke)</h4>
                           </div>
 
-                          <div class="fw-table" style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px;">
+                          <div class="fw-table"
+                            style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px;">
                             <table style="min-width: 780px; text-align: left;">
                               <thead>
                                 <tr class="heading-row">
@@ -3339,7 +3480,8 @@
 
                           <!-- Factor 1 -->
                           <div class="block-title" style="margin-top: 25px;">
-                            <h4>1. Desbalance de verbos con marca de tiempo en la historia de prueba (wheretheressmoke)</h4>
+                            <h4>1. Desbalance de verbos con marca de tiempo en la historia de prueba (wheretheressmoke)
+                            </h4>
                           </div>
 
                           <p>
@@ -3375,7 +3517,8 @@
                           <!-- Gráfica 12: Nuevo Plotly comparativo del desbalance en wheretheressmoke -->
                           <div style="margin: 25px 0 10px 0;">
                             <p style="text-align: center;">
-                              <b>Gráfica 12: Contraste entre el equilibrio del corpus completo y el sesgo hacia el no-pasado en la historia de prueba</b>
+                              <b>Gráfica 12: Contraste entre el equilibrio del corpus completo y el sesgo hacia el
+                                no-pasado en la historia de prueba</b>
                             </p>
                             <div id="plotly-test-story-imbalance"
                               style="width: 100%; height: 290px; border: 1px solid #e5e5e5; border-radius: 8px; background-color: #ffffff; overflow: hidden;">
@@ -3552,7 +3695,8 @@
                             Para examinar la distribución espacial de los modelos en toda la corteza sin deformar los
                             cerebros hacia una plantilla grupal promedio, proyectamos los vectores de resultados a nivel
                             de vóxel directamente sobre las mallas tridimensionales de la superficie cortical nativa de
-                            cada participante mediante la librería <b>PyCortex</b> (<code>06_generate_cortical_maps.py</code>).
+                            cada participante mediante la librería <b>PyCortex</b>
+                            (<code>06_generate_cortical_maps.py</code>).
                             El pipeline vincula la matriz funcional de cada sujeto con su transformación anatómica
                             individual y reemplaza los vóxeles fuera de umbral por valores nulos (<code>NaN</code>), lo
                             que permite que el motor gráfico WebGL los represente con transparencia nativa sobre la
@@ -3584,21 +3728,23 @@
 
                             <div class="col-xs-12 col-sm-12">
                               <div class="lm-info-block" style="text-align: left; padding: 18px; margin-bottom: 15px;">
-                                <h4>2a. Capa del Tiempo Gramatical Umbralizada: <code>2a. Grammatical tense (FDR &lt; 0.05)</code></h4>
+                                <h4>2a. Capa del Tiempo Gramatical Umbralizada:
+                                  <code>2a. Grammatical tense (FDR &lt; 0.05)</code></h4>
                                 <p style="font-size: 0.94em; margin-top: 8px; margin-bottom: 0;">
                                   Emplea la misma escala cálida (<code>OrRd</code>, desde 0.0001 hasta el percentil 99),
                                   pero enmascara todos los vóxeles cuyo valor de probabilidad corregido por
                                   Benjamini-Hochberg no sea inferior a $q < 0.05$. Representa el contraste inferencial
-                                  estricto: dado que en los 10 participantes ningún vóxel superó la corrección FDR, esta
-                                  capa aparece completamente transparente sobre la anatomía gris de la corteza, en
-                                  correspondencia directa con los resultados reportados en la Tabla 5.
-                                </p>
+                                    estricto: dado que en los 10 participantes ningún vóxel superó la corrección FDR,
+                                    esta capa aparece completamente transparente sobre la anatomía gris de la corteza,
+                                    en correspondencia directa con los resultados reportados en la Tabla 5. </p>
                               </div>
                             </div>
 
                             <div class="col-xs-12 col-sm-12">
-                              <div class="lm-info-block" style="text-align: left; padding: 18px; border-color: #04b4e0;">
-                                <h4>2b. Capa del Tiempo Gramatical Continua Descriptiva: <code>2b. Grammatical tense (descriptive continuum)</code></h4>
+                              <div class="lm-info-block"
+                                style="text-align: left; padding: 18px; border-color: #04b4e0;">
+                                <h4>2b. Capa del Tiempo Gramatical Continua Descriptiva:
+                                  <code>2b. Grammatical tense (descriptive continuum)</code></h4>
                                 <p style="font-size: 0.94em; margin-top: 8px; margin-bottom: 0;">
                                   Proyecta el vector completo de diferencias ($\Delta R^2$) en toda la corteza sin
                                   aplicar ningún recorte estadístico, utilizando una escala divergente simétrica
@@ -3607,8 +3753,7 @@
                                   tonos cálidos (rojizos) indican vóxeles donde el Modelo Global obtuvo un ajuste
                                   numéricamente mayor que el Modelo Restringido ($\Delta R^2 > 0$), mientras que los
                                   tonos fríos (azulados) señalan vóxeles donde añadir las cuatro columnas produjo un
-                                  ligero sobreajuste ($\Delta R^2 < 0$).
-                                </p>
+                                  ligero sobreajuste ($\Delta R^2 < 0$). </p>
                               </div>
                             </div>
                           </div>
@@ -3656,22 +3801,33 @@
                           </p>
 
                           <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;">
-                            <a href="sub-UTS01/index.html" target="_blank" class="btn btn-primary">Participante UTS01</a>
-                            <a href="sub-UTS02/index.html" target="_blank" class="btn btn-primary">Participante UTS02</a>
-                            <a href="sub-UTS03/index.html" target="_blank" class="btn btn-primary">Participante UTS03</a>
-                            <a href="sub-UTS04/index.html" target="_blank" class="btn btn-primary">Participante UTS04</a>
-                            <a href="sub-UTS05/index.html" target="_blank" class="btn btn-primary">Participante UTS05</a>
-                            <a href="sub-UTS06/index.html" target="_blank" class="btn btn-primary">Participante UTS06</a>
-                            <a href="sub-UTS07/index.html" target="_blank" class="btn btn-primary">Participante UTS07</a>
-                            <a href="sub-UTS08/index.html" target="_blank" class="btn btn-primary">Participante UTS08</a>
-                            <a href="sub-UTS09/index.html" target="_blank" class="btn btn-primary">Participante UTS09</a>
-                            <a href="sub-UTS10/index.html" target="_blank" class="btn btn-primary">Participante UTS10</a>
+                            <a href="sub-UTS01/index.html" target="_blank" class="btn btn-primary">Participante
+                              UTS01</a>
+                            <a href="sub-UTS02/index.html" target="_blank" class="btn btn-primary">Participante
+                              UTS02</a>
+                            <a href="sub-UTS03/index.html" target="_blank" class="btn btn-primary">Participante
+                              UTS03</a>
+                            <a href="sub-UTS04/index.html" target="_blank" class="btn btn-primary">Participante
+                              UTS04</a>
+                            <a href="sub-UTS05/index.html" target="_blank" class="btn btn-primary">Participante
+                              UTS05</a>
+                            <a href="sub-UTS06/index.html" target="_blank" class="btn btn-primary">Participante
+                              UTS06</a>
+                            <a href="sub-UTS07/index.html" target="_blank" class="btn btn-primary">Participante
+                              UTS07</a>
+                            <a href="sub-UTS08/index.html" target="_blank" class="btn btn-primary">Participante
+                              UTS08</a>
+                            <a href="sub-UTS09/index.html" target="_blank" class="btn btn-primary">Participante
+                              UTS09</a>
+                            <a href="sub-UTS10/index.html" target="_blank" class="btn btn-primary">Participante
+                              UTS10</a>
                           </div>
 
                           <div class="white-space-10"></div>
 
                           <div class="block-title">
-                            <h3>Consideraciones finales: <span>procesamiento distribuido y límites de detección</span></h3>
+                            <h3>Consideraciones finales: <span>procesamiento distribuido y límites de detección</span>
+                            </h3>
                           </div>
 
                           <p>
@@ -3695,7 +3851,8 @@
 
                           <p>
                             A la vez, el diagnóstico detallado de cada etapa del pipeline deja trazadas tres líneas
-                            concretas de continuación para futuras investigaciones sobre la representación neurobiológica
+                            concretas de continuación para futuras investigaciones sobre la representación
+                            neurobiológica
                             del tiempo, el aspecto y el modo (TAM):
                           </p>
 
@@ -3710,7 +3867,8 @@
                             <li>
                               <b>Regularización diferenciada por espacios (<i>Banded Ridge Regression</i>):</b> Pasar de
                               la regresión de cresta estándar (que impone un único hiperparámetro de penalización L2
-                              compartido entre las 43 columnas) a modelos de cresta por bandas. Asignar un hiperparámetro
+                              compartido entre las 43 columnas) a modelos de cresta por bandas. Asignar un
+                              hiperparámetro
                               de penalización propio a cada uno de los seis bloques evita que espacios de mayor
                               dimensión y varianza continua (como los 14 rasgos fonológicos o las 10 dimensiones LSA)
                               dominen la regularización sobre los 4 canales binarios de tiempo gramatical.
@@ -3727,24 +3885,28 @@
                           <div class="white-space-20"></div>
 
                           <div class="block-title">
-                            <h3>Agradecimientos y <span>Recursos Abiertos</span></h3>
+                            <h3>Contribución a la <span>ciencia abierta</span></h3>
                           </div>
 
                           <blockquote>
                             <p style="margin-bottom: 0;">
                               Agradecimiento institucional al <b>Gallant Lab</b> (Universidad de California, Berkeley) y
                               al equipo de <b>Huth Lab</b> (Universidad de Texas en Austin) por el desarrollo de los
-                              marcos metodológicos de <i>Voxelwise Modeling</i>, el mantenimiento de las librerías de
+                              marcos metodológicos de <i>Voxelwise Modeling</i>, la publiccaión y el mantenimiento de
+                              las librerías de
                               código abierto (<i>Himalaya</i> y <i>PyCortex</i>) y la publicación abierta del corpus
                               <i>ds003020</i> en OpenNeuro.
                             </p>
                           </blockquote>
 
+                          <div class="block-title">
+                            <h3>Recursos <span>usados</span></h3>
+                          </div>
+
                           <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
                             <div class="col-xs-12 col-sm-4">
                               <div class="fun-fact gray-bg">
-                                <i class="lnr lnr-code"></i>
-                                <h4>Software de modelado y visualización</h4>
+                                <h4>Modelado y visualización</h4>
                                 <span class="fun-fact-block-text">
                                   <a href="https://gallantlab.org/" target="_blank">Gallant Lab</a>:
                                   <a href="https://github.com/gallantlab/himalaya" target="_blank">Himalaya</a> y
@@ -3755,10 +3917,10 @@
 
                             <div class="col-xs-12 col-sm-4">
                               <div class="fun-fact gray-bg">
-                                <i class="lnr lnr-database"></i>
-                                <h4>Conjunto de datos fMRI ds003020</h4>
+                                <h4>Conjunto de datos fMRI</h4>
                                 <span class="fun-fact-block-text">
-                                  <a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel et al. (2023)</a> en
+                                  <a href="https://www.nature.com/articles/s41597-023-02437-z" target="_blank">LeBel et
+                                    al. (2023)</a> en
                                   <a href="https://openneuro.org/datasets/ds003020/" target="_blank">OpenNeuro</a>
                                 </span>
                               </div>
@@ -3766,11 +3928,11 @@
 
                             <div class="col-xs-12 col-sm-4">
                               <div class="fun-fact gray-bg">
-                                <i class="lnr lnr-picture"></i>
                                 <h4>Fotografía de cabecera</h4>
                                 <span class="fun-fact-block-text">
                                   <a href="https://unsplash.com/es/@whisperingshiba" target="_blank">Shawn Day</a> en
-                                  <a href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM" target="_blank">Unsplash</a>
+                                  <a href="https://unsplash.com/photos/a-computer-generated-image-of-a-human-brain-ZnkHPagIOlM"
+                                    target="_blank">Unsplash</a>
                                 </span>
                               </div>
                             </div>
@@ -3792,7 +3954,7 @@
                     <div class="entry-meta entry-meta-bottom">
                       <div class="date-author">
                         <span class="entry-date">
-                          <i class="far fa-clock"></i> Octubre 2026
+                          <i class="far fa-clock"></i> 15 de noviembre del 2026
                         </span>
                         <span class="author vcard">
                           <i class="fas fa-user"></i> Alejandro Montenegro Taborda
@@ -3841,8 +4003,8 @@
 
   <!-- Inicialización de Mermaid.js -->
   <!--<script type="module"> -->
-    <!--import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@12/dist/mermaid.esm.min.mjs'; -->
-    <!--mermaid.initialize({startOnLoad: true}); -->
+  <!--import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@12/dist/mermaid.esm.min.mjs'; -->
+  <!--mermaid.initialize({startOnLoad: true}); -->
   <!--</script> -->
 
   <!-- Inicialización de Mermaid.js con paleta de breezycv_base/css/main.css -->
