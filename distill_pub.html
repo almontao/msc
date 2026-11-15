@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>¿Tiene el tiempo gramatical su propia huella en el cerebro? | Alejandro Montenegro Taborda</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <meta name="description" content="Ensayo divulgativo sobre modelos de codificación cerebral y tiempo gramatical durante la escucha de historias reales." />
+  <meta name="description" content="Reporte divulgativo sobre modelos de codificación cerebral y tiempo gramatical durante la escucha de historias orales." />
   <meta name="keywords" content="Alejandro Montenegro Taborda, neurociencia computacional, lingüística, tiempo gramatical, fMRI, modelos de codificación" />
   <meta name="author" content="amontenegrot" />
   <link rel="shortcut icon" href="breezycv_base/favicon.ico">
@@ -21,12 +21,11 @@
 
   <script src="breezycv_base/js/modernizr.custom.js"></script>
 
-  <!-- Capa editorial estilo Distill.pub integrada con la paleta de breezycv -->
   <style>
     .distill-article {
       color: #2c3237;
       font-size: 16.5px;
-      line-height: 1.82;
+      line-height: 1.8;
       max-width: 1040px;
       margin: 0 auto;
     }
@@ -35,12 +34,11 @@
       margin-bottom: 1.35em;
       color: #2c3237;
       font-size: 1em;
-      line-height: 1.82;
+      line-height: 1.8;
     }
 
-    /* Entradilla y metadatos superiores */
     .distill-lead {
-      font-size: 1.18em !important;
+      font-size: 1.16em !important;
       line-height: 1.68 !important;
       color: #3d464d !important;
       font-weight: 400;
@@ -64,7 +62,7 @@
     .distill-byline-label {
       display: block;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       font-size: 0.82em;
       color: #7a868f;
       font-weight: 600;
@@ -76,7 +74,6 @@
       font-weight: 500;
     }
 
-    /* Retícula principal + margen derecho para Notas Técnicas */
     .distill-row {
       display: grid;
       grid-template-columns: minmax(0, 65ch);
@@ -101,50 +98,48 @@
       }
     }
 
-    /* Encabezados de Acto */
-    .distill-act-header {
-      margin: 3em 0 1.2em 0;
-      padding-top: 1.6em;
+    .distill-section-header {
+      margin: 2.9em 0 1.15em 0;
+      padding-top: 1.5em;
       border-top: 1px solid #eaeef1;
       max-width: 65ch;
     }
 
-    .distill-act-header.first-act {
+    .distill-section-header.first-section {
       margin-top: 0.5em;
       padding-top: 0;
       border-top: none;
     }
 
-    .distill-act-kicker {
+    .distill-section-num {
       display: inline-block;
       font-size: 0.75em;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       color: #0099cc;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
-    .distill-act-header h3 {
-      font-size: 1.52em;
-      line-height: 1.3;
+    .distill-section-header h3 {
+      font-size: 1.48em;
+      line-height: 1.32;
       color: #1e2328;
       margin: 0;
       font-weight: 600;
     }
 
     .distill-subhead {
-      font-size: 1.14em;
-      line-height: 1.4;
+      font-size: 1.12em;
+      line-height: 1.42;
       color: #1e2328;
       font-weight: 600;
-      margin: 1.9em 0 0.7em 0;
+      margin: 1.85em 0 0.7em 0;
     }
 
-    /* Citas de ejemplos lingüísticos */
     .distill-example {
-      margin: 1.5em 0 1.7em 0;
-      padding: 16px 20px;
+      margin: 1.45em 0 1.65em 0;
+      padding: 15px 20px;
       background-color: #f7fbfd;
       border-left: 3px solid #04b4e0;
       border-radius: 0 8px 8px 0;
@@ -153,26 +148,25 @@
     .distill-example-label {
       display: block;
       font-size: 0.75em;
-      font-weight: 700;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #0099cc;
+      letter-spacing: 0.06em;
+      color: #0086b3;
       margin-bottom: 6px;
     }
 
     .distill-example p {
       margin-bottom: 0.35em;
-      font-size: 0.96em;
-      line-height: 1.6;
+      font-size: 0.95em;
+      line-height: 1.62;
     }
 
     .distill-example p.translation {
       margin-bottom: 0;
       color: #636e76;
-      font-size: 0.9em;
+      font-size: 0.89em;
     }
 
-    /* Listas limpias */
     .distill-list {
       margin: 0 0 1.5em 0;
       padding-left: 1.25em;
@@ -184,7 +178,6 @@
       color: #2c3237;
     }
 
-    /* Notas técnicas (margen derecho en escritorio, desplegables en móvil) */
     details.tech-note {
       margin: 0.2em 0 1.5em 0;
       background-color: #f8fafb;
@@ -252,7 +245,7 @@
 
       details.tech-note summary {
         font-size: 0.95em;
-        letter-spacing: 0.02em;
+        letter-spacing: 0.01em;
       }
 
       details.tech-note .tech-note-body {
@@ -262,13 +255,11 @@
       }
     }
 
-    /* Marcadores provisionales para los Espacios Visuales (a reemplazar uno por uno) */
     .visual-placeholder {
       background: linear-gradient(180deg, #fbfdfe 0%, #f3f9fc 100%);
       border: 1.5px dashed #7ccbe2;
       border-radius: 10px;
       padding: 24px 26px;
-      transition: border-color 0.2s ease;
     }
 
     .visual-placeholder-badge {
@@ -278,7 +269,7 @@
       font-size: 0.72em;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       padding: 4px 10px;
       border-radius: 99px;
       margin-bottom: 10px;
@@ -307,7 +298,6 @@
       border-top: 1px solid #dfeef4;
     }
 
-    /* Gaveta desplegable para auditoría numérica completa */
     details.data-drawer {
       margin: 1.5em 0 2em 0;
       border: 1px solid #dde5ea;
@@ -367,7 +357,6 @@
       font-size: 0.92em;
     }
 
-    /* Tarjetas de lectura de capas PyCortex y visores */
     .cortex-layers-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -418,17 +407,13 @@
 </head>
 
 <body>
-  <!-- Animated Background -->
   <div class="lm-animated-bg" style="background-image: url(breezycv_base/img/main_bg.png);"></div>
-  <!-- /Animated Background -->
 
-  <!-- Loading animation -->
   <div class="preloader">
     <div class="preloader-animation">
       <div class="preloader-spinner"></div>
     </div>
   </div>
-  <!-- /Loading animation -->
 
   <div class="page">
     <div class="page-content">
@@ -438,9 +423,9 @@
           <div class="header-photo">
             <img src="breezycv_base/img/main_photo.jpg" alt="Alejandro Montenegro Taborda">
           </div>
-          <header class="header-titles">
+          <div class="header-titles">
             <h2>Alejandro Montenegro Taborda</h2>
-          </header>
+          </div>
         </div>
 
         <ul class="main-menu">
@@ -497,117 +482,112 @@
               <div class="entry-content">
                 <div class="distill-article">
 
-                  <!-- Entradilla editorial y barra de metadatos estilo Distill -->
                   <p class="distill-lead">
-                    Durante décadas se buscó el lenguaje en el cerebro usando palabras sueltas de laboratorio. Al
-                    estudiar personas que escuchan historias reales dentro de un resonador magnético —siguiendo casi un
-                    millón de puntos corticales en diez cerebros individuales—, emerge una imagen muy distinta sobre
-                    cómo se entrelazan el tiempo verbal, las palabras frecuentes y la estructura de las oraciones.
+                    Durante décadas se estudió el lenguaje en el cerebro presentando palabras sueltas y oraciones de
+                    laboratorio. Analizar lo que ocurre en casi un millón de puntos corticales cuando diez personas
+                    escuchan relatos orales completos ofrece un panorama bastante distinto sobre la relación entre las
+                    conjugaciones verbales, el vocabulario frecuente y la sintaxis.
                   </p>
 
                   <div class="distill-byline">
                     <div>
-                      <span class="distill-byline-label">Investigación y edición</span>
+                      <span class="distill-byline-label">Investigación y redacción</span>
                       <span class="distill-byline-value">Alejandro Montenegro Taborda</span>
                     </div>
                     <div>
-                      <span class="distill-byline-label">Datos abiertos</span>
+                      <span class="distill-byline-label">Conjunto de datos</span>
                       <span class="distill-byline-value">OpenNeuro ds003020 (10 participantes)</span>
                     </div>
                     <div>
-                      <span class="distill-byline-label">Paradigma</span>
-                      <span class="distill-byline-value">Codificación cerebral en habla natural</span>
+                      <span class="distill-byline-label">Enfoque</span>
+                      <span class="distill-byline-value">Modelos de codificación en habla natural</span>
                     </div>
                     <div>
-                      <span class="distill-byline-label">Lectura</span>
-                      <span class="distill-byline-value">Con notas técnicas al margen</span>
+                      <span class="distill-byline-label">Formato</span>
+                      <span class="distill-byline-value">Lectura general con notas técnicas</span>
                     </div>
                   </div>
 
                   <!-- ================================================================== -->
-                  <!-- ACTO 01: ESCUCHAR HISTORIAS REALES DENTRO DE UN ESCÁNER            -->
+                  <!-- SECCIÓN 1: DEL LABORATORIO AL RELATO CONTINUO                      -->
                   <!-- ================================================================== -->
 
-                  <div class="distill-act-header first-act">
-                    <span class="distill-act-kicker">Acto 01 · El problema experimental</span>
-                    <h3>Escuchar historias reales dentro de un escáner</h3>
+                  <div class="distill-section-header first-section">
+                    <span class="distill-section-num">Sección 1</span>
+                    <h3>Del laboratorio al relato continuo</h3>
                   </div>
 
                   <div class="distill-row">
                     <div class="distill-main">
                       <p>
-                        Estudiar cómo el cerebro humano comprende el lenguaje implica enfrentarse a un viejo dilema.
-                        Durante buena parte de la historia de la neurociencia cognitiva, los experimentos apostaron por
-                        el aislamiento total: una persona entraba en un resonador magnético y leía o escuchaba palabras
-                        sueltas y frases breves desconectadas unas de otras. Aquel control de laboratorio permitió
-                        identificar piezas básicas del rompecabezas verbal, pero dejó por fuera la esencia del fenómeno.
-                        En la vida cotidiana nadie conversa mediante ráfagas de oraciones huérfanas; el lenguaje real es
-                        continuo, narrativo y profundamente dependiente de lo que se dijo segundos atrás.
+                        Estudiar las bases biológicas del lenguaje plantea una dificultad metodológica clásica. Durante
+                        mucho tiempo predominaron los experimentos diseñados para aislar variables al máximo: una
+                        persona entraba en un resonador magnético y escuchaba listas de palabras o frases breves sin
+                        relación entre sí. Ese control permitió describir operaciones elementales del procesamiento
+                        verbal, aunque sacrificó la naturalidad del habla cotidiana, donde las frases dependen de una
+                        historia previa y de una intención narrativa continua.
                       </p>
 
                       <p>
-                        Para recuperar esa naturalidad, la investigación contemporánea dio un giro hacia la escucha de
-                        <b>relatos orales completos</b>, como las historias autobiográficas narradas en vivo en
-                        <i>The Moth Radio Hour</i>. Sin embargo, cambiar las frases de laboratorio por cuentos reales
-                        destapa un desafío formidable: en una historia hablada, <b>todo ocurre al mismo tiempo</b>. La
-                        acústica de la voz, la familiaridad de cada palabra, el orden gramatical de la frase y el tema
-                        del relato viajan fundidos en una sola corriente sonora.
+                        Para acercarse a esa escucha cotidiana, en los últimos años se empezó a registrar la actividad
+                        cerebral mientras los participantes oyen narraciones orales completas, como los relatos
+                        autobiográficos de <i>The Moth Radio Hour</i>. Trabajar con historias reales gana realismo, pero
+                        introduce un problema estadístico conocido como colinealidad: en una grabación espontánea, las
+                        propiedades acústicas de la voz, la frecuencia de uso de cada palabra, la estructura de la
+                        oración y el tema narrado cambian al mismo tiempo.
                       </p>
                     </div>
 
                     <aside class="distill-margin">
                       <details class="tech-note">
-                        <summary>Nota técnica 01 · El corpus fMRI</summary>
+                        <summary>Nota técnica 1. El corpus fMRI</summary>
                         <div class="tech-note-body">
-                          El estudio se desarrolló sobre el conjunto de datos abierto <code>ds003020</code> (versión
-                          4.0.0; LeBel et al., 2023), tomando como punto de partida la carpeta validada
-                          <code>derivatives/</code> en formato BIDS: series funcionales BOLD limpias en HDF5 y
-                          alineaciones acústicas palabra por palabra en formato <code>TextGrid</code>. En total se
-                          analizaron <b>943,305 vóxeles corticales</b> (entre 81,126 y 109,469 por participante) en la
-                          anatomía individual nativa de 10 sujetos.
+                          El análisis se ejecutó sobre el repositorio abierto <code>ds003020</code> (versión 4.0.0;
+                          LeBel et al., 2023), a partir de los archivos validados en <code>derivatives/</code> bajo
+                          estándar BIDS: series funcionales BOLD preprocesadas en HDF5 y transcripciones
+                          <code>TextGrid</code> alineadas al audio. Se modelaron <b>943,305 vóxeles corticales</b>
+                          (entre 81,126 y 109,469 por sujeto) respetando la anatomía nativa de 10 participantes.
                         </div>
                       </details>
                     </aside>
                   </div>
 
-                  <!-- [COMENTARIO DE DATOS REALES]: Reemplazar este ejemplo guía cuando se extraiga un intervalo real (~8-12 s) de wheretheressmoke con sus marcas de tiempo exactas -->
                   <div class="distill-row">
                     <div class="distill-main">
                       <div class="distill-example">
-                        <span class="distill-example-label">Escena continua · Hilo conductor</span>
+                        <span class="distill-example-label">Apertura de Where There's Smoke (segundos 0.01 a 9.46)</span>
                         <p>
-                          <i>«I looked back at the door and realized that everyone is waiting outside in the cold.»</i>
+                          <i>«I reached over, and secretly undid my seatbelt. And when his foot hit the brake at the red
+                            light, I flung open the door and I ran.»</i>
                         </p>
                         <p class="translation">
-                          «Miré hacia la puerta y me di cuenta de que todos están esperando afuera en el frío.»
+                          «Me estiré hacia el lado y desabroché en secreto mi cinturón de seguridad. Y cuando su pie
+                          pisó el freno en el semáforo en rojo, abrí de golpe la puerta y corrí.»
                         </p>
                       </div>
 
                       <p>
-                        Al oír una escena así, el cerebro no procesa la frase por turnos separados. En fracciones de
-                        segundo, la corteza auditiva registra el golpe físico de las consonantes y vocales; casi al
-                        unísono, la memoria léxica reconoce las palabras, las redes sintácticas enlazan quién hizo qué
-                        y las regiones asociativas integran el sentido de la escena. Inmersas en ese mismo flujo,
-                        pequeñas marcas verbales —como la terminación <i>-ed</i> en <i>looked</i> o la forma <i>is</i>—
-                        ubican cada suceso en el pasado o en el presente respecto al instante en que habla el narrador.
+                        Ese pasaje corresponde a los primeros nueve segundos de la historia empleada para evaluar los
+                        modelos de este trabajo. Mientras el oyente sigue la escena, la corteza auditiva responde a las
+                        fluctuaciones del sonido, las redes léxicas identifican cada palabra, el procesamiento
+                        sintáctico relaciona sujetos con acciones y distintas áreas corticales integran el sentido del
+                        episodio. Al mismo tiempo, formas verbales como <i>reached</i>, <i>undid</i> o <i>ran</i> sitúan
+                        los hechos antes del momento en que habla la narradora.
                       </p>
 
                       <p>
-                        Por esa superposición constante, sería engañoso preguntarse simplemente <i>«¿qué rincón del
-                          cerebro se enciende con los verbos conjugados?»</i>, como si existiera un cajón anatómico
-                        exclusivo para las reglas de conjugación. La pregunta científica rigurosa es mucho más exigente:
-                        <b>una vez que un modelo computacional ya tiene en cuenta el sonido, la frecuencia de las
-                          palabras, su categoría general, la arquitectura de la oración y el tema del relato, ¿añadir el
-                          tiempo gramatical mejora la capacidad de predecir la actividad cerebral?</b>
+                        Ante esa simultaneidad, conviene formular la pregunta de investigación con cuidado. Más que
+                        buscar una zona exclusiva para las conjugaciones, el análisis evalúa si <b>incorporar una
+                          representación explícita del tiempo gramatical mejora la predicción de la actividad cerebral
+                          una vez descontados el sonido, la frecuencia de las palabras, su categoría gramatical, la
+                          complejidad de la oración y el tema del relato</b>.
                       </p>
 
                       <p>
-                        Seguir esa pista a través de casi un millón de diminutos volúmenes cerebrales conduce a una
-                        lección reveladora. A la escala en que mide la resonancia magnética funcional, el tiempo
-                        gramatical no se recorta como una isla independiente: en el habla espontánea viaja tan
-                        estrechamente tejido con las palabras más frecuentes del idioma y con el esqueleto de la oración
-                        que obliga a replantear tanto la idea de módulos separados como las herramientas estadísticas
-                        empleadas para buscarlos.
+                        Evaluar esa pregunta en diez cerebros individuales muestra que, a la escala temporal y espacial
+                        de la resonancia magnética funcional, las marcas de tiempo verbal aparecen estrechamente unidas
+                        al vocabulario más frecuente del inglés y a la sintaxis de cada cláusula, hasta el punto de no
+                        dejar una señal independiente detectable con métodos de regularización estándar.
                       </p>
                     </div>
                   </div>
@@ -615,22 +595,22 @@
                   <!-- [INICIO ESPACIO VISUAL 01] -->
                   <div class="distill-wide">
                     <div class="visual-placeholder" id="visual-slot-01">
-                      <span class="visual-placeholder-badge">Espacio Visual 01 · Panorama Interactivo</span>
+                      <span class="visual-placeholder-badge">Espacio Visual 01</span>
                       <h4 class="visual-placeholder-title">
-                        De la historia hablada a la predicción cerebral: arquitectura de matrices apiladas
+                        De la historia hablada a la predicción cerebral mediante matrices apiladas
                       </h4>
                       <p class="visual-placeholder-spec">
-                        <b>Diseño previsto (inspirado en el esquema matricial de Gallant Lab):</b> Diagrama interactivo
-                        limpio, sin fórmulas algebraicas, donde la onda sonora del relato se descompone en <b>6
-                          cuadrículas verdes apiladas</b> (los 6 espacios lingüísticos a lo largo del tiempo), que se
-                        combinan con las <b>cuadrículas azules de pesos cerebrales</b> para predecir la <b>cuadrícula
-                          roja de actividad cerebral registrada</b>. Al pulsar sobre cada bloque se desplegará su papel
-                        en el experimento.
+                        <b>Diseño previsto (basado en la representación matricial de Gallant Lab):</b> Esquema
+                        interactivo sin ecuaciones donde la grabación del relato se traduce en <b>6 cuadrículas verdes
+                          apiladas</b> (los seis espacios de características a lo largo del tiempo), que se multiplican
+                        por las <b>cuadrículas azules de pesos estimados</b> para predecir la <b>cuadrícula roja de
+                          respuestas BOLD registradas</b>. Al seleccionar cada matriz se mostrará qué información
+                        contiene.
                       </p>
                       <p class="visual-placeholder-caption">
-                        <b>Lectura general:</b> En lugar de estudiar una propiedad aislada, el modelo evalúa en paralelo
-                        seis capas simultáneas del lenguaje para comprobar si la sexta capa —el tiempo gramatical—
-                        aporta información nueva sobre la corteza cerebral.
+                        <b>Descripción:</b> El modelo reúne seis niveles simultáneos del discurso oral para comprobar si
+                        el sexto bloque, correspondiente al tiempo gramatical, aporta capacidad predictiva adicional
+                        sobre la corteza cerebral.
                       </p>
                     </div>
                   </div>
@@ -638,67 +618,71 @@
 
 
                   <!-- ================================================================== -->
-                  <!-- ACTO 02: LA PARADOJA DEL INGLÉS: TIEMPO MENTAL VS. TIEMPO VERBAL   -->
+                  <!-- SECCIÓN 2: TIEMPO MENTAL Y TIEMPO GRAMATICAL EN INGLÉS             -->
                   <!-- ================================================================== -->
 
-                  <div class="distill-act-header">
-                    <span class="distill-act-kicker">Acto 02 · El fenómeno lingüístico</span>
-                    <h3>La paradoja del inglés: el tiempo de la mente frente al tiempo del verbo</h3>
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Sección 2</span>
+                    <h3>Tiempo mental y tiempo gramatical en inglés</h3>
                   </div>
 
                   <div class="distill-row">
                     <div class="distill-main">
                       <p>
-                        Para saber con exactitud qué se busca en la corteza cerebral, conviene separar dos ideas que en
-                        español cotidiano suelen llamarse con la misma palabra: el tiempo como <b>experiencia mental</b>
-                        (lo que el inglés denomina <i>time</i>) y el tiempo como <b>marca gramatical</b> pegada al verbo
-                        (denominado <i>tense</i>).
+                        Para definir qué se mide exactamente en este estudio es necesario distinguir entre dos planos que
+                        en español suelen compartir nombre: la noción mental del tiempo (en inglés, <i>time</i>) y el
+                        tiempo gramatical codificado en el verbo (<i>tense</i>). El primero alude a nuestra comprensión
+                        general del ayer, el ahora y el mañana. El segundo se refiere únicamente a las marcas
+                        morfológicas que un idioma aplica sobre el verbo para ubicar una situación respecto al momento
+                        del habla.
                       </p>
 
                       <p>
-                        Cualquier hablante distingue sin esfuerzo entre un recuerdo de ayer, algo que ocurre ahora mismo
-                        y un plan para mañana. Sin embargo, los idiomas no estampan esas tres coordenadas sobre sus
-                        verbos de la misma manera. En español existen terminaciones propias para expresar el futuro en
-                        una sola palabra (como en <i>saldrá</i> o <i>caminaré</i>). El inglés funciona con una economía
-                        morfológica muy distinta.
-                      </p>
-
-                      <div class="distill-example">
-                        <span class="distill-example-label">Futuro mental con marca verbal de presente</span>
-                        <p><i>«The train departs tomorrow morning at dawn.»</i></p>
-                        <p class="translation">«El tren sale mañana por la mañana al amanecer.»</p>
-                      </div>
-
-                      <p>
-                        En esa frase nadie duda de que el viaje sucederá mañana. Pero si se observa únicamente la forma
-                        del verbo <i>departs</i>, no hay ninguna terminación de futuro: lleva la <i>-s</i> habitual del
-                        presente, y es la palabra <i>tomorrow</i> la que empuja la escena hacia adelante. Cuando el
-                        inglés necesita hablar del porvenir se apoya en adverbios, frases como <i>going to</i> o verbos
-                        modales como <i>will</i>. En su estructura verbal pura, el inglés organiza el tiempo gramatical
-                        como una oposición binaria: <b>pasado frente a no-pasado</b>.
-                      </p>
-
-                      <h4 class="distill-subhead">Dónde se esconde realmente la marca temporal en una conversación</h4>
-
-                      <p>
-                        Observar relatos reales añade un matiz crucial: no todas las palabras que suenan a acción llevan
-                        marca de tiempo, ni todas las marcas de tiempo caen sobre verbos llamativos. Formas como el
-                        infinitivo (<i>to walk</i>), el gerundio (<i>walking</i>) o el participio (<i>vanished</i>)
-                        nombran acciones, pero son temporalmente neutras: sirven igual para decir <i>estaba
-                          caminando</i> que <i>está caminando</i>.
+                        En español el verbo cambia su propia terminación para expresar pasado (<i>llegué</i>), presente
+                        (<i>llego</i>) o futuro (<i>llegaré</i>). La gramática descriptiva del inglés funciona de otro
+                        modo: carece de una flexión verbal propia para el futuro y recurre a palabras auxiliares (como
+                        <i>will</i>), perífrasis (como <i>going to</i>) o formas de presente acompañadas de contexto
+                        temporal.
                       </p>
 
                       <div class="distill-example">
-                        <span class="distill-example-label">Reparto de tareas en una cadena verbal</span>
-                        <p><i>«She <b>was</b> walking down the street when the sudden noise <b>shook</b> the ground.»</i></p>
-                        <p class="translation">«Ella estaba caminando por la calle cuando el ruido repentino sacudió el suelo.»</p>
+                        <span class="distill-example-label">Referencia futura en Where There's Smoke (segundos 285.35 a 286.73)</span>
+                        <p><i>«He's gonna be [nice] when I <b>get</b> home.»</i></p>
+                        <p class="translation">«Se va a portar bien cuando yo llegue a casa.»</p>
                       </div>
 
                       <p>
-                        En la primera mitad de esa escena (<i>was walking</i>), la palabra que dibuja el movimiento de
-                        las piernas es <i>walking</i>, pero quien realmente ancla el suceso en el pasado es la pequeña
-                        palabra auxiliar <b>was</b>. Si se midieran únicamente los verbos de acción plena, se perdería
-                        buena parte del reloj gramatical del idioma.
+                        Cuando la narradora pronuncia esa frase en mitad de la noche, todavía se encuentra lejos de su
+                        casa. La llegada pertenece al futuro de esa escena, pero el verbo <i>get</i> aparece en su forma
+                        de presente (no-pasado). En términos estrictamente morfológicos, el sistema verbal del inglés se
+                        organiza alrededor de una distinción binaria entre <b>pasado y no-pasado</b>.
+                      </p>
+
+                      <h4 class="distill-subhead">Verbos conjugados y cadenas con auxiliares</h4>
+
+                      <p>
+                        En el discurso oral tampoco basta con mirar los verbos que describen acciones físicas. Los
+                        infinitivos (<i>to walk</i>), los gerundios (<i>crying</i>) y los participios (<i>wrapped</i>)
+                        expresan qué acción ocurre, pero carecen de marca temporal propia. En las construcciones
+                        progresivas o compuestas, la marca de tiempo recae sobre un verbo auxiliar. Dos pasajes de la
+                        propia historia de prueba permiten verlo con claridad.
+                      </p>
+
+                      <div class="distill-example">
+                        <span class="distill-example-label">La misma acción en dos tiempos distintos del relato</span>
+                        <p>
+                          Segundo 12.41: <i>«I <b>was</b> crying.»</i> (Pasado)<br>
+                          Segundo 131.87: <i>«She<b>'s</b> crying.»</i> (No-pasado, contracción de <i>she is</i>)
+                        </p>
+                        <p class="translation">
+                          «Yo estaba llorando.» / «Ella está llorando.»
+                        </p>
+                      </div>
+
+                      <p>
+                        En ambos fragmentos la acción descrita por <i>crying</i> es idéntica. El cambio entre pasado y
+                        no-pasado depende por completo del verbo <i>to be</i> que la antecede (<i>was</i> frente a
+                        <i>is</i>), pronunciado en apenas dieciséis centésimas de segundo.
                       </p>
                     </div>
                   </div>
@@ -706,37 +690,38 @@
                   <div class="distill-row">
                     <div class="distill-main">
                       <p>
-                        Antes de tocar un solo dato cerebral, se realizó una auditoría completa sobre todas las
-                        narraciones del estudio. El conteo identificó exactamente <b>21,354 verbos conjugados con marca
-                          de tiempo</b>, repartidos con una simetría llamativa: <b>49.99% en pasado</b> (10,674
-                        apariciones) y <b>50.01% en no-pasado</b> (10,680 apariciones), distribuidos en las cuatro
-                        formas concretas con que el inglés construye sus verbos: pasados regulares terminados en
-                        <i>-ed</i> (como <i>looked</i>), pasados irregulares memorizados (como <i>went</i> o
-                        <i>was</i>), presentes con <i>-s</i> de tercera persona (como <i>makes</i> o <i>is</i>) y el
-                        resto de formas de presente (como <i>go</i> o <i>are</i>).
+                        Al auditar todas las historias del corpus antes del entrenamiento cerebral, se contabilizaron
+                        <b>21,354 verbos conjugados con marca de tiempo</b>. En el conjunto total, ambos polos muestran
+                        un equilibrio casi exacto: <b>10,674 apariciones de pasado (49.99%)</b> y <b>10,680 de no-pasado
+                          (50.01%)</b>. Para reflejar cómo construye el inglés esas formas, el espacio de tiempo
+                        gramatical se representó mediante cuatro variables: pasados regulares terminados en <i>-ed</i>
+                        (como <i>reached</i> o <i>smoked</i>), pasados irregulares (como <i>undid, ran</i> o
+                        <i>was</i>), formas de no-pasado en tercera persona singular terminadas en <i>-s</i> (como
+                        <i>sees, takes</i> o <i>is</i>) y formas de no-pasado sin esa marca (como <i>get, see</i> o
+                        <i>are</i>).
                       </p>
 
                       <p>
-                        Pero esa auditoría sacó a la luz un dato decisivo para todo lo que vendría después: <b>más de la
-                          mitad de todas las marcas de tiempo del corpus (el 50.26%) no están en verbos de contenido
-                          como correr, mirar o decidir, sino en formas auxiliares y copulativas de apenas tres verbos:
-                          <i>be</i>, <i>have</i> y <i>do</i></b>. En el habla viva, el tiempo gramatical viaja
-                        mayoritariamente a bordo de palabras brevísimas, omnipresentes y situadas en las bisagras
-                        estructurales de cada frase.
+                        Esa misma revisión arrojó un dato central sobre la composición del habla espontánea: los verbos
+                        léxicos aportan el <b>49.74%</b> de las marcas temporales, mientras que el <b>50.26%</b>
+                        restante recae sobre verbos auxiliares y copulativos derivados de tres palabras muy breves y
+                        frecuentes: <i>be</i>, <i>have</i> y <i>do</i>. Por eso, cualquier intento serio de medir la
+                        respuesta cerebral al tiempo verbal necesita descontar primero la estadística léxica y la
+                        posición sintáctica de esas palabras.
                       </p>
                     </div>
 
                     <aside class="distill-margin">
                       <details class="tech-note">
-                        <summary>Nota técnica 02 · Granularidad de las 4 variables</summary>
+                        <summary>Nota técnica 2. Las cuatro variables de tiempo</summary>
                         <div class="tech-note-body">
-                          El contraste binario se desglosó operativamente en 4 predictores a partir de las etiquetas
-                          Penn Treebank de spaCy: <code>past_regular</code> (<code>VBD</code> acabado en <i>-ed</i>),
-                          <code>past_irregular</code> (resto de <code>VBD</code>), <code>non_past_marked_3sg</code>
-                          (<code>VBZ</code>) y <code>non_past_unmarked</code> (<code>VBP</code>). Aunque esta división
-                          respeta la asimetría morfológica real entre afijación regular y formas irregulares o
-                          supletivas, implica repartir las apariciones en cuatro canales binarios más dispersos, un
-                          compromiso directo frente a la potencia estadística.
+                          La extracción se apoyó en las etiquetas morfosintácticas de spaCy:
+                          <code>past_regular</code> (<code>VBD</code> con sufijo <i>-ed</i>),
+                          <code>past_irregular</code> (resto de <code>VBD</code>),
+                          <code>non_past_marked_3sg</code> (<code>VBZ</code>) y
+                          <code>non_past_unmarked</code> (<code>VBP</code>). Separar las cuatro realizaciones conserva
+                          la diferencia morfológica entre afijación regular y formas irregulares o supletivas, aunque
+                          divide la frecuencia de aparición en cuatro vectores binarios más escasos.
                         </div>
                       </details>
                     </aside>
@@ -745,21 +730,19 @@
                   <!-- [INICIO ESPACIO VISUAL 02] -->
                   <div class="distill-wide">
                     <div class="visual-placeholder" id="visual-slot-02">
-                      <span class="visual-placeholder-badge">Espacio Visual 02 · Auditoría del Corpus</span>
+                      <span class="visual-placeholder-badge">Espacio Visual 02</span>
                       <h4 class="visual-placeholder-title">
-                        Anatomía de los 21,354 verbos con tiempo en las historias y filtro de pureza gramatical
+                        Distribución de los 21,354 verbos conjugados del corpus y criterios de filtrado gramatical
                       </h4>
                       <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Visualización interactiva en dos niveles: (1) cómo se separan los
-                        verbos conjugados con tiempo de las acciones sin tiempo (<i>walking, vanished</i>) y de los
-                        modales ambiguos (<i>will, could, 'd</i>); y (2) cómo se reparten esos 21,354 verbos entre
-                        pasado (49.99%) y no-pasado (50.01%), destacando que el <b>50.26%</b> recae sobre
-                        <i>be, have</i> y <i>do</i>.
+                        <b>Diseño previsto:</b> Gráfico interactivo que muestra (1) cómo se separan los verbos con marca
+                        de tiempo de los verbos no conjugados (<i>crying, walking</i>) y de los modales excluidos
+                        (<i>could, would, 'd</i>); y (2) la proporción entre pasado (49.99%) y no-pasado (50.01%), junto
+                        al peso del 50.26% de <i>be, have</i> y <i>do</i>.
                       </p>
                       <p class="visual-placeholder-caption">
-                        <b>Lectura general:</b> Aislar el tiempo verbal exige descartar formas que mezclan deseo o
-                        posibilidad (como <i>would</i> o <i>could</i>) y reconocer que la mitad de las conjugaciones
-                        descansa sobre tres verbos auxiliares de altísima frecuencia.
+                        <b>Descripción:</b> Más de la mitad de las marcas temporales del corpus oral se concentran en
+                        auxiliares y cópulas de uso muy frecuente.
                       </p>
                     </div>
                   </div>
@@ -767,47 +750,44 @@
 
 
                   <!-- ================================================================== -->
-                  <!-- ACTO 03: DESARMAR EL HABLA EN SEIS PISTAS PARALELAS                -->
+                  <!-- SECCIÓN 3: SEIS NIVELES SIMULTÁNEOS EN UNA MISMA GRABACIÓN         -->
                   <!-- ================================================================== -->
 
-                  <div class="distill-act-header">
-                    <span class="distill-act-kicker">Acto 03 · Ingeniería lingüística y controles</span>
-                    <h3>Desarmar el habla en seis pistas paralelas (sin hacerse trampa)</h3>
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Sección 3</span>
+                    <h3>Seis niveles simultáneos en una misma grabación</h3>
                   </div>
 
                   <div class="distill-row">
                     <div class="distill-main">
                       <p>
-                        En un libro impreso, los espacios en blanco separan palabras y los puntos avisan dónde termina
-                        una idea. Al hablar no existen signos ortográficos en el aire: las grabaciones alineadas del
-                        experimento indican en qué centésima de segundo empieza y termina cada sonido y cada palabra,
-                        pero forman una larga cadena sin comas ni puntos. Si esa ristra cruda de miles de palabras se
-                        entrega directamente a un analizador gramatical, el programa pierde el rumbo sobre dónde acaba
-                        una cláusula y empieza la siguiente.
+                        Los archivos de alineación temporal del corpus indican en qué fracción de segundo comienza y
+                        termina cada fonema y cada palabra pronunciada, pero carecen de signos de puntuación. Procesar
+                        miles de palabras seguidas sin fronteras oracionales deteriora el análisis sintáctico
+                        automático. Para evitarlo, en el preprocesamiento se limpiaron las marcas de respiración y risa
+                        anotadas en el audio y se empleó la duración de los silencios reales para restituir la
+                        puntuación: en la frase inicial, la pausa de 0.58 segundos después de <i>reached over</i> se
+                        convierte en una coma, y el silencio de 0.89 segundos después de <i>seatbelt</i> inserta un
+                        punto seguido.
                       </p>
 
                       <p>
-                        Para reconstruir la estructura natural del relato oral, se aprovecharon los silencios reales de
-                        los narradores como puntuación acústica: tras limpiar respiraciones y risas, las pausas breves
-                        (de poco más de un tercio de segundo) se tradujeron en comas y las pausas más largas (a partir
-                        de dos tercios de segundo) marcaron el cierre de cada oración. Con el relato puntuado y
-                        sincronizado a una resolución de <b>cien muestras por segundo</b> (un corte cada diez
-                        milisegundos), cada instante de la narración quedó descrito mediante <b>cinco pistas de control
-                          (39 indicadores)</b> y <b>una pista de tiempo gramatical (4 indicadores)</b>:
+                        Sobre ese texto reconstruido y proyectado a una resolución de cien muestras por segundo (una
+                        cada diez milisegundos), se extrajeron cinco espacios de control que suman 39 variables antes de
+                        añadir las 4 variables de tiempo gramatical:
                       </p>
                     </div>
 
                     <aside class="distill-margin">
                       <details class="tech-note">
-                        <summary>Nota técnica 03 · Rescate acústico e inferencia</summary>
+                        <summary>Nota técnica 3. Alineación a 100 Hz</summary>
                         <div class="tech-note-body">
-                          Se programó un analizador para rescatar archivos <code>TextGrid</code> almacenados en formato
-                          cronológico antiguo de Praat sin alterar los originales (<code>textgrids_repaired</code>),
-                          limpiando marcas vocales no léxicas (<code>br</code>, <code>lg</code>, <code>spn</code>,
-                          <code>sil</code>). Los umbrales de pausa se fijaron en <code>0.35 s</code> (coma) y
-                          <code>0.65 s</code> (punto, percentil 75 del corpus). El texto reconstruido se procesó en una
-                          única pasada con el modelo <code>en_core_web_trf</code> de spaCy proyectado sobre una rejilla
-                          a <code>100 Hz</code>.
+                          En la fase preliminar se repararon automáticamente los archivos <code>TextGrid</code> que
+                          venían en formato cronológico antiguo de Praat, guardándolos en <code>textgrids_repaired</code>
+                          sin sobrescribir los originales, y se filtraron etiquetas no léxicas (<code>{BR}</code>,
+                          <code>{LG}</code>, <code>{LS}</code>, <code>sp</code>). Los umbrales de puntuación se fijaron
+                          en <code>0.35 s</code> para coma y <code>0.65 s</code> (percentil 75) para punto. La
+                          inferencia morfosintáctica se ejecutó en una sola pasada con <code>en_core_web_trf</code>.
                         </div>
                       </details>
                     </aside>
@@ -817,68 +797,59 @@
                     <div class="distill-main">
                       <ul class="distill-list">
                         <li>
-                          <b>1. Los gestos físicos de la voz (14 indicadores fonológicos):</b> El oído no recibe letras,
-                          sino vibraciones de cuerdas vocales, cierres de labios o roces de la lengua contra el paladar.
-                          Cuando alguien pronuncia el pasado <i>walked</i>, la marca <i>-ed</i> suena físicamente como
-                          una <i>/t/</i> final. Esta primera pista obliga al modelo a descontar la simple reacción de la
-                          corteza auditiva ante ese sonido consonántico.
+                          <b>Fonética y fonología (14 variables):</b> Cada sonido del habla se descompone en rasgos
+                          articulatorios binarios según cómo vibran las cuerdas vocales y dónde se coloca la lengua o
+                          los labios. En el primer segundo de la historia, la terminación de pasado en <i>reached</i> se
+                          pronuncia físicamente como una consonante oclusiva alveolar sorda (<i>/t/</i>, entre los
+                          segundos 0.45 y 0.50). Este bloque descuenta la respuesta auditiva directa al sonido físico.
                         </li>
                         <li>
-                          <b>2. El esfuerzo de reconocer cada palabra (4 indicadores estadísticos):</b> Palabras
-                          diminutas y familiares como <i>was</i> o <i>is</i> se reconocen casi sin costo mental, mientras
-                          que términos largos e infrecuentes exigen buscar a fondo en la memoria. Como la mitad del
-                          tiempo verbal vive en auxiliares ultracortos, esta pista controla la duración, longitud y
-                          frecuencia de uso en el idioma para no confundir palabras fáciles con reglas gramaticales.
+                          <b>Estadística léxica (4 variables):</b> Registra la presencia de cada palabra, su duración en
+                          segundos, su cantidad de letras y su frecuencia de uso en el idioma inglés. Permite distinguir
+                          el bajo esfuerzo de reconocer palabras breves y habituales como <i>was</i> o <i>is</i> frente
+                          a términos menos comunes como <i>seatbelt</i> o <i>laundromats</i>.
                         </li>
                         <li>
-                          <b>3. El tipo de palabra y las acciones sin tiempo (8 indicadores categoriales):</b> Registra
-                          cuándo aparecen sustantivos, adjetivos, pronombres o conectores, y reserva un canal exclusivo
-                          para los <b>verbos sin conjugar</b> (como <i>walking</i> o <i>vanished</i>). Así, la actividad
-                          cerebral general provocada por imaginar acciones queda absorbida en el control, dejando fuera
-                          modales (<i>will, can, should</i>) y contracciones ambiguas (<i>'d</i>) que mezclarían el
-                          tiempo con la duda o el deseo.
+                          <b>Categorías gramaticales y verbos sin tiempo (8 variables):</b> Clasifica sustantivos,
+                          adjetivos, adverbios, pronombres, preposiciones, conjunciones y determinantes, destinando una
+                          octava columna a las formas verbales no conjugadas (como <i>crying</i>, <i>running</i> o
+                          <i>smoking</i>). Al mismo tiempo, descarta los verbos modales (como <i>could</i> en el segundo
+                          119.1) y la contracción ambigua <i>'d</i> (como <i>I'd have</i> en el segundo 93.5, que puede
+                          contraer tanto <i>had</i> como <i>would</i>), para no mezclar el tiempo con matices de
+                          posibilidad.
                         </li>
                         <li>
-                          <b>4. La arquitectura de la oración (3 indicadores sintácticos):</b> Mide cuántas palabras de
-                          distancia hay que retener en la memoria para unir un sujeto lejano con su verbo, qué tan
-                          profunda es la subordinación y qué palabra actúa como columna vertebral de la cláusula. Como
-                          los verbos conjugados suelen ser el nudo central que cierra la oración, esta pista descuenta el
-                          esfuerzo de armar el rompecabezas sintáctico.
+                          <b>Sintaxis de dependencias (3 variables):</b> Calcula en cada palabra cuántos términos la
+                          separan del núcleo gramatical del que depende, cuántos escalones jerárquicos la separan de la
+                          raíz de la oración y si ella misma es el verbo principal de la cláusula. Con esto se controla
+                          la carga de integración estructural de cada enunciado.
                         </li>
                       </ul>
 
-                      <h4 class="distill-subhead">La trampa de la inteligencia artificial moderna en la quinta pista</h4>
+                      <h4 class="distill-subhead">Por qué se evitó usar modelos grandes de lenguaje en el control semántico</h4>
 
                       <p>
-                        Faltaba aún controlar el significado general: de qué habla cada escena (la familia, un viaje
-                        nocturno, un incendio). Hoy lo más habitual en neurociencia del lenguaje es extraer ese
-                        significado usando grandes redes neuronales modernas, de la misma familia que impulsan los
-                        asistentes conversacionales actuales. Esos modelos predicen la actividad cerebral de forma
-                        sobresaliente, pero esconden una trampa letal para una pregunta gramatical.
-                      </p>
-
-                      <p>
-                        Precisamente porque son tan potentes, <b>las redes modernas comprimen dentro de sus números no
-                          solo el tema del relato, sino también el orden sintáctico y si el verbo estaba en pasado o en
-                          presente</b>. Incluirlas como «control de significado» habría sido equivalente a hacer trampa
-                        en contra del propio experimento: el modelo de control ya llevaría infiltrada la respuesta del
-                        tiempo gramatical bajo un disfraz semántico, dejando sin margen a las variables que se buscaba
-                        evaluar.
+                        El quinto espacio de control debía capturar el contenido temático de cada escena. En la
+                        literatura reciente es habitual representar el significado mediante vectores extraídos de redes
+                        neuronales profundas similares a los modelos de lenguaje actuales. Al probar ese tipo de
+                        representaciones contextuales surge un inconveniente directo para aislar rasgos gramaticales:
+                        dado su alto rendimiento predictivo, sus vectores internos codifican al mismo tiempo el tema, la
+                        estructura sintáctica y el tiempo verbal de las oraciones. Emplearlos como línea base habría
+                        hecho que el modelo de control absorbiera de antemano la información temporal del verbo, además
+                        de elevar de forma considerable el costo computacional.
                       </p>
                     </div>
 
                     <aside class="distill-margin">
                       <details class="tech-note">
-                        <summary>Nota técnica 04 · Semántica LSA sin filtración</summary>
+                        <summary>Nota técnica 4. Control temático mediante LSA</summary>
                         <div class="tech-note-body">
-                          Para evitar tanto la absorción de rasgos morfosintácticos propia de <i>embeddings</i>
-                          contextuales como el sobrecosto en CPU, se aplicó Análisis Semántico Latente (LSA): sobre
-                          cláusulas delimitadas por pausas <code>&ge; 0.65 s</code>, se extrajeron únicamente los
-                          <b>lemas</b> despojados de flexión (filtrando muletillas orales como <i>uh, um, like,
-                            yeah</i>), generando una matriz TF-IDF (<code>min_df=3</code>, <code>max_df=0.85</code>)
-                          reducida con <code>TruncatedSVD</code> a 10 dimensiones. El ajuste se realizó exclusivamente
-                          en las historias de entrenamiento, dejando fuera <i>wheretheressmoke</i> para impedir fuga de
-                          datos.
+                          Se agruparon las palabras en cláusulas delimitadas por pausas <code>&ge; 0.65 s</code>,
+                          conservando únicamente sus lemas sin flexión y excluyendo muletillas orales (<i>uh, um, like,
+                            yeah, know</i>). Sobre una matriz TF-IDF (<code>min_df=3</code>, <code>max_df=0.85</code>) se
+                          aplicó descomposición en valores singulares truncada (<code>TruncatedSVD</code>) a 10
+                          dimensiones. Este modelo LSA se ajustó únicamente con las narraciones de entrenamiento,
+                          manteniendo aislada la historia de prueba <i>wheretheressmoke</i>.
                         </div>
                       </details>
                     </aside>
@@ -887,13 +858,13 @@
                   <div class="distill-row">
                     <div class="distill-main">
                       <p>
-                        Para evitar esa contaminación se tomó una decisión deliberada: antes de medir el tema de cada
-                        frase, se despojó a todas las palabras de sus conjugaciones, dejándolas en su raíz de
-                        diccionario (de modo que <i>looked</i> y <i>looks</i> pasaran por igual a ser simplemente
-                        <i>look</i>). Con esas raíces neutras se construyeron <b>10 dimensiones temáticas clásicas</b>
-                        entrenadas únicamente con los cuentos de aprendizaje, sin espiar jamás la historia reservada para
-                        el examen final. Recién sobre esa base limpia de 39 controles se colocó la sexta pista: las
-                        <b>4 formas del tiempo gramatical</b>.
+                        Por esa razón se optó por un Análisis Semántico Latente (LSA) construido sobre raíces léxicas
+                        sin conjugación. Antes de estimar los temas de cada cláusula, formas en pasado como
+                        <i>reached</i> (segundo 0.14) y formas en presente como <i>reaches</i> (segundo 424.56) se
+                        redujeron a un mismo lema neutro (<i>reach</i>), comprimiendo el vocabulario en 10 dimensiones
+                        temáticas entrenadas únicamente con los relatos de ajuste. Sumadas las cinco capas de control
+                        (39 variables) y la capa de tiempo gramatical (4 variables), cada historia quedó representada en
+                        una matriz de 43 predictores.
                       </p>
                     </div>
                   </div>
@@ -901,21 +872,19 @@
                   <!-- [INICIO ESPACIO VISUAL 03] -->
                   <div class="distill-wide">
                     <div class="visual-placeholder" id="visual-slot-03">
-                      <span class="visual-placeholder-badge">Espacio Visual 03 · Partitura Lingüística a 100 Hz</span>
+                      <span class="visual-placeholder-badge">Espacio Visual 03</span>
                       <h4 class="visual-placeholder-title">
-                        Seis pistas simultáneas sobre un fragmento real del relato (43 indicadores en acción)
+                        Descomposición de los primeros segundos reales de <i>Where There's Smoke</i> en los 6 espacios (100 Hz)
                       </h4>
                       <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Línea de tiempo estilo «partitura multipista» sobre un pasaje real de
-                        8–10 segundos del corpus. Arriba aparecen las palabras alineadas y las pausas respiratorias;
-                        debajo se encienden en paralelo las 6 bandas (Sonido [14], Estadística [4], Categorías [8],
-                        Sintaxis [3], Tema sin conjugación [10] y Tiempo verbal [4]), permitiendo hacer clic en cada
-                        banda para explorar sus indicadores concretos.
+                        <b>Diseño previsto (con los tiempos reales del TextGrid compartido):</b> Línea de tiempo
+                        interactiva de los segundos 0.0 a 13.3 del relato (<i>«I reached over... I had no shoes on, I
+                          was crying»</i>), mostrando arriba las palabras, fonemas ARPABET y pausas reales, y debajo la
+                        activación simultánea de los 6 bloques y el explorador detallado de sus 43 columnas.
                       </p>
                       <p class="visual-placeholder-caption">
-                        <b>Lectura general:</b> Cada centésima de segundo del audio queda traducida en 43 señales
-                        paralelas: 39 describen el contexto físico, léxico, estructural y temático; las últimas 4 aíslan
-                        exclusivamente la marca temporal del verbo.
+                        <b>Descripción:</b> En un mismo intervalo del relato coinciden rasgos articulatorios, frecuencias
+                        léxicas dispares, gerundios sin marca temporal y verbos conjugados regulares e irregulares.
                       </p>
                     </div>
                   </div>
@@ -923,53 +892,46 @@
 
 
                   <!-- ================================================================== -->
-                  <!-- ACTO 04: EL RETRASO DE LA SANGRE Y EL DUELO DE MODELOS             -->
+                  <!-- SECCIÓN 4: EL RITMO SANGUÍNEO Y LA COMPARACIÓN DE MODELOS          -->
                   <!-- ================================================================== -->
 
-                  <div class="distill-act-header">
-                    <span class="distill-act-kicker">Acto 04 · Modelado neurovascular y cerebral</span>
-                    <h3>El retraso de la sangre y el duelo de modelos</h3>
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Sección 4</span>
+                    <h3>El ritmo sanguíneo y la comparación de modelos</h3>
                   </div>
 
                   <div class="distill-row">
                     <div class="distill-main">
                       <p>
-                        Tener el lenguaje medido cada diez milisegundos resuelve la mitad lingüística del problema, pero
-                        choca de frente con la biología del escáner. La resonancia magnética funcional no capta el
-                        chispazo eléctrico instantáneo de las neuronas; mide los cambios de oxigenación en los diminutos
-                        vasos sanguíneos que las alimentan. Y la circulación sanguínea se mueve con una parsimonia muy
-                        distinta a la de la voz humana.
+                        Las 43 series lingüísticas cambian cada diez milisegundos, pero la señal registrada por el
+                        resonador magnético funcional (llamada señal BOLD) evoluciona a un ritmo mucho más lento. El
+                        escáner mide variaciones locales de oxígeno en la sangre cortical: cuando una población neuronal
+                        se activa al escuchar una palabra, el flujo sanguíneo circundante aumenta de forma gradual,
+                        alcanza su punto máximo entre cinco y seis segundos después del sonido y tarda alrededor de
+                        treinta segundos en volver a su nivel basal. A la vez, el equipo captura un volumen completo del
+                        cerebro cada dos segundos.
                       </p>
 
                       <p>
-                        Cuando un grupo de neuronas trabaja al escuchar un verbo como <i>looked</i>, consume oxígeno de
-                        inmediato. Segundos después, las arteriolas vecinas abren paso a una oleada generosa de sangre
-                        fresca que alcanza su pico máximo <b>entre cinco y seis segundos más tarde</b> —cuando el
-                        narrador ya va dos frases más adelante— y tarda cerca de medio minuto en recobrar la calma. Al
-                        mismo tiempo, el resonador toma una «fotografía» tridimensional completa del cerebro apenas
-                        <b>una vez cada dos segundos</b>.
-                      </p>
-
-                      <p>
-                        Para tender un puente entre ambos relojes, cada una de las 43 pistas rápidas se pasa primero por
-                        un filtro temporal que imita esa ola lenta de oxigenación sanguínea y luego se sincroniza al
-                        compás exacto de dos segundos del escáner. Además, cada sesión de grabación se centra en su
-                        propia escala para evitar que simples variaciones de calibración de la máquina entre un día y
-                        otro parezcan respuestas al cuento.
+                        Para acoplar ambas escalas temporales, cada una de las 43 variables rápidas se filtró con una
+                        curva estándar de respuesta vascular y se remuestreó exactamente a un dato cada dos segundos.
+                        Aplicar una curva vascular uniforme permitió conservar el modelo compacto en 43 columnas en vez
+                        de cuadruplicar la cantidad de predictores con múltiples copias retrasadas en el tiempo. Además,
+                        tanto los predictores como las grabaciones cerebrales se estandarizaron por separado dentro de
+                        cada sesión para descartar variaciones de calibración del escáner entre distintos días.
                       </p>
                     </div>
 
                     <aside class="distill-margin">
                       <details class="tech-note">
-                        <summary>Nota técnica 05 · Convolución HRF y TR</summary>
+                        <summary>Nota técnica 5. Convolución HRF y remuestreo</summary>
                         <div class="tech-note-body">
-                          Las 43 series a <code>100 Hz</code> se convolucionaron en paralelo (<code>fftconvolve</code>)
-                          con una Función de Respuesta Hemodinámica (HRF) canónica de doble gamma de <code>32 s</code>
-                          (Friston et al., 1998; pico ~5.1–6 s, valle posestímulo ~15.5 s) en lugar de expandir
-                          múltiples retardos FIR (lo que habría inflado el modelo a 172 columnas). Luego se aplicó
-                          remuestreo polifásico con filtro antialiasing (<code>resample_poly</code>, reducción 200:1) al
-                          ritmo del escáner (<code>TR = 2.0 s</code> / <code>0.5 Hz</code>) y estandarización Z
-                          independiente por corrida en <code>float32</code>.
+                          Se aplicó convolución por FFT en paralelo (<code>fftconvolve</code>) con la función de
+                          respuesta hemodinámica (HRF) canónica de doble gamma de <code>32 s</code> (Friston et al.,
+                          1998), evitando la inflación dimensional de un diseño FIR (que habría expandido la matriz a
+                          172 columnas). Después se redujo la frecuencia de <code>100 Hz</code> a <code>0.5 Hz</code>
+                          (<code>TR = 2.0 s</code>) mediante remuestreo polifásico antialiasing
+                          (<code>resample_poly</code>) y puntaje Z intra-sesión en <code>float32</code>.
                         </div>
                       </details>
                     </aside>
@@ -978,19 +940,19 @@
                   <!-- [INICIO ESPACIO VISUAL 04] -->
                   <div class="distill-wide">
                     <div class="visual-placeholder" id="visual-slot-04">
-                      <span class="visual-placeholder-badge">Espacio Visual 04 · Puente Hemodinámico</span>
+                      <span class="visual-placeholder-badge">Espacio Visual 04</span>
                       <h4 class="visual-placeholder-title">
-                        De palabras de milisegundos a olas lentas de oxígeno capturadas cada 2 segundos
+                        Transformación temporal desde los eventos del habla (100 Hz) hasta las muestras del escáner (cada 2.0 s)
                       </h4>
                       <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Gráfica interactiva donde el lector observa cómo los pulsos rápidos de
-                        aparición de verbos se suavizan y retrasan ~6 segundos al convertirse en demanda sanguínea, y
-                        cómo el escáner toma muestras discretas cada 2.0 segundos (comparado con una traza cerebral real
-                        de corteza auditiva/temporal cuando se incorporen los datos extraídos del PC).
+                        <b>Diseño previsto:</b> Visualización interactiva de cómo los eventos breves de verbos reales de
+                        <i>Where There's Smoke</i> se convierten en ondas lentas y superpuestas de demanda sanguínea
+                        muestreadas cada dos segundos. Incluye espacio preparado para superponer la traza BOLD real de
+                        un vóxel temporal cuando se extraiga del computador principal.
                       </p>
                       <p class="visual-placeholder-caption">
-                        <b>Lectura general:</b> El escáner nunca ve una palabra aislada en tiempo real: registra la suma
-                        suave y retrasada de varias palabras superpuestas en la circulación cerebral.
+                        <b>Descripción:</b> Debido a la inercia vascular, cada imagen tomada por el resonador refleja la
+                        huella acumulada de varios segundos previos de narración.
                       </p>
                     </div>
                   </div>
@@ -998,62 +960,47 @@
 
                   <div class="distill-row">
                     <div class="distill-main">
-                      <h4 class="distill-subhead">Casi un millón de pequeños jurados independientes</h4>
+                      <h4 class="distill-subhead">Ajuste independiente en cada punto de la corteza</h4>
 
                       <p>
-                        En muchos estudios clásicos se deforman los cerebros de todos los voluntarios para encajarlos en
-                        un molde anatómico promedio, borrando los pliegues particulares de cada corteza. Aquí se siguió
-                        el camino opuesto: <b>cada uno de los diez participantes fue analizado en su propia geometría
-                          cerebral</b>, dividida en entre 81,000 y 109,000 pequeños cubos de unos dos milímetros por
-                        lado llamados <b>vóxeles</b> (el equivalente tridimensional de un píxel). Sumando las diez
-                        personas, el análisis entrenó <b>943,305 modelos independientes</b>.
+                        El volumen cortical de cada participante se analizó en su propia anatomía individual sin
+                        deformarlo hacia una plantilla grupal promedio. Cada corteza quedó dividida en entre 81,126 y
+                        109,469 pequeñas unidades cúbicas de unos dos milímetros de lado llamadas vóxeles. En cada uno
+                        de esos 943,305 vóxeles totales se ajustaron modelos de regresión independientes encargados de
+                        estimar cuánto contribuye cada pista lingüística a predecir las fluctuaciones de oxígeno en ese
+                        punto del tejido.
                       </p>
 
                       <p>
-                        Como los rasgos del habla suelen cambiar juntos, ajustar un modelo convencional haría que los
-                        pesos se dispararan de forma inestable. Para estabilizar el aprendizaje se utilizó una regresión
-                        penalizada (conocida como <b>regresión de cresta</b>) que modera el tamaño de los pesos mediante
-                        una perilla de ajuste calibrada en bloques de historias completas —nunca partiendo una narración
-                        por la mitad, de modo que la estela sanguínea de una frase jamás se filtre entre el
-                        entrenamiento y la validación—.
+                        Para evitar que la correlación entre variables lingüísticas volviera inestables las
+                        estimaciones, se utilizó regresión de cresta (<i>Ridge</i>), un método que penaliza los pesos
+                        desmedidos mediante un parámetro de regularización calibrado por validación cruzada. En esa
+                        calibración las historias completas se mantuvieron siempre unidas dentro de un mismo bloque,
+                        impidiendo que la cola sanguínea de treinta segundos de una oración quedara repartida entre los
+                        datos de entrenamiento y los de validación.
                       </p>
 
                       <p>
-                        Con las reglas del juego blindadas, en cada vóxel se pusieron a competir dos versiones del
-                        modelo frente a una historia que ninguno de los dos había visto jamás durante su entrenamiento
-                        (el relato <i>Where There's Smoke</i>):
-                      </p>
-
-                      <ul class="distill-list">
-                        <li>
-                          <b>El Modelo de Control (39 pistas):</b> Intenta predecir las subidas y bajadas de cada punto
-                          del cerebro conociendo los sonidos, la familiaridad léxica, las categorías generales, la
-                          sintaxis y el tema, pero <b>a ciegas respecto al tiempo gramatical</b>.
-                        </li>
-                        <li>
-                          <b>El Modelo Completo (43 pistas):</b> Recibe exactamente esas mismas 39 pistas más las <b>4
-                            pistas de pasado y no-pasado</b>.
-                        </li>
-                      </ul>
-
-                      <p>
-                        Restar el acierto del primero al del segundo sobre esa historia nueva entrega el dato buscado en
-                        cada milímetro de corteza: la <b>ganancia predictiva exclusiva</b> del tiempo verbal.
+                        Una vez calibrados los pesos en las historias de entrenamiento, se compararon dos modelos frente
+                        a los datos cerebrales de <i>Where There's Smoke</i>, reservada íntegramente para la evaluación
+                        fuera de muestra. El <b>modelo restringido</b> utilizó únicamente las 39 variables de control;
+                        el <b>modelo global</b> utilizó esas mismas 39 variables más las 4 de tiempo gramatical. La
+                        resta entre el acierto del modelo global y el del modelo restringido sobre esa historia nueva
+                        mide la ganancia predictiva atribuible al tiempo verbal en cada vóxel.
                       </p>
                     </div>
 
                     <aside class="distill-margin">
                       <details class="tech-note">
-                        <summary>Nota técnica 06 · Regresión Ridge y partición</summary>
+                        <summary>Nota técnica 6. Regresión Ridge y partición</summary>
                         <div class="tech-note-body">
-                          Se empleó <i>Standard Ridge Regression</i> en espacio primal mediante <code>Himalaya</code>,
-                          calibrando independientemente por vóxel y por modelo una rejilla logarítmica de 20 valores de
-                          penalización L2 (<code>10<sup>-2</sup></code> a <code>10<sup>4</sup></code>) mediante
-                          validación cruzada agrupada por historias completas (<code>GroupKFold</code> de 3 pliegues).
-                          El ajuste se procesó en lotes de <code>10,000</code> vóxeles vectorizados sobre OpenBLAS/MKL,
-                          evaluando <code>&Delta;R<sup>2</sup> = R<sup>2</sup><sub>global</sub> &minus;
-                          R<sup>2</sup><sub>restringido</sub></code> fuera de muestra sobre el promedio entre
-                          repeticiones de <i>wheretheressmoke</i> (291 TRs).
+                          Se utilizó <i>Standard Ridge Regression</i> en espacio primal con la librería
+                          <code>Himalaya</code>, evaluando por separado en cada modelo y vóxel 20 valores candidatos de
+                          penalización L2 en escala logarítmica (<code>0.01</code> a <code>10,000</code>) mediante
+                          <code>GroupKFold</code> de 3 particiones agrupadas por relato. El cómputo se vectorizó en
+                          bloques de <code>10,000</code> vóxeles sobre CPU, midiendo <code>&Delta;R<sup>2</sup> =
+                          R<sup>2</sup><sub>global</sub> &minus; R<sup>2</sup><sub>restringido</sub></code> en el
+                          promedio de repeticiones de <i>wheretheressmoke</i> (291 TRs).
                         </div>
                       </details>
                     </aside>
@@ -1062,20 +1009,20 @@
                   <!-- [INICIO ESPACIO VISUAL 05] -->
                   <div class="distill-wide">
                     <div class="visual-placeholder" id="visual-slot-05">
-                      <span class="visual-placeholder-badge">Espacio Visual 05 · El Duelo de Matrices</span>
+                      <span class="visual-placeholder-badge">Espacio Visual 05</span>
                       <h4 class="visual-placeholder-title">
-                        Comparación interactiva: Mazo de Control (5 bloques) frente a Mazo Completo (6 bloques)
+                        Partición de varianza: modelo restringido (39 variables) frente a modelo global (43 variables)
                       </h4>
                       <p class="visual-placeholder-spec">
-                        <b>Diseño previsto (estética Gallant Lab):</b> Esquema visual interactivo con interruptor
-                        «Sin Tiempo Gramatical (39) / Con Tiempo Gramatical (43)». Permite activar o retirar la sexta
-                        matriz verde apilada y visualizar cómo ambos modelos intentan predecir la respuesta cerebral
-                        observada en la historia reservada <i>Where There's Smoke</i>.
+                        <b>Diseño previsto (con cuadrículas apiladas estilo Gallant Lab):</b> Esquema interactivo que
+                        permite alternar la presencia del sexto bloque verde (Tiempo gramatical) durante la predicción
+                        fuera de muestra sobre <i>Where There's Smoke</i> para ilustrar de forma visual de dónde sale la
+                        diferencia predictiva en cada vóxel.
                       </p>
                       <p class="visual-placeholder-caption">
-                        <b>Lectura general:</b> Si el tiempo gramatical deja una huella propia e irreductible a esta
-                        escala, el modelo de 6 bloques debería predecir mejor la actividad de la historia nueva que el
-                        modelo de 5 bloques.
+                        <b>Descripción:</b> Ambos modelos se ponen a prueba sobre una narración excluida del
+                        entrenamiento para cuantificar qué fracción de acierto depende exclusivamente de las marcas
+                        temporales del verbo.
                       </p>
                     </div>
                   </div>
@@ -1083,62 +1030,57 @@
 
 
                   <!-- ================================================================== -->
-                  <!-- ACTO 05: DOS ESCUDOS CONTRA EL ESPEJISMO ESTADÍSTICO               -->
+                  <!-- SECCIÓN 5: REPRODUCIBILIDAD DE LA SEÑAL Y VALIDACIÓN ESTADÍSTICA   -->
                   <!-- ================================================================== -->
 
-                  <div class="distill-act-header">
-                    <span class="distill-act-kicker">Acto 05 · Rigor contra el autoengaño</span>
-                    <h3>Dos escudos contra el espejismo estadístico</h3>
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Sección 5</span>
+                    <h3>Reproducibilidad de la señal y validación estadística</h3>
                   </div>
 
                   <div class="distill-row">
                     <div class="distill-main">
                       <p>
-                        Cuando se resta el desempeño de ambos modelos en bruto, aparece una cifra que a primera vista
-                        podría entusiasmar a cualquiera: en los diez cerebros analizados, <b>cerca del 43% de toda la
-                          corteza cerebral muestra números ligeramente positivos a favor del modelo que incluye el
-                          tiempo gramatical</b>. Si el análisis se detuviera ahí, sería tentador anunciar que casi la
-                        mitad del cerebro humano se ocupa de las conjugaciones verbales.
+                        Al calcular la diferencia bruta entre el modelo global y el modelo restringido sobre la historia
+                        de evaluación, en promedio el 42.83% de los vóxeles de cada corteza arroja cifras positivas.
+                        Tomar ese porcentaje de manera literal llevaría a una conclusión errónea: cuando se añaden cuatro
+                        predictores a cualquier regresión evaluada sobre series ruidosas, alrededor de la mitad de los
+                        puntos mejora unas milésimas y la otra mitad empeora en magnitud similar por simple azar, como
+                        lo refleja una mediana cortical cercana a cero (-0.00053). Evaluar con rigor esos números
+                        requiere conocer primero cuánta señal predecible contiene cada vóxel y después contrastar las
+                        mejoras frente a una distribución nula adecuada.
+                      </p>
+
+                      <h4 class="distill-subhead">El techo de ruido a partir de escuchas repetidas</h4>
+
+                      <p>
+                        Una grabación de resonancia magnética mezcla la respuesta evocada por el relato con fluctuaciones
+                        cardíacas, respiratorias, ruido térmico del sensor y actividad cerebral espontánea ajena al
+                        estímulo. Ningún modelo lingüístico debería ser juzgado contra ese ruido impredecible.
                       </p>
 
                       <p>
-                        En realidad, ese número es un espejismo clásico al trabajar con señales biológicas ruidosas.
-                        Cuando se añaden cuatro variables nuevas para predecir ondas fluctuantes, por simple azar cerca
-                        de la mitad de los puntos sube unas milésimas y la otra mitad baja otro tanto. Para distinguir
-                        una huella neurobiológica genuina del ruido casual se levantaron dos escudos complementarios.
-                      </p>
-
-                      <h4 class="distill-subhead">Primer escudo: preguntar qué tanto se repite el propio cerebro</h4>
-
-                      <p>
-                        Ningún modelo computacional, por perfecto que sea, podrá acertar jamás el cien por ciento de lo
-                        que mide un resonador. La señal cerebral viene mezclada con el latido cardíaco, la respiración,
-                        el zumbido térmico de las bobinas y los pensamientos espontáneos del voluntario. Pero la historia
-                        de evaluación (<i>Where There's Smoke</i>) contaba con una ventaja crucial: <b>cada participante
-                          la escuchó entre cinco y diez veces en sesiones distintas</b>.
-                      </p>
-
-                      <p>
-                        Eso permite medir el <b>techo biológico de señal</b> comparando al cerebro consigo mismo. Si un
-                        punto de la corteza sube y baja siguiendo el mismo dibujo cada vez que suena el mismo pasaje del
-                        cuento, allí hay respuesta real al relato; todo lo que cambie de una escucha a otra frente al
-                        mismo audio es ruido imposible de predecir. Al aplicar esta prueba, se comprobó que <b>tres
-                          cuartas partes de la corteza de cada persona (el 75.45% en promedio) contienen señal
-                          consistente y repetible</b>. El escáner sí estaba escuchando con claridad.
+                        Para estimar qué proporción de la actividad de cada vóxel responde de verdad a la historia, se
+                        aprovechó que cada participante escuchó <i>Where There's Smoke</i> entre cinco y diez veces en
+                        sesiones distintas. Si la actividad de un vóxel sube y baja siguiendo un patrón temporal similar
+                        en todas las escuchas del mismo pasaje, ese punto posee una señal reproducible alta; si varía
+                        sin relación entre una sesión y otra, predomina el ruido. En la cohorte analizada, un promedio
+                        del <b>75.45% de la corteza de cada participante</b> mostró un techo de señal reproducible
+                        confiable, lo que permite expresar el desempeño de los modelos en proporción a la varianza
+                        biológicamente explicable.
                       </p>
                     </div>
 
                     <aside class="distill-margin">
                       <details class="tech-note">
-                        <summary>Nota técnica 07 · Techo de ruido (Sahani y Linden)</summary>
+                        <summary>Nota técnica 7. Estimador de Sahani y Linden</summary>
                         <div class="tech-note-body">
-                          Inspeccionando las repeticiones internas (llave <code>individual_repeats</code> en HDF5: 10
-                          escuchas en <code>UTS01–UTS03</code> y 5 en <code>UTS04–UTS10</code>, estandarizadas por
-                          separado), se aplicó el estimador analítico insesgado de potencia de señal de Sahani y Linden
-                          (2003), que opera directamente en escala <code>R<sup>2</sup></code> en la anatomía nativa de
-                          cada sujeto. Las métricas normalizadas por este techo se calculan solo en vóxeles con techo
-                          confiable (<code>&gt; 0.01</code>), registrando <code>N/A</code> por debajo de ese piso para
-                          evitar cocientes inestables.
+                          A partir de las repeticiones individuales almacenadas en los archivos HDF5
+                          (<code>individual_repeats</code>: 10 escuchas en <code>UTS01–UTS03</code> y 5 en
+                          <code>UTS04–UTS10</code>), se aplicó el estimador de potencia de señal con corrección por
+                          muestra finita de Sahani y Linden (2003). Las razones normalizadas por el techo de ruido se
+                          reportan únicamente en vóxeles cuyo techo supera <code>0.01</code>, consignando
+                          <code>N/A</code> debajo de ese umbral para impedir divisiones numéricamente inestables.
                         </div>
                       </details>
                     </aside>
@@ -1146,46 +1088,45 @@
 
                   <div class="distill-row">
                     <div class="distill-main">
-                      <h4 class="distill-subhead">Segundo escudo: girar la cinta del tiempo y vigilar cien mil puntos a la vez</h4>
+                      <h4 class="distill-subhead">Desplazamientos circulares y control en toda la corteza</h4>
 
                       <p>
-                        Quedaba entonces la prueba de fuego: demostrar si aquellas pequeñas mejoras vistas en algunos
-                        puntos superaban lo que ocurriría por pura coincidencia. En una encuesta común basta con
-                        desordenar las filas al azar —como quien baraja un mazo de cartas— para simular el azar. Pero
-                        barajar segundos sueltos en resonancia magnética arruina la prueba: como las olas de sangre son
-                        lentas y suaves, romperlas segundo a segundo las convierte en estática artificial y hace que
-                        cualquier coincidencia entre dos ondas lentas parezca extraordinaria.
+                        El paso siguiente consistió en verificar si la ganancia observada en algún vóxel superaba las
+                        coincidencias esperables por azar. En series temporales de resonancia magnética no es válido
+                        desordenar instantes sueltos de forma aleatoria: debido a la lentitud del flujo sanguíneo, cada
+                        medición guarda una fuerte dependencia con los segundos previos, y romper esa continuidad suave
+                        genera falsos positivos.
                       </p>
 
                       <p>
-                        En lugar de barajar el relato, la predicción del modelo se trató como <b>una cinta cerrada en
-                          bucle que se desliza entera en el tiempo</b>: se conserva intacta la suavidad natural de toda
-                        la curva, pero se desacopla del reloj del cerebro —comparando, por ejemplo, lo que el modelo
-                        predijo para el minuto uno contra lo que el cerebro hacía realmente en el minuto cuatro, cuando
-                        la historia iba por otro episodio—. Dejando márgenes de seguridad en los extremos para que la
-                        cola de medio minuto de una ola sanguínea no se solape consigo misma, se evaluaron todos los
-                        desfases posibles del ciclo.
+                        Para preservar intacta la suavidad temporal de las curvas rompiendo únicamente su sincronía con
+                        el relato, la serie de predicciones sobre la historia de prueba se desplazó en bloque de manera
+                        circular: el tramo que sale por el final de la grabación reingresa por el comienzo, mientras la
+                        señal cerebral permanece fija. Se excluyeron los desplazamientos demasiado cortos (menores a 20
+                        segundos en el análisis base y menores a 32 segundos en una prueba adicional de sensibilidad)
+                        para asegurar que la respuesta sanguínea de una oración nunca siguiera solapada consigo misma, y
+                        se calcularon todas las rotaciones válidas posibles.
                       </p>
 
                       <p>
-                        Finalmente, como interrogar cien mil puntos del cerebro al mismo tiempo garantiza miles de
-                        coincidencias fortuitas si se juzga cada punto por separado, se aplicó un filtro global de
-                        falsos descubrimientos a escala de toda la corteza cerebral. Solo los puntos capaces de superar
-                        ambas barreras podrían considerarse una huella estadísticamente real del tiempo verbal.
+                        Por último, dado que evaluar cerca de cien mil vóxeles a la vez en un mismo cerebro produce miles
+                        de coincidencias casuales si se usa un umbral individual sin ajuste, las probabilidades obtenidas
+                        en cada participante se sometieron a una corrección de tasa de falsos descubrimientos (FDR) en
+                        toda la corteza.
                       </p>
                     </div>
 
                     <aside class="distill-margin">
                       <details class="tech-note">
-                        <summary>Nota técnica 08 · Rotaciones circulares y FDR</summary>
+                        <summary>Nota técnica 8. Rotaciones exhaustivas y FDR</summary>
                         <div class="tech-note-body">
-                          Sobre los <code>291 TRs</code> de prueba se ejecutaron desplazamientos circulares exhaustivos
-                          vectorizados en bloques 3D de 512 MB con dos márgenes de exclusión por autocorrelación: un
-                          margen base de <code>&plusmn;10 TRs</code> (<code>20 s</code>; 271 rotaciones válidas,
-                          resolución mínima <code>p = 0.00368</code> con corrección de continuidad) y un análisis de
-                          sensibilidad de <code>&plusmn;16 TRs</code> (<code>32 s</code>, 1 HRF completa; 260
-                          rotaciones, <code>p = 0.00383</code>). Los valores empíricos se corrigieron en toda la corteza
-                          mediante Benjamini-Hochberg FDR (<code>q &lt; 0.05</code>).
+                          En los <code>291 TRs</code> de prueba se calcularon de forma exacta todas las rotaciones
+                          circulares admisibles en tensores 3D de 512 MB: con margen de exclusión de
+                          <code>&plusmn;10 TRs</code> (<code>20 s</code>) resultan 271 rotaciones y una resolución mínima
+                          <code>p = 0.00368</code> tras corrección de continuidad; con margen de
+                          <code>&plusmn;16 TRs</code> (<code>32 s</code>, 1 HRF completa) resultan 260 rotaciones y
+                          <code>p = 0.00383</code>. Sobre esos valores se aplicó Benjamini-Hochberg FDR
+                          (<code>q &lt; 0.05</code>) por sujeto.
                         </div>
                       </details>
                     </aside>
@@ -1194,21 +1135,19 @@
                   <!-- [INICIO ESPACIO VISUAL 06] -->
                   <div class="distill-wide">
                     <div class="visual-placeholder" id="visual-slot-06">
-                      <span class="visual-placeholder-badge">Espacio Visual 06 · Laboratorio de Validación</span>
+                      <span class="visual-placeholder-badge">Espacio Visual 06</span>
                       <h4 class="visual-placeholder-title">
-                        Repetibilidad del cerebro ante el mismo relato y prueba interactiva de desfase circular
+                        Estimación del techo de ruido entre repeticiones y explorador interactivo de desplazamientos circulares
                       </h4>
                       <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Visualización interactiva en dos paneles conectados: a la izquierda, cómo
-                        las escuchas repetidas de <i>Where There's Smoke</i> revelan la señal consistente frente al
-                        ruido fisiológico; a la derecha, un control deslizante que permite al lector girar la cinta de
-                        predicciones fuera de sincronía (respetando las zonas rojas de seguridad hemodinámica) y ver
-                        cómo se construye el escenario de azar.
+                        <b>Diseño previsto:</b> Gráfico interactivo doble que permite (1) visualizar cómo el promedio de
+                        múltiples escuchas aísla la respuesta consistente al relato frente al ruido fisiológico, y (2)
+                        deslizar en bloque la serie de predicciones a lo largo de los 291 volúmenes de prueba respetando
+                        los márgenes de exclusión de 20 y 32 segundos.
                       </p>
                       <p class="visual-placeholder-caption">
-                        <b>Lectura general:</b> Desfasar la cinta completa conserva el ritmo lento de las ondas
-                        vasculares pero rompe su vínculo con las palabras reales, ofreciendo un termómetro honesto contra
-                        las falsas alarmas.
+                        <b>Descripción:</b> Los desplazamientos circulares conservan la autocorrelación natural de las
+                        ondas lentas mientras eliminan el alineamiento temporal con las palabras escuchadas.
                       </p>
                     </div>
                   </div>
@@ -1216,51 +1155,43 @@
 
 
                   <!-- ================================================================== -->
-                  <!-- ACTO 06: LO QUE REVELÓ LA CORTEZA Y EL MAPA HACIA EL FUTURO        -->
+                  <!-- SECCIÓN 6: RESULTADOS EN LA CORTEZA Y SIGUIENTES PASOS             -->
                   <!-- ================================================================== -->
 
-                  <div class="distill-act-header">
-                    <span class="distill-act-kicker">Acto 06 · Hallazgos e interpretación</span>
-                    <h3>Lo que reveló la corteza (y el mapa hacia el siguiente experimento)</h3>
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Sección 6</span>
+                    <h3>Resultados en la corteza y siguientes pasos</h3>
                   </div>
 
                   <div class="distill-row">
                     <div class="distill-main">
                       <p>
-                        En divulgación científica suelen celebrarse únicamente los mapas llenos de colores llamativos,
-                        olvidando que un resultado negativo obtenido bajo controles rigurosos traza con enorme nitidez
-                        cómo funciona un sistema y hasta dónde llegan los instrumentos actuales. Al reunir los 943,305
-                        vóxeles de los diez participantes tras pasar por todos los controles, emergen dos resultados
-                        complementarios que deben leerse juntos:
+                        Al evaluar los 943,305 vóxeles de los diez participantes en la historia de prueba se obtienen
+                        dos resultados complementarios. En primer lugar, el <b>modelo global de 43 variables predice de
+                          manera consistente la actividad evocada por el relato</b>: alcanza valores positivos fuera de
+                        muestra en un promedio del <b>35.56% de toda la corteza cerebral</b> (entre 27,000 y 42,000
+                        vóxeles por persona), concentrados en las cortezas auditivas primarias y secundarias, el giro y
+                        el surco temporal superior y las regiones frontales inferiores de ambos hemisferios.
                       </p>
 
-                      <ul class="distill-list">
-                        <li>
-                          <b>El modelo lingüístico completo sí predice con solidez al cerebro escuchando el cuento:</b>
-                          Ante una historia nueva, las 43 pistas juntas logran predicciones positivas fuera de muestra
-                          en el <b>35.56% de toda la corteza cerebral en promedio</b> (entre 27,000 y 42,000 vóxeles por
-                          persona), dibujando con claridad las cortezas auditivas, los giros y surcos temporales
-                          superiores y las regiones frontales inferiores de ambos hemisferios.
-                        </li>
-                        <li>
-                          <b>El aporte aislado del tiempo gramatical no se despega estadísticamente del resto:</b>
-                          Cuando se exige que la mejora exclusiva de las 4 pistas de tiempo verbal supere las rotaciones
-                          de la cinta temporal y el control simultáneo sobre cien mil puntos del cerebro, <b>en ninguno
-                            de los diez participantes sobreviven vóxeles estadísticamente significativos (0 de 10
-                            cerebros)</b>, tanto con el margen de seguridad de 20 segundos como con el de 32 segundos.
-                        </li>
-                      </ul>
+                      <p>
+                        En segundo lugar, cuando se aísla la contribución exclusiva de las 4 variables de tiempo
+                        gramatical frente al modelo de control de 39 variables y se aplica la corrección por
+                        comparaciones múltiples sobre toda la corteza, <b>en ninguno de los diez participantes
+                          sobreviven vóxeles estadísticamente significativos (0 de 10 sujetos)</b>, tanto bajo el margen
+                        de exclusión de 20 segundos como bajo el margen más estricto de 32 segundos.
+                      </p>
                     </div>
 
                     <aside class="distill-margin">
                       <details class="tech-note">
-                        <summary>Nota técnica 09 · Síntesis y criterio N/A</summary>
+                        <summary>Nota técnica 9. Criterio de reporte grupal</summary>
                         <div class="tech-note-body">
-                          Las medias reportadas resumen la consistencia descriptiva a través de las 10 replicaciones
-                          individuales en espacio nativo (sin inferencia grupal de efectos aleatorios). Cuando el conteo
-                          de vóxeles significativos tras FDR es cero, la magnitud del efecto en vóxeles significativos
-                          se consigna estrictamente como no aplicable (<code>N/A</code>) en lugar de <code>0.0</code>,
-                          para no confundir la ausencia de detección estadística con un efecto puntualmente nulo.
+                          Los promedios grupales describen la consistencia empírica a través de 10 replicaciones
+                          individuales en anatomía nativa, sin constituir una prueba de efectos aleatorios poblacionales.
+                          Al resultar cero el conteo de vóxeles significativos tras FDR, la magnitud media en vóxeles
+                          significativos se registra como no aplicable (<code>N/A</code>) en vez de <code>0.0</code>
+                          para distinguir entre ausencia de detección estadística y efecto nulo puntual.
                         </div>
                       </details>
                     </aside>
@@ -1269,30 +1200,27 @@
                   <!-- [INICIO ESPACIO VISUAL 07] -->
                   <div class="distill-wide">
                     <div class="visual-placeholder" id="visual-slot-07">
-                      <span class="visual-placeholder-badge">Espacio Visual 07 · Mapas Corticales y Cohorte</span>
+                      <span class="visual-placeholder-badge">Espacio Visual 07</span>
                       <h4 class="visual-placeholder-title">
-                        Tres miradas sobre un mismo cerebro (Capas 1, 2a y 2b) y consistencia en los 10 participantes
+                        Comparación en superficie cortical (Capas 1, 2a y 2b) y síntesis visual de los 10 participantes
                       </h4>
                       <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Comparación visual directa dentro del artículo usando las superficies
-                        corticales exportadas de PyCortex (cuando se extraigan las capturas/mapas planos del PC): a la
-                        izquierda, la red del lenguaje encendida en el Modelo Completo (Capa 1); al centro, la corteza
-                        transparente tras el filtro estadístico estricto del tiempo verbal (Capa 2a); a la derecha, el
-                        moteado fino de diferencias crudas sin umbral (Capa 2b), acompañado de un resumen visual limpio
-                        de los 10 participantes.
+                        <b>Diseño previsto:</b> Vista comparativa directa sobre mapas corticales de PyCortex mostrando
+                        la activación temporal y frontal del modelo global (Capa 1), la ausencia de focos tras la
+                        corrección FDR (Capa 2a) y la distribución continua de diferencias crudas (Capa 2b), acompañada
+                        de un gráfico resumen de desempeño y techo de ruido en los 10 sujetos.
                       </p>
                       <p class="visual-placeholder-caption">
-                        <b>Lectura general:</b> Mientras el conjunto del lenguaje ilumina de forma consistente toda la
-                        red perisilviana en los diez cerebros, las diferencias atribuibles únicamente al tiempo verbal
-                        se reparten como un granulado tenue que no conforma una isla anatómica independiente.
+                        <b>Descripción:</b> El conjunto de predictores lingüísticos reproduce el mapa clásico de
+                        comprensión oral en todos los participantes, mientras que las diferencias atribuibles únicamente
+                        al tiempo gramatical se reparten de forma dispersa sin superar el umbral corregido.
                       </p>
                     </div>
 
-                    <!-- Gaveta desplegable con los datos numéricos exactos de los 10 sujetos -->
                     <details class="data-drawer">
                       <summary>
-                        <span>Auditoría numérica detallada de los 10 participantes en <i>Where There's Smoke</i></span>
-                        <span class="drawer-cta">Desplegar tabla completa ▾</span>
+                        <span>Tabla de resultados cuantitativos por participante en <i>Where There's Smoke</i></span>
+                        <span class="drawer-cta">Ver cifras completas ▾</span>
                       </summary>
                       <div class="data-drawer-body">
                         <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
@@ -1300,10 +1228,10 @@
                             <thead>
                               <tr>
                                 <th>Participante</th>
-                                <th>Vóxeles corticales</th>
-                                <th>Escuchas repetidas</th>
+                                <th>Vóxeles analizados</th>
+                                <th>Repeticiones BOLD</th>
                                 <th>Corteza con techo &gt; 0.01</th>
-                                <th>Modelo Completo R<sup>2</sup> &gt; 0 (Máx.)</th>
+                                <th>Modelo Global R<sup>2</sup> &gt; 0 (Máx.)</th>
                                 <th>&Delta;R<sup>2</sup> &gt; 0 bruto (P95 bruto | P95 norm.)</th>
                                 <th>Vóxeles FDR (20 s | 32 s)</th>
                                 <th>Magnitud en sig.</th>
@@ -1411,7 +1339,7 @@
                                 <td>N/A</td>
                               </tr>
                               <tr style="background-color: #f4f8fa; font-weight: 600;">
-                                <td><b>Síntesis (10)</b></td>
+                                <td><b>Muestra (10)</b></td>
                                 <td><b>943,305 (total)</b></td>
                                 <td><b>5 a 10 (med. 5)</b></td>
                                 <td><b>75.45% (media)</b></td>
@@ -1430,45 +1358,42 @@
 
                   <div class="distill-row">
                     <div class="distill-main">
-                      <h4 class="distill-subhead">¿Por qué desaparece la huella exclusiva? La lección sobre el cerebro y el método</h4>
+                      <h4 class="distill-subhead">Qué explica este resultado nulo</h4>
 
                       <p>
-                        ¿Significa este resultado que el cerebro humano es indiferente a si le hablan en pasado o en
-                        presente? <b>En absoluto.</b> No detectar una señal exclusiva con un instrumento determinado no
-                        equivale a probar que el proceso mental no exista; lo que demuestra con precisión es que,
-                        <b>a la escala espacial y temporal de la resonancia magnética, no existe un gran módulo
-                          macroscópico dedicado en solitario a las conjugaciones verbales</b> al margen del resto del
-                        lenguaje. Al cruzar las auditorías del estudio aparecen tres razones convergentes que explican
-                        por qué ocurre esto:
+                        Este hallazgo requiere una lectura precisa. La ausencia de vóxeles significativos no significa
+                        que el cerebro sea indiferente al tiempo verbal durante la comprensión de un relato. Lo que
+                        indica es que, a la resolución espacial de dos milímetros y temporal de dos segundos propia de la
+                        resonancia magnética funcional, no aparece una región macroscópica dedicada de forma aislada a la
+                        conjugación temporal una vez descontados los niveles acústico, léxico, sintáctico y temático.
+                        Tres factores documentados en las auditorías del proyecto ayudan a entender por qué ocurre esto:
                       </p>
 
                       <ul class="distill-list">
                         <li>
-                          <b>1. El entrelazamiento natural del habla cotidiana:</b> Como reveló la auditoría inicial, más
-                          de la mitad del tiempo verbal en inglés oral (50.26%) viaja incrustado en formas de <i>be,
-                            have</i> y <i>do</i>: palabras cortísimas, de altísima frecuencia y ancladas en la raíz
-                          sintáctica de las oraciones. Cuando las redes corticales ya procesan el sonido, la familiaridad
-                          de esas palabras, el esqueleto sintáctico y el tema de la cláusula, absorben la mayor parte de
-                          la respuesta hemodinámica que acompaña al verbo conjugado. En la comunicación real, la
-                          morfología temporal no llega por un carril aparte: navega fundida con el léxico y la sintaxis.
+                          <b>Superposición con el léxico frecuente y la sintaxis:</b> En el habla espontánea en inglés,
+                          el 50.26% de las marcas de tiempo verbal recae sobre formas de <i>be, have</i> y <i>do</i>,
+                          palabras muy cortas y frecuentes que ocupan nodos centrales del árbol sintáctico. Cuando el
+                          modelo de control incorpora la frecuencia de uso, la duración acústica y la estructura de
+                          dependencias de la oración, absorbe buena parte de las variaciones hemodinámicas asociadas a
+                          los instantes en que aparecen los verbos conjugados.
                         </li>
                         <li>
-                          <b>2. El límite de usar una sola «perilla» de regularización compartida:</b> En la regresión de
-                          cresta estándar utilizada aquí, las 43 pistas comparten un único dial de ajuste para frenar el
-                          ruido. Cuando bloques grandes y continuos —como los 14 rasgos de sonido o las 10 dimensiones de
-                          tema— conviven bajo esa misma perilla con 4 canales binarios pequeños, los bloques grandes
-                          imponen el nivel de freno y comprimen la señal de las variables morfológicas más sutiles,
-                          repartiendo la varianza compartida en contra del bloque pequeño.
+                          <b>Penalización compartida en la regresión de cresta estándar:</b> Al emplear una única
+                          constante de regularización para las 43 columnas al mismo tiempo, los bloques con mayor número
+                          de variables o escala continua (como los 14 rasgos fonológicos o las 10 dimensiones temáticas)
+                          dominan la calibración del modelo. Eso tiende a encoger en exceso los pesos de los 4 canales
+                          binarios de tiempo gramatical y reparte la varianza compartida a favor de los bloques grandes.
                         </li>
                         <li>
-                          <b>3. El sesgo hacia el presente en la historia del examen final (y el reloj sanguíneo fijo):</b>
-                          Aunque el conjunto completo de historias tenía mitad pasado y mitad no-pasado, la auditoría
-                          sobre <i>Where There's Smoke</i> —elegida en este corpus estándar por tener múltiples escuchas
-                          repetidas— descubrió que, de sus 303 verbos con tiempo, <b>casi cuatro de cada cinco (el
-                            79.87%, 242 verbos) estaban en presente</b> y apenas 61 en pasado, repartidos además entre
-                          regulares e irregulares. Con tan pocos giros al pasado y asumiendo una misma curva de
-                          velocidad sanguínea en todas las áreas cerebrales, el margen para detectar diferencias finas
-                          se estrecha drásticamente.
+                          <b>Cambio al presente histórico en <i>Where There's Smoke</i> y latencia vascular fija:</b>
+                          Aunque la narradora abre el relato en pasado mientras cuenta cómo escapó del automóvil, en el
+                          segundo 108.9 (<i>«I see a figure up ahead»</i>) cambia al presente narrativo durante casi todo
+                          el resto de los diez minutos de grabación. Como consecuencia, de los 303 verbos con marca de
+                          tiempo presentes en la historia de prueba, <b>242 pertenecen al no-pasado (79.87%) y solo 61 al
+                            pasado (20.13%)</b>, repartidos además entre regulares e irregulares. Esa escasez de formas
+                          en pasado en el relato de evaluación, sumada al supuesto de una misma velocidad de respuesta
+                          vascular en todas las áreas corticales, reduce de manera importante la potencia estadística.
                         </li>
                       </ul>
                     </div>
@@ -1477,21 +1402,20 @@
                   <!-- [INICIO ESPACIO VISUAL 08] -->
                   <div class="distill-wide">
                     <div class="visual-placeholder" id="visual-slot-08">
-                      <span class="visual-placeholder-badge">Espacio Visual 08 · Diagnóstico y Siguiente Paso</span>
+                      <span class="visual-placeholder-badge">Espacio Visual 08</span>
                       <h4 class="visual-placeholder-title">
-                        El embudo de detección en <i>Where There's Smoke</i> y el salto hacia la regresión por bandas (<i>Banded Ridge</i>)
+                        Sesgo hacia el presente narrativo en <i>Where There's Smoke</i> y transición hacia <i>Banded Ridge</i>
                       </h4>
                       <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Gráfico doble: (A) comparación visual entre el equilibrio 50/50 del
-                        corpus completo y el predominio del 80% de no-pasado en la historia de prueba; y (B) retorno a
-                        las <b>cuadrículas verdes apiladas de Gallant Lab</b> para mostrar visualmente la diferencia
-                        entre <i>Standard Ridge</i> (una sola perilla global que comprime los 6 bloques juntos) y
-                        <i>Banded Ridge</i> (seis perillas independientes, una para cada espacio lingüístico).
+                        <b>Diseño previsto:</b> Gráfico en dos paneles: (A) contraste entre el equilibrio 50/50 del
+                        corpus general y el 79.87% de no-pasado en <i>Where There's Smoke</i> (mostrando el giro al
+                        presente histórico desde el segundo 109); y (B) comparación mediante las cuadrículas verdes de
+                        Gallant Lab entre <i>Standard Ridge</i> (un parámetro compartido entre los 6 espacios) y
+                        <i>Banded Ridge</i> (un parámetro independiente por cada espacio).
                       </p>
                       <p class="visual-placeholder-caption">
-                        <b>Lectura general:</b> Identificar por qué un modelo estándar pierde sensibilidad no cierra la
-                        pregunta: señala con exactitud qué herramienta matemática permite desempacar señales sutiles en
-                        el siguiente experimento.
+                        <b>Descripción:</b> Asignar una regularización independiente a cada bloque lingüístico y evaluar
+                        sobre estímulos balanceados son los dos ajustes directos que se desprenden de este diagnóstico.
                       </p>
                     </div>
                   </div>
@@ -1499,42 +1423,28 @@
 
                   <div class="distill-row">
                     <div class="distill-main">
-                      <h4 class="distill-subhead">La hoja de ruta científica a partir de aquí</h4>
+                      <h4 class="distill-subhead">Siguientes pasos metodológicos</h4>
 
                       <p>
-                        Lejos de ser un callejón sin salida, este diagnóstico traza el camino directo para la siguiente
-                        generación de experimentos sobre tiempo, aspecto y modo en el habla natural:
+                        A partir de estas evidencias, la continuación directa de esta línea de trabajo pasa por tres
+                        ajustes concretos. El primero es sustituir la regresión de cresta estándar por <b>regresión de
+                          cresta por bandas (<i>Banded Ridge</i>)</b>, asignando un hiperparámetro de penalización propio
+                        a cada uno de los seis espacios de características para evitar que los bloques acústicos o
+                        semánticos compriman la señal de los cuatro predictores morfológicos. El segundo consiste en
+                        aplicar esquemas de evaluación externa sobre historias que conserven la proporción equilibrada de
+                        pasado y no-pasado del resto del corpus, comparando además la representación en cuatro canales
+                        frente a un contraste binario directo. El tercero es explorar funciones de respuesta vascular con
+                        flexibilidad de latencia focalizadas en las regiones temporales y frontales donde el techo de
+                        ruido ya demostró alta confiabilidad.
                       </p>
 
-                      <ul class="distill-list">
-                        <li>
-                          <b>Pasar de la regresión estándar a la regresión por bandas (<i>Banded Ridge</i>):</b> En lugar
-                          de forzar una única penalización compartida sobre las 43 pistas, asignar un dial de ajuste
-                          propio a cada uno de los seis bloques lingüísticos permite que los cuatro canales de tiempo
-                          gramatical compitan en igualdad de condiciones frente a bloques más densos como la fonética o
-                          la semántica.
-                        </li>
-                        <li>
-                          <b>Evaluar sobre relatos equilibrados y contrastar granularidades:</b> Complementar la prueba
-                          en <i>Where There's Smoke</i> mediante esquemas de rotación sobre historias que conserven el
-                          equilibrio natural entre pasado y presente, poniendo a prueba además si agrupar las cuatro
-                          variantes morfológicas directamente en los dos polos del idioma concentra mejor la señal.
-                        </li>
-                        <li>
-                          <b>Flexibilizar el reloj vascular en las redes del lenguaje:</b> Permitir ligeros ajustes en la
-                          velocidad de la ola sanguínea dentro de las regiones auditivas, temporales y frontales donde ya
-                          se sabe que la señal cerebral es altamente repetible, capturando eventos gramaticales fugaces
-                          sin multiplicar falsas alarmas en el resto del cerebro.
-                        </li>
-                      </ul>
-
-                      <h4 class="distill-subhead">Explorar directamente los diez cerebros en 3D</h4>
+                      <h4 class="distill-subhead">Visores corticales tridimensionales por participante</h4>
 
                       <p>
-                        Todos los resultados a nivel de vóxel fueron proyectados sobre la superficie tridimensional
-                        propia de cada participante mediante el motor interactivo <b>PyCortex</b>. Al abrir cualquiera
-                        de los diez visores puede rotarse el cerebro, aplanarse la corteza como un mapa geográfico y
-                        alternar en el menú superior entre tres capas complementarias:
+                        Los mapas completos de cada sujeto fueron exportados a visores interactivos WebGL con la
+                        librería <b>PyCortex</b>. Al abrir cualquiera de los diez enlaces siguientes en una pestaña
+                        nueva se puede rotar la corteza tridimensional, desplegarla en vista plana y alternar en el menú
+                        superior entre las tres capas evaluadas:
                       </p>
                     </div>
                   </div>
@@ -1542,58 +1452,57 @@
                   <div class="distill-wide">
                     <div class="cortex-layers-grid">
                       <div class="cortex-layer-card">
-                        <h4>Capa 1 · Modelo Completo</h4>
+                        <h4>1. Modelo Global (R² &gt; 0.01)</h4>
                         <p>
-                          Muestra en tonos cálidos (naranja a rojo) las zonas donde las 43 pistas predicen con éxito la
-                          historia nueva. Actúa como mapa de referencia: ilumina las cortezas auditivas, temporales y
-                          frontales del lenguaje en ambos hemisferios.
+                          Escala cálida secuencial que muestra las regiones donde el conjunto de 43 características
+                          predice la respuesta a la historia nueva, delimitando las áreas auditivas, temporales y
+                          frontales sensibles al lenguaje en cada persona.
                         </p>
                       </div>
                       <div class="cortex-layer-card">
-                        <h4>Capa 2a · Tiempo Gramatical (Filtro Estricto)</h4>
+                        <h4>2a. Tiempo Gramatical (FDR &lt; 0.05)</h4>
                         <p>
-                          Aplica el control estadístico riguroso sobre toda la corteza. Aparece completamente
-                          transparente sobre el gris anatómico en los diez cerebros, reflejando que ningún vóxel aislado
-                          supera el umbral tras descontar los 39 controles.
+                          Mapa filtrado por significancia estadística corregida en toda la corteza. Permanece
+                          transparente sobre la superficie anatómica gris en los diez participantes al no registrarse
+                          vóxeles que superen el umbral.
                         </p>
                       </div>
                       <div class="cortex-layer-card highlight">
-                        <h4>Capa 2b · Tiempo Gramatical (Continuo Crudo)</h4>
+                        <h4>2b. Tiempo Gramatical (Continuo descriptivo)</h4>
                         <p>
-                          Muestra sin recortes todas las diferencias brutas entre ambos modelos (rojo donde gana el
-                          modelo con tiempo verbal; azul donde pierde ligeramente), permitiendo verificar de forma
-                          transparente su distribución granulada sin focos aislados.
+                          Proyección sin recortes de todas las diferencias brutas entre el modelo global y el
+                          restringido (tonos cálidos para diferencias positivas y fríos para negativas), útil para
+                          inspeccionar su distribución espacial sin umbral.
                         </p>
                       </div>
                     </div>
 
                     <div class="viewer-buttons-grid">
-                      <a href="sub-UTS01/index.html" target="_blank" class="btn btn-primary">Cerebro 3D · UTS01</a>
-                      <a href="sub-UTS02/index.html" target="_blank" class="btn btn-primary">Cerebro 3D · UTS02</a>
-                      <a href="sub-UTS03/index.html" target="_blank" class="btn btn-primary">Cerebro 3D · UTS03</a>
-                      <a href="sub-UTS04/index.html" target="_blank" class="btn btn-primary">Cerebro 3D · UTS04</a>
-                      <a href="sub-UTS05/index.html" target="_blank" class="btn btn-primary">Cerebro 3D · UTS05</a>
-                      <a href="sub-UTS06/index.html" target="_blank" class="btn btn-primary">Cerebro 3D · UTS06</a>
-                      <a href="sub-UTS07/index.html" target="_blank" class="btn btn-primary">Cerebro 3D · UTS07</a>
-                      <a href="sub-UTS08/index.html" target="_blank" class="btn btn-primary">Cerebro 3D · UTS08</a>
-                      <a href="sub-UTS09/index.html" target="_blank" class="btn btn-primary">Cerebro 3D · UTS09</a>
-                      <a href="sub-UTS10/index.html" target="_blank" class="btn btn-primary">Cerebro 3D · UTS10</a>
+                      <a href="sub-UTS01/index.html" target="_blank" class="btn btn-primary">Participante UTS01</a>
+                      <a href="sub-UTS02/index.html" target="_blank" class="btn btn-primary">Participante UTS02</a>
+                      <a href="sub-UTS03/index.html" target="_blank" class="btn btn-primary">Participante UTS03</a>
+                      <a href="sub-UTS04/index.html" target="_blank" class="btn btn-primary">Participante UTS04</a>
+                      <a href="sub-UTS05/index.html" target="_blank" class="btn btn-primary">Participante UTS05</a>
+                      <a href="sub-UTS06/index.html" target="_blank" class="btn btn-primary">Participante UTS06</a>
+                      <a href="sub-UTS07/index.html" target="_blank" class="btn btn-primary">Participante UTS07</a>
+                      <a href="sub-UTS08/index.html" target="_blank" class="btn btn-primary">Participante UTS08</a>
+                      <a href="sub-UTS09/index.html" target="_blank" class="btn btn-primary">Participante UTS09</a>
+                      <a href="sub-UTS10/index.html" target="_blank" class="btn btn-primary">Participante UTS10</a>
                     </div>
                   </div>
 
-                  <!-- Agradecimientos y créditos -->
-                  <div class="distill-act-header">
-                    <span class="distill-act-kicker">Ciencia abierta</span>
-                    <h3>Agradecimientos y recursos públicos</h3>
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Recursos abiertos</span>
+                    <h3>Agradecimientos y fuentes públicas</h3>
                   </div>
 
                   <div class="distill-row">
                     <div class="distill-main">
                       <p>
-                        Se expresa reconocimiento al <b>Gallant Lab</b> (Universidad de California, Berkeley) y al
-                        <b>Huth Lab</b> (Universidad de Texas en Austin) por el desarrollo de los marcos metodológicos
-                        de modelado a nivel de vóxel, el mantenimiento abierto de las librerías <i>Himalaya</i> y
-                        <i>PyCortex</i>, y la publicación libre del corpus <i>ds003020</i> en OpenNeuro.
+                        Se agradece al <b>Gallant Lab</b> (Universidad de California, Berkeley) y al <b>Huth Lab</b>
+                        (Universidad de Texas en Austin) por el desarrollo abierto de las herramientas de modelado y
+                        visualización cortical (<i>Himalaya</i> y <i>PyCortex</i>) y por la publicación del conjunto de
+                        datos <i>ds003020</i> en OpenNeuro.
                       </p>
                     </div>
                   </div>
@@ -1603,7 +1512,7 @@
                       <div class="col-xs-12 col-sm-4">
                         <div class="fun-fact gray-bg">
                           <i class="lnr lnr-code"></i>
-                          <h4>Modelado y visualización</h4>
+                          <h4>Software de modelado</h4>
                           <span class="fun-fact-block-text">
                             <a href="https://gallantlab.org/" target="_blank">Gallant Lab</a>:
                             <a href="https://github.com/gallantlab/himalaya" target="_blank">Himalaya</a> y
@@ -1636,15 +1545,13 @@
                     </div>
 
                     <p align="right" style="margin-top: 15px;">
-                      —<br>
-                      Investigación y edición divulgativa por
+                      Investigación y redacción por
                       <a class="url fn n" href="https://www.almontao.com" target="_blank" rel="author">
                         <b>Alejandro Montenegro Taborda</b>
                       </a>
                     </p>
                   </div>
 
-                  <!-- Metadatos inferiores nativos de la plantilla -->
                   <div class="entry-meta entry-meta-bottom">
                     <div class="date-author">
                       <span class="entry-date">
@@ -1669,7 +1576,6 @@
 
                 </div>
               </div>
-              <!-- /Entry content -->
             </div>
           </article>
 
@@ -1694,7 +1600,6 @@
   <script src="breezycv_base/js/validator.js"></script>
   <script src="breezycv_base/js/main.js"></script>
 
-  <!-- Sincronización responsive de Notas Técnicas: abiertas en margen de escritorio, plegadas en móvil -->
   <script>
     (function () {
       var mq = window.matchMedia('(min-width: 1200px)');
