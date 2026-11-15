@@ -5857,28 +5857,365 @@
 
                   <!-- [INICIO ESPACIO VISUAL 07] -->
                   <div class="distill-wide">
-                    <div class="visual-placeholder" id="visual-slot-07">
-                      <span class="visual-placeholder-badge">Espacio Visual 07</span>
-                      <h4 class="visual-placeholder-title">
-                        Comparación en superficie cortical (Capas 1, 2a y 2b) y síntesis visual de los 10 participantes
-                      </h4>
-                      <p class="visual-placeholder-spec">
-                        <b>Diseño previsto:</b> Vista comparativa directa sobre mapas corticales de PyCortex mostrando
-                        la activación temporal y frontal del modelo global (Capa 1), la ausencia de focos tras la
-                        corrección FDR (Capa 2a) y la distribución continua de diferencias crudas (Capa 2b), acompañada
-                        de un gráfico resumen de desempeño y techo de ruido en los 10 sujetos.
-                      </p>
-                      <p class="visual-placeholder-caption">
-                        <b>Descripción:</b> El conjunto de predictores lingüísticos reproduce el mapa clásico de
-                        comprensión oral en todos los participantes, mientras que las diferencias atribuibles únicamente
-                        al tiempo gramatical se reparten de forma dispersa sin superar el umbral corregido.
-                      </p>
-                    </div>
+                    <style>
+                      .gv07-card {
+                        background-color: #ffffff;
+                        border: 1px solid #dfe7ec;
+                        border-radius: 12px;
+                        padding: 20px 22px 16px 22px;
+                        box-shadow: 0 4px 18px rgba(30, 35, 40, 0.03);
+                        font-family: 'Poppins', Helvetica, sans-serif;
+                      }
 
+                      .gv07-header {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 12px;
+                        margin-bottom: 12px;
+                        padding-bottom: 11px;
+                        border-bottom: 1px solid #eef2f5;
+                      }
+
+                      .gv07-kicker {
+                        font-size: 0.72em;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 0.09em;
+                        color: #0099cc;
+                        display: block;
+                        margin-bottom: 2px;
+                      }
+
+                      .gv07-title {
+                        font-size: 1.03em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        margin: 0;
+                      }
+
+                      .gv07-tabs {
+                        display: inline-flex;
+                        background-color: #f1f5f8;
+                        border: 1px solid #dce5eb;
+                        border-radius: 8px;
+                        padding: 3px;
+                        gap: 2px;
+                      }
+
+                      .gv07-tab-btn {
+                        appearance: none;
+                        border: none;
+                        background: transparent;
+                        color: #526069;
+                        font-family: inherit;
+                        font-size: 0.76em;
+                        font-weight: 600;
+                        padding: 6px 12px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        transition: all 0.16s ease;
+                        white-space: nowrap;
+                      }
+
+                      .gv07-tab-btn:hover {
+                        color: #1e2328;
+                      }
+
+                      .gv07-tab-btn.is-active {
+                        background-color: #ffffff;
+                        color: #007ea8;
+                        box-shadow: 0 1px 4px rgba(20, 30, 40, 0.09);
+                      }
+
+                      .gv07-readout {
+                        background-color: #f7fafc;
+                        border: 1px solid #e3ebf0;
+                        border-radius: 7px;
+                        padding: 8px 13px;
+                        margin-bottom: 12px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: baseline;
+                        gap: 13px;
+                        font-size: 0.79em;
+                        color: #445058;
+                        min-height: 38px;
+                      }
+
+                      .gv07-readout b {
+                        color: #1e2328;
+                      }
+
+                      .gv07-panel[hidden] {
+                        display: none !important;
+                      }
+
+                      /* Pestaña 1: Barras anidadas de los 10 sujetos */
+                      .gv07-legend-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        align-items: center;
+                        gap: 10px;
+                        margin-bottom: 8px;
+                        font-size: 0.74em;
+                        color: #5a6872;
+                      }
+
+                      .gv07-legend-items {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 14px;
+                      }
+
+                      .gv07-swatch {
+                        display: inline-block;
+                        width: 11px;
+                        height: 11px;
+                        border-radius: 3px;
+                        margin-right: 5px;
+                        vertical-align: middle;
+                      }
+
+                      .gv07-cohort-list {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 6px;
+                      }
+
+                      .gv07-subj-row {
+                        display: grid;
+                        grid-template-columns: 92px minmax(0, 1fr) 98px;
+                        gap: 10px;
+                        align-items: center;
+                        padding: 5px 8px;
+                        border-radius: 7px;
+                        border: 1px solid transparent;
+                        cursor: pointer;
+                        transition: background-color 0.15s ease, border-color 0.15s ease;
+                      }
+
+                      .gv07-subj-row:hover {
+                        background-color: #f6fafc;
+                        border-color: #dce7ee;
+                      }
+
+                      .gv07-subj-row.is-selected {
+                        background-color: #f0f8fc;
+                        border-color: #9ad6eb;
+                      }
+
+                      .gv07-subj-id {
+                        font-size: 0.8em;
+                        font-weight: 600;
+                        color: #1e2328;
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                      }
+
+                      .gv07-rep-tag {
+                        font-size: 0.82em;
+                        font-weight: 500;
+                        color: #6b7982;
+                      }
+
+                      .gv07-track {
+                        position: relative;
+                        height: 20px;
+                        background-color: #edf1f4;
+                        border-radius: 5px;
+                        overflow: hidden;
+                      }
+
+                      .gv07-bar-ceil {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        bottom: 0;
+                        background-color: #cbe4f2;
+                        border-right: 1px solid #9ec8e0;
+                      }
+
+                      .gv07-bar-glob {
+                        position: absolute;
+                        left: 0;
+                        top: 3px;
+                        bottom: 3px;
+                        background: linear-gradient(90deg, #f38d58 0%, #d9482b 100%);
+                        border-radius: 3px;
+                      }
+
+                      .gv07-fdr-col {
+                        text-align: right;
+                        font-size: 0.75em;
+                        font-weight: 600;
+                        color: #6c7982;
+                        white-space: nowrap;
+                      }
+
+                      .gv07-mean-divider {
+                        margin: 6px 0 2px 0;
+                        border-top: 1px dashed #cfdbe2;
+                      }
+
+                      /* Pestaña 2: Guía visual de las 3 capas corticales */
+                      .gv07-layer-bar {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 6px;
+                        margin-bottom: 10px;
+                      }
+
+                      .gv07-layer-btn {
+                        appearance: none;
+                        background-color: #f4f7f9;
+                        border: 1px solid #d8e2e8;
+                        color: #46535c;
+                        font-family: inherit;
+                        font-size: 0.75em;
+                        font-weight: 600;
+                        padding: 6px 11px;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        transition: all 0.15s ease;
+                      }
+
+                      .gv07-layer-btn:hover {
+                        border-color: #93aebf;
+                        color: #1e2328;
+                      }
+
+                      .gv07-layer-btn.is-active {
+                        background-color: #1e2328;
+                        border-color: #1e2328;
+                        color: #ffffff;
+                      }
+
+                      .gv07-brain-stage {
+                        border: 1px solid #e5edf2;
+                        border-radius: 9px;
+                        background-color: #fbfdfe;
+                        overflow: hidden;
+                        position: relative;
+                      }
+
+                      #gv07-brain-canvas {
+                        display: block;
+                        width: 100%;
+                        height: 248px;
+                      }
+
+                      #gv07-brain-img {
+                        display: none;
+                        width: 100%;
+                        height: auto;
+                        max-height: 340px;
+                        object-fit: contain;
+                      }
+
+                      .gv07-foot {
+                        margin-top: 10px;
+                        font-size: 0.76em;
+                        color: #66737c;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        gap: 8px;
+                      }
+
+                      @media (max-width: 640px) {
+                        .gv07-card {
+                          padding: 16px 14px;
+                        }
+
+                        .gv07-tabs {
+                          width: 100%;
+                          display: flex;
+                        }
+
+                        .gv07-tab-btn {
+                          flex: 1;
+                          text-align: center;
+                          padding: 6px 5px;
+                          font-size: 0.73em;
+                        }
+
+                        .gv07-subj-row {
+                          grid-template-columns: 78px minmax(0, 1fr) 74px;
+                          gap: 6px;
+                          padding: 5px 4px;
+                        }
+
+                        #gv07-brain-canvas {
+                          height: 215px;
+                        }
+                      }
+                    </style>
+
+                    <figure class="gv07-card" id="gv07-root" style="margin: 0;">
+                      <div class="gv07-header">
+                        <div>
+                          <span class="gv07-kicker">Figura 7</span>
+                          <h4 class="gv07-title">Resultados en los 10 cerebros individuales y lectura de capas corticales</h4>
+                        </div>
+
+                        <div class="gv07-tabs" role="tablist" aria-label="Vistas de resultados">
+                          <button type="button" class="gv07-tab-btn is-active" data-tab="cohort" role="tab" aria-selected="true">
+                            1. Consistencia en los 10 sujetos
+                          </button>
+                          <button type="button" class="gv07-tab-btn" data-tab="layers" role="tab" aria-selected="false">
+                            2. Las 3 capas de PyCortex
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="gv07-readout" id="gv07-readout" aria-live="polite"></div>
+
+                      <!-- PANEL 1: Los 10 participantes reales -->
+                      <div class="gv07-panel" id="gv07-panel-cohort">
+                        <div class="gv07-legend-row">
+                          <div class="gv07-legend-items">
+                            <span><span class="gv07-swatch" style="background:#edf1f4; border:1px solid #cfd9e0;"></span>100% corteza del sujeto</span>
+                            <span><span class="gv07-swatch" style="background:#cbe4f2; border:1px solid #9ec8e0;"></span>Corteza con techo &gt; 0.01</span>
+                            <span><span class="gv07-swatch" style="background:#e05a37;"></span>Modelo Global positivo (43 var.)</span>
+                          </div>
+                          <span>Tiempo tras FDR</span>
+                        </div>
+
+                        <div class="gv07-cohort-list" id="gv07-cohort-list"></div>
+                      </div>
+
+                      <!-- PANEL 2: Guía visual de las 3 capas -->
+                      <div class="gv07-panel" id="gv07-panel-layers" hidden>
+                        <div class="gv07-layer-bar">
+                          <button type="button" class="gv07-layer-btn is-active" data-layer="l1">
+                            Capa 1: Modelo Global (R² &gt; 0.01)
+                          </button>
+                          <button type="button" class="gv07-layer-btn" data-layer="l2a">
+                            Capa 2a: Tiempo filtrado (FDR &lt; 0.05)
+                          </button>
+                          <button type="button" class="gv07-layer-btn" data-layer="l2b">
+                            Capa 2b: Tiempo continuo sin umbral
+                          </button>
+                        </div>
+
+                        <div class="gv07-brain-stage">
+                          <img id="gv07-brain-img" alt="Mapa cortical exportado de PyCortex">
+                          <canvas id="gv07-brain-canvas"></canvas>
+                        </div>
+                      </div>
+
+                      <div class="gv07-foot" id="gv07-foot"></div>
+                    </figure>
+
+                    <!-- Gaveta desplegable con la tabla cuantitativa completa -->
                     <details class="data-drawer">
                       <summary>
                         <span>Tabla de resultados cuantitativos por participante en <i>Where There's Smoke</i></span>
-                        <span class="drawer-cta">Ver cifras completas ▾</span>
+                        <span class="drawer-cta">Ver cifras completas &#x25BE;</span>
                       </summary>
                       <div class="data-drawer-body">
                         <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
@@ -6011,6 +6348,339 @@
                         </div>
                       </div>
                     </details>
+
+                    <script>
+                      (function () {
+                        var root = document.getElementById('gv07-root');
+                        var listEl = document.getElementById('gv07-cohort-list');
+                        var readout = document.getElementById('gv07-readout');
+                        var foot = document.getElementById('gv07-foot');
+                        var panelCohort = document.getElementById('gv07-panel-cohort');
+                        var panelLayers = document.getElementById('gv07-panel-layers');
+                        var brainCanvas = document.getElementById('gv07-brain-canvas');
+                        var brainImg = document.getElementById('gv07-brain-img');
+                        if (!root || !listEl) return;
+
+                        // [OPCIONAL PARA PC PRINCIPAL]: Si exportas 3 capturas planas (flatmaps o vistas 3D) de un
+                        // participante desde PyCortex, coloca aquí sus rutas relativas (ej. 'img/uts03_l1.png') y la
+                        // Pestaña 2 mostrará automáticamente tus imágenes reales en lugar del esquema vectorial.
+                        var PYCORTEX_SCREENSHOTS = {
+                          l1: null,
+                          l2a: null,
+                          l2b: null
+                        };
+
+                        var SUBJECTS = [
+                          { id: 'UTS01', vox: '81,126', rep: 10, ceil: 80.93, glob: 36.88, maxR2: '0.0928', rawPos: 41.97, p95: '0.00585' },
+                          { id: 'UTS02', vox: '94,251', rep: 10, ceil: 86.35, glob: 34.84, maxR2: '0.0876', rawPos: 44.31, p95: '0.00629' },
+                          { id: 'UTS03', vox: '95,556', rep: 10, ceil: 89.34, glob: 33.91, maxR2: '0.1091', rawPos: 42.54, p95: '0.00641' },
+                          { id: 'UTS04', vox: '109,469', rep: 5, ceil: 68.11, glob: 38.58, maxR2: '0.0818', rawPos: 51.10, p95: '0.00754' },
+                          { id: 'UTS05', vox: '99,322', rep: 5, ceil: 67.30, glob: 39.06, maxR2: '0.0556', rawPos: 46.02, p95: '0.00450' },
+                          { id: 'UTS06', vox: '92,198', rep: 5, ceil: 69.73, glob: 29.59, maxR2: '0.0683', rawPos: 36.61, p95: '0.00480' },
+                          { id: 'UTS07', vox: '94,395', rep: 5, ceil: 68.87, glob: 31.38, maxR2: '0.0572', rawPos: 40.45, p95: '0.00453' },
+                          { id: 'UTS08', vox: '97,023', rep: 5, ceil: 68.03, glob: 35.23, maxR2: '0.0854', rawPos: 45.67, p95: '0.00653' },
+                          { id: 'UTS09', vox: '98,336', rep: 5, ceil: 72.68, glob: 32.84, maxR2: '0.0558', rawPos: 41.88, p95: '0.00421' },
+                          { id: 'UTS10', vox: '81,629', rep: 5, ceil: 83.13, glob: 43.31, maxR2: '0.0806', rawPos: 37.72, p95: '0.00402' },
+                          { id: 'Media', vox: '943,305 tot.', rep: null, ceil: 75.45, glob: 35.56, maxR2: '0.1091', rawPos: 42.83, p95: 'med. -0.00053', isMean: true }
+                        ];
+
+                        var LAYER_INFO = {
+                          l1: {
+                            title: 'Capa 1: Modelo Global (escala cálida OrRd, umbral R² > 0.01)',
+                            desc: 'Control de calidad neurobiológico: las 43 características juntas iluminan bilateralmente la corteza auditiva, el giro y surco temporal superior y el giro frontal inferior.'
+                          },
+                          l2a: {
+                            title: 'Capa 2a: Tiempo gramatical filtrado por FDR en toda la corteza (q < 0.05)',
+                            desc: 'Contraste inferencial estricto: ningún vóxel supera simultáneamente las rotaciones circulares y la corrección sobre cien mil pruebas, dejando visible solo la anatomía gris.'
+                          },
+                          l2b: {
+                            title: 'Capa 2b: Diferencia continua sin umbral (escala divergente coolwarm)',
+                            desc: 'Muestra los datos crudos sin recorte: el 42.83% de diferencias levemente positivas (rojo suave) se alterna como un granulado fino con el 57.17% negativo o nulo (azul suave), sin formar un foco anatómico aislado.'
+                          }
+                        };
+
+                        var activeTab = 'cohort';
+                        var selectedIdx = 2; // UTS03 por defecto (mayor R² máximo: 0.1091)
+                        var activeLayer = 'l1';
+                        var rowNodes = [];
+
+                        function buildCohortRows() {
+                          listEl.innerHTML = '';
+                          rowNodes = [];
+                          for (var i = 0; i < SUBJECTS.length; i++) {
+                            var s = SUBJECTS[i];
+                            if (s.isMean) {
+                              var div = document.createElement('div');
+                              div.className = 'gv07-mean-divider';
+                              listEl.appendChild(div);
+                            }
+
+                            var row = document.createElement('div');
+                            row.className = 'gv07-subj-row' + (i === selectedIdx ? ' is-selected' : '');
+                            row.setAttribute('data-sidx', i);
+
+                            var idHtml = '<div class="gv07-subj-id"><span>' + s.id + '</span>';
+                            if (s.rep) idHtml += '<span class="gv07-rep-tag">(' + s.rep + 'x)</span>';
+                            idHtml += '</div>';
+
+                            var trackHtml =
+                              '<div class="gv07-track">' +
+                                '<div class="gv07-bar-ceil" style="width:' + s.ceil + '%;"></div>' +
+                                '<div class="gv07-bar-glob" style="width:' + s.glob + '%;"></div>' +
+                              '</div>';
+
+                            var fdrHtml = '<div class="gv07-fdr-col">0 vóx. (0%)</div>';
+
+                            row.innerHTML = idHtml + trackHtml + fdrHtml;
+                            listEl.appendChild(row);
+                            rowNodes.push(row);
+                          }
+                        }
+                        buildCohortRows();
+
+                        function updateCohortReadout() {
+                          var s = SUBJECTS[selectedIdx];
+                          var label = s.isMean ? 'Síntesis de los 10 cerebros' : ('Participante ' + s.id + ' (' + s.vox + ' vóxeles)');
+                          readout.innerHTML =
+                            '<span><b>' + label + '</b></span>' +
+                            '<span><b>Techo &gt; 0.01:</b> ' + s.ceil.toFixed(2) + '%</span>' +
+                            '<span><b style="color:#c94225;">Modelo Global &gt; 0:</b> ' + s.glob.toFixed(2) + '% (máx. ' + s.maxR2 + ')</span>' +
+                            '<span><b>Diferencia bruta &gt; 0:</b> ' + s.rawPos.toFixed(2) + '% &rarr; <b>Tras FDR: 0%</b></span>';
+
+                          foot.innerHTML =
+                            '<span>Selecciona cualquier fila para inspeccionar sus métricas exactas antes de abrir su visor 3D abajo.</span>' +
+                            '<span>Los sujetos UTS01 a UTS03 contaron con 10 repeticiones de prueba; UTS04 a UTS10 con 5.</span>';
+                        }
+
+                        // Dibujo esquemático lateral de ambos hemisferios si no se han cargado capturas PNG
+                        function traceHemisphere(ctx, cx, cy, rx, ry, flip) {
+                          var dir = flip ? -1 : 1;
+                          ctx.beginPath();
+                          // Polo frontal a vértice parietal y polo occipital
+                          ctx.moveTo(cx - dir * rx * 0.92, cy + ry * 0.08);
+                          ctx.bezierCurveTo(
+                            cx - dir * rx * 0.96, cy - ry * 0.72,
+                            cx - dir * rx * 0.25, cy - ry * 0.98,
+                            cx + dir * rx * 0.35, cy - ry * 0.88
+                          );
+                          ctx.bezierCurveTo(
+                            cx + dir * rx * 0.88, cy - ry * 0.76,
+                            cx + dir * rx * 1.02, cy - ry * 0.12,
+                            cx + dir * rx * 0.88, cy + ry * 0.32
+                          );
+                          // Base occipital a lóbulo temporal y muesca silviana
+                          ctx.bezierCurveTo(
+                            cx + dir * rx * 0.62, cy + ry * 0.52,
+                            cx + dir * rx * 0.25, cy + ry * 0.86,
+                            cx - dir * rx * 0.24, cy + ry * 0.78
+                          );
+                          ctx.bezierCurveTo(
+                            cx - dir * rx * 0.48, cy + ry * 0.72,
+                            cx - dir * rx * 0.42, cy + ry * 0.32,
+                            cx - dir * rx * 0.22, cy + ry * 0.22
+                          );
+                          ctx.bezierCurveTo(
+                            cx - dir * rx * 0.58, cy + ry * 0.30,
+                            cx - dir * rx * 0.88, cy + ry * 0.28,
+                            cx - dir * rx * 0.92, cy + ry * 0.08
+                          );
+                          ctx.closePath();
+                        }
+
+                        function drawBrainSchematic() {
+                          var imgUrl = PYCORTEX_SCREENSHOTS[activeLayer];
+                          var info = LAYER_INFO[activeLayer];
+
+                          readout.innerHTML = '<span><b>' + info.title + ':</b> ' + info.desc + '</span>';
+
+                          if (imgUrl) {
+                            brainCanvas.style.display = 'none';
+                            brainImg.style.display = 'block';
+                            brainImg.src = imgUrl;
+                            foot.innerHTML = '<span>Superficie cortical individual exportada directamente de PyCortex.</span>';
+                            return;
+                          }
+
+                          brainImg.style.display = 'none';
+                          brainCanvas.style.display = 'block';
+
+                          var dpr = window.devicePixelRatio || 1;
+                          var cssW = brainCanvas.clientWidth || 720;
+                          var cssH = brainCanvas.clientHeight || 248;
+                          if (brainCanvas.width !== Math.round(cssW * dpr) || brainCanvas.height !== Math.round(cssH * dpr)) {
+                            brainCanvas.width = Math.round(cssW * dpr);
+                            brainCanvas.height = Math.round(cssH * dpr);
+                          }
+
+                          var ctx = brainCanvas.getContext('2d');
+                          ctx.save();
+                          ctx.scale(dpr, dpr);
+                          ctx.clearRect(0, 0, cssW, cssH);
+
+                          var rx = Math.min(138, cssW * 0.21);
+                          var ry = Math.min(86, (cssH - 52) * 0.46);
+                          var cy = (cssH - 34) * 0.52;
+                          var centers = [
+                            { cx: cssW * 0.28, flip: false, lbl: 'Hemisferio izquierdo (vista lateral)' },
+                            { cx: cssW * 0.72, flip: true, lbl: 'Hemisferio derecho (vista lateral)' }
+                          ];
+
+                          for (var h = 0; h < 2; h++) {
+                            var c = centers[h];
+                            var dir = c.flip ? -1 : 1;
+
+                            ctx.save();
+                            traceHemisphere(ctx, c.cx, cy, rx, ry, c.flip);
+                            ctx.fillStyle = '#d8dde2';
+                            ctx.fill();
+                            ctx.clip();
+
+                            // Surcos anatómicos de fondo estilo curvatura PyCortex
+                            var cell = 5;
+                            for (var gx = c.cx - rx - 6; gx <= c.cx + rx + 6; gx += cell) {
+                              for (var gy = cy - ry - 6; gy <= cy + ry + 6; gy += cell) {
+                                var nx = (gx - c.cx) / rx * dir;
+                                var ny = (gy - cy) / ry;
+
+                                // Textura suave de giros y surcos
+                                var sulc = Math.sin(nx * 11 + Math.cos(ny * 8)) > 0.25;
+                                ctx.fillStyle = sulc ? '#c7cdd3' : '#dfe4e8';
+                                ctx.fillRect(gx, gy, cell, cell);
+
+                                if (activeLayer === 'l1') {
+                                  // Focos en giro temporal superior, corteza auditiva, TPJ y giro frontal inferior
+                                  var dSTG = Math.exp(-Math.pow((nx - 0.06) / 0.42, 2) - Math.pow((ny - 0.34) / 0.22, 2));
+                                  var dIFG = Math.exp(-Math.pow((nx + 0.46) / 0.24, 2) - Math.pow((ny + 0.04) / 0.22, 2));
+                                  var dTPJ = Math.exp(-Math.pow((nx - 0.42) / 0.24, 2) - Math.pow((ny - 0.02) / 0.25, 2));
+                                  var val = dSTG * 0.95 + dIFG * 0.72 + dTPJ * 0.65;
+                                  var jitter = 0.85 + 0.3 * Math.sin(gx * 0.7 + gy * 1.1);
+                                  var score = val * jitter;
+
+                                  if (score > 0.26) {
+                                    if (score > 0.78) ctx.fillStyle = '#b30000';
+                                    else if (score > 0.56) ctx.fillStyle = '#e34a33';
+                                    else if (score > 0.38) ctx.fillStyle = '#fc8d59';
+                                    else ctx.fillStyle = '#fdbb84';
+                                    ctx.fillRect(gx, gy, cell - 0.5, cell - 0.5);
+                                  }
+                                } else if (activeLayer === 'l2b') {
+                                  // Moteado continuo sin agrupación focal (~43% positivo cálido, ~57% frío/neutro)
+                                  var hash = Math.sin(gx * 12.9898 + gy * 78.233 + h * 43.1) * 43758.5453;
+                                  var u = hash - Math.floor(hash);
+                                  if (u > 0.74) ctx.fillStyle = 'rgba(214, 96, 77, 0.62)';
+                                  else if (u > 0.57) ctx.fillStyle = 'rgba(244, 165, 130, 0.55)';
+                                  else if (u < 0.22) ctx.fillStyle = 'rgba(67, 147, 195, 0.62)';
+                                  else if (u < 0.44) ctx.fillStyle = 'rgba(146, 197, 222, 0.52)';
+                                  else continue;
+                                  ctx.fillRect(gx, gy, cell - 0.5, cell - 0.5);
+                                }
+                              }
+                            }
+
+                            // Línea guía de la cisura de Silvio
+                            ctx.strokeStyle = 'rgba(70, 80, 90, 0.38)';
+                            ctx.lineWidth = 1.6;
+                            ctx.beginPath();
+                            ctx.moveTo(c.cx - dir * rx * 0.26, cy + ry * 0.20);
+                            ctx.quadraticCurveTo(c.cx + dir * rx * 0.08, cy + ry * 0.14, c.cx + dir * rx * 0.42, cy - ry * 0.06);
+                            ctx.stroke();
+
+                            ctx.restore();
+
+                            // Contorno del hemisferio
+                            traceHemisphere(ctx, c.cx, cy, rx, ry, c.flip);
+                            ctx.strokeStyle = '#9aa6b0';
+                            ctx.lineWidth = 1.4;
+                            ctx.stroke();
+
+                            ctx.fillStyle = '#48555e';
+                            ctx.font = '600 10.5px Poppins, sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.fillText(c.lbl, c.cx, cy + ry + 18);
+                          }
+
+                          // Barra de color inferior fiel a PyCortex
+                          var cbW = 190, cbH = 8;
+                          var cbX = (cssW - cbW) / 2;
+                          var cbY = cssH - 18;
+                          var grad = ctx.createLinearGradient(cbX, 0, cbX + cbW, 0);
+                          if (activeLayer === 'l2b') {
+                            grad.addColorStop(0, '#3b78b0');
+                            grad.addColorStop(0.5, '#f2f4f6');
+                            grad.addColorStop(1, '#c43b33');
+                          } else {
+                            grad.addColorStop(0, '#fdd49e');
+                            grad.addColorStop(0.5, '#fc8d59');
+                            grad.addColorStop(1, '#b30000');
+                          }
+                          ctx.fillStyle = grad;
+                          ctx.fillRect(cbX, cbY, cbW, cbH);
+                          ctx.strokeStyle = '#cfd9e0';
+                          ctx.strokeRect(cbX, cbY, cbW, cbH);
+
+                          ctx.fillStyle = '#62707a';
+                          ctx.font = '500 9.5px Poppins, sans-serif';
+                          ctx.textAlign = 'right';
+                          ctx.fillText(activeLayer === 'l2b' ? '-P99' : (activeLayer === 'l1' ? '0.01' : '0.0001'), cbX - 6, cbY + 7);
+                          ctx.textAlign = 'left';
+                          ctx.fillText('+P99', cbX + cbW + 6, cbY + 7);
+
+                          ctx.restore();
+                          foot.innerHTML =
+                            '<span>Esquema ilustrativo de lectura para las capas de PyCortex. Abajo puedes abrir los 10 visores WebGL reales.</span>';
+                        }
+
+                        function syncView() {
+                          var isCohort = (activeTab === 'cohort');
+                          panelCohort.hidden = !isCohort;
+                          panelLayers.hidden = isCohort;
+                          if (isCohort) updateCohortReadout();
+                          else drawBrainSchematic();
+                        }
+
+                        root.addEventListener('click', function (e) {
+                          var tBtn = e.target.closest('.gv07-tab-btn');
+                          if (tBtn) {
+                            var next = tBtn.getAttribute('data-tab');
+                            if (next && next !== activeTab) {
+                              activeTab = next;
+                              var tbs = root.querySelectorAll('.gv07-tab-btn');
+                              for (var i = 0; i < tbs.length; i++) {
+                                var act = (tbs[i] === tBtn);
+                                tbs[i].classList.toggle('is-active', act);
+                                tbs[i].setAttribute('aria-selected', act ? 'true' : 'false');
+                              }
+                              syncView();
+                            }
+                            return;
+                          }
+
+                          var sRow = e.target.closest('.gv07-subj-row');
+                          if (sRow) {
+                            selectedIdx = parseInt(sRow.getAttribute('data-sidx'), 10);
+                            for (var r = 0; r < rowNodes.length; r++) {
+                              rowNodes[r].classList.toggle('is-selected', r === selectedIdx);
+                            }
+                            updateCohortReadout();
+                            return;
+                          }
+
+                          var lBtn = e.target.closest('.gv07-layer-btn');
+                          if (lBtn) {
+                            activeLayer = lBtn.getAttribute('data-layer');
+                            var lbs = panelLayers.querySelectorAll('.gv07-layer-btn');
+                            for (var k = 0; k < lbs.length; k++) lbs[k].classList.toggle('is-active', lbs[k] === lBtn);
+                            drawBrainSchematic();
+                          }
+                        });
+
+                        window.addEventListener('resize', function () {
+                          if (activeTab === 'layers') drawBrainSchematic();
+                        });
+
+                        syncView();
+                      })();
+                    </script>
                   </div>
                   <!-- [FIN ESPACIO VISUAL 07] -->
 
