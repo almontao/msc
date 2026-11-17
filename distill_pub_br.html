@@ -1100,382 +1100,483 @@
       padding: 0 6px;
     }
     /* ==========================================================================
-       ESTILOS SECCIÓN 3: FIGURA 3 (MATRIZ 100 HZ · 7 BANDAS / 46 COLUMNAS)
+       ESTILOS SECCIÓN 3: FIGURA 3 (CAPAS TRANSLÚCIDAS + FOCO POR BANDA)
        ========================================================================== */
-    .gv03-top-controls {
+    .gv03-pills-strip {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 6px;
+      margin-bottom: 16px;
     }
 
-    .gv03-expand-btn {
+    .gv03-band-pill {
       appearance: none;
-      background-color: var(--ui-accent-soft);
-      border: 1px solid #8ad6eb;
-      color: #00779e;
       font-family: inherit;
-      font-size: 0.77em;
+      font-size: 0.75em;
       font-weight: 600;
-      padding: 7px 13px;
-      border-radius: 7px;
+      padding: 6px 11px;
+      border-radius: 99px;
+      border: 1px solid var(--sci-ctrl-border);
+      background-color: var(--sci-ctrl-soft);
+      color: var(--sci-ctrl);
       cursor: pointer;
       transition: all 0.16s ease;
-      white-space: nowrap;
-      min-height: 36px;
-    }
-
-    .gv03-expand-btn:hover {
-      background-color: var(--ui-accent);
-      border-color: var(--ui-accent);
-      color: #ffffff;
-    }
-
-    .gv03-translation-bar {
-      font-size: 0.86em;
-      font-style: italic;
-      color: #4f5d67;
-      margin-bottom: 9px;
-      line-height: 1.5;
-    }
-
-    .gv03-readout {
-      background-color: var(--ui-surface);
-      border: 1px solid #e3ebf0;
-      border-radius: 7px;
-      padding: 8px 12px;
-      margin-bottom: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px 14px;
-      font-size: 0.79em;
-      color: #44515a;
-      min-height: 38px;
-    }
-
-    .gv03-readout b {
-      color: var(--ui-heading);
-    }
-
-    .gv03-canvas-frame {
-      width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      border: 1px solid #e4ecf0;
-      border-radius: 8px;
-      background-color: #ffffff;
-    }
-
-    .gv03-mini-stage {
-      min-width: 620px;
-      width: 100%;
-    }
-
-    #gv03-mini-canvas {
-      display: block;
-      width: 100%;
-      height: 368px;
-      cursor: crosshair;
-    }
-
-    .gv03-foot {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-top: 9px;
-      font-size: 0.76em;
-      color: var(--ui-muted);
-    }
-
-    /* Modal panorámico de las 46 columnas (montado en document.body) */
-    .gv03-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      background-color: rgba(16, 23, 30, 0.76);
-      backdrop-filter: blur(3px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      font-family: 'Poppins', Helvetica, sans-serif;
-    }
-
-    .gv03-modal-backdrop[hidden] {
-      display: none !important;
-    }
-
-    .gv03-modal-dialog {
-      background-color: #ffffff;
-      width: min(96vw, 1560px);
-      max-height: 92vh;
-      border-radius: 12px;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .gv03-modal-head {
-      padding: 12px 18px;
-      border-bottom: 1px solid #e6edf2;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      background-color: #fbfdfe;
-    }
-
-    .gv03-modal-title {
-      font-size: 0.96em;
-      font-weight: 600;
-      color: var(--ui-heading);
-      margin: 0;
-    }
-
-    .gv03-modal-actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .gv03-close-btn {
-      appearance: none;
-      background-color: #f1f5f8;
-      border: 1px solid #d4dfe6;
-      color: #26313a;
-      font-family: inherit;
-      font-size: 0.78em;
-      font-weight: 600;
-      padding: 6px 13px;
-      border-radius: 6px;
-      cursor: pointer;
       min-height: 34px;
     }
 
-    .gv03-close-btn:hover {
-      background-color: #e2eaef;
+    .gv03-band-pill:hover {
+      background-color: #e1ecf5;
+      border-color: var(--sci-ctrl-mid);
     }
 
-    .gv03-modal-subbar {
-      padding: 8px 18px;
-      background-color: #f6fafc;
-      border-bottom: 1px solid #e6edf2;
-      font-size: 0.79em;
-      color: #424e57;
+    .gv03-band-pill.is-active {
+      background-color: var(--sci-ctrl);
+      border-color: var(--sci-ctrl);
+      color: #ffffff;
+    }
+
+    .gv03-band-pill.is-tense {
+      border-color: var(--sci-past-border);
+      background: linear-gradient(90deg, var(--sci-past-soft) 0%, var(--sci-nonpast-soft) 100%);
+      color: #4a1954;
+    }
+
+    .gv03-band-pill.is-tense.is-active {
+      background: linear-gradient(90deg, var(--sci-past) 0%, var(--sci-nonpast) 100%);
+      border-color: var(--sci-past);
+      color: #ffffff;
+    }
+
+    .gv03-band-pill.is-all {
+      margin-left: auto;
+      background-color: #ffffff;
+      border-color: #cfdbe3;
+      color: #4b5862;
+    }
+
+    .gv03-band-pill.is-all.is-active {
+      background-color: var(--ui-heading);
+      border-color: var(--ui-heading);
+      color: #ffffff;
+    }
+
+    .gv03-stage-grid {
+      display: grid;
+      grid-template-columns: 242px minmax(0, 1fr);
+      gap: 20px;
+      align-items: center;
+      background-color: #fbfdfe;
+      border: 1px solid #e5eef3;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+    }
+
+    .gv03-stack-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .gv03-stack-svg {
+      width: 228px;
+      height: 218px;
+      overflow: visible;
+      display: block;
+    }
+
+    .gv03-layer-card {
+      cursor: pointer;
+      transition: opacity 0.24s ease, transform 0.22s ease;
+    }
+
+    .gv03-stack-caption {
+      font-size: 0.74em;
+      color: var(--ui-muted);
+      margin-top: 4px;
+    }
+
+    /* Panel derecho: la misma frase vista a través de la banda activa */
+    .gv03-sentence-lens {
+      min-width: 0;
+    }
+
+    .gv03-lens-kicker {
+      display: block;
+      font-size: 0.72em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #55636e;
+      margin-bottom: 8px;
+    }
+
+    .gv03-words-flow {
       display: flex;
       flex-wrap: wrap;
+      gap: 8px 6px;
+      align-items: stretch;
+      margin-bottom: 10px;
+    }
+
+    .gv03-wcard {
+      background-color: #ffffff;
+      border: 1px solid #dce6ee;
+      border-radius: 8px;
+      padding: 7px 9px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      gap: 8px 14px;
+      min-width: 56px;
+      transition: all 0.2s ease;
     }
 
-    .gv03-modal-scroll {
-      flex: 1;
-      overflow: auto;
-      -webkit-overflow-scrolling: touch;
-      position: relative;
-      background-color: #ffffff;
+    .gv03-wcard.is-lit-ctrl {
+      border-color: #6992b5;
+      background-color: #f2f7fb;
     }
 
-    .gv03-modal-matrix-wrap {
-      display: flex;
-      align-items: flex-start;
-      min-width: 100%;
+    .gv03-wcard.is-lit-past {
+      border-color: var(--sci-past);
+      background-color: var(--sci-past-soft);
+      box-shadow: 0 2px 8px rgba(118, 42, 131, 0.12);
     }
 
-    .gv03-sticky-col {
-      position: sticky;
-      left: 0;
-      z-index: 6;
-      width: 196px;
-      flex-shrink: 0;
-      background-color: #ffffff;
-      border-right: 1px solid #dce6ec;
-      box-shadow: 3px 0 8px rgba(20, 30, 40, 0.04);
+    .gv03-wcard.is-lit-np {
+      border-color: var(--sci-nonpast);
+      background-color: var(--sci-nonpast-soft);
+      box-shadow: 0 2px 8px rgba(27, 120, 55, 0.12);
     }
 
-    .gv03-sticky-lbl {
-      position: absolute;
-      left: 0;
-      right: 0;
-      padding: 0 7px 0 9px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 9.8px;
-      line-height: 12px;
-      color: #38444d;
+    .gv03-wcard.is-muted {
+      opacity: 0.45;
+    }
+
+    .gv03-w-en {
+      font-size: 0.9em;
+      font-weight: 700;
+      color: var(--ui-heading);
+      line-height: 1.25;
+    }
+
+    .gv03-w-badge {
+      margin-top: 5px;
+      font-size: 0.7em;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 5px;
+      background-color: #edf2f6;
+      color: #37454f;
+      text-align: center;
+      line-height: 1.25;
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: flex;
-      align-items: center;
     }
 
-    .gv03-sticky-lbl.is-past {
-      color: var(--sci-past);
-      font-weight: 700;
-      background-color: #faf5fc;
+    .gv03-wcard.is-lit-past .gv03-w-badge {
+      background-color: var(--sci-past);
+      color: #ffffff;
     }
 
-    .gv03-sticky-lbl.is-nonpast {
-      color: var(--sci-nonpast);
-      font-weight: 700;
-      background-color: #f3faf5;
+    .gv03-wcard.is-lit-np .gv03-w-badge {
+      background-color: var(--sci-nonpast);
+      color: #ffffff;
     }
 
-    .gv03-sticky-lbl.is-lit {
-      background-color: #e6f4fb;
-      font-weight: 700;
-      color: #006b96;
+    .gv03-wcard.is-lit-ctrl .gv03-w-badge {
+      background-color: #dce9f5;
+      color: #1e4263;
     }
 
-    .gv03-sticky-lbl.is-past.is-lit {
-      background-color: #eddcf2;
-      color: #561961;
+    .gv03-clause-banner {
+      margin-bottom: 10px;
+      padding: 7px 11px;
+      border-radius: 7px;
+      background-color: #e6f2f8;
+      border: 1px solid #a9cfe3;
+      color: #184a66;
+      font-size: 0.78em;
+      font-weight: 600;
     }
 
-    .gv03-sticky-lbl.is-nonpast.is-lit {
-      background-color: #d8f1e0;
-      color: #115425;
+    .gv03-clause-banner[hidden] {
+      display: none !important;
     }
 
-    #gv03-full-canvas {
-      display: block;
-      cursor: crosshair;
+    .gv03-lens-trans {
+      font-size: 0.82em !important;
+      font-style: italic;
+      color: #5b6872 !important;
+      margin: 0 !important;
     }
 
     @media (max-width: 767px) {
-      #gv03-mini-canvas {
-        height: 356px;
+      .gv03-stage-grid {
+        grid-template-columns: 1fr;
+        padding: 14px 12px;
       }
 
-      .gv03-expand-btn {
-        width: 100%;
-        text-align: center;
-      }
-
-      .gv03-modal-backdrop {
-        padding: 0;
-      }
-
-      .gv03-modal-dialog {
-        width: 100vw;
-        height: 100vh;
-        height: 100dvh;
-        max-height: none;
-        border-radius: 0;
-      }
-
-      .gv03-sticky-col {
-        width: 146px;
-      }
-
-      .gv03-sticky-lbl {
-        font-size: 8.9px;
-        padding: 0 4px 0 6px;
+      .gv03-band-pill.is-all {
+        margin-left: 0;
       }
     }
     /* ==========================================================================
-       ESTILOS SECCIÓN 4: FIGURA 4 (gv04) Y FIGURA 5 (gv05)
+       ESTILOS SECCIÓN 4: FIGURA 4 (CEREBRO + OLA) Y FIGURA 5 (BARRAS LIMPIAS)
        ========================================================================== */
-    .gv04-slider-bar {
+    .gv04-controls {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 10px 14px;
-      margin-bottom: 10px;
-      padding: 8px 12px;
+      margin-bottom: 14px;
+      padding: 9px 13px;
       background-color: #f8fbfd;
       border: 1px solid #e2ecf2;
-      border-radius: 8px;
-      font-size: 0.8em;
-      color: #2f3b44;
+      border-radius: 9px;
     }
 
-    .gv04-slider-bar[hidden] {
-      display: none !important;
+    .gv04-play-btn {
+      appearance: none;
+      background-color: var(--sci-bold);
+      border: 1px solid #bf3a1f;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 0.77em;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+      min-width: 158px;
+      min-height: 34px;
+      transition: background-color 0.16s ease;
+    }
+
+    .gv04-play-btn:hover {
+      background-color: #b8321a;
+    }
+
+    .gv04-time-lbl {
+      font-size: 0.8em;
+      font-weight: 700;
+      color: var(--ui-heading);
+      min-width: 118px;
     }
 
     .gv04-range {
       flex: 1;
-      min-width: 160px;
+      min-width: 140px;
       accent-color: var(--sci-bold);
       cursor: pointer;
     }
 
-    .gv04-canvas-wrap,
-    .gv05-canvas-wrap {
+    .gv04-stage {
+      display: grid;
+      grid-template-columns: 224px minmax(0, 1fr);
+      gap: 16px;
+      align-items: center;
+      background-color: #fbfdfe;
+      border: 1px solid #e5eef3;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+
+    .gv04-brain-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .gv04-brain-svg {
+      width: 210px;
+      height: 184px;
+      display: block;
+    }
+
+    .gv04-wave-wrap {
       width: 100%;
-      border: 1px solid #e4ecf0;
-      border-radius: 9px;
       background-color: #ffffff;
+      border: 1px solid #e6eef3;
+      border-radius: 8px;
       overflow: hidden;
     }
 
     #gv04-canvas {
       display: block;
       width: 100%;
-      height: 278px;
+      height: 196px;
       cursor: pointer;
     }
 
-    #gv05-canvas {
-      display: block;
-      width: 100%;
-      height: 224px;
+    /* 3 tarjetas simples para explicar el enfoque en 12.0 s sin curvas enredadas */
+    .gv04-sync-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
     }
 
-    .gv05-subtraction-bar {
-      margin: 10px 0;
-      padding: 9px 14px;
-      background-color: var(--ui-surface);
+    .gv04-sync-item {
+      background-color: #f8fafc;
       border: 1px solid #e2eaf0;
       border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 0.77em;
+    }
+
+    .gv04-sync-item.is-optimal {
+      background-color: #fff6f3;
+      border-color: #efb5a6;
+    }
+
+    .gv04-sync-head {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
-      align-items: center;
-      gap: 8px 14px;
-      font-size: 0.8em;
-      color: #3a4650;
-    }
-
-    .gv05-diff-pill {
       font-weight: 700;
-      padding: 2px 10px;
-      border-radius: 99px;
-      font-size: 0.94em;
+      color: var(--ui-heading);
+      margin-bottom: 5px;
     }
 
-    .gv05-diff-pill[data-tone="muted"] {
-      background-color: #fee2e2;
-      color: #991b1b;
+    .gv04-sync-item.is-optimal .gv04-sync-head {
+      color: #9a3412;
     }
 
-    .gv05-diff-pill[data-tone="shared"] {
-      background-color: #e6eef4;
-      color: #2c3e50;
+    .gv04-sync-bar {
+      height: 8px;
+      background-color: #e5ecf2;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 4px;
     }
 
-    .gv05-diff-pill[data-tone="zero"] {
-      background-color: #ebf7ef;
-      color: #165c2b;
+    .gv04-sync-fill {
+      height: 100%;
+      border-radius: 4px;
+      background-color: #94a3b8;
     }
 
-    @media (max-width: 640px) {
-      #gv04-canvas {
-        height: 256px;
+    .gv04-sync-item.is-optimal .gv04-sync-fill {
+      background: linear-gradient(90deg, #f38d58 0%, #d9482b 100%);
+    }
+
+    .gv04-sync-sub {
+      font-size: 0.9em;
+      color: #5b6872;
+    }
+
+    /* --- Figura 5 minimalista: solo barras animadas + 2 tarjetas de resultado --- */
+    .gv05-bars-box {
+      background-color: #fbfdfe;
+      border: 1px solid #e5eef3;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .gv05-brow {
+      display: grid;
+      grid-template-columns: 168px minmax(0, 1fr) 130px;
+      gap: 12px;
+      align-items: center;
+      font-size: 0.8em;
+    }
+
+    .gv05-bname {
+      font-weight: 600;
+      color: #2c3842;
+      white-space: nowrap;
+    }
+
+    .gv05-brow.is-target .gv05-bname {
+      font-weight: 700;
+      color: var(--sci-past);
+    }
+
+    .gv05-btrack {
+      height: 18px;
+      background-color: #eaf0f5;
+      border-radius: 5px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .gv05-bfill {
+      height: 100%;
+      background-color: var(--sci-ctrl-mid);
+      transition: width 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .gv05-bfill.past-half {
+      background-color: var(--sci-past);
+    }
+
+    .gv05-bfill.np-half {
+      background-color: var(--sci-nonpast);
+    }
+
+    .gv05-btag {
+      font-size: 0.86em;
+      font-weight: 600;
+      color: #55636e;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .gv05-brow.is-crushed .gv05-btag {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+
+    .gv05-brow.is-fair .gv05-btag {
+      color: #166534;
+      font-weight: 700;
+    }
+
+    .gv05-outcomes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .gv05-out-card {
+      background-color: #f8fafc;
+      border: 1px solid #dfe8ef;
+      border-left: 3px solid var(--sci-ctrl);
+      border-radius: 8px;
+      padding: 11px 14px;
+      font-size: 0.82em;
+      line-height: 1.55;
+      color: #37424a;
+    }
+
+    .gv05-out-card.tense-c {
+      border-left-color: var(--sci-past);
+    }
+
+    .gv05-out-card b {
+      display: block;
+      color: var(--ui-heading);
+      margin-bottom: 3px;
+    }
+
+    @media (max-width: 720px) {
+      .gv04-stage {
+        grid-template-columns: 1fr;
       }
 
-      #gv05-canvas {
-        height: 282px;
+      .gv04-sync-strip,
+      .gv05-outcomes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gv05-brow {
+        grid-template-columns: 132px minmax(0, 1fr) 92px;
+        gap: 8px;
+        font-size: 0.75em;
       }
     }
     /* ==========================================================================
@@ -1548,58 +1649,76 @@
     /* ==========================================================================
        ESTILOS SECCIÓN 6: ECUACIÓN LLANA, FIGURAS 7-8 Y PORTAL TOUR 3D
        ========================================================================== */
-    .plain-equation {
-      margin: 1.5em 0 1.7em 0;
-      padding: 14px 16px;
-      background-color: #fbfdfe;
+    .cancel-anim-card {
+      margin: 1.55em 0 1.8em 0;
+      padding: 15px 16px 14px 16px;
+      background-color: #ffffff;
       border: 1px solid var(--ui-border);
-      border-radius: 10px;
+      border-radius: 11px;
+      box-shadow: 0 3px 14px rgba(30, 35, 40, 0.035);
+      font-family: 'Poppins', Helvetica, sans-serif;
+    }
+
+    .cancel-anim-top {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      gap: 8px 10px;
-      font-family: 'Poppins', Helvetica, sans-serif;
-      text-align: center;
+      gap: 8px;
+      margin-bottom: 10px;
     }
 
-    .peq-term {
-      padding: 7px 12px;
+    .cancel-replay-btn {
+      appearance: none;
+      background-color: var(--ui-accent-soft);
+      border: 1px solid #9ad7ea;
+      color: var(--ui-accent-dark);
+      font-family: inherit;
+      font-size: 0.74em;
+      font-weight: 600;
+      padding: 5px 11px;
       border-radius: 7px;
-      font-size: 0.82em;
-      line-height: 1.35;
+      cursor: pointer;
+      min-height: 32px;
+      transition: all 0.16s ease;
     }
 
-    .peq-term b {
+    .cancel-replay-btn:hover {
+      background-color: var(--ui-accent);
+      border-color: var(--ui-accent);
+      color: #ffffff;
+    }
+
+    .cancel-svg-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 8px;
+    }
+
+    .cancel-svg {
       display: block;
-      font-size: 1.02em;
+      width: 100%;
+      min-width: 490px;
+      height: auto;
+      user-select: none;
     }
 
-    .peq-term.glob {
-      background-color: #f6f0f8;
-      border: 1px solid var(--sci-past-border);
-      color: #4a1954;
+    .ca-smooth {
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                  width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                  x 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .peq-term.ctrl {
-      background-color: var(--sci-ctrl-soft);
-      border: 1px solid var(--sci-ctrl-border);
-      color: var(--sci-ctrl);
+    .cancel-caption {
+      padding-top: 9px;
+      border-top: 1px solid #edf2f6;
+      font-size: 0.84em !important;
+      line-height: 1.56 !important;
+      color: #374148 !important;
+      margin: 0 !important;
     }
-
-    .peq-term.res {
-      background-color: #fff5f2;
-      border: 1px solid var(--sci-bold-border);
-      color: #8c2d19;
-    }
-
-    .peq-op {
-      font-size: 1.3em;
-      font-weight: 700;
-      color: #475569;
-      padding: 0 2px;
-    }
-
     /* --- Figura 7: Tablero comparativo directo de los 10 cerebros --- */
     .gv07-cols-head {
       display: grid;
@@ -3139,86 +3258,64 @@
                     </aside>
                   </div>
 
-                  <!-- [INICIO FIGURA 3: RADIOGRAFÍA VISUAL DE LAS 7 BANDAS + MODAL 46 COLUMNAS] -->
+                  <!-- [INICIO FIGURA 3: CAPAS TRANSLÚCIDAS Y LENTE POR BANDA] -->
                   <div class="distill-wide" id="gv03-container">
-                    <figure class="d-fig-card" id="gv03-card-root" style="margin: 0;">
+                    <figure class="d-fig-card" id="gv03-root" style="margin: 0;">
                       <div class="d-fig-header">
                         <div>
                           <span class="d-fig-kicker">Figura 3</span>
-                          <h4 class="d-fig-title">Radiografía simultánea de una frase hablada: qué mide cada una de las
-                            7 bandas</h4>
+                          <h4 class="d-fig-title">Una banda a la vez: qué extrae cada capa sobre un mismo fragmento del
+                            relato</h4>
                         </div>
-                        <button type="button" class="gv03-expand-btn" id="gv03-open-modal">
-                          Ver matriz numérica (46 columnas) &#x2922;
-                        </button>
+                        <span class="d-fig-hint">Selecciona cualquier capa apilada o botón para aislarla</span>
                       </div>
 
-                      <div class="gv03-top-controls">
-                        <div class="d-tabs" role="tablist" aria-label="Escenas reales de Where There's Smoke">
-                          <button type="button" class="d-tab-btn is-active" data-scene="escape">
-                            1. Escape en pasado (0.0 – 3.8 s)
-                          </button>
-                          <button type="button" class="d-tab-btn" data-scene="street">
-                            2. Presente y modal (117.5 – 120.2 s)
-                          </button>
-                          <button type="button" class="d-tab-btn" data-scene="smoked">
-                            3. Dos roles de «smoked» (561.0 – 566.5 s)
-                          </button>
+                      <!-- Botones de las 7 bandas -->
+                      <div class="gv03-pills-strip" role="tablist" aria-label="Seleccionar banda para inspeccionar">
+                        <button type="button" class="gv03-band-pill" data-band="0">1. Acústica (7)</button>
+                        <button type="button" class="gv03-band-pill" data-band="1">2. Fonológica (12)</button>
+                        <button type="button" class="gv03-band-pill" data-band="2">3. Léxico-estad. (4)</button>
+                        <button type="button" class="gv03-band-pill" data-band="3">4. Categorial + aux. (9)</button>
+                        <button type="button" class="gv03-band-pill" data-band="4">5. Sintáctica (2)</button>
+                        <button type="button" class="gv03-band-pill" data-band="5">6. Semántica LSA (10)</button>
+                        <button type="button" class="gv03-band-pill is-tense is-active" data-band="6">7. Tiempo
+                          gramatical (2)</button>
+                        <button type="button" class="gv03-band-pill is-all" data-band="all">Las 7 capas juntas</button>
+                      </div>
+
+                      <!-- Escenario doble: pila de 7 matrices con rayos X + frase real filtrada por esa banda -->
+                      <div class="gv03-stage-grid">
+                        <div class="gv03-stack-box">
+                          <svg class="gv03-stack-svg" viewBox="0 0 228 218"
+                            aria-label="Siete capas de características apiladas">
+                            <text x="64" y="14" text-anchor="middle" font-size="10.5" font-weight="600"
+                              fill="#4b5862">Tiempo</text>
+                            <text x="11" y="76" text-anchor="middle" font-size="10.5" font-weight="600" fill="#4b5862"
+                              transform="rotate(-90, 11, 76)">Columnas</text>
+                            <g id="gv03-stack-layers"></g>
+                          </svg>
+                          <span class="gv03-stack-caption" id="gv03-stack-caption">Capa 7 enfocada (46 columnas en
+                            total)</span>
+                        </div>
+
+                        <div class="gv03-sentence-lens">
+                          <span class="gv03-lens-kicker" id="gv03-lens-kicker"></span>
+                          <div class="gv03-clause-banner" id="gv03-clause-banner" hidden></div>
+                          <div class="gv03-words-flow" id="gv03-words-flow"></div>
+                          <p class="gv03-lens-trans">
+                            «Me fumé los siete cigarrillos [...] la gente que nunca ha fumado.» (minutos 9:21 a 9:25 de
+                            <i>Where There's Smoke</i>)
+                          </p>
                         </div>
                       </div>
 
-                      <div class="gv03-translation-bar" id="gv03-gloss"></div>
-                      <div class="gv03-readout" id="gv03-mini-readout" aria-live="polite"></div>
-
-                      <div class="gv03-canvas-frame">
-                        <div class="gv03-mini-stage">
-                          <canvas id="gv03-mini-canvas"></canvas>
-                        </div>
-                      </div>
-
-                      <div class="gv03-foot">
-                        <span id="gv03-scene-note"></span>
-                        <span>Pasa el cursor o toca cualquier palabra para ver qué ocurre en ese instante</span>
+                      <!-- Explicación sencilla de la banda activa -->
+                      <div class="d-inspector" id="gv03-inspector" data-theme="tense" aria-live="polite">
+                        <span class="d-inspector-tag" id="gv03-tag"></span>
+                        <h5 class="d-inspector-title" id="gv03-title"></h5>
+                        <p class="d-inspector-desc" id="gv03-desc" style="margin-bottom:0 !important;"></p>
                       </div>
                     </figure>
-
-                    <div class="gv03-modal-backdrop" id="gv03-modal" hidden role="dialog" aria-modal="true"
-                      aria-labelledby="gv03-modal-title">
-                      <div class="gv03-modal-dialog">
-                        <div class="gv03-modal-head">
-                          <h4 class="gv03-modal-title" id="gv03-modal-title">
-                            Matriz numérica completa de las 46 columnas a 100 Hz (<i>Where There's Smoke</i>)
-                          </h4>
-                          <div class="gv03-modal-actions">
-                            <div class="d-tabs" role="tablist" aria-label="Escenas extendidas">
-                              <button type="button" class="d-tab-btn is-active" data-modal-scene="escape">
-                                1. Escape (0 – 13.4 s)
-                              </button>
-                              <button type="button" class="d-tab-btn" data-modal-scene="street">
-                                2. Calle (117.5 – 130.6 s)
-                              </button>
-                              <button type="button" class="d-tab-btn" data-modal-scene="smoked">
-                                3. Cierre (561.0 – 572.6 s)
-                              </button>
-                            </div>
-                            <button type="button" class="gv03-close-btn" id="gv03-close-modal">Cerrar &#x2715;</button>
-                          </div>
-                        </div>
-
-                        <div class="gv03-modal-subbar">
-                          <div id="gv03-full-readout"></div>
-                          <span style="color:#66747e; font-size:0.92em;">Desliza horizontalmente para recorrer el tramo
-                            extendido</span>
-                        </div>
-
-                        <div class="gv03-modal-scroll" id="gv03-modal-scroll">
-                          <div class="gv03-modal-matrix-wrap">
-                            <div class="gv03-sticky-col" id="gv03-sticky-col"></div>
-                            <canvas id="gv03-full-canvas"></canvas>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                   <!-- [FIN FIGURA 3] -->
 
@@ -3281,40 +3378,103 @@
                     </aside>
                   </div>
 
-                  <!-- [INICIO FIGURA 4: CONVOLUCIÓN Y ALINEACIÓN EMPÍRICA DE 12.0 S] -->
+                  <!-- [INICIO FIGURA 4: CEREBRO ILUMINÁNDOSE + FOTOS CADA 2 S + ENFOQUE 12 S] -->
                   <div class="distill-wide">
                     <figure class="d-fig-card" id="gv04-root" style="margin: 0;">
                       <div class="d-fig-header">
                         <div>
                           <span class="d-fig-kicker">Figura 4</span>
-                          <h4 class="d-fig-title">Del habla rápida al pulso cada 2.0 s y enfoque exacto de los 12.0
-                            segundos en los 10 cerebros</h4>
+                          <h4 class="d-fig-title">Por qué una palabra rápida tarda 6 segundos en encender el cerebro y
+                            cómo se enfoca el escáner</h4>
+                        </div>
+                        <span class="d-fig-hint">Pulsa reproducir o mueve la barra de segundos</span>
+                      </div>
+
+                      <div class="gv04-controls">
+                        <button type="button" class="gv04-play-btn" id="gv04-play-btn">
+                          &#x25B6; Reproducir pulso (0 – 22 s)
+                        </button>
+                        <span class="gv04-time-lbl" id="gv04-time-lbl">Instante: 5.4 s</span>
+                        <input type="range" class="gv04-range" id="gv04-slider" min="0" max="220" step="2" value="54"
+                          aria-label="Avanzar el tiempo desde que suena la palabra">
+                      </div>
+
+                      <!-- Izquierda: dibujo del cerebro encendiéndose · Derecha: curva limpia con fotos cada 2 s -->
+                      <div class="gv04-stage">
+                        <div class="gv04-brain-panel">
+                          <svg class="gv04-brain-svg" viewBox="0 0 210 184"
+                            aria-label="Ilustración lateral del cerebro iluminándose con el aporte de oxígeno">
+                            <!-- Etiqueta superior del estímulo auditivo -->
+                            <rect id="gv04-word-pill" x="28" y="6" width="154" height="24" rx="12" fill="#f3e8f6"
+                              stroke="#cfaad6" stroke-width="1.3" />
+                            <text id="gv04-word-txt" x="105" y="22" text-anchor="middle" font-size="10"
+                              font-weight="700" fill="#581c66">
+                              Palabra «reached» (0 – 0.4 s)
+                            </text>
+
+                            <!-- Silueta lateral del cerebro -->
+                            <g transform="translate(26, 38)">
+                              <path
+                                d="M 18 72 C 10 30, 46 4, 92 9 C 134 13, 156 42, 148 78 C 138 96, 108 114, 74 109 C 56 106, 54 84, 66 76 C 42 82, 22 84, 18 72 Z"
+                                fill="#e2e8ee" stroke="#94a3b8" stroke-width="1.6" />
+                              <!-- Cisura lateral de referencia -->
+                              <path d="M 56 72 Q 84 65, 112 50" fill="none" stroke="#64748b" stroke-width="1.5"
+                                opacity="0.55" />
+
+                              <!-- Brillo sanguíneo dinámico sobre corteza auditiva y temporal -->
+                              <ellipse id="gv04-glow-outer" cx="84" cy="68" rx="38" ry="20" fill="#f38d58" opacity="0.7"
+                                transform="rotate(-12 84 68)" />
+                              <ellipse id="gv04-glow-inner" cx="82" cy="67" rx="21" ry="11" fill="#d9482b" opacity="0.9"
+                                transform="rotate(-12 82 67)" />
+                            </g>
+
+                            <text id="gv04-oxy-lbl" x="105" y="172" text-anchor="middle" font-size="10.5"
+                              font-weight="700" fill="#9a3412">
+                              Oxígeno en corteza: 100% (pico)
+                            </text>
+                          </svg>
                         </div>
 
-                        <div class="d-tabs" role="tablist" aria-label="Vistas de acoplamiento temporal">
-                          <button type="button" class="d-tab-btn is-active" data-tab="wave">
-                            1. Ola sanguínea y capturas (2.0 s)
-                          </button>
-                          <button type="button" class="d-tab-btn" data-tab="lag">
-                            2. Enfoque real en 10 cerebros (0 – 20 s)
-                          </button>
+                        <div class="gv04-wave-wrap">
+                          <canvas id="gv04-canvas"></canvas>
                         </div>
                       </div>
 
-                      <!-- Deslizador táctil exclusivo de la Pestaña 2 -->
-                      <div class="gv04-slider-bar" id="gv04-lag-bar" hidden>
-                        <span><b>Recorte inicial probado:</b> <span id="gv04-lag-lbl">12.0 s (6 capturas TR)</span></span>
-                        <input type="range" class="gv04-range" id="gv04-lag-slider" min="0" max="10" step="1" value="6"
-                          aria-label="Seleccionar recorte inicial entre 0 y 10 capturas TR">
+                      <!-- 3 barras comparativas simples para el recorte de 12.0 s -->
+                      <div class="gv04-sync-strip" aria-label="Efecto real de sincronizar el inicio del audio con el escáner">
+                        <div class="gv04-sync-item">
+                          <div class="gv04-sync-head">
+                            <span>Sin recortar (0 s)</span>
+                            <span>0.09</span>
+                          </div>
+                          <div class="gv04-sync-bar">
+                            <div class="gv04-sync-fill" style="width: 21%;"></div>
+                          </div>
+                          <span class="gv04-sync-sub">Audio y fotos desfasados</span>
+                        </div>
+
+                        <div class="gv04-sync-item is-optimal">
+                          <div class="gv04-sync-head">
+                            <span>Recorte de 12.0 s (6 fotos)</span>
+                            <span>0.42</span>
+                          </div>
+                          <div class="gv04-sync-bar">
+                            <div class="gv04-sync-fill" style="width: 100%;"></div>
+                          </div>
+                          <span class="gv04-sync-sub">Enfoque exacto en los 10 cerebros</span>
+                        </div>
+
+                        <div class="gv04-sync-item">
+                          <div class="gv04-sync-head">
+                            <span>Recortar de más (20 s)</span>
+                            <span>0.07</span>
+                          </div>
+                          <div class="gv04-sync-bar">
+                            <div class="gv04-sync-fill" style="width: 16%;"></div>
+                          </div>
+                          <span class="gv04-sync-sub">Vuelve a perderse la sincronía</span>
+                        </div>
                       </div>
-
-                      <div class="gv03-readout" id="gv04-readout" aria-live="polite"></div>
-
-                      <div class="gv04-canvas-wrap">
-                        <canvas id="gv04-canvas"></canvas>
-                      </div>
-
-                      <div class="gv03-foot" id="gv04-foot"></div>
                     </figure>
                   </div>
                   <!-- [FIN FIGURA 4] -->
@@ -3371,47 +3531,43 @@
                     </aside>
                   </div>
 
-                  <!-- [INICIO FIGURA 5: CONSOLA BANDED RIDGE Y RESTA 46 - 44] -->
+                  <!-- [INICIO FIGURA 5: 1 FRENO COMÚN VS 7 FRENOS INDEPENDIENTES] -->
                   <div class="distill-wide">
                     <figure class="d-fig-card" id="gv05-root" style="margin: 0;">
                       <div class="d-fig-header">
                         <div>
                           <span class="d-fig-kicker">Figura 5</span>
-                          <h4 class="d-fig-title">Por qué 7 perillas independientes y el anclaje limpio evitan tanto el
-                            aplastamiento como el ruido</h4>
+                          <h4 class="d-fig-title">Por qué 7 frenos independientes evitan aplastar las 2 columnas de
+                            tiempo gramatical</h4>
                         </div>
 
-                        <div class="d-tabs" role="tablist" aria-label="Comportamientos del modelo en un vóxel">
-                          <button type="button" class="d-tab-btn" data-mode="single_knob">
-                            1. Problema de 1 sola perilla
+                        <div class="d-tabs" role="tablist" aria-label="Comparar método de frenado">
+                          <button type="button" class="d-tab-btn" data-fmode="single">
+                            Con 1 solo freno común
                           </button>
-                          <button type="button" class="d-tab-btn is-active" data-mode="lang_shared">
-                            2. Red del lenguaje (Banded Ridge)
-                          </button>
-                          <button type="button" class="d-tab-btn" data-mode="pruned_zero">
-                            3. Apagado limpio en 0.00000
+                          <button type="button" class="d-tab-btn is-active" data-fmode="banded">
+                            Con 7 frenos propios (Banded Ridge)
                           </button>
                         </div>
                       </div>
 
-                      <div class="gv05-canvas-wrap">
-                        <canvas id="gv05-canvas"></canvas>
-                      </div>
+                      <!-- Barras limpias del peso permitido a cada banda -->
+                      <div class="gv05-bars-box" id="gv05-bars-box"></div>
 
-                      <div class="gv05-subtraction-bar" aria-live="polite">
-                        <div>
-                          <span style="margin-right:14px;"><b style="color:var(--sci-ctrl);">Acierto Control (44):</b>
-                            <span id="gv05-r2-ctrl"></span></span>
-                          <span><b style="color:var(--sci-past);">Acierto Global (46):</b> <span
-                              id="gv05-r2-glob"></span></span>
+                      <!-- Los dos únicos comportamientos reales al restar Global (46) - Control (44) -->
+                      <div class="gv05-outcomes-grid">
+                        <div class="gv05-out-card">
+                          <b>En el ~83% de cada cerebro: apagado limpio en 0.00000</b>
+                          Como el Modelo Global parte anclado en el resultado de las 6 bandas de control, donde la Banda
+                          7 no mejora las historias nuevas su perilla se queda cerrada en cero exacto en vez de meter
+                          ruido.
                         </div>
-                        <span class="gv05-diff-pill" id="gv05-diff-pill" data-tone="shared"></span>
-                      </div>
-
-                      <div class="d-inspector" id="gv05-inspector" data-theme="ctrl">
-                        <span class="d-inspector-tag" id="gv05-tag"></span>
-                        <h5 class="d-inspector-title" id="gv05-title"></h5>
-                        <p class="d-inspector-desc" id="gv05-desc" style="margin-bottom:0 !important;"></p>
+                        <div class="gv05-out-card tense-c">
+                          <b>En el ~17% restante: señal compartida con la oración</b>
+                          En las áreas del lenguaje la séptima perilla sí se abre, pero al entrenar las 6 bandas de
+                          control solas sus pesos se reajustan y explican prácticamente la misma subida y bajada de
+                          oxígeno.
+                        </div>
                       </div>
                     </figure>
                   </div>
@@ -3595,21 +3751,95 @@
                         directa sobre relatos nunca vistos por el modelo durante su entrenamiento:
                       </p>
 
-                      <div class="plain-equation" role="region" aria-label="Fórmula conceptual de ganancia exclusiva">
-                        <div class="peq-term glob">
-                          <b>Acierto Global</b>
-                          Las 7 bandas (46 columnas)
+                      <div class="cancel-anim-card" id="gv06b-root" role="region"
+                        aria-label="Animación de resta entre el Modelo Global y el Modelo Control">
+                        <div class="cancel-anim-top">
+                          <div class="d-tabs" role="tablist" aria-label="Pasos de la resta entre modelos">
+                            <button type="button" class="d-tab-btn is-active" data-cstep="1">1. Global (46)</button>
+                            <button type="button" class="d-tab-btn" data-cstep="2">2. Superponer Control</button>
+                            <button type="button" class="d-tab-btn" data-cstep="3">3. Cancelar común</button>
+                            <button type="button" class="d-tab-btn" data-cstep="4">4. En los 10 cerebros</button>
+                          </div>
+                          <button type="button" class="cancel-replay-btn" id="gv06b-replay">
+                            &#x21BB; Repetir animación
+                          </button>
                         </div>
-                        <span class="peq-op">&minus;</span>
-                        <div class="peq-term ctrl">
-                          <b>Acierto Control</b>
-                          Las 6 bandas base (44 columnas)
+
+                        <div class="cancel-svg-scroll">
+                          <svg class="cancel-svg" viewBox="0 0 580 156"
+                            aria-label="Superposición y cancelación visual de lo que ambos modelos explican por igual">
+                            <defs>
+                              <pattern id="gv06b-hatch" width="8" height="8" patternUnits="userSpaceOnUse"
+                                patternTransform="rotate(45)">
+                                <rect width="4" height="8" fill="#4c7091" opacity="0.55" />
+                                <rect x="4" width="4" height="8" fill="#762a83" opacity="0.45" />
+                              </pattern>
+                            </defs>
+
+                            <!-- Título dinámico del paso actual -->
+                            <text id="gv06b-stage-lbl" x="290" y="20" text-anchor="middle" font-size="11"
+                              font-weight="700" fill="#1e2328">
+                              Paso 1 · Todo lo que logra predecir el Modelo Global (7 bandas)
+                            </text>
+
+                            <!-- CAPA BASE: Modelo Global (6 bandas base + zona común + ganancia única) -->
+                            <g id="gv06b-glob-shared" class="ca-smooth">
+                              <rect x="30" y="52" width="322" height="46" rx="6" fill="#4c7091" />
+                              <text x="191" y="79" text-anchor="middle" font-size="10.2" font-weight="600"
+                                fill="#ffffff">
+                                6 bandas de control (sonido, léxico, sintaxis, tema)
+                              </text>
+
+                              <rect x="354" y="52" width="118" height="46" rx="4" fill="url(#gv06b-hatch)"
+                                stroke="#64748b" stroke-width="1" />
+                              <text x="413" y="79" text-anchor="middle" font-size="9.5" font-weight="700"
+                                fill="#1e2328">
+                                Parte compartida
+                              </text>
+                            </g>
+
+                            <!-- Pestaña derecha exclusiva de Pasado (púrpura) y No pasado (verde) -->
+                            <g id="gv06b-unique-group" class="ca-smooth">
+                              <rect id="gv06b-uniq-past" class="ca-smooth" x="476" y="52" width="74" height="23" rx="3"
+                                fill="#762a83" />
+                              <rect id="gv06b-uniq-np" class="ca-smooth" x="476" y="75" width="74" height="23" rx="3"
+                                fill="#1b7837" />
+                              <text id="gv06b-uniq-in-txt" class="ca-smooth" x="513" y="79" text-anchor="middle"
+                                font-size="9.2" font-weight="700" fill="#ffffff">
+                                Única
+                              </text>
+                            </g>
+
+                            <!-- CAPA QUE SE DESLIZA Y SUPERPONE: Modelo Control entrenado solo (44 columnas) -->
+                            <g id="gv06b-ctrl-overlay" class="ca-smooth"
+                              style="opacity: 0; transform: translateY(-34px);">
+                              <rect x="30" y="52" width="442" height="46" rx="6" fill="#2f4f6d" stroke="#1e2328"
+                                stroke-width="1.6" />
+                              <text x="251" y="79" text-anchor="middle" font-size="10.4" font-weight="700"
+                                fill="#ffffff">
+                                Modelo Control solo (44 col.: absorbe también la parte compartida)
+                              </text>
+                            </g>
+
+                            <!-- Borde punteado que queda cuando se cancela la coincidencia -->
+                            <rect id="gv06b-cancel-outline" class="ca-smooth" x="30" y="52" width="442" height="46"
+                              rx="6" fill="none" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="5 4"
+                              style="opacity: 0;" />
+
+                            <!-- Etiquetas inferiores separadas sin riesgo de choque -->
+                            <text id="gv06b-left-sub" class="ca-smooth" x="251" y="122" text-anchor="middle"
+                              font-size="9.8" font-weight="600" fill="#64748b" style="opacity: 0;">
+                              Coincide en ambos modelos &rarr; se degrada y cancela al restar
+                            </text>
+
+                            <text id="gv06b-right-sub" class="ca-smooth" x="513" y="122" text-anchor="middle"
+                              font-size="10" font-weight="700" fill="#762a83">
+                              Ganancia única
+                            </text>
+                          </svg>
                         </div>
-                        <span class="peq-op">=</span>
-                        <div class="peq-term res">
-                          <b>Ganancia única</b>
-                          Atribuible a pasado y no pasado
-                        </div>
+
+                        <p class="cancel-caption" id="gv06b-caption" aria-live="polite"></p>
                       </div>
 
                       <p>
@@ -4959,1437 +5189,523 @@
       updateView('all', 'was');
     })();
 
-    /* 6. Figura 3 (gv03): Radiografía visual de las 7 bandas + modal de las 46 columnas */
+    /* 6. Figura 3 (gv03): Pila de 7 capas con efecto rayos X + lectura simple sobre una frase real */
     (function () {
-      var cardRoot = document.getElementById('gv03-card-root');
-      var miniCanvas = document.getElementById('gv03-mini-canvas');
-      var miniReadout = document.getElementById('gv03-mini-readout');
-      var glossEl = document.getElementById('gv03-gloss');
-      var sceneNote = document.getElementById('gv03-scene-note');
-      var modal = document.getElementById('gv03-modal');
-      var fullCanvas = document.getElementById('gv03-full-canvas');
-      var fullReadout = document.getElementById('gv03-full-readout');
-      var stickyCol = document.getElementById('gv03-sticky-col');
-      var modalScroll = document.getElementById('gv03-modal-scroll');
+      var root = document.getElementById('gv03-root');
+      var stackGroup = document.getElementById('gv03-stack-layers');
+      var stackCaption = document.getElementById('gv03-stack-caption');
+      var lensKicker = document.getElementById('gv03-lens-kicker');
+      var clauseBanner = document.getElementById('gv03-clause-banner');
+      var wordsFlow = document.getElementById('gv03-words-flow');
+      var inspEl = document.getElementById('gv03-inspector');
+      var tagEl = document.getElementById('gv03-tag');
+      var titleEl = document.getElementById('gv03-title');
+      var descEl = document.getElementById('gv03-desc');
+      if (!root || !stackGroup) return;
 
-      if (!cardRoot || !miniCanvas || !modal) return;
-      if (modal.parentNode !== document.body) document.body.appendChild(modal);
+      var svgNS = 'http://www.w3.org/2000/svg';
 
-      var ROW_NAMES = [
-        '1. rms_energy', '2. mel_band_0', '3. mel_band_1', '4. mel_band_2',
-        '5. mel_band_3', '6. mel_band_4', '7. mel_band_5',
-        '8. vocalic', '9. voiced', '10. bilabial', '11. labiodental',
-        '12. dental_alveolar', '13. palatal_velar', '14. stop', '15. fricative',
-        '16. affricate', '17. nasal', '18. liquid', '19. approximant',
-        '20. word_presence', '21. lexical_frequency', '22. word_length_chars', '23. word_duration_secs',
-        '24. noun', '25. adjective', '26. adverb', '27. pronoun', '28. preposition',
-        '29. conjunction', '30. determiner', '31. non_finite_verb', '32. auxiliary_modal',
-        '33. dependency_distance', '34. syntactic_depth',
-        '35. semantic_dim_0', '36. semantic_dim_1', '37. semantic_dim_2', '38. semantic_dim_3',
-        '39. semantic_dim_4', '40. semantic_dim_5', '41. semantic_dim_6', '42. semantic_dim_7',
-        '43. semantic_dim_8', '44. semantic_dim_9',
-        '45. past', '46. non_past'
+      /* Patrones de las 7 tarjetas apiladas (4 filas × 3 columnas, estilo original) */
+      var PATTERNS = [
+        [2, 3, 1, 1, 2, 3, 3, 2, 1, 0, 2, 3], /* 0: Acústica (continua) */
+        [3, 0, 2, 0, 3, 0, 0, 3, 0, 2, 0, 3], /* 1: Fonológica (binaria) */
+        [1, 3, 2, 2, 1, 3, 3, 1, 2, 2, 3, 1], /* 2: Léxico-estadística (continua) */
+        [0, 3, 0, 2, 0, 0, 3, 0, 2, 0, 3, 0], /* 3: Categorial + aux. (binaria) */
+        [1, 0, 3, 2, 1, 0, 2, 3, 1, 0, 2, 1], /* 4: Sintáctica (discreta) */
+        [2, 2, 2, 1, 1, 1, 3, 3, 3, 2, 2, 2], /* 5: Semántica LSA (constante por bloque) */
+        [3, 0, 0, 0, 0, 4, 0, 3, 0, 0, 0, 4]  /* 6: Tiempo (3=púrpura past, 4=verde non_past) */
       ];
 
-      var BANDS = [
-        { name: '1. Acústica Mel (7)', start: 0, count: 7, color: '#3b5975' },
-        { name: '2. Fonológica (12)', start: 7, count: 12, color: '#4d6f8e' },
-        { name: '3. Léxico-estad. (4)', start: 19, count: 4, color: '#3b5975' },
-        { name: '4. Categorial + aux. (9)', start: 23, count: 9, color: '#4d6f8e' },
-        { name: '5. Sintáctica (2)', start: 32, count: 2, color: '#3b5975' },
-        { name: '6. Semántica LSA (10)', start: 34, count: 10, color: '#2b6a8a' },
-        { name: '7. Pasado / No pas. (2)', start: 44, count: 2, color: '#762a83', isTarget: true }
-      ];
+      var ctrlPalette = ['#d8e6f2', '#9ec0db', '#5d8bb0', '#355675'];
+      var cardNodes = [];
 
-      var CAT_NAMES = ['noun', 'adjective', 'adverb', 'pronoun', 'preposition', 'conjunction', 'determiner', 'non_finite_verb', 'auxiliary_modal'];
-      var CAT_ES_SHORT = ['Sust.', 'Adj.', 'Adv.', 'Pron.', 'Prep.', 'Conj.', 'Det.', 'No pers.', 'Aux.'];
-      var CAT_ES_TINY = ['Sus', 'Adj', 'Adv', 'Pr', 'Prp', 'Cnj', 'Det', 'V.np', 'Aux'];
+      for (var i = 0; i < 7; i++) {
+        var x = 22 + i * 16;
+        var y = 20 + i * 13;
+        var isT = (i === 6);
 
-      var CONSONANT_12 = {
-        P: [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0], B: [0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-        T: [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0], D: [0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0],
-        K: [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0], G: [0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-        F: [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0], V: [0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
-        TH: [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0], DH: [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0],
-        S: [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0], Z: [0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0],
-        SH: [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0], ZH: [0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
-        HH: [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-        CH: [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0], JH: [0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
-        M: [0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0], N: [0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0],
-        NG: [0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
-        L: [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0], R: [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-        Y: [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], W: [0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1]
-      };
-      var SIBILANTS = { S: 1, Z: 1, SH: 1, ZH: 1, CH: 1, JH: 1, T: 1, F: 1, TH: 1 };
+        var g = document.createElementNS(svgNS, 'g');
+        g.setAttribute('class', 'gv03-layer-card');
+        g.setAttribute('data-band', String(i));
 
-      function phoneFeatures(raw) {
-        var ph = raw.replace(/[^A-Z]/g, '');
-        var p12 = CONSONANT_12[ph] || [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-        var isVowel = (p12[0] === 1);
-        var isSib = !!SIBILANTS[ph];
-        var ac7 = isVowel
-          ? [0.86, 0.92, 0.84, 0.68, 0.42, 0.22, 0.12]
-          : (isSib
-            ? [0.54, 0.14, 0.20, 0.38, 0.74, 0.94, 0.88]
-            : [0.58, 0.62, 0.54, 0.42, 0.28, 0.20, 0.14]);
-        return { p12: p12, ac7: ac7, clean: ph.toLowerCase(), isVowel: isVowel };
+        var rect = document.createElementNS(svgNS, 'rect');
+        rect.setAttribute('x', x);
+        rect.setAttribute('y', y);
+        rect.setAttribute('width', 86);
+        rect.setAttribute('height', 102);
+        rect.setAttribute('rx', 11);
+        rect.setAttribute('fill', isT ? '#faf5fc' : '#e9f2f9');
+        rect.setAttribute('stroke', isT ? '#762a83' : '#4a7296');
+        rect.setAttribute('stroke-width', '2.1');
+        g.appendChild(rect);
+
+        for (var r = 0; r < 4; r++) {
+          for (var c = 0; c < 3; c++) {
+            var cell = document.createElementNS(svgNS, 'rect');
+            cell.setAttribute('x', x + 11 + c * 23);
+            cell.setAttribute('y', y + 11 + r * 21);
+            cell.setAttribute('width', 18);
+            cell.setAttribute('height', 16);
+            cell.setAttribute('rx', 3.2);
+            var code = PATTERNS[i][r * 3 + c];
+            var fillCol = ctrlPalette[code] || '#eef3f7';
+            if (isT) {
+              fillCol = (code === 3) ? '#762a83' : ((code === 4) ? '#1b7837' : '#efeaf2');
+            }
+            cell.setAttribute('fill', fillCol);
+            g.appendChild(cell);
+          }
+        }
+        stackGroup.appendChild(g);
+        cardNodes.push(g);
       }
 
-      var SCENES = {
-        escape: {
-          shortStart: 0.0, shortEnd: 3.85, fullStart: 0.0, fullEnd: 13.4, defaultCursor: 0.32,
-          gloss: '«Me estiré hacia el lado, y desabroché en secreto mi cinturón de seguridad.»',
-          note: 'Observa arriba la energía aguda de la /t/ en reached, las columnas bajas en palabras poco comunes (secretly, undid, seatbelt), los arcos sintácticos y los dos pulsos púrpura en Banda 7.',
-          arcs: [[1, 0], [1, 2], [1, 5], [5, 3], [5, 4], [5, 7], [7, 6]],
-          units: [
-            [0.01, 3.64, [0.68, 0.28, 0.82, 0.18, 0.56, 0.42, 0.74, 0.22, 0.50, 0.32], 'Oración 1 · Lemas sin tiempo: reach · secretly · undo · seatbelt'],
-            [4.54, 9.46, [0.34, 0.84, 0.46, 0.72, 0.24, 0.78, 0.30, 0.64, 0.20, 0.56], 'Oración 2 · foot · hit · brake · light · fling · door · run'],
-            [10.88, 13.25, [0.76, 0.42, 0.22, 0.62, 0.80, 0.26, 0.52, 0.74, 0.66, 0.36], 'Oración 3 · shoe · cry']
-          ],
-          words: [
-            [0.01, 0.14, 'I', 7.4, [3], 1, 1, -1], [0.14, 0.50, 'reached', 4.7, [], 0, 0, 0],
-            [0.50, 0.96, 'over,', 6.2, [2], 1, 1, -1], [1.54, 1.69, 'and', 7.4, [5], 1, 1, -1],
-            [1.73, 2.38, 'secretly', 4.2, [2], 1, 2, -1], [2.42, 2.96, 'undid', 2.9, [], 4, 1, 0],
-            [2.96, 3.10, 'my', 6.7, [6], 1, 3, -1], [3.17, 3.64, 'seatbelt.', 3.4, [0], 2, 2, -1],
-            [4.54, 4.66, 'And', 7.4, [5], 7, 1, -1], [4.66, 4.84, 'when', 6.6, [2], 3, 2, -1],
-            [4.84, 5.10, 'his', 6.7, [6], 1, 3, -1], [5.14, 5.37, 'foot', 5.0, [0], 1, 2, -1],
-            [5.82, 5.96, 'hit', 5.3, [], 5, 1, 0], [5.96, 6.03, 'the', 7.7, [6], 1, 3, -1],
-            [6.03, 6.38, 'brake', 4.1, [0], 2, 2, -1], [6.38, 6.49, 'at', 6.9, [4], 3, 2, -1],
-            [6.49, 6.57, 'the', 7.7, [6], 3, 4, -1], [6.57, 6.80, 'red', 5.4, [1], 1, 4, -1],
-            [6.80, 7.18, 'light,', 5.6, [0], 3, 3, -1], [7.45, 7.55, 'I', 7.4, [3], 1, 1, -1],
-            [7.55, 7.83, 'flung', 3.5, [], 0, 0, 0], [7.83, 8.03, 'open', 5.7, [1], 1, 1, -1],
-            [8.03, 8.09, 'the', 7.7, [6], 1, 2, -1], [8.09, 8.45, 'door', 5.4, [0], 3, 1, -1],
-            [8.88, 8.98, 'and', 7.4, [5], 5, 1, -1], [8.98, 9.07, 'I', 7.4, [3], 1, 2, -1],
-            [9.07, 9.46, 'ran.', 4.9, [], 6, 1, 0], [10.88, 10.97, 'I', 7.4, [3], 1, 1, -1],
-            [10.97, 11.43, 'had', 6.8, [], 0, 0, 0], [11.54, 11.68, 'no', 6.6, [6], 1, 2, -1],
-            [11.68, 12.03, 'shoes', 4.9, [0], 2, 1, -1], [12.03, 12.41, 'on.', 7.0, [2], 3, 1, -1],
-            [12.41, 12.53, 'I', 7.4, [3], 2, 2, -1], [12.53, 12.69, 'was', 7.0, [8], 1, 2, 0],
-            [12.69, 13.25, 'crying.', 4.6, [7], 0, 0, -1]
-          ],
-          phones: [
-            [0.01, 0.14, 'AY1'], [0.14, 0.22, 'R'], [0.22, 0.32, 'IY1'], [0.32, 0.45, 'CH'], [0.45, 0.50, 'T'],
-            [0.50, 0.68, 'OW1'], [0.68, 0.75, 'V'], [0.75, 0.96, 'ER0'], [1.54, 1.62, 'AE1'], [1.62, 1.65, 'N'],
-            [1.65, 1.69, 'D'], [1.73, 1.76, 'S'], [1.76, 1.86, 'IY1'], [1.86, 1.94, 'K'], [1.94, 1.97, 'R'],
-            [1.97, 2.03, 'AH0'], [2.03, 2.07, 'T'], [2.07, 2.14, 'L'], [2.14, 2.38, 'IY0'], [2.42, 2.54, 'AH0'],
-            [2.54, 2.64, 'N'], [2.64, 2.68, 'D'], [2.68, 2.83, 'IH1'], [2.83, 2.96, 'D'], [2.96, 2.99, 'M'],
-            [2.99, 3.10, 'AY1'], [3.17, 3.20, 'S'], [3.20, 3.31, 'IY1'], [3.31, 3.35, 'T'], [3.35, 3.39, 'B'],
-            [3.39, 3.44, 'EH2'], [3.44, 3.59, 'L'], [3.59, 3.64, 'T'], [4.54, 4.60, 'AE1'], [4.60, 4.63, 'N'],
-            [4.63, 4.66, 'D'], [4.66, 4.72, 'W'], [4.72, 4.78, 'IH1'], [4.78, 4.84, 'N'], [4.84, 4.92, 'HH'],
-            [4.92, 4.97, 'IH1'], [4.97, 5.10, 'Z'], [5.14, 5.19, 'F'], [5.19, 5.31, 'UH1'], [5.31, 5.37, 'T'],
-            [5.82, 5.87, 'HH'], [5.87, 5.91, 'IH1'], [5.91, 5.96, 'T'], [5.96, 6.00, 'DH'], [6.00, 6.03, 'AH0'],
-            [6.03, 6.11, 'B'], [6.11, 6.18, 'R'], [6.18, 6.32, 'EY1'], [6.32, 6.38, 'K'], [6.38, 6.43, 'AE1'],
-            [6.43, 6.49, 'T'], [6.49, 6.52, 'DH'], [6.52, 6.57, 'AH0'], [6.57, 6.64, 'R'], [6.64, 6.72, 'EH1'],
-            [6.72, 6.80, 'D'], [6.80, 6.93, 'L'], [6.93, 7.06, 'AY1'], [7.06, 7.18, 'T'], [7.45, 7.55, 'AY1'],
-            [7.55, 7.65, 'F'], [7.65, 7.70, 'L'], [7.70, 7.75, 'AH1'], [7.75, 7.83, 'NG'], [7.83, 7.92, 'OW1'],
-            [7.92, 7.97, 'P'], [7.97, 8.00, 'AH0'], [8.00, 8.03, 'N'], [8.03, 8.06, 'DH'], [8.06, 8.09, 'AH0'],
-            [8.09, 8.18, 'D'], [8.18, 8.38, 'AO1'], [8.38, 8.45, 'R'], [8.88, 8.93, 'AE1'], [8.93, 8.97, 'N'],
-            [8.97, 8.98, 'D'], [8.98, 9.07, 'AY1'], [9.07, 9.16, 'R'], [9.16, 9.37, 'AE1'], [9.37, 9.46, 'N'],
-            [10.88, 10.97, 'AY1'], [10.97, 11.07, 'HH'], [11.07, 11.28, 'AE1'], [11.28, 11.43, 'D'], [11.54, 11.60, 'N'],
-            [11.60, 11.68, 'OW1'], [11.68, 11.83, 'SH'], [11.83, 12.00, 'UW1'], [12.00, 12.03, 'Z'], [12.03, 12.25, 'AA1'],
-            [12.25, 12.41, 'N'], [12.41, 12.53, 'AY1'], [12.53, 12.58, 'W'], [12.58, 12.64, 'AH0'], [12.64, 12.69, 'Z'],
-            [12.69, 12.78, 'K'], [12.78, 12.82, 'R'], [12.82, 13.06, 'AY1'], [13.06, 13.09, 'IH0'], [13.09, 13.25, 'NG']
-          ]
+      /* Frase real de contraste donde "smoked" aparece primero en pasado y luego sin tiempo */
+      var TOKENS = [
+        { w: 'I', b: ['Grave', '/aɪ/', 'Muy común', 'Pronombre', '1 paso', '—', '0'] },
+        { w: 'smoked', b: ['Agudo /s,t/', '/s·m·oʊ·k·t/', 'Poco común', '—', 'Centro (0)', 'raíz: smoke', 'Pasado (1)'], hi: [0, 1, 2, 4, 5, 'past'] },
+        { w: 'seven', b: ['Medio', '/s·ɛ·v·ə·n/', 'Común', 'Adjetivo', '1 paso', 'raíz: seven', '0'] },
+        { w: 'cigarettes', b: ['Agudo /s/', '/s·ɪ·g·ə·r·ɛ·t·s/', 'Poco común', 'Sustantivo', '1 paso', 'raíz: cigarette', '0'] },
+        { w: '...', isEllipsis: true },
+        { w: 'people', b: ['Medio', '/p·i·p·ə·l/', 'Muy común', 'Sustantivo', 'Centro (0)', 'raíz: people', '0'] },
+        { w: 'who', b: ['Grave', '/h·u/', 'Muy común', 'Pronombre', '1 paso', '—', '0'] },
+        { w: 'have', b: ['Medio', '/h·æ·v/', 'Muy común', 'Auxiliar', '1 paso', '—', 'No pasado (1)'], hi: [2, 3, 'np'] },
+        { w: 'never', b: ['Medio', '/n·ɛ·v·ɚ/', 'Común', 'Adverbio', '1 paso', 'raíz: never', '0'] },
+        { w: 'smoked', b: ['Agudo /s,t/', '/s·m·oʊ·k·t/', 'Poco común', 'No personal', 'Subord. (1)', 'raíz: smoke', '0 (apagado)'], hi: [0, 1, 2, 3, 4, 5] }
+      ];
+
+      var BAND_INFO = {
+        '0': {
+          theme: 'ctrl', cap: 'Capa 1 enfocada (7 columnas)',
+          kicker: 'Lo que ve la Banda 1 (Espectro de sonido WAV):',
+          tag: 'Banda 1 de 7 · Control acústico (7 columnas)',
+          title: 'Para el oído físico, los dos «smoked» suenan prácticamente igual',
+          desc: 'Mide el volumen y la energía grave o aguda del micrófono (80 a 8,000 Hz). Tanto en el primer smoked como en el segundo brillan las mismas frecuencias agudas por la /s/ inicial y la /t/ final. Descuenta la respuesta auditiva pura al timbre de la voz.'
         },
-        street: {
-          shortStart: 117.45, shortEnd: 120.25, fullStart: 117.45, fullEnd: 130.6, defaultCursor: 118.48,
-          gloss: '«Y la persona se acerca, y pude ver que es una mujer.»',
-          note: 'En Banda 4 se observa cómo could activa Aux. sin bajar a Banda 7, see entra como No pers., y tanto comes como la contracción it\'s encienden non_past en verde.',
-          arcs: [[3, 0], [3, 2], [2, 1], [3, 4], [3, 8], [8, 5], [8, 6], [8, 7], [8, 9], [9, 11], [11, 10]],
-          units: [
-            [117.50, 123.58, [0.30, 0.74, 0.62, 0.32, 0.50, 0.82, 0.20, 0.44, 0.68, 0.24], 'Oración constante · Lemas: person · come · close · see · woman'],
-            [123.92, 130.49, [0.72, 0.36, 0.26, 0.78, 0.66, 0.32, 0.60, 0.80, 0.42, 0.58], 'Oración 2 · cry · see · compose · shoe']
-          ],
-          words: [
-            [117.50, 117.92, 'And', 7.4, [5], 3, 1, -1], [117.92, 117.99, 'the', 7.7, [6], 1, 2, -1],
-            [117.99, 118.34, 'person', 5.6, [0], 1, 1, -1], [118.34, 118.62, 'comes', 5.4, [], 0, 0, 1],
-            [118.62, 118.97, 'closer,', 4.9, [2], 1, 1, -1], [118.97, 119.06, 'and', 7.4, [5], 2, 1, -1],
-            [119.06, 119.11, 'I', 7.4, [3], 2, 2, -1], [119.11, 119.27, 'could', 6.4, [8], 1, 2, -1],
-            [119.27, 119.44, 'see', 6.2, [7], 5, 1, -1], [119.44, 119.59, 'it\'s', 6.5, [3, 8], 1, 2, 1],
-            [119.59, 119.64, 'a', 7.4, [6], 1, 4, -1], [119.64, 120.09, 'woman.', 5.6, [0], 2, 3, -1],
-            [120.68, 120.78, 'And', 7.4, [5], 4, 1, -1], [120.78, 120.91, 'then', 6.3, [2], 3, 1, -1],
-            [120.91, 121.02, 'I', 7.4, [3], 2, 1, -1], [121.02, 121.25, 'can', 6.6, [8], 1, 1, -1],
-            [121.25, 121.55, 'see', 6.2, [7], 0, 0, -1], [121.73, 121.89, 'she', 6.5, [3], 1, 2, -1],
-            [121.89, 122.02, 'has', 6.5, [], 2, 1, 1], [122.02, 122.10, 'her', 6.4, [6], 1, 3, -1],
-            [122.10, 122.49, 'hands', 5.4, [0], 2, 2, -1], [122.49, 122.59, 'in', 7.3, [4], 3, 2, -1],
-            [122.59, 122.82, 'her', 6.4, [6], 1, 4, -1], [123.11, 123.58, 'face.', 5.5, [0], 2, 3, -1],
-            [124.07, 124.30, 'She\'s', 5.8, [3, 8], 1, 1, 1], [124.30, 124.76, 'crying.', 4.6, [7], 0, 0, -1],
-            [125.07, 125.21, 'And', 7.4, [5], 3, 1, -1], [125.21, 125.43, 'then', 6.3, [2], 2, 1, -1],
-            [125.43, 125.64, 'she', 6.5, [3], 1, 1, -1], [125.64, 125.90, 'sees', 4.7, [], 0, 0, 1],
-            [125.90, 126.01, 'me,', 6.6, [3], 1, 1, -1], [126.01, 126.15, 'and', 7.4, [5], 3, 1, -1],
-            [126.15, 126.31, 'she', 6.5, [3], 1, 2, -1], [126.31, 126.80, 'composes', 3.1, [], 4, 1, 1],
-            [126.80, 127.24, 'herself,', 4.9, [3], 1, 2, -1], [127.61, 127.94, 'and', 7.4, [5], 2, 1, -1],
-            [127.94, 128.08, 'she', 6.5, [3], 1, 2, -1], [128.08, 128.31, 'gets', 5.4, [], 5, 1, 1],
-            [128.31, 128.87, 'closer', 4.9, [2], 1, 2, -1], [128.87, 128.98, 'and', 7.4, [5], 2, 2, -1],
-            [128.98, 129.05, 'I', 7.4, [3], 1, 3, -1], [129.19, 129.37, 'see', 6.2, [], 4, 2, 1],
-            [129.37, 129.53, 'she', 6.5, [3], 1, 4, -1], [129.53, 129.77, 'has', 6.5, [], 2, 3, 1],
-            [129.77, 129.89, 'no', 6.6, [6], 1, 5, -1], [129.89, 130.24, 'shoes', 4.9, [0], 2, 4, -1],
-            [130.24, 130.49, 'on.', 7.0, [2], 3, 4, -1]
-          ],
-          phones: [
-            [117.50, 117.71, 'AE1'], [117.71, 117.89, 'N'], [117.89, 117.92, 'D'], [117.92, 117.95, 'DH'], [117.95, 117.99, 'AH0'],
-            [117.99, 118.08, 'P'], [118.08, 118.18, 'ER1'], [118.18, 118.26, 'S'], [118.26, 118.29, 'AH0'], [118.29, 118.34, 'N'],
-            [118.34, 118.44, 'K'], [118.44, 118.48, 'AH1'], [118.48, 118.53, 'M'], [118.53, 118.62, 'Z'], [118.62, 118.70, 'K'],
-            [118.70, 118.74, 'L'], [118.74, 118.86, 'OW1'], [118.86, 118.93, 'S'], [118.93, 118.97, 'ER0'], [118.97, 119.00, 'AH0'],
-            [119.00, 119.03, 'N'], [119.03, 119.06, 'D'], [119.06, 119.11, 'AY1'], [119.11, 119.20, 'K'], [119.20, 119.23, 'UH1'],
-            [119.23, 119.27, 'D'], [119.27, 119.36, 'S'], [119.36, 119.44, 'IY1'], [119.44, 119.49, 'IH1'], [119.49, 119.55, 'T'],
-            [119.55, 119.59, 'S'], [119.59, 119.64, 'AH0'], [119.64, 119.77, 'W'], [119.77, 119.81, 'UH1'], [119.81, 119.89, 'M'],
-            [119.89, 119.94, 'AH0'], [119.94, 120.09, 'N'], [120.68, 120.71, 'AH0'], [120.71, 120.75, 'N'], [120.75, 120.78, 'D'],
-            [120.78, 120.81, 'DH'], [120.81, 120.87, 'EH1'], [120.87, 120.91, 'N'], [120.91, 121.02, 'AY1'], [121.02, 121.11, 'K'],
-            [121.11, 121.14, 'AH0'], [121.14, 121.25, 'N'], [121.25, 121.32, 'S'], [121.32, 121.55, 'IY1'], [121.73, 121.81, 'SH'],
-            [121.81, 121.89, 'IY1'], [121.89, 121.92, 'HH'], [121.92, 121.99, 'AE1'], [121.99, 122.02, 'Z'], [122.02, 122.05, 'HH'],
-            [122.05, 122.10, 'ER1'], [122.10, 122.22, 'HH'], [122.22, 122.38, 'AE1'], [122.38, 122.43, 'N'], [122.43, 122.46, 'D'],
-            [122.46, 122.49, 'Z'], [122.49, 122.54, 'IH1'], [122.54, 122.59, 'N'], [122.59, 122.62, 'HH'], [122.62, 122.82, 'ER0'],
-            [123.11, 123.15, 'F'], [123.15, 123.40, 'EY1'], [123.40, 123.58, 'S'], [123.92, 124.07, 'OW1'], [124.07, 124.20, 'SH'],
-            [124.20, 124.23, 'IY1'], [124.23, 124.30, 'Z'], [124.30, 124.38, 'K'], [124.38, 124.44, 'R'], [124.44, 124.66, 'AY1'],
-            [124.66, 124.69, 'IH0'], [124.69, 124.76, 'NG'], [125.07, 125.15, 'AE1'], [125.15, 125.18, 'N'], [125.18, 125.21, 'D'],
-            [125.21, 125.24, 'DH'], [125.24, 125.35, 'EH1'], [125.35, 125.43, 'N'], [125.43, 125.56, 'SH'], [125.56, 125.64, 'IY1'],
-            [125.64, 125.69, 'S'], [125.69, 125.87, 'IY1'], [125.87, 125.90, 'Z'], [125.90, 125.96, 'M'], [125.96, 126.01, 'IY1'],
-            [126.01, 126.07, 'AE1'], [126.07, 126.11, 'N'], [126.11, 126.15, 'D'], [126.15, 126.22, 'SH'], [126.22, 126.31, 'IY1'],
-            [126.31, 126.38, 'K'], [126.38, 126.41, 'AH0'], [126.41, 126.47, 'M'], [126.47, 126.52, 'P'], [126.52, 126.65, 'OW1'],
-            [126.65, 126.69, 'Z'], [126.69, 126.77, 'AH0'], [126.77, 126.80, 'Z'], [126.80, 126.83, 'HH'], [126.83, 126.92, 'ER0'],
-            [126.92, 127.00, 'S'], [127.00, 127.06, 'EH1'], [127.06, 127.20, 'L'], [127.20, 127.24, 'F'], [127.61, 127.77, 'AE1'],
-            [127.77, 127.90, 'N'], [127.90, 127.94, 'D'], [127.94, 128.02, 'SH'], [128.02, 128.08, 'IY1'], [128.08, 128.14, 'G'],
-            [128.14, 128.22, 'IH1'], [128.22, 128.27, 'T'], [128.27, 128.31, 'S'], [128.31, 128.43, 'K'], [128.43, 128.46, 'L'],
-            [128.46, 128.55, 'OW1'], [128.55, 128.68, 'Z'], [128.68, 128.87, 'ER0'], [128.87, 128.92, 'AE1'], [128.92, 128.95, 'N'],
-            [128.95, 128.98, 'D'], [128.98, 129.05, 'AY1'], [129.19, 129.22, 'S'], [129.22, 129.37, 'IY1'], [129.37, 129.48, 'SH'],
-            [129.48, 129.53, 'IY1'], [129.53, 129.62, 'HH'], [129.62, 129.68, 'AE1'], [129.68, 129.77, 'Z'], [129.77, 129.84, 'N'],
-            [129.84, 129.89, 'OW1'], [129.89, 130.02, 'SH'], [130.02, 130.19, 'UW1'], [130.19, 130.24, 'Z'], [130.24, 130.42, 'AA1'],
-            [130.42, 130.49, 'N']
-          ]
+        '1': {
+          theme: 'ctrl', cap: 'Capa 2 enfocada (12 columnas)',
+          kicker: 'Lo que ve la Banda 2 (Sonidos articulados):',
+          tag: 'Banda 2 de 7 · Control fonológico (12 columnas)',
+          title: 'Descompone cada palabra en los movimientos de labios, lengua y cuerdas vocales',
+          desc: 'Ambas apariciones de smoked activan exactamente la misma secuencia de cinco fonemas (/s·m·oʊ·k·t/). Así el modelo no confunde el gesto físico de pronunciar una consonante final con el significado de pasado.'
         },
-        smoked: {
-          shortStart: 560.95, shortEnd: 566.45, fullStart: 560.95, fullEnd: 572.6, defaultCursor: 561.28,
-          gloss: '«Me fumé los siete cigarrillos de camino a casa. Y la gente que nunca ha fumado cigarrillos...»',
-          note: 'Compara los dos usos de smoked: en 561.2 s enciende past (púrpura), pero en 565.5 s cambia a No pers. en Banda 4 porque el tiempo pasa al auxiliar have (verde).',
-          arcs: [[1, 0], [1, 4], [4, 2], [4, 3], [1, 5], [5, 7], [7, 6], [7, 8], [10, 14], [14, 11], [14, 12], [14, 13], [14, 15]],
-          units: [
-            [560.98, 563.74, [0.82, 0.55, 0.30, 0.68, 0.44, 0.72, 0.25, 0.58, 0.36, 0.62], 'Oración 1 · smoke · seven · cigarette · way · home'],
-            [564.28, 570.19, [0.40, 0.25, 0.78, 0.35, 0.70, 0.28, 0.64, 0.48, 0.75, 0.20], 'Oración 2 · people · never · smoke · cigarette'],
-            [570.96, 572.47, [0.62, 0.68, 0.42, 0.54, 0.32, 0.60, 0.72, 0.30, 0.46, 0.76], 'Oración 3 · have']
-          ],
-          words: [
-            [560.98, 561.12, 'I', 7.4, [3], 1, 1, -1], [561.12, 561.43, 'smoked', 4.5, [], 0, 0, 0],
-            [561.43, 561.83, 'all', 6.8, [6], 2, 2, -1], [561.83, 562.17, 'seven', 5.1, [1], 1, 2, -1],
-            [562.17, 562.79, 'cigarettes', 4.3, [0], 3, 1, -1], [562.92, 563.05, 'on', 7.0, [4], 4, 1, -1],
-            [563.05, 563.13, 'the', 7.7, [6], 1, 3, -1], [563.13, 563.30, 'way', 6.1, [0], 2, 2, -1],
-            [563.30, 563.74, 'home.', 5.9, [2], 1, 3, -1], [564.28, 564.39, 'And', 7.4, [5], 6, 1, -1],
-            [564.39, 564.65, 'people', 6.3, [0], 5, 1, -1], [564.65, 564.97, 'who', 6.5, [3], 3, 3, -1],
-            [564.97, 565.14, 'have', 6.9, [8], 2, 3, 1], [565.14, 565.38, 'never', 6.0, [2], 1, 3, -1],
-            [565.38, 565.68, 'smoked', 4.5, [7], 4, 2, -1], [565.68, 566.33, 'cigarettes', 4.3, [0], 1, 3, -1],
-            [567.16, 567.48, 'just', 6.4, [2], 1, 1, -1], [567.48, 567.76, 'think:', 6.3, [], 0, 0, 1],
-            [567.76, 568.15, 'ick,', 2.8, [1], 1, 1, -1], [568.63, 569.36, 'disgusting', 4.2, [1], 2, 1, -1],
-            [569.36, 569.50, 'and', 7.4, [5], 1, 2, -1], [569.50, 570.19, 'poison.', 4.4, [0], 2, 2, -1],
-            [570.96, 571.16, 'But', 7.1, [5], 4, 1, -1], [571.16, 571.57, 'unless', 5.1, [5], 3, 2, -1],
-            [571.57, 571.76, 'you\'ve', 5.6, [3, 8], 1, 2, 1], [571.76, 572.05, 'had', 6.8, [7], 0, 0, -1],
-            [572.05, 572.47, 'them,', 6.5, [3], 1, 1, -1]
-          ],
-          phones: [
-            [560.98, 561.12, 'AY1'], [561.12, 561.17, 'S'], [561.17, 561.22, 'M'], [561.22, 561.33, 'OW1'], [561.33, 561.36, 'K'], [561.36, 561.43, 'T'],
-            [561.43, 561.74, 'AO1'], [561.74, 561.83, 'L'], [561.83, 561.91, 'S'], [561.91, 561.99, 'EH1'], [561.99, 562.04, 'V'], [562.04, 562.07, 'AH0'],
-            [562.07, 562.17, 'N'], [562.17, 562.23, 'S'], [562.23, 562.32, 'IH2'], [562.32, 562.41, 'G'], [562.41, 562.49, 'ER0'], [562.49, 562.59, 'EH1'],
-            [562.59, 562.63, 'T'], [562.63, 562.79, 'S'], [562.92, 563.01, 'AA1'], [563.01, 563.05, 'N'], [563.05, 563.08, 'DH'], [563.08, 563.13, 'AH1'],
-            [563.13, 563.21, 'W'], [563.21, 563.30, 'EY1'], [563.30, 563.39, 'HH'], [563.39, 563.65, 'OW1'], [563.65, 563.74, 'M'], [564.28, 564.33, 'AE1'],
-            [564.33, 564.36, 'N'], [564.36, 564.39, 'D'], [564.39, 564.42, 'P'], [564.42, 564.52, 'IY1'], [564.52, 564.55, 'P'], [564.55, 564.60, 'AH0'],
-            [564.60, 564.65, 'L'], [564.65, 564.68, 'HH'], [564.68, 564.97, 'UW1'], [564.97, 565.06, 'HH'], [565.06, 565.11, 'AE1'], [565.11, 565.14, 'V'],
-            [565.14, 565.23, 'N'], [565.23, 565.27, 'EH1'], [565.27, 565.32, 'V'], [565.32, 565.38, 'ER0'], [565.38, 565.48, 'S'], [565.48, 565.55, 'M'],
-            [565.55, 565.62, 'OW1'], [565.62, 565.65, 'K'], [565.65, 565.68, 'T'], [565.68, 565.77, 'S'], [565.77, 565.85, 'IH2'], [565.85, 565.93, 'G'],
-            [565.93, 566.00, 'ER0'], [566.00, 566.09, 'EH1'], [566.09, 566.15, 'T'], [566.15, 566.33, 'S'], [567.16, 567.24, 'JH'], [567.24, 567.33, 'AH0'],
-            [567.33, 567.45, 'S'], [567.45, 567.48, 'T'], [567.48, 567.52, 'TH'], [567.52, 567.58, 'IH1'], [567.58, 567.71, 'NG'], [567.71, 567.76, 'K'],
-            [567.76, 567.90, 'IH1'], [567.90, 568.15, 'K'], [568.63, 568.68, 'D'], [568.68, 568.72, 'IH2'], [568.72, 568.84, 'S'], [568.84, 568.91, 'G'],
-            [568.91, 569.06, 'AH1'], [569.06, 569.10, 'S'], [569.10, 569.20, 'T'], [569.20, 569.25, 'IH0'], [569.25, 569.36, 'NG'], [569.36, 569.40, 'AE1'],
-            [569.40, 569.46, 'N'], [569.46, 569.50, 'D'], [569.50, 569.61, 'P'], [569.61, 569.83, 'OY1'], [569.83, 569.90, 'Z'], [569.90, 569.96, 'AH0'],
-            [569.96, 570.19, 'N'], [570.96, 571.03, 'B'], [571.03, 571.09, 'AH1'], [571.09, 571.16, 'T'], [571.16, 571.21, 'AH0'], [571.21, 571.25, 'N'],
-            [571.25, 571.33, 'L'], [571.33, 571.41, 'EH1'], [571.41, 571.57, 'S'], [571.57, 571.67, 'Y'], [571.67, 571.70, 'UW1'], [571.70, 571.76, 'V'],
-            [571.76, 571.83, 'HH'], [571.83, 572.00, 'AE1'], [572.00, 572.05, 'D'], [572.05, 572.08, 'DH'], [572.08, 572.20, 'EH1'], [572.20, 572.47, 'M']
-          ]
+        '2': {
+          theme: 'ctrl', cap: 'Capa 3 enfocada (4 columnas)',
+          kicker: 'Lo que ve la Banda 3 (Frecuencia de uso y longitud):',
+          tag: 'Banda 3 de 7 · Control léxico-estadístico (4 columnas)',
+          title: 'Distingue palabras cortas y cotidianas frente a palabras menos habituales',
+          desc: 'Palabras como I, who o el auxiliar have son breves y sumamente frecuentes en inglés, por lo que exigen menos esfuerzo de reconocimiento que smoked o cigarettes. Esta capa descuenta esa facilidad de acceso.'
+        },
+        '3': {
+          theme: 'ctrl', cap: 'Capa 4 enfocada (9 columnas)',
+          kicker: 'Lo que ve la Banda 4 (Clases de palabras y auxiliares):',
+          tag: 'Banda 4 de 7 · Control categorial y auxiliaridad (9 columnas)',
+          title: 'Aquí los dos «smoked» se separan: el segundo pasa al control de verbos no personales',
+          desc: 'El primer smoked no activa ningún control categorial porque es un verbo conjugado. En cambio, en «have never smoked», have activa el canal Auxiliar y el segundo smoked queda capturado como Verbo no personal.'
+        },
+        '4': {
+          theme: 'ctrl', cap: 'Capa 5 enfocada (2 columnas)',
+          kicker: 'Lo que ve la Banda 5 (Distancia y profundidad en la oración):',
+          tag: 'Banda 5 de 7 · Control sintáctico (2 columnas)',
+          title: 'Mide cuántos escalones gramaticales cuesta enlazar cada palabra',
+          desc: 'El primer smoked es el núcleo directo de su oración (0 escalones de profundidad), mientras que el segundo cuelga dentro de una cláusula subordinada («people who...»). Controla el esfuerzo de armar la estructura de la frase.'
+        },
+        '5': {
+          theme: 'ctrl', cap: 'Capa 6 enfocada (10 columnas)',
+          kicker: 'Lo que ve la Banda 6 (Tema general de toda la oración):',
+          clause: 'Tema constante durante toda la oración (raíces sin tiempo: smoke · seven · cigarette · people · never)',
+          tag: 'Banda 6 de 7 · Control semántico LSA (10 columnas)',
+          title: 'Captura de qué trata la escena convirtiendo antes los verbos a su raíz neutra',
+          desc: 'Tanto smoked en pasado como smokes en presente se reducen a la misma raíz sin tiempo (smoke) y se resumen en un tema único para toda la oración. Así controla el tema de «fumar cigarrillos» sin robarse la marca de tiempo.'
+        },
+        '6': {
+          theme: 'tense', cap: 'Capa 7 enfocada (2 columnas objetivo)',
+          kicker: 'Lo que ve la Banda 7 (Flexión temporal de pasado vs. no pasado):',
+          tag: 'Banda 7 de 7 · Banda objetivo evaluada (2 columnas)',
+          title: 'Aísla únicamente quién lleva la conjugación de pasado (púrpura) o de no pasado (verde)',
+          desc: 'El primer smoked enciende la columna de pasado (púrpura). Cuatro segundos después, en «have never smoked», el segundo smoked queda apagado (0) porque quien porta el tiempo gramatical (no pasado, en verde) es el auxiliar have.'
+        },
+        all: {
+          theme: 'neutral', cap: 'Las 7 capas activas (46 columnas)',
+          kicker: 'Vista combinada sobre el mismo fragmento:',
+          tag: 'Síntesis de las 7 bandas simultáneas',
+          title: 'Seis capas limpian el terreno para que la séptima mida solo tiempo gramatical',
+          desc: 'Pulsa cualquiera de las 7 tarjetas apiladas a la izquierda (o los botones superiores) para volver translúcidas las demás capas y ver exactamente qué información retiene cada banda por separado.'
         }
       };
 
-      var cache = {};
-      function getMatrix46(key) {
-        if (cache[key]) return cache[key];
-        var sc = SCENES[key];
-        var nSteps = Math.round((sc.fullEnd - sc.fullStart) * 100);
-        var mat = new Array(46);
-        for (var r = 0; r < 46; r++) mat[r] = new Float32Array(nSteps);
+      function selectBand(key) {
+        var bKey = BAND_INFO[key] ? key : '6';
+        var info = BAND_INFO[bKey];
+        var isAll = (bKey === 'all');
+        var selIdx = isAll ? -1 : parseInt(bKey, 10);
 
-        for (var p = 0; p < sc.phones.length; p++) {
-          var ph = sc.phones[p];
-          var pf = phoneFeatures(ph[2]);
-          var i0 = Math.max(0, Math.round((ph[0] - sc.fullStart) * 100));
-          var i1 = Math.min(nSteps, Math.round((ph[1] - sc.fullStart) * 100));
-          for (var k = i0; k < i1; k++) {
-            for (var a = 0; a < 7; a++) mat[a][k] = pf.ac7[a];
-            for (var f = 0; f < 12; f++) mat[7 + f][k] = pf.p12[f];
+        /* Actualizar pastillas superiores */
+        var pills = root.querySelectorAll('.gv03-band-pill');
+        for (var p = 0; p < pills.length; p++) {
+          pills[p].classList.toggle('is-active', pills[p].getAttribute('data-band') === bKey);
+        }
+
+        /* Efecto rayos X idéntico al diseño original sobre las 7 capas apiladas */
+        for (var i = 0; i < 7; i++) {
+          if (isAll) {
+            cardNodes[i].style.opacity = '1';
+            cardNodes[i].style.transform = 'translate(0, 0)';
+          } else if (i === selIdx) {
+            cardNodes[i].style.opacity = '1';
+            cardNodes[i].style.transform = 'translate(-4px, -6px)';
+          } else {
+            cardNodes[i].style.opacity = (i > selIdx) ? '0.13' : '0.28';
+            cardNodes[i].style.transform = 'translate(0, 0)';
           }
         }
 
-        for (var w = 0; w < sc.words.length; w++) {
-          var wd = sc.words[w];
-          var w0 = Math.max(0, Math.round((wd[0] - sc.fullStart) * 100));
-          var w1 = Math.min(nSteps, Math.round((wd[1] - sc.fullStart) * 100));
-          var cleanLen = wd[2].replace(/[^a-zA-Z']/g, '').length;
-          var durN = Math.min(1, (wd[1] - wd[0]) / 0.65);
-          var zipfN = Math.min(1, Math.max(0.15, (wd[3] - 2.0) / 6.0));
-          var lenN = Math.min(1, cleanLen / 10.0);
-          var depN = Math.min(1, wd[5] / 7.0);
-          var depH = Math.min(1, wd[6] / 5.0);
-
-          for (var t = w0; t < w1; t++) {
-            mat[19][t] = 1.0; mat[20][t] = zipfN; mat[21][t] = lenN; mat[22][t] = durN;
-            for (var ci = 0; ci < wd[4].length; ci++) mat[23 + wd[4][ci]][t] = 1.0;
-            mat[32][t] = depN; mat[33][t] = depH;
-            if (wd[7] === 0) mat[44][t] = 1.0;
-            else if (wd[7] === 1) mat[45][t] = 1.0;
-          }
-        }
-
-        for (var u = 0; u < sc.units.length; u++) {
-          var un = sc.units[u];
-          var u0 = Math.max(0, Math.round((un[0] - sc.fullStart) * 100));
-          var u1 = Math.min(nSteps, Math.round((un[1] - sc.fullStart) * 100));
-          for (var tu = u0; tu < u1; tu++) {
-            for (var d = 0; d < 10; d++) mat[34 + d][tu] = un[2][d];
-          }
-        }
-
-        cache[key] = { nSteps: nSteps, mat: mat };
-        return cache[key];
-      }
-
-      var activeScene = 'escape';
-      var cursorTime = SCENES.escape.defaultCursor;
-      var isModalOpen = false;
-
-      var FULL_ROW_Y = [], FULL_BAND_BOUNDS = [], FULL_TOTAL_H = 0, stickyNodes = [];
-
-      function initSticky46() {
-        var y = 40, rowH = 11.5, gap = 1.5, bandGap = 7;
-        stickyCol.innerHTML = '';
-        var hdr = document.createElement('div');
-        hdr.className = 'gv03-sticky-lbl';
-        hdr.style.top = '8px'; hdr.style.height = '24px';
-        hdr.style.fontWeight = '700'; hdr.style.fontFamily = 'Poppins, sans-serif';
-        hdr.textContent = 'Texto mmBERT';
-        stickyCol.appendChild(hdr);
-
-        var rIdx = 0;
-        for (var b = 0; b < BANDS.length; b++) {
-          var bTop = y;
-          for (var k = 0; k < BANDS[b].count; k++) {
-            FULL_ROW_Y.push(y);
-            var lbl = document.createElement('div');
-            var extraCls = (rIdx === 44) ? ' is-past' : ((rIdx === 45) ? ' is-nonpast' : '');
-            lbl.className = 'gv03-sticky-lbl' + extraCls;
-            lbl.style.top = y + 'px'; lbl.style.height = rowH + 'px';
-            lbl.style.borderLeft = '3px solid ' + (rIdx === 45 ? '#1b7837' : BANDS[b].color);
-            lbl.textContent = ROW_NAMES[rIdx];
-            stickyCol.appendChild(lbl);
-            stickyNodes.push(lbl);
-            y += rowH + gap;
-            rIdx++;
-          }
-          FULL_BAND_BOUNDS.push({ top: bTop, bottom: y - gap, isTarget: !!BANDS[b].isTarget });
-          y += bandGap;
-        }
-        FULL_TOTAL_H = y + 22;
-        stickyCol.style.height = FULL_TOTAL_H + 'px';
-      }
-      initSticky46();
-
-      function buildReadout(sc, built, tSec) {
-        var idx = Math.min(built.nSteps - 1, Math.max(0, Math.floor((tSec - sc.fullStart) * 100)));
-        var wHit = null, phHit = null;
-        for (var i = 0; i < sc.words.length; i++) {
-          if (tSec >= sc.words[i][0] && tSec <= sc.words[i][1]) { wHit = sc.words[i]; break; }
-        }
-        for (var j = 0; j < sc.phones.length; j++) {
-          if (tSec >= sc.phones[j][0] && tSec <= sc.phones[j][1]) { phHit = sc.phones[j]; break; }
-        }
-
-        var h = '<span><b>Instante:</b> ' + tSec.toFixed(2) + ' s</span>';
-        if (wHit) {
-          h += '<span><b>Palabra:</b> «' + wHit[2] + '»</span>';
-          if (phHit) h += '<span><b>Fonema:</b> /' + phHit[2].replace(/[012]/g, '') + '/</span>';
-          if (wHit[4].length > 0) {
-            var cNames = wHit[4].map(function (c) { return CAT_NAMES[c]; }).join(' + ');
-            h += '<span><b>Banda 4:</b> ' + cNames + '</span>';
-          }
-          if (wHit[7] === 0) h += '<span class="tag-past">Banda 7: past = 1</span>';
-          else if (wHit[7] === 1) h += '<span class="tag-nonpast">Banda 7: non_past = 1</span>';
-          else h += '<span style="color:#6c7983;">Banda 7: 0</span>';
+        stackCaption.textContent = info.cap;
+        lensKicker.textContent = info.kicker;
+        if (info.clause) {
+          clauseBanner.hidden = false;
+          clauseBanner.textContent = info.clause;
         } else {
-          h += '<span style="color:#6c7983;">Silencio breve entre palabras</span>';
+          clauseBanner.hidden = true;
         }
-        return { html: h, colIdx: idx };
+
+        /* Renderizar las fichas limpias de cada palabra para esa banda */
+        var html = '';
+        for (var t = 0; t < TOKENS.length; t++) {
+          var tk = TOKENS[t];
+          if (tk.isEllipsis) {
+            html += '<div style="align-self:center; padding:0 4px; color:#64748b; font-weight:700;">[...]</div>';
+            continue;
+          }
+          var cls = 'gv03-wcard';
+          var badgeTxt = '';
+
+          if (isAll) {
+            badgeTxt = (t === 1) ? 'past = 1' : (t === 7 ? 'Aux + non_past' : (t === 9 ? 'No personal' : 'Control'));
+            if (t === 1) cls += ' is-lit-past';
+            else if (t === 7) cls += ' is-lit-np';
+            else if (t === 9) cls += ' is-lit-ctrl';
+          } else {
+            badgeTxt = tk.b[selIdx];
+            if (selIdx === 6) {
+              if (t === 1) cls += ' is-lit-past';
+              else if (t === 7) cls += ' is-lit-np';
+              else cls += ' is-muted';
+            } else {
+              var activeCtrl = (badgeTxt !== '—');
+              cls += activeCtrl ? ' is-lit-ctrl' : ' is-muted';
+            }
+          }
+
+          html +=
+            '<div class="' + cls + '">' +
+              '<span class="gv03-w-en">' + tk.w + '</span>' +
+              '<span class="gv03-w-badge">' + badgeTxt + '</span>' +
+            '</div>';
+        }
+        wordsFlow.innerHTML = html;
+
+        inspEl.setAttribute('data-theme', info.theme);
+        tagEl.textContent = info.tag;
+        titleEl.textContent = info.title;
+        descEl.textContent = info.desc;
       }
 
-      /* Radiografía pedagógica de 7 capas diferenciadas */
-      function renderMini() {
-        var sc = SCENES[activeScene];
-        var built = getMatrix46(activeScene);
-        var dpr = window.devicePixelRatio || 1;
-        var cssW = miniCanvas.clientWidth || 640;
-        var cssH = miniCanvas.clientHeight || 368;
-
-        if (miniCanvas.width !== Math.round(cssW * dpr) || miniCanvas.height !== Math.round(cssH * dpr)) {
-          miniCanvas.width = Math.round(cssW * dpr);
-          miniCanvas.height = Math.round(cssH * dpr);
-        }
-
-        var ctx = miniCanvas.getContext('2d');
-        ctx.save();
-        ctx.scale(dpr, dpr);
-        ctx.clearRect(0, 0, cssW, cssH);
-
-        var leftPad = 156, rightPad = 14;
-        var plotW = cssW - leftPad - rightPad;
-        var t0 = sc.shortStart, t1 = sc.shortEnd, dur = t1 - t0;
-        function tToX(t) { return leftPad + ((t - t0) / dur) * plotW; }
-
-        function drawRowBg(y, h, title, sub, accent, bg) {
-          ctx.fillStyle = bg || '#f7fafc';
-          ctx.fillRect(leftPad, y, plotW, h);
-          ctx.fillStyle = accent;
-          ctx.fillRect(leftPad - 5, y, 3, h);
-          ctx.textAlign = 'right';
-          ctx.fillStyle = accent === '#762a83' ? '#581c66' : '#26323b';
-          ctx.font = '600 10px Poppins, sans-serif';
-          ctx.fillText(title, leftPad - 9, sub ? (y + h / 2 - 5) : (y + h / 2 + 1));
-          if (sub) {
-            ctx.fillStyle = '#6b7983';
-            ctx.font = '500 8.6px Poppins, sans-serif';
-            ctx.fillText(sub, leftPad - 9, y + h / 2 + 7);
-          }
-        }
-
-        /* 0. Carril de palabras puntuadas (mmBERT) */
-        drawRowBg(6, 26, 'Palabras habladas', 'Puntuación mmBERT', '#0086b3', '#fbfdfe');
-        for (var w = 0; w < sc.words.length; w++) {
-          var wd = sc.words[w];
-          if (wd[1] <= t0 || wd[0] >= t1) continue;
-          var wx0 = Math.max(leftPad, tToX(wd[0])), wx1 = Math.min(leftPad + plotW, tToX(wd[1]));
-          var ww = Math.max(2, wx1 - wx0);
-          var tk = wd[7];
-          ctx.fillStyle = (tk === 0) ? '#f3e8f6' : ((tk === 1) ? '#e6f5ec' : '#eaeff4');
-          ctx.fillRect(wx0, 8, ww, 22);
-          ctx.font = (tk >= 0 ? '600 ' : '500 ') + '10px Poppins, sans-serif';
-          if (ww >= ctx.measureText(wd[2]).width + 4) {
-            ctx.fillStyle = (tk === 0) ? '#581c66' : ((tk === 1) ? '#145929' : '#232e36');
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText(wd[2], wx0 + ww / 2, 19);
-          }
-        }
-
-        /* 1. Banda 1: Espectrograma Mel de 6 franjas (graves abajo, agudos 8 kHz arriba) */
-        drawRowBg(40, 36, '1. Acústica (7)', 'Graves ↔ Agudos', '#3b5975', '#f4f8fb');
-        var i0 = Math.max(0, Math.round((t0 - sc.fullStart) * 100));
-        var i1 = Math.min(built.nSteps, Math.round((t1 - sc.fullStart) * 100));
-        var nVis = Math.max(1, i1 - i0);
-        var stepW = plotW / nVis;
-        var drawW = Math.max(1.2, stepW + 0.4);
-
-        for (var mb = 0; mb < 6; mb++) {
-          var my = 70 - mb * 5.2;
-          var mArr = built.mat[1 + mb];
-          for (var k = 0; k < nVis; k++) {
-            var mv = mArr[i0 + k];
-            if (mv <= 0.05) continue;
-            ctx.fillStyle = 'rgba(59, 89, 117, ' + (0.12 + 0.85 * mv).toFixed(2) + ')';
-            ctx.fillRect(leftPad + k * stepW, my, drawW, 4.4);
-          }
-        }
-
-        /* 2. Banda 2: Celdas fonema por fonema */
-        drawRowBg(84, 26, '2. Fonológica (12)', 'Sonidos individuales', '#4d6f8e', '#f8fafc');
-        ctx.textBaseline = 'middle';
-        for (var p = 0; p < sc.phones.length; p++) {
-          var ph = sc.phones[p];
-          if (ph[1] <= t0 || ph[0] >= t1) continue;
-          var px0 = Math.max(leftPad, tToX(ph[0])), px1 = Math.min(leftPad + plotW, tToX(ph[1]));
-          var pw = Math.max(1.5, px1 - px0);
-          var pf = phoneFeatures(ph[2]);
-          ctx.fillStyle = pf.isVowel ? '#e1ecf5' : '#cddceb';
-          ctx.fillRect(px0 + 0.4, 87, Math.max(1, pw - 0.8), 20);
-          ctx.strokeStyle = '#9bb3c7';
-          ctx.lineWidth = 0.7;
-          ctx.strokeRect(px0 + 0.4, 87, Math.max(1, pw - 0.8), 20);
-          ctx.font = '600 8.5px Poppins, sans-serif';
-          if (pw >= ctx.measureText(pf.clean).width + 3) {
-            ctx.fillStyle = '#2b4257';
-            ctx.textAlign = 'center';
-            ctx.fillText(pf.clean, px0 + pw / 2, 97);
-          }
-        }
-
-        /* 3. Banda 3: Columnas de frecuencia de uso léxico (Zipf) */
-        drawRowBg(118, 36, '3. Léxico-estad. (4)', 'Altura = cuán común', '#3b5975', '#f4f8fb');
-        for (var w3 = 0; w3 < sc.words.length; w3++) {
-          var wd3 = sc.words[w3];
-          if (wd3[1] <= t0 || wd3[0] >= t1) continue;
-          var x3a = Math.max(leftPad, tToX(wd3[0])), x3b = Math.min(leftPad + plotW, tToX(wd3[1]));
-          var w3w = Math.max(3, x3b - x3a - 2);
-          var zNorm = Math.min(1, Math.max(0.14, (wd3[3] - 2.2) / 5.6));
-          var barH = Math.round(zNorm * 28);
-          ctx.fillStyle = '#567a9c';
-          ctx.fillRect(x3a + 1, 151 - barH, w3w, barH);
-        }
-
-        /* 4. Banda 4: Etiquetas gramaticales y filtro de auxiliares/no personales */
-        drawRowBg(162, 26, '4. Categorial (9)', 'Clases y auxiliares', '#4d6f8e', '#f8fafc');
-        for (var w4 = 0; w4 < sc.words.length; w4++) {
-          var wd4 = sc.words[w4];
-          if (wd4[1] <= t0 || wd4[0] >= t1 || wd4[4].length === 0) continue;
-          var x4a = Math.max(leftPad, tToX(wd4[0])), x4b = Math.min(leftPad + plotW, tToX(wd4[1]));
-          var w4w = Math.max(3, x4b - x4a - 2);
-          /* Priorizar mostrar Aux. (8) o No pers. (7) cuando concurren */
-          var mainCat = wd4[4].indexOf(8) >= 0 ? 8 : (wd4[4].indexOf(7) >= 0 ? 7 : wd4[4][0]);
-          var isVerbCtrl = (mainCat === 7 || mainCat === 8);
-          ctx.fillStyle = isVerbCtrl ? '#d8eaf8' : '#e5edf3';
-          ctx.fillRect(x4a + 1, 165, w4w, 20);
-          ctx.strokeStyle = isVerbCtrl ? '#5c93bd' : '#bdcdd9';
-          ctx.strokeRect(x4a + 1, 165, w4w, 20);
-
-          ctx.font = '600 8.8px Poppins, sans-serif';
-          ctx.fillStyle = isVerbCtrl ? '#174970' : '#3a4a56';
-          ctx.textAlign = 'center';
-          var fullLbl = CAT_ES_SHORT[mainCat], tinyLbl = CAT_ES_TINY[mainCat];
-          if (w4w >= ctx.measureText(fullLbl).width + 4) {
-            ctx.fillText(fullLbl, x4a + 1 + w4w / 2, 175);
-          } else if (w4w >= ctx.measureText(tinyLbl).width + 2) {
-            ctx.fillText(tinyLbl, x4a + 1 + w4w / 2, 175);
-          }
-        }
-
-        /* 5. Banda 5: Arcos curvos de dependencia sintáctica */
-        drawRowBg(196, 42, '5. Sintáctica (2)', 'Arcos de dependencia', '#3b5975', '#f4f8fb');
-        var baseArcY = 232;
-        for (var aIdx = 0; aIdx < sc.arcs.length; aIdx++) {
-          var pair = sc.arcs[aIdx];
-          var wh = sc.words[pair[0]], wc = sc.words[pair[1]];
-          if (!wh || !wc) continue;
-          var xh = tToX((wh[0] + wh[1]) / 2);
-          var xc = tToX((wc[0] + wc[1]) / 2);
-          if (xh < leftPad || xh > leftPad + plotW || xc < leftPad || xc > leftPad + plotW) continue;
-          var span = Math.abs(xc - xh);
-          var peakY = Math.max(199, baseArcY - Math.min(31, 10 + span * 0.16));
-          ctx.strokeStyle = 'rgba(59, 89, 117, 0.72)';
-          ctx.lineWidth = 1.35;
-          ctx.beginPath();
-          ctx.moveTo(xh, baseArcY);
-          ctx.quadraticCurveTo((xh + xc) / 2, peakY, xc, baseArcY - 2);
-          ctx.stroke();
-
-          ctx.fillStyle = '#3b5975';
-          ctx.beginPath();
-          ctx.arc(xc, baseArcY, 2.2, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        /* 6. Banda 6: Bloques constantes por oración (LSA sin flexión temporal) */
-        drawRowBg(246, 28, '6. Semántica LSA (10)', 'Constante por oración', '#2b6a8a', '#f8fafc');
-        for (var u = 0; u < sc.units.length; u++) {
-          var un = sc.units[u];
-          if (un[1] <= t0 || un[0] >= t1) continue;
-          var ux0 = Math.max(leftPad, tToX(un[0])), ux1 = Math.min(leftPad + plotW, tToX(un[1]));
-          var uw = Math.max(4, ux1 - ux0);
-          ctx.fillStyle = (u % 2 === 0) ? '#dceef7' : '#d2e7f3';
-          ctx.fillRect(ux0, 249, uw, 22);
-          ctx.strokeStyle = '#7fb3ce';
-          ctx.strokeRect(ux0, 249, uw, 22);
-          if (uw > 80) {
-            ctx.save();
-            ctx.beginPath();
-            ctx.rect(ux0 + 4, 249, uw - 8, 22);
-            ctx.clip();
-            ctx.fillStyle = '#1b4f6b';
-            ctx.font = '600 9px Poppins, sans-serif';
-            ctx.textAlign = 'left';
-            ctx.fillText(un[3], ux0 + 7, 260);
-            ctx.restore();
-          }
-        }
-
-        /* 7. Banda 7: Pulsos objetivo en púrpura (past) y verde (non_past) */
-        drawRowBg(282, 44, '7. Tiempo gramatical', 'past vs. non_past', '#762a83', '#faf6fc');
-        ctx.strokeStyle = '#ebe3f0';
-        ctx.beginPath();
-        ctx.moveTo(leftPad, 304);
-        ctx.lineTo(leftPad + plotW, 304);
-        ctx.stroke();
-
-        for (var w7 = 0; w7 < sc.words.length; w7++) {
-          var wd7 = sc.words[w7];
-          if (wd7[7] < 0 || wd7[1] <= t0 || wd7[0] >= t1) continue;
-          var x7a = Math.max(leftPad, tToX(wd7[0])), x7b = Math.min(leftPad + plotW, tToX(wd7[1]));
-          var w7w = Math.max(4, x7b - x7a);
-          var isPast = (wd7[7] === 0);
-          var py7 = isPast ? 285 : 306;
-          ctx.fillStyle = isPast ? '#762a83' : '#1b7837';
-          ctx.fillRect(x7a, py7, w7w, 17);
-          ctx.font = '600 8.5px Poppins, sans-serif';
-          var tag7 = isPast ? 'past' : 'non_past';
-          if (w7w >= ctx.measureText(tag7).width + 4) {
-            ctx.fillStyle = '#ffffff';
-            ctx.textAlign = 'center';
-            ctx.fillText(tag7, x7a + w7w / 2, py7 + 8.5);
-          }
-        }
-
-        /* Eje inferior de segundos y cursor interactivo */
-        var axY = 336;
-        ctx.strokeStyle = '#cfd9e0';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(leftPad, axY);
-        ctx.lineTo(leftPad + plotW, axY);
-        ctx.stroke();
-
-        ctx.fillStyle = '#64717a';
-        ctx.font = '500 9.6px Poppins, sans-serif';
-        ctx.textAlign = 'center';
-        for (var s = Math.ceil(t0 * 2) / 2; s <= t1; s += 0.5) {
-          var tx = tToX(s);
-          ctx.beginPath();
-          ctx.moveTo(tx, axY);
-          ctx.lineTo(tx, axY + 4);
-          ctx.stroke();
-          ctx.fillText(s.toFixed(1) + ' s', tx, axY + 13);
-        }
-
-        var cClamped = Math.min(t1, Math.max(t0, cursorTime));
-        var curX = tToX(cClamped);
-        ctx.strokeStyle = '#1e2328';
-        ctx.lineWidth = 1.25;
-        ctx.beginPath();
-        ctx.moveTo(curX, 6);
-        ctx.lineTo(curX, axY);
-        ctx.stroke();
-
-        ctx.restore();
-        glossEl.textContent = sc.gloss;
-        sceneNote.textContent = sc.note;
-        miniReadout.innerHTML = buildReadout(sc, built, cClamped).html;
-      }
-
-      function renderFull46() {
-        if (!isModalOpen) return;
-        var sc = SCENES[activeScene];
-        var built = getMatrix46(activeScene);
-        var dpr = window.devicePixelRatio || 1;
-
-        var availW = modalScroll.clientWidth - stickyCol.offsetWidth - 4;
-        var dur = sc.fullEnd - sc.fullStart;
-        var cssW = Math.max(availW, Math.round(dur * 96));
-        var cssH = FULL_TOTAL_H;
-
-        fullCanvas.style.width = cssW + 'px';
-        fullCanvas.style.height = cssH + 'px';
-        if (fullCanvas.width !== Math.round(cssW * dpr) || fullCanvas.height !== Math.round(cssH * dpr)) {
-          fullCanvas.width = Math.round(cssW * dpr);
-          fullCanvas.height = Math.round(cssH * dpr);
-        }
-
-        var ctx = fullCanvas.getContext('2d');
-        ctx.save();
-        ctx.scale(dpr, dpr);
-        ctx.clearRect(0, 0, cssW, cssH);
-
-        var plotW = cssW - 18;
-        function tToX(t) { return ((t - sc.fullStart) / dur) * plotW; }
-
-        ctx.fillStyle = '#fbfdfe';
-        ctx.fillRect(0, 6, plotW, 28);
-        ctx.strokeStyle = '#e4ecf0';
-        ctx.strokeRect(0, 6, plotW, 28);
-        ctx.textBaseline = 'middle';
-
-        for (var w = 0; w < sc.words.length; w++) {
-          var wd = sc.words[w];
-          var wx0 = tToX(wd[0]), wx1 = tToX(wd[1]);
-          var ww = Math.max(2, wx1 - wx0);
-          var tKind = wd[7];
-
-          ctx.fillStyle = (tKind === 0) ? '#f3e8f6' : ((tKind === 1) ? '#e6f5ec' : '#edf2f6');
-          ctx.fillRect(wx0, 8, ww, 24);
-          if (tKind >= 0) {
-            ctx.fillStyle = (tKind === 0) ? '#762a83' : '#1b7837';
-            ctx.fillRect(wx0, 30, ww, 2);
-          }
-          if (ww > 14) {
-            ctx.fillStyle = (tKind === 0) ? '#581c66' : ((tKind === 1) ? '#145929' : '#26313a');
-            ctx.font = (tKind >= 0 ? '600 ' : '500 ') + '10px Poppins, sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(wd[2], wx0 + ww / 2, 20);
-          }
-        }
-
-        for (var b = 0; b < FULL_BAND_BOUNDS.length; b++) {
-          var bb = FULL_BAND_BOUNDS[b];
-          ctx.fillStyle = bb.isTarget ? '#faf6fc' : (b % 2 === 0 ? '#f9fbfc' : '#f3f7fa');
-          ctx.fillRect(0, bb.top - 1, plotW, (bb.bottom - bb.top) + 2);
-        }
-
-        var stepW = plotW / built.nSteps;
-        var drawW = Math.max(1.15, stepW + 0.35);
-
-        for (var r = 0; r < 46; r++) {
-          var ry = FULL_ROW_Y[r];
-          var arr = built.mat[r];
-          var isLsa = (r >= 34 && r <= 43);
-
-          for (var c = 0; c < built.nSteps; c++) {
-            var v = arr[c];
-            if (v <= 0.01) continue;
-            if (r === 44) ctx.fillStyle = '#762a83';
-            else if (r === 45) ctx.fillStyle = '#1b7837';
-            else if (isLsa) ctx.fillStyle = 'rgba(43, 106, 138, ' + (0.22 + 0.72 * v).toFixed(2) + ')';
-            else ctx.fillStyle = 'rgba(59, 89, 117, ' + (0.24 + 0.72 * v).toFixed(2) + ')';
-            ctx.fillRect(c * stepW, ry + 1, drawW, 9.5);
-          }
-        }
-
-        var axY = FULL_BAND_BOUNDS[6].bottom + 9;
-        ctx.strokeStyle = '#cfd9e0';
-        ctx.beginPath();
-        ctx.moveTo(0, axY);
-        ctx.lineTo(plotW, axY);
-        ctx.stroke();
-
-        ctx.fillStyle = '#64717a';
-        ctx.font = '500 10px Poppins, sans-serif';
-        ctx.textAlign = 'center';
-        for (var s = Math.ceil(sc.fullStart); s <= Math.floor(sc.fullEnd); s++) {
-          var tx = tToX(s);
-          ctx.beginPath();
-          ctx.moveTo(tx, axY);
-          ctx.lineTo(tx, axY + 4);
-          ctx.stroke();
-          ctx.fillText(s + ' s', tx, axY + 12);
-        }
-
-        var cClamped = Math.min(sc.fullEnd, Math.max(sc.fullStart, cursorTime));
-        var curX = tToX(cClamped);
-        ctx.strokeStyle = '#1e2328';
-        ctx.lineWidth = 1.3;
-        ctx.beginPath();
-        ctx.moveTo(curX, 6);
-        ctx.lineTo(curX, axY);
-        ctx.stroke();
-
-        ctx.restore();
-
-        var rData = buildReadout(sc, built, cClamped);
-        fullReadout.innerHTML = rData.html;
-
-        for (var n = 0; n < 46; n++) {
-          stickyNodes[n].classList.toggle('is-lit', built.mat[n][rData.colIdx] > 0.05);
-        }
-      }
-
-      function setScene(key) {
-        if (!SCENES[key]) return;
-        activeScene = key;
-        cursorTime = SCENES[key].defaultCursor;
-
-        var b1 = cardRoot.querySelectorAll('[data-scene]');
-        for (var i = 0; i < b1.length; i++) b1[i].classList.toggle('is-active', b1[i].getAttribute('data-scene') === key);
-
-        var b2 = modal.querySelectorAll('[data-modal-scene]');
-        for (var j = 0; j < b2.length; j++) b2[j].classList.toggle('is-active', b2[j].getAttribute('data-modal-scene') === key);
-
-        renderMini();
-        if (isModalOpen) {
-          modalScroll.scrollLeft = 0;
-          renderFull46();
-        }
-      }
-
-      function scrubMini(clientX) {
-        var rect = miniCanvas.getBoundingClientRect();
-        var leftPad = 156;
-        var plotW = rect.width - leftPad - 14;
-        if (plotW <= 0) return;
-        var ratio = Math.min(1, Math.max(0, (clientX - rect.left - leftPad) / plotW));
-        var sc = SCENES[activeScene];
-        cursorTime = sc.shortStart + ratio * (sc.shortEnd - sc.shortStart);
-        renderMini();
-      }
-
-      function scrubFull(clientX) {
-        var rect = fullCanvas.getBoundingClientRect();
-        var plotW = rect.width - 18;
-        if (plotW <= 0) return;
-        var ratio = Math.min(1, Math.max(0, (clientX - rect.left) / plotW));
-        var sc = SCENES[activeScene];
-        cursorTime = sc.fullStart + ratio * (sc.fullEnd - sc.fullStart);
-        renderFull46();
-      }
-
-      miniCanvas.addEventListener('mousemove', function (e) { scrubMini(e.clientX); });
-      miniCanvas.addEventListener('click', function (e) { scrubMini(e.clientX); });
-
-      fullCanvas.addEventListener('mousemove', function (e) { scrubFull(e.clientX); });
-      fullCanvas.addEventListener('click', function (e) { scrubFull(e.clientX); });
-
-      cardRoot.addEventListener('click', function (e) {
-        var scBtn = e.target.closest('[data-scene]');
-        if (scBtn) setScene(scBtn.getAttribute('data-scene'));
+      root.addEventListener('click', function (e) {
+        var target = e.target.closest('[data-band]');
+        if (target) selectBand(target.getAttribute('data-band'));
       });
 
-      document.getElementById('gv03-open-modal').addEventListener('click', function () {
-        isModalOpen = true;
-        modal.hidden = false;
-        document.body.style.overflow = 'hidden';
-        renderFull46();
-      });
-
-      function closeModal() {
-        isModalOpen = false;
-        modal.hidden = true;
-        document.body.style.overflow = '';
-        renderMini();
-      }
-
-      document.getElementById('gv03-close-modal').addEventListener('click', closeModal);
-      modal.addEventListener('click', function (e) {
-        if (e.target === modal) closeModal();
-        var mBtn = e.target.closest('[data-modal-scene]');
-        if (mBtn) setScene(mBtn.getAttribute('data-modal-scene'));
-      });
-
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && isModalOpen) closeModal();
-      });
-
-      window.addEventListener('resize', function () {
-        renderMini();
-        if (isModalOpen) renderFull46();
-      });
-
-      renderMini();
+      selectBand('6');
     })();
-    /* 7. Figura 4 (gv04): Ola sanguínea de 32 s + barrido empírico real de 0 a 20 s en los 10 sujetos */
+    /* 7. Figura 4 (gv04): Cerebro iluminándose lentamente + fotos del escáner cada 2.0 s */
     (function () {
       var root = document.getElementById('gv04-root');
       var canvas = document.getElementById('gv04-canvas');
-      var readout = document.getElementById('gv04-readout');
-      var foot = document.getElementById('gv04-foot');
-      var lagBar = document.getElementById('gv04-lag-bar');
-      var lagSlider = document.getElementById('gv04-lag-slider');
-      var lagLbl = document.getElementById('gv04-lag-lbl');
+      var playBtn = document.getElementById('gv04-play-btn');
+      var slider = document.getElementById('gv04-slider');
+      var timeLbl = document.getElementById('gv04-time-lbl');
+      var wordPill = document.getElementById('gv04-word-pill');
+      var wordTxt = document.getElementById('gv04-word-txt');
+      var glowOuter = document.getElementById('gv04-glow-outer');
+      var glowInner = document.getElementById('gv04-glow-inner');
+      var oxyLbl = document.getElementById('gv04-oxy-lbl');
       if (!root || !canvas) return;
 
-      var FS = 100, DUR = 32.0, N_SAMP = 3201, TR = 2.0;
+      var MAX_T = 22.0;
 
-      /* Verbos reales con flexión de pasado en los primeros 24 s de Where There's Smoke */
-      var PAST_VERBS = [
-        { t0: 0.14, t1: 0.50, w: 'reached', es: 'me estiré' },
-        { t0: 2.42, t1: 2.96, w: 'undid', es: 'desabroché' },
-        { t0: 5.82, t1: 5.96, w: 'hit', es: 'pisó' },
-        { t0: 7.55, t1: 7.83, w: 'flung', es: 'abrí de golpe' },
-        { t0: 9.07, t1: 9.46, w: 'ran', es: 'corrí' },
-        { t0: 10.97, t1: 11.43, w: 'had', es: 'tenía' },
-        { t0: 12.53, t1: 12.69, w: 'was', es: 'estaba' },
-        { t0: 14.52, t1: 14.74, w: 'had', es: 'había' },
-        { t0: 16.26, t1: 16.40, w: 'was', es: 'era' },
-        { t0: 17.28, t1: 17.56, w: 'had', es: 'tenía' },
-        { t0: 20.24, t1: 20.41, w: 'didn\'t', es: 'no [tenía]' },
-        { t0: 21.93, t1: 22.10, w: 'didn\'t', es: 'no [sabía]' }
-      ];
-
-      /* Kernel HRF doble gamma canónico (32 s) */
-      var hrf = new Float32Array(N_SAMP), kSum = 0;
-      for (var i = 0; i < N_SAMP; i++) {
-        var t = i / FS;
-        var v = (Math.pow(t, 5) * Math.exp(-t)) / 120.0 - (Math.pow(t, 15) * Math.exp(-t)) / (1307674368000.0 * 6.0);
-        hrf[i] = v; kSum += v;
-      }
-      for (var j = 0; j < N_SAMP; j++) hrf[j] /= kSum;
-
-      var subWaves = PAST_VERBS.map(function (vb) {
-        var out = new Float32Array(N_SAMP);
-        var s0 = Math.round(vb.t0 * FS), s1 = Math.max(s0 + 1, Math.round(vb.t1 * FS));
-        for (var s = s0; s < s1; s++) {
-          for (var k = 0; k < N_SAMP - s; k++) out[s + k] += hrf[k];
-        }
-        return out;
-      });
-
-      var sumWave = new Float32Array(N_SAMP), maxSum = 0;
-      for (var w = 0; w < subWaves.length; w++) {
-        for (var n = 0; n < N_SAMP; n++) {
-          sumWave[n] += subWaves[w][n];
-          if (sumWave[n] > maxSum) maxSum = sumWave[n];
-        }
-      }
-      for (var z = 0; z < N_SAMP; z++) sumWave[z] /= maxSum;
-      for (var sw = 0; sw < subWaves.length; sw++) {
-        for (var zn = 0; zn < N_SAMP; zn++) subWaves[sw][zn] /= maxSum;
+      /* Curva HRF doble gamma normalizada entre -0.18 y 1.0 (pico en ~5.2 s) */
+      function hrfAt(sec) {
+        if (sec <= 0) return 0;
+        var g1 = (Math.pow(sec, 5) * Math.exp(-sec)) / 120.0;
+        var g2 = (Math.pow(sec, 15) * Math.exp(-sec)) / (1307674368000.0 * 6.0);
+        return (g1 - g2) / 0.1755;
       }
 
-      /* Datos empíricos exactos de tr_alignment_empirical_10subjects.csv (lags 0..10 TRs = 0..20 s) */
-      var EMP_R2_MAX = [
-        [0.1011, 0.0635, 0.0960, 0.0995, 0.1264, 0.2174, 0.4825, 0.4001, 0.1596, 0.0820, 0.0638],
-        [0.0918, 0.0581, 0.0665, 0.1012, 0.1803, 0.2229, 0.4303, 0.4237, 0.1903, 0.0971, 0.0673],
-        [0.0960, 0.0862, 0.1353, 0.2399, 0.3154, 0.4380, 0.5491, 0.3953, 0.1590, 0.0739, 0.0756],
-        [0.1328, 0.0671, 0.0805, 0.0962, 0.1425, 0.1966, 0.3343, 0.2624, 0.1402, 0.0807, 0.0811],
-        [0.0738, 0.0710, 0.0773, 0.0914, 0.1275, 0.2328, 0.4617, 0.3704, 0.1595, 0.0920, 0.0648],
-        [0.0643, 0.0681, 0.0608, 0.0702, 0.1172, 0.2637, 0.4508, 0.3659, 0.1661, 0.0936, 0.0591],
-        [0.0724, 0.0586, 0.0678, 0.0878, 0.1402, 0.2174, 0.3514, 0.3193, 0.1607, 0.1026, 0.0680],
-        [0.0818, 0.0729, 0.0653, 0.1103, 0.1668, 0.2354, 0.2931, 0.1834, 0.0845, 0.0714, 0.0751],
-        [0.0882, 0.0674, 0.0652, 0.1007, 0.1924, 0.4385, 0.4017, 0.3320, 0.1418, 0.0707, 0.0456],
-        [0.1015, 0.0878, 0.0650, 0.0954, 0.1632, 0.3440, 0.4899, 0.3178, 0.1689, 0.1119, 0.0590]
-      ];
-      /* Media de los 1,000 mejores vóxeles por sujeto (pico estricto 10/10 sujetos en 6 TRs = 12.0 s) */
-      var MEAN_TOP1000 = [0.0372, 0.0303, 0.0316, 0.0405, 0.0623, 0.1019, 0.1487, 0.1117, 0.0544, 0.0301, 0.0248];
-      var MEAN_R2_MAX = [0.0904, 0.0701, 0.0780, 0.1093, 0.1672, 0.2807, 0.4245, 0.3370, 0.1531, 0.0876, 0.0659];
+      var curSec = 5.4;
+      var animId = null;
+      var lastTs = 0;
 
-      var activeTab = 'wave';
-      var selTR = 7;  /* 14.0 s: primera captura fuerte justo tras el recorte de 12.0 s */
-      var selLag = 6; /* 6 TRs = 12.0 s */
+      function syncBrainAndCurve() {
+        var val = Math.min(1, hrfAt(curSec));
+        var posVal = Math.max(0, val);
 
-      function drawWaveTab(ctx, cssW, cssH) {
-        var padL = 48, padR = 18, plotW = cssW - padL - padR;
-        var stimTop = 12, stimBot = 46;
-        var waveTop = 66, waveBot = cssH - 36;
-        var zeroY = waveTop + (waveBot - waveTop) * 0.82;
-        var amp = (zeroY - waveTop) * 0.92;
+        timeLbl.textContent = 'Instante: ' + curSec.toFixed(1) + ' s';
 
-        function tToX(sec) { return padL + (sec / DUR) * plotW; }
-        function vToY(val) { return zeroY - val * amp; }
+        /* Destello de la palabra solo en el primer medio segundo */
+        var speaking = (curSec <= 0.6);
+        wordPill.setAttribute('fill', speaking ? '#762a83' : '#f1f5f9');
+        wordPill.setAttribute('stroke', speaking ? '#762a83' : '#cbd5e1');
+        wordTxt.setAttribute('fill', speaking ? '#ffffff' : '#64748b');
+        wordTxt.textContent = speaking ? 'Suena «reached» (ahora)' : 'La palabra ya pasó (0.4 s)';
 
-        /* Zona inicial recortada en los archivos BOLD (0 a 12.0 s = 6 TRs) */
-        var trimX = tToX(12.0);
-        ctx.fillStyle = 'rgba(100, 116, 139, 0.08)';
-        ctx.fillRect(padL, waveTop - 6, trimX - padL, waveBot - waveTop + 12);
-        ctx.strokeStyle = '#64748b';
-        ctx.setLineDash([4, 3]);
-        ctx.beginPath();
-        ctx.moveTo(trimX, stimTop);
-        ctx.lineTo(trimX, waveBot + 6);
-        ctx.stroke();
-        ctx.setLineDash([]);
+        /* Brillo sanguíneo suave en corteza auditiva/temporal */
+        glowOuter.setAttribute('opacity', (posVal * 0.78).toFixed(2));
+        glowOuter.setAttribute('rx', (24 + posVal * 18).toFixed(1));
+        glowOuter.setAttribute('ry', (12 + posVal * 10).toFixed(1));
+        glowInner.setAttribute('opacity', (posVal * 0.95).toFixed(2));
 
-        ctx.fillStyle = '#475569';
-        ctx.font = '600 9.2px Poppins, sans-serif';
-        ctx.textAlign = 'left';
-        if (cssW > 460) {
-          ctx.fillText('Recorte escáner (0–12 s)', padL + 6, waveTop + 8);
-          ctx.fillStyle = '#9a3412';
-          ctx.fillText('Inicio BOLD alineado (12.0 s) →', trimX + 6, waveTop + 8);
+        var pct = Math.round(val * 100);
+        if (curSec < 1.2) {
+          oxyLbl.textContent = 'Oxígeno: 0% (aún sin subir)';
+          oxyLbl.setAttribute('fill', '#64748b');
+        } else if (pct >= 88) {
+          oxyLbl.textContent = 'Oxígeno: ' + pct + '% (cumbre ~5–6 s)';
+          oxyLbl.setAttribute('fill', '#b8321a');
+        } else if (pct >= 0) {
+          oxyLbl.textContent = 'Oxígeno en corteza: ' + pct + '%';
+          oxyLbl.setAttribute('fill', '#9a3412');
+        } else {
+          oxyLbl.textContent = 'Fase de reposo final (' + pct + '%)';
+          oxyLbl.setAttribute('fill', '#475569');
         }
 
-        var trSec = selTR * TR;
-        var sIdx = Math.min(N_SAMP - 1, Math.round(trSec * FS));
-        var activeContributors = [];
-        for (var v = 0; v < PAST_VERBS.length; v++) {
-          var wVal = subWaves[v][sIdx];
-          if (wVal > 0.04) activeContributors.push({ idx: v, vb: PAST_VERBS[v], w: wVal });
+        /* Dibujar la única curva limpia con las fotos del escáner cada 2.0 s */
+        var dpr = window.devicePixelRatio || 1;
+        var cssW = canvas.clientWidth || 460;
+        var cssH = canvas.clientHeight || 196;
+        if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {
+          canvas.width = Math.round(cssW * dpr);
+          canvas.height = Math.round(cssH * dpr);
         }
 
-        /* Carril 100 Hz de verbos en pasado (púrpura) */
-        ctx.fillStyle = '#faf7fc';
-        ctx.fillRect(padL, stimTop, plotW, stimBot - stimTop);
-        ctx.strokeStyle = '#e5deeb';
-        ctx.strokeRect(padL, stimTop, plotW, stimBot - stimTop);
-        ctx.fillStyle = '#581c66';
-        ctx.font = '600 9.5px Poppins, sans-serif';
-        ctx.textAlign = 'right';
-        ctx.fillText('100 Hz', padL - 6, (stimTop + stimBot) / 2 + 3);
+        var ctx = canvas.getContext('2d');
+        ctx.save();
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, cssW, cssH);
 
-        for (var i = 0; i < PAST_VERBS.length; i++) {
-          var vb = PAST_VERBS[i];
-          var vx0 = tToX(vb.t0), vx1 = tToX(vb.t1), vw = Math.max(3, vx1 - vx0);
-          var feeds = activeContributors.some(function (c) { return c.idx === i; });
-          ctx.fillStyle = feeds ? '#762a83' : 'rgba(118, 42, 131, 0.30)';
-          ctx.fillRect(vx0, stimTop + 6, vw, stimBot - stimTop - 12);
-        }
+        var padL = 22, padR = 18, padT = 28, padB = 28;
+        var plotW = cssW - padL - padR;
+        var zeroY = padT + (cssH - padT - padB) * 0.80;
+        var amp = (zeroY - padT) * 0.92;
 
-        /* Línea cero y olas individuales */
-        ctx.strokeStyle = '#cfd9e0';
+        function tToX(s) { return padL + (s / MAX_T) * plotW; }
+        function vToY(v) { return zeroY - v * amp; }
+
+        /* Línea base cero */
+        ctx.strokeStyle = '#d5e0e8';
+        ctx.lineWidth = 1.2;
         ctx.beginPath();
         ctx.moveTo(padL, zeroY);
         ctx.lineTo(padL + plotW, zeroY);
         ctx.stroke();
 
-        for (var sw = 0; sw < subWaves.length; sw++) {
-          var isF = activeContributors.some(function (c) { return c.idx === sw; });
-          ctx.strokeStyle = isF ? 'rgba(118, 42, 131, 0.45)' : 'rgba(118, 42, 131, 0.14)';
-          ctx.lineWidth = isF ? 1.4 : 0.9;
-          ctx.beginPath();
-          for (var k = 0; k < N_SAMP; k += 4) {
-            var sx = tToX(k / FS), sy = vToY(subWaves[sw][k]);
-            if (k === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
-          }
-          ctx.stroke();
-        }
+        /* Pulso corto de la palabra en t = 0..0.4 s */
+        ctx.fillStyle = '#762a83';
+        ctx.fillRect(tToX(0), zeroY - 28, Math.max(5, tToX(0.45) - tToX(0)), 28);
+        ctx.font = '600 9.2px Poppins, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('Palabra (0.4 s)', tToX(0.6), zeroY - 16);
 
-        /* Curva sumada y muestras cada 2.0 s */
-        ctx.strokeStyle = '#3b5975';
-        ctx.lineWidth = 2.3;
+        /* Área suave y curva única de oxígeno */
+        ctx.fillStyle = 'rgba(217, 72, 43, 0.10)';
         ctx.beginPath();
-        for (var m = 0; m < N_SAMP; m += 3) {
-          var cx = tToX(m / FS), cy = vToY(sumWave[m]);
-          if (m === 0) ctx.moveTo(cx, cy); else ctx.lineTo(cx, cy);
+        ctx.moveTo(tToX(0), zeroY);
+        for (var s = 0; s <= MAX_T; s += 0.2) ctx.lineTo(tToX(s), vToY(hrfAt(s)));
+        ctx.lineTo(tToX(MAX_T), zeroY);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = '#d9482b';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        for (var s2 = 0; s2 <= MAX_T; s2 += 0.2) {
+          var cx = tToX(s2), cy = vToY(hrfAt(s2));
+          if (s2 === 0) ctx.moveTo(cx, cy); else ctx.lineTo(cx, cy);
         }
         ctx.stroke();
 
-        for (var tr = 0; tr <= 16; tr++) {
-          var ts = tr * TR;
-          var idx = Math.min(N_SAMP - 1, Math.round(ts * FS));
-          var px = tToX(ts), py = vToY(sumWave[idx]);
-          var isSel = (tr === selTR);
-          var isTrimmed = (tr < 6);
+        /* Etiqueta fija en la cumbre */
+        ctx.fillStyle = '#9a3412';
+        ctx.font = '700 9.4px Poppins, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Pico de sangre (~5–6 s) · Puntos = fotos cada 2 s', tToX(9.5), padT - 9);
 
-          ctx.fillStyle = isSel ? '#b8321a' : (isTrimmed ? '#94a3b8' : '#d9482b');
+        /* Puntos cada 2.0 s = capturas TR del escáner */
+        for (var tr = 0; tr <= 22; tr += 2) {
+          var px = tToX(tr), py = vToY(hrfAt(tr));
+          var reached = (tr <= curSec + 0.05);
+          ctx.fillStyle = reached ? '#b8321a' : '#cbd5e1';
           ctx.beginPath();
-          ctx.arc(px, py, isSel ? 6 : 4, 0, Math.PI * 2);
+          ctx.arc(px, py, reached ? 4.8 : 3.6, 0, Math.PI * 2);
           ctx.fill();
           ctx.strokeStyle = '#ffffff';
           ctx.lineWidth = 1.4;
           ctx.stroke();
         }
 
-        var axY = cssH - 22;
-        ctx.strokeStyle = '#cfd9e0';
-        ctx.beginPath();
-        ctx.moveTo(padL, axY);
-        ctx.lineTo(padL + plotW, axY);
-        ctx.stroke();
-
-        ctx.fillStyle = '#64717a';
-        ctx.font = '500 9.6px Poppins, sans-serif';
-        ctx.textAlign = 'center';
-        var step = cssW < 500 ? 4 : 2;
-        for (var tick = 0; tick <= 32; tick += step * 2) {
-          var tx = tToX(tick);
-          ctx.fillText(tick + ' s', tx, axY + 13);
-        }
-
-        var statusTxt = (selTR < 6)
-          ? '<span style="color:#64748b;"><b>Captura descartada (' + trSec.toFixed(1) + ' s):</b> recortada al inicio del escáner, pero su ola sanguínea viaja hacia adelante.</span>'
-          : '<span><b style="color:#b8321a;">Captura conservada (' + trSec.toFixed(1) + ' s):</b> amplitud = ' + sumWave[sIdx].toFixed(2) + '</span>';
-
-        if (activeContributors.length > 0) {
-          activeContributors.sort(function (a, b) { return b.w - a.w; });
-          var vList = activeContributors.slice(0, 3).map(function (c) {
-            return '«' + c.vb.w + '» («' + c.vb.es + '», ' + c.vb.t0.toFixed(1) + ' s)';
-          });
-          statusTxt += '<span><b>Recoge el eco sanguíneo de:</b> ' + vList.join(', ') + '</span>';
-        }
-        readout.innerHTML = statusTxt;
-        foot.innerHTML = '<span>Puntos grises (0 – 10 s): primeros 6 volúmenes recortados · Puntos rojos (desde 12 s): serie alineada con el escáner.</span>' +
-                         '<span>Toca cualquier punto cada 2.0 s</span>';
-      }
-
-      function drawLagTab(ctx, cssW, cssH) {
-        var padL = 50, padR = 20, padT = 24, padB = 34;
-        var plotW = cssW - padL - padR, plotH = cssH - padT - padB;
-        var maxY = 0.58;
-
-        function lToX(lagIdx) { return padL + (lagIdx / 10) * plotW; }
-        function rToY(val) { return padT + plotH - (val / maxY) * plotH; }
-
-        /* Guías horizontales */
-        ctx.strokeStyle = '#edf2f6';
-        ctx.fillStyle = '#64717a';
-        ctx.font = '500 9.5px Poppins, sans-serif';
-        ctx.textAlign = 'right';
-        var yTicks = [0.0, 0.2, 0.4, 0.55];
-        for (var yt = 0; yt < yTicks.length; yt++) {
-          var gy = rToY(yTicks[yt]);
-          ctx.beginPath();
-          ctx.moveTo(padL, gy);
-          ctx.lineTo(padL + plotW, gy);
-          ctx.stroke();
-          ctx.fillText(yTicks[yt].toFixed(2), padL - 7, gy + 3);
-        }
-
-        /* Franja vertical en el óptimo empírico de 6 TRs (12.0 s) */
-        var optX = lToX(6);
-        ctx.fillStyle = 'rgba(217, 72, 43, 0.08)';
-        ctx.fillRect(optX - plotW * 0.045, padT, plotW * 0.09, plotH);
-
-        /* Las 10 curvas individuales reales (sub-UTS01 a sub-UTS10) */
-        for (var s = 0; s < 10; s++) {
-          ctx.strokeStyle = 'rgba(59, 89, 117, 0.26)';
-          ctx.lineWidth = 1.3;
-          ctx.beginPath();
-          for (var l = 0; l <= 10; l++) {
-            var sx = lToX(l), sy = rToY(EMP_R2_MAX[s][l]);
-            if (l === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
-          }
-          ctx.stroke();
-        }
-
-        /* Curva gruesa del promedio de los 10 cerebros */
-        ctx.strokeStyle = '#d9482b';
-        ctx.lineWidth = 2.8;
-        ctx.beginPath();
-        for (var m = 0; m <= 10; m++) {
-          var mx = lToX(m), my = rToY(MEAN_R2_MAX[m]);
-          if (m === 0) ctx.moveTo(mx, my); else ctx.lineTo(mx, my);
-        }
-        ctx.stroke();
-
-        for (var p = 0; p <= 10; p++) {
-          var px = lToX(p), py = rToY(MEAN_R2_MAX[p]);
-          var isCur = (p === selLag);
-          ctx.fillStyle = isCur ? '#1e2328' : '#d9482b';
-          ctx.beginPath();
-          ctx.arc(px, py, isCur ? 6.2 : 3.8, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.strokeStyle = '#ffffff';
-          ctx.lineWidth = 1.5;
-          ctx.stroke();
-        }
-
-        /* Línea vertical del recorte actualmente seleccionado */
-        var selX = lToX(selLag);
+        /* Cursor del instante actual */
+        var curX = tToX(curSec), curY = vToY(val);
         ctx.strokeStyle = '#1e2328';
         ctx.setLineDash([3, 3]);
-        ctx.lineWidth = 1.2;
+        ctx.lineWidth = 1.3;
         ctx.beginPath();
-        ctx.moveTo(selX, padT);
-        ctx.lineTo(selX, padT + plotH);
+        ctx.moveTo(curX, padT - 2);
+        ctx.lineTo(curX, zeroY + 6);
         ctx.stroke();
         ctx.setLineDash([]);
 
-        /* Eje horizontal de segundos de recorte */
-        var axY = padT + plotH;
-        ctx.strokeStyle = '#cfd9e0';
+        ctx.fillStyle = '#1e2328';
         ctx.beginPath();
-        ctx.moveTo(padL, axY);
-        ctx.lineTo(padL + plotW, axY);
+        ctx.arc(curX, curY, 6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1.8;
         ctx.stroke();
 
+        /* Eje de segundos */
+        var axY = cssH - 18;
+        ctx.fillStyle = '#64717a';
+        ctx.font = '500 9.4px Poppins, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillStyle = '#4b5862';
-        for (var k = 0; k <= 10; k++) {
-          if (cssW < 480 && k % 2 !== 0) continue;
-          ctx.font = (k === 6 ? '700 ' : '500 ') + '9.6px Poppins, sans-serif';
-          ctx.fillStyle = (k === 6) ? '#b8321a' : '#5b6770';
-          ctx.fillText((k * 2) + ' s', lToX(k), axY + 14);
+        for (var tk = 0; tk <= 22; tk += 4) {
+          ctx.fillText(tk + ' s', tToX(tk), axY + 8);
         }
-
-        var sec = selLag * 2;
-        lagLbl.textContent = sec.toFixed(1) + ' s (' + selLag + ' capturas TR)';
-        readout.innerHTML =
-          '<span><b>Recorte probado:</b> ' + sec + ' s (' + selLag + ' TRs)</span>' +
-          '<span><b style="color:#b8321a;">Acierto máximo medio (10 cerebros):</b> R² = ' + MEAN_R2_MAX[selLag].toFixed(4) + '</span>' +
-          '<span><b>Media de los 1,000 mejores vóxeles:</b> ' + MEAN_TOP1000[selLag].toFixed(4) +
-          (selLag === 6 ? ' (óptimo unánime en 10 de 10 sujetos)' : '') + '</span>';
-
-        foot.innerHTML =
-          '<span>Líneas azules suaves: cada uno de los 10 participantes reales · Línea roja: promedio de la cohorte.</span>' +
-          '<span>Mueve el deslizador o haz clic en la gráfica</span>';
-      }
-
-      function render() {
-        var dpr = window.devicePixelRatio || 1;
-        var cssW = canvas.clientWidth || 700;
-        var cssH = canvas.clientHeight || 278;
-        if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {
-          canvas.width = Math.round(cssW * dpr);
-          canvas.height = Math.round(cssH * dpr);
-        }
-        var ctx = canvas.getContext('2d');
-        ctx.save();
-        ctx.scale(dpr, dpr);
-        ctx.clearRect(0, 0, cssW, cssH);
-
-        if (activeTab === 'wave') drawWaveTab(ctx, cssW, cssH);
-        else drawLagTab(ctx, cssW, cssH);
 
         ctx.restore();
       }
 
-      function onCanvasPointer(clientX) {
-        var rect = canvas.getBoundingClientRect();
-        if (activeTab === 'wave') {
-          var plotW = rect.width - 48 - 18;
-          if (plotW <= 0) return;
-          var r = Math.min(1, Math.max(0, (clientX - rect.left - 48) / plotW));
-          var nextTR = Math.min(16, Math.max(0, Math.round((r * DUR) / TR)));
-          if (nextTR !== selTR) { selTR = nextTR; render(); }
-        } else {
-          var plotW2 = rect.width - 50 - 20;
-          if (plotW2 <= 0) return;
-          var r2 = Math.min(1, Math.max(0, (clientX - rect.left - 50) / plotW2));
-          var nextLag = Math.min(10, Math.max(0, Math.round(r2 * 10)));
-          if (nextLag !== selLag) {
-            selLag = nextLag;
-            lagSlider.value = selLag;
-            render();
-          }
-        }
+      function stopAnim() {
+        if (animId) cancelAnimationFrame(animId);
+        animId = null;
+        playBtn.innerHTML = '&#x25B6; Reproducir pulso (0 – 22 s)';
       }
 
-      canvas.addEventListener('click', function (e) { onCanvasPointer(e.clientX); });
-      canvas.addEventListener('mousemove', function (e) { if (activeTab === 'wave') onCanvasPointer(e.clientX); });
-
-      lagSlider.addEventListener('input', function () {
-        selLag = parseInt(lagSlider.value, 10) || 0;
-        render();
-      });
-
-      root.addEventListener('click', function (e) {
-        var btn = e.target.closest('[data-tab]');
-        if (!btn) return;
-        var next = btn.getAttribute('data-tab');
-        if (next && next !== activeTab) {
-          activeTab = next;
-          lagBar.hidden = (activeTab !== 'lag');
-          var tabs = root.querySelectorAll('[data-tab]');
-          for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle('is-active', tabs[i] === btn);
-          render();
+      function tickAnim(ts) {
+        if (!lastTs) lastTs = ts;
+        var dt = (ts - lastTs) / 1000;
+        lastTs = ts;
+        curSec += dt * 3.8; /* Velocidad cómoda: recorre 22 s en ~5.8 s */
+        if (curSec >= MAX_T) {
+          curSec = MAX_T;
+          slider.value = Math.round(curSec * 10);
+          syncBrainAndCurve();
+          stopAnim();
+          return;
         }
+        slider.value = Math.round(curSec * 10);
+        syncBrainAndCurve();
+        animId = requestAnimationFrame(tickAnim);
+      }
+
+      playBtn.addEventListener('click', function () {
+        if (animId) { stopAnim(); return; }
+        if (curSec >= MAX_T - 0.5) curSec = 0;
+        lastTs = 0;
+        playBtn.innerHTML = '&#x23F8; Pausar animación';
+        animId = requestAnimationFrame(tickAnim);
       });
 
-      window.addEventListener('resize', render);
-      render();
+      slider.addEventListener('input', function () {
+        stopAnim();
+        curSec = (parseInt(slider.value, 10) || 0) / 10.0;
+        syncBrainAndCurve();
+      });
+
+      canvas.addEventListener('click', function (e) {
+        stopAnim();
+        var rect = canvas.getBoundingClientRect();
+        var plotW = rect.width - 40;
+        if (plotW <= 0) return;
+        var r = Math.min(1, Math.max(0, (e.clientX - rect.left - 22) / plotW));
+        curSec = Math.round(r * MAX_T * 5) / 5;
+        slider.value = Math.round(curSec * 10);
+        syncBrainAndCurve();
+      });
+
+      window.addEventListener('resize', syncBrainAndCurve);
+      syncBrainAndCurve();
     })();
 
-    /* 8. Figura 5 (gv05): Consola de 7 perillas Banded Ridge y resta Global (46) - Control (44) */
+    /* 8. Figura 5 (gv05): Comparador directo de barras (1 freno común vs 7 frenos independientes) */
     (function () {
       var root = document.getElementById('gv05-root');
-      var canvas = document.getElementById('gv05-canvas');
-      if (!root || !canvas) return;
+      var box = document.getElementById('gv05-bars-box');
+      if (!root || !box) return;
 
-      var r2CtrlEl = document.getElementById('gv05-r2-ctrl');
-      var r2GlobEl = document.getElementById('gv05-r2-glob');
-      var diffPill = document.getElementById('gv05-diff-pill');
-      var inspEl = document.getElementById('gv05-inspector');
-      var tagEl = document.getElementById('gv05-tag');
-      var titleEl = document.getElementById('gv05-title');
-      var descEl = document.getElementById('gv05-desc');
+      var BANDS_BARS = [
+        { name: '1. Acústica (7 col.)', singleW: 64, bandedW: 62 },
+        { name: '2. Fonológica (12 col.)', singleW: 78, bandedW: 72 },
+        { name: '3. Léxico-estad. (4 col.)', singleW: 48, bandedW: 66 },
+        { name: '4. Categorial + aux. (9)', singleW: 66, bandedW: 70 },
+        { name: '5. Sintáctica (2 col.)', singleW: 22, bandedW: 58 },
+        { name: '6. Semántica LSA (10)', singleW: 82, bandedW: 78 },
+        { name: '7. Tiempo (2 col.)', singleW: 7, bandedW: 68, isTarget: true }
+      ];
 
-      var BAND_SHORT = ['1. Acústica', '2. Fonológ.', '3. Léxico', '4. Categ.', '5. Sintaxis', '6. Semánt.', '7. Tiempo'];
-      var N_PTS = 42;
-      var baseSig = [], noiseSig = [];
-      for (var i = 0; i < N_PTS; i++) {
-        baseSig.push(0.75 * Math.sin(2 * Math.PI * i / 14.0) + 0.48 * Math.cos(2 * Math.PI * i / 8.8 + 0.5));
-        noiseSig.push(0.36 * Math.sin(i * 1.8 + 0.4) + 0.28 * Math.cos(i * 2.9 + 1.2));
+      var rowRefs = [];
+      for (var i = 0; i < BANDS_BARS.length; i++) {
+        var b = BANDS_BARS[i];
+        var row = document.createElement('div');
+        row.className = 'gv05-brow' + (b.isTarget ? ' is-target' : '');
+
+        var trackInner = b.isTarget
+          ? '<div class="gv05-bfill past-half"></div><div class="gv05-bfill np-half"></div>'
+          : '<div class="gv05-bfill"></div>';
+
+        row.innerHTML =
+          '<span class="gv05-bname">' + b.name + '</span>' +
+          '<div class="gv05-btrack">' + trackInner + '</div>' +
+          '<span class="gv05-btag"></span>';
+
+        box.appendChild(row);
+        rowRefs.push({
+          row: row,
+          fills: row.querySelectorAll('.gv05-bfill'),
+          tag: row.querySelector('.gv05-btag'),
+          spec: b
+        });
       }
 
-      var MODES = {
-        single_knob: {
-          bars: [0.68, 0.76, 0.55, 0.64, 0.48, 0.78, 0.08],
-          r2Ctrl: '0.284',
-          r2Glob: '0.282',
-          diffTxt: 'Global − Control = −0.002 (aplastada)',
-          tone: 'muted',
-          theme: 'bold',
-          tag: 'Limitación de usar 1 sola perilla común',
-          title: 'El freno fuerte que piden las bandas grandes silencia a las 2 columnas de tiempo',
-          desc: 'Si las 7 bandas comparten un mismo freno general, estabilizar 12 columnas fonológicas y 10 semánticas obliga a frenar tanto que la Banda 7 queda comprimida casi a cero incluso antes de competir en igualdad de condiciones.',
-          waves: function () {
-            var b = [], c = [], g = [];
-            for (var k = 0; k < N_PTS; k++) {
-              b.push(baseSig[k] + noiseSig[k] * 0.65);
-              c.push(baseSig[k] * 0.68);
-              g.push(baseSig[k] * 0.67 - 0.06 * Math.sin(k * 1.4));
-            }
-            return { bold: b, ctrl: c, glob: g };
-          }
-        },
-        lang_shared: {
-          bars: [0.62, 0.72, 0.68, 0.74, 0.58, 0.86, 0.64],
-          r2Ctrl: '0.428',
-          r2Glob: '0.430',
-          diffTxt: 'Global − Control = +0.002 (señal compartida)',
-          tone: 'shared',
-          theme: 'tense',
-          tag: 'Comportamiento observado en la corteza del lenguaje',
-          title: 'Ambas curvas siguen con alta fidelidad la señal cerebral porque la información viaja unida',
-          desc: 'Con 7 perillas independientes la Banda 7 recibe peso propio, pero al entrenar las 6 bandas de control solas (con frecuencia léxica, auxiliares y sintaxis), estas ya logran anticipar casi exactamente la misma subida y bajada de oxígeno.',
-          waves: function () {
-            var b = [], c = [], g = [];
-            for (var k = 0; k < N_PTS; k++) {
-              b.push(baseSig[k] + noiseSig[k] * 0.52);
-              c.push(baseSig[k] * 0.88);
-              g.push(baseSig[k] * 0.89 + 0.04 * Math.cos(k * 0.8));
-            }
-            return { bold: b, ctrl: c, glob: g };
-          }
-        },
-        pruned_zero: {
-          bars: [0.35, 0.28, 0.30, 0.22, 0.18, 0.42, 0.0],
-          r2Ctrl: '0.031',
-          r2Glob: '0.031',
-          diffTxt: 'Global − Control = 0.00000 (poda exacta)',
-          tone: 'zero',
-          theme: 'ctrl',
-          tag: 'Efecto del anclaje sobre la solución de control (~83% de la corteza)',
-          title: 'Donde la Banda 7 no aporta mejora genuina, el modelo mantiene su perilla en cero exacto',
-          desc: 'Como el Modelo Global arranca anclado en el resultado del Modelo Control, en los vóxeles donde añadir pasado y no pasado solo metería ruido la séptima perilla permanece cerrada. Por eso la mediana de toda la corteza es exactamente 0.00000.',
-          waves: function () {
-            var b = [], c = [], g = [];
-            for (var k = 0; k < N_PTS; k++) {
-              b.push(0.32 * baseSig[k] + noiseSig[k] * 1.15);
-              var pred = 0.28 * baseSig[k];
-              c.push(pred);
-              g.push(pred);
-            }
-            return { bold: b, ctrl: c, glob: g };
+      function setMode(mode) {
+        var isSingle = (mode === 'single');
+        for (var i = 0; i < rowRefs.length; i++) {
+          var r = rowRefs[i];
+          var w = isSingle ? r.spec.singleW : r.spec.bandedW;
+
+          if (r.spec.isTarget) {
+            r.fills[0].style.width = (w / 2) + '%';
+            r.fills[1].style.width = (w / 2) + '%';
+            r.row.classList.toggle('is-crushed', isSingle);
+            r.row.classList.toggle('is-fair', !isSingle);
+            r.tag.textContent = isSingle ? 'Aplastada (freno común)' : 'Freno 7 propio (justo)';
+          } else {
+            r.fills[0].style.width = w + '%';
+            r.tag.textContent = isSingle ? 'Freno común alto' : ('Freno ' + (i + 1) + ' propio');
           }
         }
-      };
-
-      var curMode = 'lang_shared';
-
-      function drawCurve(ctx, arr, xFn, yFn, col, lw, dash) {
-        ctx.save();
-        ctx.strokeStyle = col;
-        ctx.lineWidth = lw;
-        if (dash) ctx.setLineDash(dash);
-        ctx.beginPath();
-        for (var i = 0; i < arr.length; i++) {
-          var x = xFn(i), y = yFn(arr[i]);
-          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      function render() {
-        var m = MODES[curMode];
-        var dpr = window.devicePixelRatio || 1;
-        var cssW = canvas.clientWidth || 700;
-        var stacked = (cssW < 640);
-        var cssH = canvas.clientHeight || (stacked ? 282 : 224);
-
-        if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {
-          canvas.width = Math.round(cssW * dpr);
-          canvas.height = Math.round(cssH * dpr);
-        }
-
-        var ctx = canvas.getContext('2d');
-        ctx.save();
-        ctx.scale(dpr, dpr);
-        ctx.clearRect(0, 0, cssW, cssH);
-
-        /* Panel izquierdo (o superior en móvil): las 7 perillas / pesos preservados por banda */
-        var bLeft = 14, bTop = 28;
-        var bW = stacked ? (cssW - 28) : Math.round(cssW * 0.36);
-        var bH = stacked ? 96 : (cssH - 42);
-
-        ctx.fillStyle = '#26323b';
-        ctx.font = '700 10px Poppins, sans-serif';
-        ctx.textAlign = 'left';
-        ctx.fillText('Peso permitido por perilla (7 bandas)', bLeft, 17);
-
-        var rowStep = bH / 7;
-        for (var b = 0; b < 7; b++) {
-          var ry = bTop + b * rowStep;
-          var isT = (b === 6);
-          ctx.fillStyle = isT ? '#581c66' : '#4a5864';
-          ctx.font = (isT ? '700 ' : '500 ') + '9.4px Poppins, sans-serif';
-          ctx.textAlign = 'left';
-          ctx.fillText(BAND_SHORT[b], bLeft, ry + rowStep * 0.62);
-
-          var trackX = bLeft + 74, trackW = bW - 78, trackH = Math.min(12, rowStep - 3);
-          var trackY = ry + (rowStep - trackH) / 2;
-          ctx.fillStyle = '#edf2f6';
-          ctx.fillRect(trackX, trackY, trackW, trackH);
-
-          var fillW = Math.round(trackW * m.bars[b]);
-          if (fillW > 0) {
-            if (isT) {
-              var half = Math.round(fillW / 2);
-              ctx.fillStyle = '#762a83';
-              ctx.fillRect(trackX, trackY, half, trackH);
-              ctx.fillStyle = '#1b7837';
-              ctx.fillRect(trackX + half, trackY, fillW - half, trackH);
-            } else {
-              ctx.fillStyle = '#4c7091';
-              ctx.fillRect(trackX, trackY, fillW, trackH);
-            }
-          } else if (isT) {
-            ctx.fillStyle = '#165c2b';
-            ctx.font = '600 8.8px Poppins, sans-serif';
-            ctx.fillText('Cerrada (0)', trackX + 6, trackY + trackH - 2);
-          }
-        }
-
-        /* Panel derecho (o inferior en móvil): BOLD vs predicciones 44 y 46 */
-        var wLeft = stacked ? 32 : (bLeft + bW + 28);
-        var wRight = cssW - 16;
-        var wTop = stacked ? 148 : 30;
-        var wBot = cssH - 24;
-        var wPlotW = wRight - wLeft, wPlotH = wBot - wTop;
-        var midY = wTop + wPlotH / 2;
-
-        function xFn(idx) { return wLeft + (idx / (N_PTS - 1)) * wPlotW; }
-        function yFn(val) { return midY - (val / 2.1) * (wPlotH / 2); }
-
-        /* Leyenda limpia sobre la curva */
-        ctx.font = '600 9.6px Poppins, sans-serif';
-        ctx.fillStyle = '#d9482b';
-        ctx.fillRect(wLeft, wTop - 16, 11, 2.5);
-        ctx.fillStyle = '#374148';
-        ctx.fillText('BOLD real', wLeft + 15, wTop - 12);
-
-        ctx.fillStyle = '#3b5975';
-        ctx.fillRect(wLeft + 84, wTop - 16, 11, 2.5);
-        ctx.fillText('Control (44)', wLeft + 99, wTop - 12);
-
-        ctx.fillStyle = '#762a83';
-        ctx.fillRect(wLeft + 178, wTop - 16, 11, 2.5);
-        ctx.fillText('Global (46)', wLeft + 193, wTop - 12);
-
-        ctx.strokeStyle = '#e5edf2';
-        ctx.beginPath();
-        ctx.moveTo(wLeft, midY);
-        ctx.lineTo(wRight, midY);
-        ctx.stroke();
-
-        var series = m.waves();
-        drawCurve(ctx, series.bold, xFn, yFn, 'rgba(217, 72, 43, 0.48)', 1.8, null);
-        drawCurve(ctx, series.glob, xFn, yFn, '#762a83', 2.4, null);
-        drawCurve(ctx, series.ctrl, xFn, yFn, '#2d4b66', 2.0, [5, 4]);
-
-        ctx.strokeStyle = '#cfd9e0';
-        ctx.beginPath();
-        ctx.moveTo(wLeft, wBot);
-        ctx.lineTo(wRight, wBot);
-        ctx.stroke();
-
-        ctx.fillStyle = '#64717a';
-        ctx.font = '500 9.3px Poppins, sans-serif';
-        ctx.textAlign = 'center';
-        for (var t = 0; t < N_PTS; t += 10) {
-          ctx.fillText((t * 2) + ' s', xFn(t), wBot + 13);
-        }
-
-        ctx.restore();
-
-        r2CtrlEl.textContent = m.r2Ctrl;
-        r2GlobEl.textContent = m.r2Glob;
-        diffPill.textContent = m.diffTxt;
-        diffPill.setAttribute('data-tone', m.tone);
-        inspEl.setAttribute('data-theme', m.theme);
-        tagEl.textContent = m.tag;
-        titleEl.textContent = m.title;
-        descEl.textContent = m.desc;
       }
 
       root.addEventListener('click', function (e) {
-        var btn = e.target.closest('[data-mode]');
+        var btn = e.target.closest('[data-fmode]');
         if (!btn) return;
-        var next = btn.getAttribute('data-mode');
-        if (next && MODES[next] && next !== curMode) {
-          curMode = next;
-          var btns = root.querySelectorAll('[data-mode]');
-          for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('is-active', btns[i] === btn);
-          render();
-        }
+        var mode = btn.getAttribute('data-fmode');
+        var btns = root.querySelectorAll('[data-fmode]');
+        for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('is-active', btns[i] === btn);
+        setMode(mode);
       });
 
-      window.addEventListener('resize', render);
-      render();
+      setMode('banded');
     })();
     /* 9. Figura 6 (gv06): Pistas por sesión + medidor de techo biológico y barajado de bloques de 20 s */
     (function () {
@@ -7334,6 +6650,130 @@
       });
 
       renderSelection();
+    })();
+    /* 13. Animación en 4 tiempos (gv06b): Superposición y cancelación Global - Control */
+    (function () {
+      var root = document.getElementById('gv06b-root');
+      if (!root) return;
+
+      var stageLbl = document.getElementById('gv06b-stage-lbl');
+      var globShared = document.getElementById('gv06b-glob-shared');
+      var ctrlOverlay = document.getElementById('gv06b-ctrl-overlay');
+      var cancelOutline = document.getElementById('gv06b-cancel-outline');
+      var uniqPast = document.getElementById('gv06b-uniq-past');
+      var uniqNp = document.getElementById('gv06b-uniq-np');
+      var uniqInTxt = document.getElementById('gv06b-uniq-in-txt');
+      var leftSub = document.getElementById('gv06b-left-sub');
+      var rightSub = document.getElementById('gv06b-right-sub');
+      var captionEl = document.getElementById('gv06b-caption');
+      var replayBtn = document.getElementById('gv06b-replay');
+      var tabBtns = root.querySelectorAll('[data-cstep]');
+
+      var timers = [];
+      function clearTimers() {
+        while (timers.length) clearTimeout(timers.pop());
+      }
+
+      function applyStep(step) {
+        for (var i = 0; i < tabBtns.length; i++) {
+          tabBtns[i].classList.toggle('is-active', parseInt(tabBtns[i].getAttribute('data-cstep'), 10) === step);
+        }
+
+        if (step === 1) {
+          stageLbl.textContent = 'Paso 1 · Todo lo que logra predecir el Modelo Global (7 bandas)';
+          globShared.style.opacity = '1';
+          ctrlOverlay.style.opacity = '0';
+          ctrlOverlay.style.transform = 'translateY(-34px)';
+          cancelOutline.style.opacity = '0';
+          leftSub.style.opacity = '0';
+
+          uniqPast.setAttribute('width', '74');
+          uniqNp.setAttribute('width', '74');
+          uniqInTxt.style.opacity = '1';
+          rightSub.textContent = 'Posible aporte único';
+          rightSub.setAttribute('x', '513');
+          rightSub.setAttribute('fill', '#762a83');
+          captionEl.textContent = 'El Modelo Global usa las 46 columnas juntas. Parte de lo que aportan los verbos va mezclado con auxiliares y sintaxis (tramo rayado), y solo el extremo derecho sería exclusivo del tiempo gramatical.';
+        } else if (step === 2) {
+          stageLbl.textContent = 'Paso 2 · El Modelo Control (44 columnas) baja y se superpone';
+          globShared.style.opacity = '0.85';
+          ctrlOverlay.style.opacity = '1';
+          ctrlOverlay.style.transform = 'translateY(0px)';
+          cancelOutline.style.opacity = '0';
+          leftSub.style.opacity = '0';
+
+          uniqPast.setAttribute('width', '74');
+          uniqNp.setAttribute('width', '74');
+          uniqInTxt.style.opacity = '1';
+          rightSub.textContent = 'Queda fuera del Control';
+          rightSub.setAttribute('x', '513');
+          rightSub.setAttribute('fill', '#762a83');
+          captionEl.textContent = 'Al entrenar las 6 bandas de control por sí solas, sus pesos se reajustan y cubren también la zona compartida donde los verbos viajaban unidos a auxiliares frecuentes y a la estructura de la frase.';
+        } else if (step === 3) {
+          stageLbl.textContent = 'Paso 3 · Resta (Global − Control): lo que coincide se degrada y cancela';
+          globShared.style.opacity = '0.12';
+          ctrlOverlay.style.opacity = '0.10';
+          ctrlOverlay.style.transform = 'translateY(0px)';
+          cancelOutline.style.opacity = '1';
+          leftSub.style.opacity = '1';
+
+          uniqPast.setAttribute('width', '74');
+          uniqNp.setAttribute('width', '74');
+          uniqInTxt.style.opacity = '1';
+          rightSub.textContent = '= Ganancia única';
+          rightSub.setAttribute('x', '513');
+          rightSub.setAttribute('fill', '#762a83');
+          captionEl.textContent = 'Al restar ambos aciertos se apaga todo lo que explicaban por igual. Lo único que queda encendido es la ganancia verdaderamente atribuible a la flexión temporal de pasado y no pasado.';
+        } else {
+          stageLbl.textContent = 'Paso 4 · Resultado real en los 10 cerebros: el residuo se encoge a 0.00000';
+          globShared.style.opacity = '0.12';
+          ctrlOverlay.style.opacity = '0.08';
+          ctrlOverlay.style.transform = 'translateY(0px)';
+          cancelOutline.style.opacity = '1';
+          leftSub.style.opacity = '1';
+
+          uniqPast.setAttribute('width', '4');
+          uniqNp.setAttribute('width', '4');
+          uniqInTxt.style.opacity = '0';
+          rightSub.textContent = 'Residuo = 0.00000';
+          rightSub.setAttribute('x', '498');
+          rightSub.setAttribute('fill', '#9a3412');
+          captionEl.textContent = 'Al medir esa resta en los 943,305 vóxeles reales, la franja exclusiva colapsa a una mediana de 0.00000 (0 focos tras el filtro de azar en los 10 participantes): toda la señal hemodinámica ya quedaba dentro de la zona compartida.';
+        }
+      }
+
+      function playSequence() {
+        clearTimers();
+        applyStep(1);
+        timers.push(setTimeout(function () { applyStep(2); }, 1900));
+        timers.push(setTimeout(function () { applyStep(3); }, 3900));
+        timers.push(setTimeout(function () { applyStep(4); }, 6100));
+      }
+
+      root.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-cstep]');
+        if (btn) {
+          clearTimers();
+          applyStep(parseInt(btn.getAttribute('data-cstep'), 10));
+        }
+      });
+
+      replayBtn.addEventListener('click', playSequence);
+
+      /* Reproducir automáticamente una vez cuando entra en pantalla */
+      if ('IntersectionObserver' in window) {
+        var playedOnce = false;
+        var obs = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting && !playedOnce) {
+            playedOnce = true;
+            playSequence();
+            obs.disconnect();
+          }
+        }, { threshold: 0.45 });
+        obs.observe(root);
+      } else {
+        applyStep(3);
+      }
     })();
   </script>
 
