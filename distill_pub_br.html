@@ -1545,6 +1545,358 @@
         height: 312px;
       }
     }
+    /* ==========================================================================
+       ESTILOS SECCIÓN 6: ECUACIÓN LLANA, FIGURAS 7-8 Y PORTAL TOUR 3D
+       ========================================================================== */
+    .plain-equation {
+      margin: 1.5em 0 1.7em 0;
+      padding: 14px 16px;
+      background-color: #fbfdfe;
+      border: 1px solid var(--ui-border);
+      border-radius: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px 10px;
+      font-family: 'Poppins', Helvetica, sans-serif;
+      text-align: center;
+    }
+
+    .peq-term {
+      padding: 7px 12px;
+      border-radius: 7px;
+      font-size: 0.82em;
+      line-height: 1.35;
+    }
+
+    .peq-term b {
+      display: block;
+      font-size: 1.02em;
+    }
+
+    .peq-term.glob {
+      background-color: #f6f0f8;
+      border: 1px solid var(--sci-past-border);
+      color: #4a1954;
+    }
+
+    .peq-term.ctrl {
+      background-color: var(--sci-ctrl-soft);
+      border: 1px solid var(--sci-ctrl-border);
+      color: var(--sci-ctrl);
+    }
+
+    .peq-term.res {
+      background-color: #fff5f2;
+      border: 1px solid var(--sci-bold-border);
+      color: #8c2d19;
+    }
+
+    .peq-op {
+      font-size: 1.3em;
+      font-weight: 700;
+      color: #475569;
+      padding: 0 2px;
+    }
+
+    /* --- Figura 7: Tablero comparativo directo de los 10 cerebros --- */
+    .gv07-cols-head {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1.35fr) 78px minmax(0, 1fr);
+      gap: 12px;
+      padding: 0 8px 7px 8px;
+      border-bottom: 1px solid #e6edf2;
+      font-size: 0.72em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #55636e;
+    }
+
+    .gv07-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin: 6px 0 12px 0;
+    }
+
+    .gv07-row {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1.35fr) 78px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 6px 8px;
+      border-radius: 7px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .gv07-row:hover {
+      background-color: #f6fafd;
+      border-color: #dbe7f0;
+    }
+
+    .gv07-row.is-selected {
+      background-color: #eef7fc;
+      border-color: #8ad0ea;
+    }
+
+    .gv07-row.is-mean {
+      margin-top: 4px;
+      padding-top: 9px;
+      border-top: 1px dashed #cbd5e1;
+      font-weight: 600;
+    }
+
+    .gv07-id {
+      font-size: 0.8em;
+      font-weight: 700;
+      color: var(--ui-heading);
+    }
+
+    .gv07-id small {
+      font-weight: 500;
+      color: #6b7983;
+      font-size: 0.86em;
+      margin-left: 3px;
+    }
+
+    .gv07-glob-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .gv07-track {
+      flex: 1;
+      position: relative;
+      height: 18px;
+      background-color: #edf2f6;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .gv07-fill-ceil {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #d3e5f2;
+    }
+
+    .gv07-fill-pos {
+      position: absolute;
+      left: 0;
+      top: 3px;
+      bottom: 3px;
+      background: linear-gradient(90deg, #f38d58 0%, #d9482b 100%);
+      border-radius: 2px;
+    }
+
+    .gv07-max-lbl {
+      font-size: 0.75em;
+      font-weight: 700;
+      color: #9a3412;
+      min-width: 44px;
+      text-align: right;
+    }
+
+    .gv07-fdr-badge {
+      text-align: center;
+      font-size: 0.74em;
+      font-weight: 700;
+      color: #475569;
+      background-color: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 99px;
+    }
+
+    .gv07-pol-track {
+      display: flex;
+      height: 14px;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid #d5e0e6;
+    }
+
+    /* --- Figura 8: Sesgo minuto a minuto vs. 83 historias balanceadas --- */
+    .gv08-canvas-wrap {
+      width: 100%;
+      border: 1px solid #e4ecf0;
+      border-radius: 9px;
+      background-color: #ffffff;
+      overflow: hidden;
+    }
+
+    #gv08-canvas {
+      display: block;
+      width: 100%;
+      height: 244px;
+      cursor: pointer;
+    }
+
+    /* --- Portal protagonista hacia el Tour Cortical 3D (07) --- */
+    .tour-portal-card {
+      background: linear-gradient(135deg, #0f172a 0%, #1b2434 100%);
+      border: 1px solid #2d3b4e;
+      border-radius: 14px;
+      padding: 24px 26px 22px 26px;
+      color: #e2e8f0;
+      font-family: 'Poppins', Helvetica, sans-serif;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+    }
+
+    .tour-portal-kicker {
+      display: inline-block;
+      font-size: 0.72em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #c4b5fd;
+      margin-bottom: 4px;
+    }
+
+    .tour-portal-title {
+      font-size: 1.22em;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0 0 8px 0;
+      line-height: 1.32;
+    }
+
+    .tour-portal-desc {
+      font-size: 0.88em !important;
+      line-height: 1.62 !important;
+      color: #cbd5e1 !important;
+      margin: 0 0 16px 0 !important;
+      max-width: 72ch;
+    }
+
+    .tour-modes-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .tour-mode-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9px;
+      padding: 10px 12px;
+    }
+
+    .tour-mode-bar {
+      height: 6px;
+      border-radius: 3px;
+      margin-bottom: 7px;
+    }
+
+    .tour-mode-item h5 {
+      font-size: 0.82em;
+      font-weight: 700;
+      color: #f8fafc;
+      margin: 0 0 3px 0;
+    }
+
+    .tour-mode-item p {
+      font-size: 0.75em !important;
+      line-height: 1.48 !important;
+      color: #94a3b8 !important;
+      margin: 0 !important;
+    }
+
+    .tour-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .tour-main-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #7c3aed;
+      border: 1px solid #a78bfa;
+      color: #ffffff !important;
+      font-size: 0.88em;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 9px;
+      text-decoration: none !important;
+      transition: all 0.18s ease;
+    }
+
+    .tour-main-btn:hover {
+      background-color: #6d28d9;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.38);
+    }
+
+    .tour-subj-pills {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tour-subj-pills span {
+      font-size: 0.74em;
+      color: #94a3b8;
+      margin-right: 3px;
+    }
+
+    .tour-subj-link {
+      font-size: 0.73em;
+      font-weight: 600;
+      color: #cbd5e1 !important;
+      text-decoration: none !important;
+      padding: 4px 8px;
+      border-radius: 99px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      transition: all 0.15s ease;
+    }
+
+    .tour-subj-link:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #ffffff !important;
+    }
+
+    @media (max-width: 720px) {
+      .gv07-cols-head {
+        display: none;
+      }
+
+      .gv07-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 10px;
+        padding: 9px 8px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .gv07-glob-cell {
+        grid-column: span 2;
+      }
+
+      .tour-modes-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .tour-portal-card {
+        padding: 18px 16px;
+      }
+
+      .tour-main-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 
@@ -2852,12 +3204,394 @@
 
 
                   <!-- ================================================================== -->
-                  <!-- [ANCLA SECCIÓN 6: RESULTADOS, CORPUS BALANCEADO Y TOUR 3D]         -->
+                  <!-- SECCIÓN 6: RESULTADOS EN LOS 10 CEREBROS Y TOUR CORTICAL 3D        -->
                   <!-- ================================================================== -->
 
-                  <!-- ================================================================== -->
-                  <!-- [FIN ANCLA SECCIÓN 6]                                              -->
-                  <!-- ================================================================== -->
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Sección 6</span>
+                    <h3>Qué responden los diez cerebros y exploración en 3D</h3>
+                  </div>
+
+                  <div class="distill-row">
+                    <div class="distill-main">
+                      <p>
+                        Con el reloj vascular sincronizado a 12.0 segundos, las siete perillas calibradas por separado y
+                        los diez mil barajados listos, cada uno de los <b>943,305 vóxeles</b> se sometió a una resta
+                        directa sobre relatos nunca vistos por el modelo durante su entrenamiento:
+                      </p>
+
+                      <div class="plain-equation" role="region" aria-label="Fórmula conceptual de ganancia exclusiva">
+                        <div class="peq-term glob">
+                          <b>Acierto Global</b>
+                          Las 7 bandas (46 columnas)
+                        </div>
+                        <span class="peq-op">&minus;</span>
+                        <div class="peq-term ctrl">
+                          <b>Acierto Control</b>
+                          Las 6 bandas base (44 columnas)
+                        </div>
+                        <span class="peq-op">=</span>
+                        <div class="peq-term res">
+                          <b>Ganancia única</b>
+                          Atribuible a pasado y no pasado
+                        </div>
+                      </div>
+
+                      <p>
+                        La evaluación conjunta arroja dos hallazgos muy claros y complementarios. Primero, <b>el modelo
+                          global predice con gran solidez la respuesta cerebral al habla natural</b>: explica valores
+                        positivos fuera de muestra en un promedio del <b>47.10% de toda la corteza</b> (y supera el
+                        umbral estricto de red lingüística en el <b>19.65%</b>), alcanzando un acierto máximo promedio
+                        de <b>0.4304</b> y llegando hasta <b>0.5316</b> en el participante <i>UTS03</i> (más de la mitad
+                        de toda la variación de la señal promediada). Esa predicción dibuja bilateralmente la corteza
+                        auditiva, el surco temporal superior, la unión temporoparietal y el giro frontal inferior.
+                      </p>
+
+                      <p>
+                        Segundo, al restar lo que ya explican las seis bandas de control y aplicar el filtro contra
+                        falsas alarmas, <b>en ninguno de los diez participantes sobreviven vóxeles con ganancia única
+                          significativa (0 de 10 cerebros)</b>, ni al evaluar toda la corteza ni al restringir la
+                        búsqueda solo al 75.45% de corteza confiable. En todos los sujetos la mediana de diferencia es
+                        exactamente <b>0.00000</b>, y dentro de las áreas del lenguaje los pesos aprendidos se reparten
+                        sin un polo universal dominante (en promedio, el <b>44.41%</b> de los vóxeles activos se inclina
+                        hacia pasado y el <b>55.59%</b> hacia no pasado, variando ampliamente de una persona a otra).
+                      </p>
+                    </div>
+
+                    <aside class="distill-margin">
+                      <details class="tech-note">
+                        <summary>Nota técnica 10. Notación y protocolo N/A</summary>
+                        <div class="tech-note-body">
+                          En los reportes estadísticos la resta se denota como <code>&Delta;R<sup>2</sup> =
+                            R<sup>2</sup><sub>global</sub> &minus; R<sup>2</sup><sub>control</sub></code>, la precisión
+                          en mapas corticales se proyecta como <code>&radic;R<sup>2</sup></code> para preservar rango
+                          dinámico frontal y la preferencia direccional compara <code>&beta;<sub>past</sub></code>
+                          frente a <code>&beta;<sub>non_past</sub></code> en vóxeles con <code>R<sup>2</sup> &gt;
+                            0.01</code>. Al resultar <code>0</code> el conteo tras FDR (<code>q &lt; 0.05</code>), la
+                          magnitud en significativos se consigna como <code>N/A</code>.
+                        </div>
+                      </details>
+                    </aside>
+                  </div>
+
+                  <!-- [INICIO FIGURA 7: RADIOGRAFÍA COMPARATIVA DE LOS 10 CEREBROS REALES] -->
+                  <div class="distill-wide">
+                    <figure class="d-fig-card" id="gv07-root" style="margin: 0;">
+                      <div class="d-fig-header">
+                        <div>
+                          <span class="d-fig-kicker">Figura 7</span>
+                          <h4 class="d-fig-title">Resultados simultáneos en los 10 cerebros: alto poder global, cero
+                            focos aislados y balance interno</h4>
+                        </div>
+                        <span class="d-fig-hint">Toca cualquier fila para ver las cifras exactas de esa persona</span>
+                      </div>
+
+                      <div class="gv07-cols-head" aria-hidden="true">
+                        <span>Sujeto</span>
+                        <span>Corteza confiable (azul) · Global &gt; 0 (cálido) y máx.</span>
+                        <span style="text-align:center;">Tras FDR</span>
+                        <span>Preferencia interna: Pasado vs. No pasado</span>
+                      </div>
+
+                      <div class="gv07-rows" id="gv07-rows"></div>
+
+                      <div class="d-inspector" id="gv07-inspector" data-theme="bold">
+                        <span class="d-inspector-tag" id="gv07-tag"></span>
+                        <h5 class="d-inspector-title" id="gv07-title"></h5>
+                        <p class="d-inspector-desc" id="gv07-desc" style="margin-bottom:0 !important;"></p>
+                      </div>
+                    </figure>
+
+                    <!-- Gaveta desplegable con la tabla oficial completa -->
+                    <details class="data-drawer">
+                      <summary>
+                        <span>Tabla completa de métricas por participante (<i>Where There's Smoke</i> y validación
+                          5-fold)</span>
+                        <span class="drawer-cta">Desplegar cifras &#x25BE;</span>
+                      </summary>
+                      <div class="data-drawer-body">
+                        <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Sujeto</th>
+                                <th>Vóxeles (Rep.)</th>
+                                <th>Techo &gt; 0.01</th>
+                                <th>Global &gt; 0 (Máx. R²)</th>
+                                <th>Ganancia &gt; 0 (Mediana | P95)</th>
+                                <th>FDR (Total | Conf.)</th>
+                                <th>Pref. Pasado</th>
+                                <th>Corpus 50/50 (5-Fold: Mediana | &gt; 0)</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><b>UTS01</b></td>
+                                <td>81,126 (10x)</td>
+                                <td>80.93%</td>
+                                <td>46.09% (0.4803)</td>
+                                <td>17.31% (0.00000 | 0.00428)</td>
+                                <td>0 | 0</td>
+                                <td>60.76%</td>
+                                <td>0.00000 | 27.49%</td>
+                              </tr>
+                              <tr>
+                                <td><b>UTS02</b></td>
+                                <td>94,251 (10x)</td>
+                                <td>86.35%</td>
+                                <td>47.62% (0.4126)</td>
+                                <td>18.91% (0.00000 | 0.00657)</td>
+                                <td>0 | 0</td>
+                                <td>45.71%</td>
+                                <td>0.00000 | 32.05%</td>
+                              </tr>
+                              <tr>
+                                <td><b>UTS03</b></td>
+                                <td>95,556 (10x)</td>
+                                <td>89.34%</td>
+                                <td>56.72% (0.5316)</td>
+                                <td>19.99% (0.00000 | 0.00638)</td>
+                                <td>0 | 0</td>
+                                <td>37.65%</td>
+                                <td>0.00000 | 26.62%</td>
+                              </tr>
+                              <tr>
+                                <td><b>UTS04</b></td>
+                                <td>109,469 (5x)</td>
+                                <td>68.11%</td>
+                                <td>38.78% (0.4250)</td>
+                                <td>18.89% (0.00000 | 0.00534)</td>
+                                <td>0 | 0</td>
+                                <td>78.33%</td>
+                                <td>0.00000 | 33.13%</td>
+                              </tr>
+                              <tr>
+                                <td><b>UTS05</b></td>
+                                <td>99,322 (5x)</td>
+                                <td>67.30%</td>
+                                <td>45.53% (0.4696)</td>
+                                <td>16.93% (0.00000 | 0.00359)</td>
+                                <td>0 | 0</td>
+                                <td>38.25%</td>
+                                <td>0.00000 | 22.75%</td>
+                              </tr>
+                              <tr>
+                                <td><b>UTS06</b></td>
+                                <td>92,198 (5x)</td>
+                                <td>69.73%</td>
+                                <td>48.94% (0.4555)</td>
+                                <td>16.81% (0.00000 | 0.00424)</td>
+                                <td>0 | 0</td>
+                                <td>43.04%</td>
+                                <td>0.00000 | 23.60%</td>
+                              </tr>
+                              <tr>
+                                <td><b>UTS07</b></td>
+                                <td>94,395 (5x)</td>
+                                <td>68.87%</td>
+                                <td>42.89% (0.3708)</td>
+                                <td>15.03% (0.00000 | 0.00390)</td>
+                                <td>0 | 0</td>
+                                <td>22.47%</td>
+                                <td>0.00000 | 24.07%</td>
+                              </tr>
+                              <tr>
+                                <td><b>UTS08</b></td>
+                                <td>97,023 (5x)</td>
+                                <td>68.03%</td>
+                                <td>40.75% (0.2896)</td>
+                                <td>15.54% (0.00000 | 0.00419)</td>
+                                <td>0 | 0</td>
+                                <td>34.90%</td>
+                                <td>0.00000 | 21.77%</td>
+                              </tr>
+                              <tr>
+                                <td><b>UTS09</b></td>
+                                <td>98,336 (5x)</td>
+                                <td>72.68%</td>
+                                <td>52.08% (0.3905)</td>
+                                <td>15.28% (0.00000 | 0.00284)</td>
+                                <td>0 | 0</td>
+                                <td>48.50%</td>
+                                <td>0.00000 | 25.04%</td>
+                              </tr>
+                              <tr>
+                                <td><b>UTS10</b></td>
+                                <td>81,629 (5x)</td>
+                                <td>83.13%</td>
+                                <td>51.65% (0.4789)</td>
+                                <td>16.03% (0.00000 | 0.00268)</td>
+                                <td>0 | 0</td>
+                                <td>34.47%</td>
+                                <td>0.00000 | 21.04%</td>
+                              </tr>
+                              <tr style="background-color: #f4f8fa; font-weight: 600;">
+                                <td><b>Media (10)</b></td>
+                                <td><b>943,305 tot.</b></td>
+                                <td><b>75.45%</b></td>
+                                <td><b>47.10% (0.4304)</b></td>
+                                <td><b>17.07% (0.00000)</b></td>
+                                <td><b>0 / 10</b></td>
+                                <td><b>44.41%</b></td>
+                                <td><b>0.00000 | 25.76%</b></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </details>
+                  </div>
+                  <!-- [FIN FIGURA 7] -->
+
+                  <div class="distill-row">
+                    <div class="distill-main">
+                      <h4 class="distill-subhead">La contraprueba ante el presente histórico: evaluar sobre 83 relatos equilibrados</h4>
+
+                      <p>
+                        Ante la ausencia de focos significativos en <i>Where There's Smoke</i> surgía una duda legítima
+                        sobre ese relato en particular. Aunque la narradora comienza en pasado mientras escapa del
+                        automóvil, en el segundo 109.1 (<i>«I see a figure up ahead»</i>, «veo una silueta más
+                        adelante») gira hacia el presente histórico durante casi todo el resto de la grabación. Por eso,
+                        de sus <b>282 formas verbales personales</b> con tiempo, solo <b>59 llevan flexión temporal de
+                          pasado (20.92%)</b> frente a <b>223 de no pasado (79.08%)</b>, llegando a cero verbos en
+                        pasado durante todo el octavo minuto.
+                      </p>
+
+                      <p>
+                        ¿Podía deberse el resultado nulo a esa escasez de formas en pasado en la historia de prueba?
+                        Para comprobarlo de manera directa, se ejecutó una <b>validación cruzada externa en cinco
+                          bloques sobre las 83 historias restantes</b> (20,639 verbos personales), donde el equilibrio
+                        es casi mitad y mitad: <b>52.53% de pasado</b> frente a <b>47.47% de no pasado</b>. El resultado
+                        volvió a ser idéntico: en los <b>diez cerebros sin excepción</b>, la mediana de ganancia única
+                        permaneció en <b>0.00000</b>.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- [INICIO FIGURA 8: WHERE THERE'S SMOKE VS CORPUS BALANCEADO 50/50] -->
+                  <div class="distill-wide">
+                    <figure class="d-fig-card" id="gv08-root" style="margin: 0;">
+                      <div class="d-fig-header">
+                        <div>
+                          <span class="d-fig-kicker">Figura 8</span>
+                          <h4 class="d-fig-title">Prueba contra el sesgo narrativo: el giro en <i>Where There's
+                              Smoke</i> frente a las 83 historias equilibradas</h4>
+                        </div>
+
+                        <div class="d-tabs" role="tablist" aria-label="Comparación de evaluación">
+                          <button type="button" class="d-tab-btn is-active" data-tab="minutes">
+                            1. Minuto a minuto en Where There's Smoke
+                          </button>
+                          <button type="button" class="d-tab-btn" data-tab="balanced">
+                            2. Relato 21/79 vs. 83 relatos 53/47
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="gv03-readout" id="gv08-readout" aria-live="polite"></div>
+
+                      <div class="gv08-canvas-wrap">
+                        <canvas id="gv08-canvas"></canvas>
+                      </div>
+
+                      <div class="gv03-foot" id="gv08-foot"></div>
+                    </figure>
+                  </div>
+                  <!-- [FIN FIGURA 8] -->
+
+                  <div class="distill-row">
+                    <div class="distill-main">
+                      <h4 class="distill-subhead">Qué significa este hallazgo para la neurociencia del lenguaje</h4>
+
+                      <p>
+                        Un resultado estadísticamente nulo obtenido con un modelo débil sería ambiguo; obtenido con un
+                        modelo que explica hasta el 53% de la señal cortical y supera todas las contrapruebas de
+                        alineación, regularización por bandas y equilibrio de corpus, aporta una conclusión empírica
+                        firme:
+                      </p>
+
+                      <ul class="distill-list">
+                        <li>
+                          <b>Integración con el léxico funcional y la cláusula:</b> En la escucha natural en inglés, el
+                          51.78% de las marcas temporales viaja adherido a auxiliares breves y muy frecuentes (<i>be,
+                            have, do</i>) y el resto recae sobre verbos que articulan la estructura de dependencias de
+                          cada oración. Cuando un modelo ya conoce la estadística léxica, la clase auxiliar, la
+                          distancia sintáctica y el tema oracional, esas pistas anticipan la demanda metabólica de los
+                          mismos circuitos temporales y frontales donde se procesa la conjugación.
+                        </li>
+                        <li>
+                          <b>Frontera temporal de la señal sanguínea frente a la velocidad neuronal:</b> Reconocer un
+                          sufijo como <i>-ed</i> o un auxiliar como <i>was</i> («estaba») toma apenas entre cien y
+                          trescientos milisegundos en la corteza humana, mientras que cada fotografía hemodinámica del
+                          escáner integra dos segundos completos de consumo de oxígeno sobre millones de neuronas por
+                          vóxel. A esa escala macroscópica y vascular, las operaciones morfológicas rápidas quedan
+                          fundidas dentro del pulso general de comprensión de la cláusula; rastrear su dinámica fina
+                          apunta de forma natural hacia técnicas de milisegundos como la magnetoencefalografía (MEG) o
+                          el registro intracraneal.
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- [INICIO PORTAL ÚNICO AL TOUR CORTICAL 3D EN ESPAÑOL] -->
+                  <div class="distill-wide">
+                    <div class="tour-portal-card">
+                      <span class="tour-portal-kicker">Exploración interactiva en WebGL · PyCortex</span>
+                      <h4 class="tour-portal-title">Recorre por dentro los diez cerebros reales en 3D y en mapa plano</h4>
+                      <p class="tour-portal-desc">
+                        Todos los mapas corticales del estudio fueron compilados en un <b>Tour Cortical Guiado en
+                          español</b> de seis estaciones. Puedes rotar cada cerebro en su propia anatomía nativa,
+                        desplegarlo en vista plana 2D y alternar entre sus tres familias de mapas:
+                      </p>
+
+                      <div class="tour-modes-strip">
+                        <div class="tour-mode-item">
+                          <div class="tour-mode-bar"
+                            style="background: linear-gradient(90deg, #3b0f70 0%, #b83754 50%, #f98e09 85%, #fcffa4 100%);">
+                          </div>
+                          <h5>1. Precisión Global</h5>
+                          <p>Ilumina con nitidez la red auditiva, temporal superior y frontal inferior en cada sujeto.</p>
+                        </div>
+
+                        <div class="tour-mode-item">
+                          <div class="tour-mode-bar"
+                            style="background: linear-gradient(90deg, #2166ac 0%, #f1f5f9 50%, #b2182b 100%);"></div>
+                          <h5>2. Aporte Verbal Único</h5>
+                          <p>Compara el mapa filtrado por FDR (limpio en los 10 sujetos) frente al paisaje continuo sin
+                            umbral.</p>
+                        </div>
+
+                        <div class="tour-mode-item">
+                          <div class="tour-mode-bar"
+                            style="background: linear-gradient(90deg, #762a83 0%, #f1f5f9 50%, #1b7837 100%);"></div>
+                          <h5>3. Pasado vs. No Pasado</h5>
+                          <p>Muestra el mosaico individual de pesos entre pasado (púrpura), ambos (blanco) y no pasado
+                            (verde).</p>
+                        </div>
+                      </div>
+
+                      <div class="tour-cta-row">
+                        <a href="sub-UTS03/index.html" target="_blank" rel="noopener" class="tour-main-btn">
+                          Iniciar Tour Cortical Guiado (UTS03 · mayor señal) &#x2197;
+                        </a>
+
+                        <div class="tour-subj-pills" aria-label="Acceso directo a cada cerebro nativo">
+                          <span>O saltar directo a:</span>
+                          <a href="sub-UTS01/index.html" target="_blank" rel="noopener" class="tour-subj-link">UTS01</a>
+                          <a href="sub-UTS02/index.html" target="_blank" rel="noopener" class="tour-subj-link">UTS02</a>
+                          <a href="sub-UTS03/index.html" target="_blank" rel="noopener" class="tour-subj-link">UTS03</a>
+                          <a href="sub-UTS04/index.html" target="_blank" rel="noopener" class="tour-subj-link">UTS04</a>
+                          <a href="sub-UTS05/index.html" target="_blank" rel="noopener" class="tour-subj-link">UTS05</a>
+                          <a href="sub-UTS06/index.html" target="_blank" rel="noopener" class="tour-subj-link">UTS06</a>
+                          <a href="sub-UTS07/index.html" target="_blank" rel="noopener" class="tour-subj-link">UTS07</a>
+                          <a href="sub-UTS08/index.html" target="_blank" rel="noopener" class="tour-subj-link">UTS08</a>
+                          <a href="sub-UTS09/index.html" target="_blank" rel="noopener" class="tour-subj-link">UTS09</a>
+                          <a href="sub-UTS10/index.html" target="_blank" rel="noopener" class="tour-subj-link">UTS10</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- [FIN PORTAL TOUR CORTICAL 3D] -->
 
 
                   <!-- ================================================================== -->
@@ -5506,6 +6240,287 @@
           nReps = parseInt(repBtn.getAttribute('data-reps'), 10);
           var rbs = barCeil.querySelectorAll('[data-reps]');
           for (var r = 0; r < rbs.length; r++) rbs[r].classList.toggle('is-active', rbs[r] === repBtn);
+          render();
+        }
+      });
+
+      window.addEventListener('resize', render);
+      render();
+    })();
+    /* 10. Figura 7 (gv07): Tablero comparativo paralelo de los 10 cerebros reales */
+    (function () {
+      var root = document.getElementById('gv07-root');
+      var rowsEl = document.getElementById('gv07-rows');
+      var tagEl = document.getElementById('gv07-tag');
+      var titleEl = document.getElementById('gv07-title');
+      var descEl = document.getElementById('gv07-desc');
+      if (!root || !rowsEl) return;
+
+      var COHORT = [
+        { id: 'UTS01', vox: '81,126', rep: '10x', ceil: 80.93, pos: 46.09, gt01: 23.16, max: '0.4803', dPos: 17.31, pastPref: 60.76, balPos: 27.49 },
+        { id: 'UTS02', vox: '94,251', rep: '10x', ceil: 86.35, pos: 47.62, gt01: 22.14, max: '0.4126', dPos: 18.91, pastPref: 45.71, balPos: 32.05 },
+        { id: 'UTS03', vox: '95,556', rep: '10x', ceil: 89.34, pos: 56.72, gt01: 32.28, max: '0.5316', dPos: 19.99, pastPref: 37.65, balPos: 26.62 },
+        { id: 'UTS04', vox: '109,469', rep: '5x', ceil: 68.11, pos: 38.78, gt01: 13.08, max: '0.4250', dPos: 18.89, pastPref: 78.33, balPos: 33.13 },
+        { id: 'UTS05', vox: '99,322', rep: '5x', ceil: 67.30, pos: 45.53, gt01: 15.24, max: '0.4696', dPos: 16.93, pastPref: 38.25, balPos: 22.75 },
+        { id: 'UTS06', vox: '92,198', rep: '5x', ceil: 69.73, pos: 48.94, gt01: 20.73, max: '0.4555', dPos: 16.81, pastPref: 43.04, balPos: 23.60 },
+        { id: 'UTS07', vox: '94,395', rep: '5x', ceil: 68.87, pos: 42.89, gt01: 13.76, max: '0.3708', dPos: 15.03, pastPref: 22.47, balPos: 24.07 },
+        { id: 'UTS08', vox: '97,023', rep: '5x', ceil: 68.03, pos: 40.75, gt01: 12.94, max: '0.2896', dPos: 15.54, pastPref: 34.90, balPos: 21.77 },
+        { id: 'UTS09', vox: '98,336', rep: '5x', ceil: 72.68, pos: 52.08, gt01: 20.84, max: '0.3905', dPos: 15.28, pastPref: 48.50, balPos: 25.04 },
+        { id: 'UTS10', vox: '81,629', rep: '5x', ceil: 83.13, pos: 51.65, gt01: 22.34, max: '0.4789', dPos: 16.03, pastPref: 34.47, balPos: 21.04 },
+        { id: 'Media', vox: '943,305', rep: '10 suj.', ceil: 75.45, pos: 47.10, gt01: 19.65, max: '0.4304', dPos: 17.07, pastPref: 44.41, balPos: 25.76, isMean: true }
+      ];
+
+      var selIdx = 2; /* UTS03 por defecto */
+      var domRows = [];
+
+      for (var i = 0; i < COHORT.length; i++) {
+        var s = COHORT[i];
+        var npPref = (100 - s.pastPref).toFixed(1);
+        var r = document.createElement('div');
+        r.className = 'gv07-row' + (s.isMean ? ' is-mean' : '') + (i === selIdx ? ' is-selected' : '');
+        r.setAttribute('data-idx', i);
+
+        r.innerHTML =
+          '<div class="gv07-id">' + s.id + '<small>' + s.rep + '</small></div>' +
+          '<div class="gv07-glob-cell">' +
+            '<div class="gv07-track">' +
+              '<div class="gv07-fill-ceil" style="width:' + s.ceil + '%;"></div>' +
+              '<div class="gv07-fill-pos" style="width:' + s.pos + '%;"></div>' +
+            '</div>' +
+            '<span class="gv07-max-lbl">' + s.max + '</span>' +
+          '</div>' +
+          '<div class="gv07-fdr-badge">0 vóx.</div>' +
+          '<div class="gv07-pol-track" title="Pasado: ' + s.pastPref.toFixed(1) + '% · No pasado: ' + npPref + '%">' +
+            '<div style="width:' + s.pastPref + '%; background:var(--sci-past);"></div>' +
+            '<div style="width:' + npPref + '%; background:var(--sci-nonpast);"></div>' +
+          '</div>';
+
+        rowsEl.appendChild(r);
+        domRows.push(r);
+      }
+
+      function selectRow(idx) {
+        selIdx = idx;
+        for (var j = 0; j < domRows.length; j++) {
+          domRows[j].classList.toggle('is-selected', j === idx);
+        }
+        var s = COHORT[idx];
+        var np = (100 - s.pastPref).toFixed(2);
+        tagEl.textContent = s.isMean
+          ? 'Promedio de los 10 participantes (943,305 vóxeles corticales)'
+          : ('Participante ' + s.id + ' · ' + s.vox + ' vóxeles nativos (' + s.rep + ' escuchas de prueba)');
+        titleEl.textContent = 'Global > 0 en ' + s.pos.toFixed(2) + '% de la corteza (pico R² = ' + s.max + ') · 0 vóxeles aislados tras FDR';
+        descEl.textContent = 'El ' + s.ceil.toFixed(2) + '% de su corteza tiene señal repetible confiable y el ' + s.gt01.toFixed(2) + '% supera R² > 0.01. La ganancia bruta es mayor que cero solo en el ' + s.dPos.toFixed(2) + '% de los vóxeles (mediana 0.00000). Dentro de su red activa, el ' + s.pastPref.toFixed(2) + '% de los pesos se inclina a pasado (púrpura) y el ' + np + '% a no pasado (verde).';
+      }
+
+      rowsEl.addEventListener('click', function (e) {
+        var row = e.target.closest('.gv07-row');
+        if (row) selectRow(parseInt(row.getAttribute('data-idx'), 10));
+      });
+
+      selectRow(2);
+    })();
+
+    /* 11. Figura 8 (gv08): Perfil minuto a minuto auditado (282 verbos) vs. validación 5-fold en 83 relatos */
+    (function () {
+      var root = document.getElementById('gv08-root');
+      var canvas = document.getElementById('gv08-canvas');
+      var readout = document.getElementById('gv08-readout');
+      var foot = document.getElementById('gv08-foot');
+      if (!root || !canvas) return;
+
+      /* Cifras exactas de test_story_minute_profile.csv (59 pasado + 223 no pasado = 282) */
+      var MINS = [
+        { lbl: 'Min 1', p: 18, np: 7, note: 'Huida del automóvil en el semáforo en rojo (72.0% pasado).' },
+        { lbl: 'Min 2', p: 13, np: 11, note: 'Caminata descalza y giro al presente histórico en el seg. 109.1 («I see a figure»).' },
+        { lbl: 'Min 3', p: 3, np: 32, note: 'Encuentro con la mujer en la calle y búsqueda de cerillas (91.4% no pasado).' },
+        { lbl: 'Min 4', p: 10, np: 23, note: 'Único fósforo encendido y breve recuerdo de la discusión previa.' },
+        { lbl: 'Min 5', p: 3, np: 26, note: 'Conversación en presente sobre sus trabajos y planes (89.7% no pasado).' },
+        { lbl: 'Min 6', p: 2, np: 25, note: 'Caminata hacia los apartamentos junto a la autopista (92.6% no pasado).' },
+        { lbl: 'Min 7', p: 1, np: 29, note: 'Puerta número cuatro, televisor encendido y niño dormido (96.7% no pasado).' },
+        { lbl: 'Min 8', p: 0, np: 33, note: 'Cero verbos en pasado en todo el minuto (100% no pasado: 33 de 33).' },
+        { lbl: 'Min 9', p: 6, np: 23, note: 'Mapa dibujado a mano («I drew out this map») y despedida.' },
+        { lbl: 'Min 10', p: 3, np: 14, note: 'Regreso a casa («I smoked...») y reflexión final en presente.' }
+      ];
+
+      /* Comparación en los 10 sujetos: % de vóxeles con ganancia > 0 en WTS (21/79) vs 83 relatos (53/47) */
+      var SUBJ_COMP = [
+        { id: 'UTS01', wts: 17.31, bal: 27.49 }, { id: 'UTS02', wts: 18.91, bal: 32.05 },
+        { id: 'UTS03', wts: 19.99, bal: 26.62 }, { id: 'UTS04', wts: 18.89, bal: 33.13 },
+        { id: 'UTS05', wts: 16.93, bal: 22.75 }, { id: 'UTS06', wts: 16.81, bal: 23.60 },
+        { id: 'UTS07', wts: 15.03, bal: 24.07 }, { id: 'UTS08', wts: 15.54, bal: 21.77 },
+        { id: 'UTS09', wts: 15.28, bal: 25.04 }, { id: 'UTS10', wts: 16.03, bal: 21.04 }
+      ];
+
+      var activeTab = 'minutes';
+      var selMin = 1;
+      var selSub = 2;
+
+      function drawMinutes(ctx, cssW, cssH) {
+        var padL = 40, padR = 16, padT = 28, padB = 30;
+        var plotW = cssW - padL - padR, plotH = cssH - padT - padB;
+        var maxTot = 38, slotW = plotW / 10, barW = Math.min(36, slotW * 0.62);
+
+        ctx.strokeStyle = '#edf2f6';
+        ctx.fillStyle = '#64717a';
+        ctx.font = '500 9.4px Poppins, sans-serif';
+        ctx.textAlign = 'right';
+        for (var yv = 0; yv <= 35; yv += 15) {
+          var gy = padT + plotH - (yv / maxTot) * plotH;
+          ctx.beginPath(); ctx.moveTo(padL, gy); ctx.lineTo(padL + plotW, gy); ctx.stroke();
+          ctx.fillText(yv, padL - 6, gy + 3);
+        }
+
+        /* Línea del giro al presente histórico (seg. 109.1 = minuto 1.82) */
+        var turnX = padL + 1.82 * slotW;
+        ctx.save();
+        ctx.strokeStyle = '#1b7837';
+        ctx.setLineDash([4, 3]);
+        ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(turnX, padT - 6); ctx.lineTo(turnX, padT + plotH); ctx.stroke();
+        ctx.fillStyle = '#165c2b';
+        ctx.font = '600 9.3px Poppins, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('Seg. 109.1: giro al presente histórico →', Math.min(turnX + 5, cssW - 210), padT - 9);
+        ctx.restore();
+
+        for (var i = 0; i < 10; i++) {
+          var m = MINS[i];
+          var cx = padL + (i + 0.5) * slotW, bx = cx - barW / 2;
+          var hp = (m.p / maxTot) * plotH, hnp = (m.np / maxTot) * plotH;
+          var yBase = padT + plotH;
+
+          if (i === selMin) {
+            ctx.fillStyle = 'rgba(4, 180, 224, 0.08)';
+            ctx.fillRect(padL + i * slotW + 2, padT - 2, slotW - 4, plotH + 2);
+          }
+          if (hp > 0) {
+            ctx.fillStyle = '#762a83';
+            ctx.fillRect(bx, yBase - hp, barW, hp);
+          }
+          if (hnp > 0) {
+            ctx.fillStyle = '#1b7837';
+            ctx.fillRect(bx, yBase - hp - hnp, barW, hnp);
+          }
+          ctx.fillStyle = (i === selMin) ? '#1e2328' : '#64717a';
+          ctx.font = (i === selMin ? '700 ' : '500 ') + '9.4px Poppins, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(cssW < 500 ? ('M' + (i + 1)) : m.lbl, cx, yBase + 14);
+        }
+
+        var cm = MINS[selMin];
+        readout.innerHTML =
+          '<span><b>' + cm.lbl + ':</b> <span class="tag-past">' + cm.p + ' pasado</span> vs. <span class="tag-nonpast">' + cm.np + ' no pasado</span></span>' +
+          '<span>' + cm.note + '</span>';
+        foot.innerHTML =
+          '<span>Total en Where There\'s Smoke: 59 en pasado (20.92%) y 223 en no pasado (79.08%).</span>' +
+          '<span>Toca cualquier minuto para inspeccionarlo</span>';
+      }
+
+      function drawBalanced(ctx, cssW, cssH) {
+        var padL = 44, padR = 16, padT = 32, padB = 30;
+        var plotW = cssW - padL - padR, plotH = cssH - padT - padB;
+        var slotW = plotW / 10, pairW = Math.min(34, slotW * 0.68), singleW = (pairW - 3) / 2;
+
+        /* Línea de referencia del 50% (lo que ocurriría si la mediana subiera por encima de cero) */
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.setLineDash([4, 3]);
+        var y50 = padT + plotH - (50 / 60) * plotH;
+        ctx.beginPath(); ctx.moveTo(padL, y50); ctx.lineTo(padL + plotW, y50); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#475569';
+        ctx.font = '600 9px Poppins, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('50% de vóxeles (nivel donde la mediana dejaría de ser 0.00000)', padL + 6, y50 - 5);
+
+        ctx.strokeStyle = '#edf2f6';
+        ctx.fillStyle = '#64717a';
+        ctx.textAlign = 'right';
+        var yVals = [0, 25, 50];
+        for (var k = 0; k < yVals.length; k++) {
+          var gy = padT + plotH - (yVals[k] / 60) * plotH;
+          if (yVals[k] !== 50) {
+            ctx.beginPath(); ctx.moveTo(padL, gy); ctx.lineTo(padL + plotW, gy); ctx.stroke();
+          }
+          ctx.fillText(yVals[k] + '%', padL - 6, gy + 3);
+        }
+
+        for (var i = 0; i < 10; i++) {
+          var s = SUBJ_COMP[i];
+          var cx = padL + (i + 0.5) * slotW;
+          var x0 = cx - pairW / 2;
+          var hWts = (s.wts / 60) * plotH;
+          var hBal = (s.bal / 60) * plotH;
+          var yB = padT + plotH;
+
+          if (i === selSub) {
+            ctx.fillStyle = 'rgba(4, 180, 224, 0.08)';
+            ctx.fillRect(padL + i * slotW + 2, padT - 2, slotW - 4, plotH + 2);
+          }
+
+          ctx.fillStyle = '#94a3b8';
+          ctx.fillRect(x0, yB - hWts, singleW, hWts);
+
+          ctx.fillStyle = '#3b5975';
+          ctx.fillRect(x0 + singleW + 3, yB - hBal, singleW, hBal);
+
+          ctx.fillStyle = (i === selSub) ? '#1e2328' : '#64717a';
+          ctx.font = (i === selSub ? '700 ' : '500 ') + '9.2px Poppins, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(cssW < 520 ? s.id.replace('UTS', 'U') : s.id, cx, yB + 14);
+        }
+
+        var cs = SUBJ_COMP[selSub];
+        readout.innerHTML =
+          '<span><b>' + cs.id + ':</b> Vóxeles con ganancia &gt; 0 en Where There\'s Smoke = <b>' + cs.wts.toFixed(2) + '%</b> · En 83 historias balanceadas = <b>' + cs.bal.toFixed(2) + '%</b></span>' +
+          '<span><b>Mediana en ambos casos:</b> 0.00000</span>';
+        foot.innerHTML =
+          '<span>Gris claro: historia única (21% pasado / 79% no pasado) · Azul acero: 83 historias balanceadas (52.5% / 47.5%).</span>' +
+          '<span>En los 10 sujetos queda muy por debajo del 50% (mediana = 0.00000)</span>';
+      }
+
+      function render() {
+        var dpr = window.devicePixelRatio || 1;
+        var cssW = canvas.clientWidth || 700;
+        var cssH = canvas.clientHeight || 244;
+        if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {
+          canvas.width = Math.round(cssW * dpr);
+          canvas.height = Math.round(cssH * dpr);
+        }
+        var ctx = canvas.getContext('2d');
+        ctx.save();
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, cssW, cssH);
+
+        if (activeTab === 'minutes') drawMinutes(ctx, cssW, cssH);
+        else drawBalanced(ctx, cssW, cssH);
+
+        ctx.restore();
+      }
+
+      function pickSlot(clientX) {
+        var rect = canvas.getBoundingClientRect();
+        var pL = (activeTab === 'minutes') ? 40 : 44;
+        var plotW = rect.width - pL - 16;
+        if (plotW <= 0) return;
+        var idx = Math.floor(((clientX - rect.left - pL) / plotW) * 10);
+        if (idx >= 0 && idx < 10) {
+          if (activeTab === 'minutes' && idx !== selMin) { selMin = idx; render(); }
+          else if (activeTab === 'balanced' && idx !== selSub) { selSub = idx; render(); }
+        }
+      }
+
+      canvas.addEventListener('click', function (e) { pickSlot(e.clientX); });
+      canvas.addEventListener('mousemove', function (e) { pickSlot(e.clientX); });
+
+      root.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-tab]');
+        if (!btn) return;
+        var next = btn.getAttribute('data-tab');
+        if (next && next !== activeTab) {
+          activeTab = next;
+          var tbs = root.querySelectorAll('[data-tab]');
+          for (var i = 0; i < tbs.length; i++) tbs[i].classList.toggle('is-active', tbs[i] === btn);
           render();
         }
       });
