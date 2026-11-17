@@ -1478,6 +1478,73 @@
         height: 282px;
       }
     }
+    /* ==========================================================================
+       ESTILOS SECCIÓN 5: FIGURA 6 (TECHO BIOLÓGICO Y BLOQUES DE 20 S)
+       ========================================================================== */
+    .gv06-subbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px 12px;
+      margin-bottom: 10px;
+    }
+
+    .gv06-subbar[hidden] {
+      display: none !important;
+    }
+
+    .gv06-action-btn {
+      appearance: none;
+      background-color: var(--ui-accent-soft);
+      border: 1px solid #8ad6eb;
+      color: #006d94;
+      font-family: inherit;
+      font-size: 0.76em;
+      font-weight: 600;
+      padding: 6px 13px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      min-height: 34px;
+    }
+
+    .gv06-action-btn:hover {
+      background-color: var(--ui-accent);
+      border-color: var(--ui-accent);
+      color: #ffffff;
+    }
+
+    .gv06-action-btn.secondary {
+      background-color: #f4f7f9;
+      border-color: #cfdbe3;
+      color: #3a4750;
+    }
+
+    .gv06-action-btn.secondary:hover {
+      background-color: #e5edf2;
+      color: var(--ui-heading);
+    }
+
+    .gv06-canvas-wrap {
+      width: 100%;
+      border: 1px solid #e4ecf0;
+      border-radius: 9px;
+      background-color: #ffffff;
+      overflow: hidden;
+    }
+
+    #gv06-canvas {
+      display: block;
+      width: 100%;
+      height: 268px;
+    }
+
+    @media (max-width: 640px) {
+      #gv06-canvas {
+        height: 312px;
+      }
+    }
   </style>
 </head>
 
@@ -2625,11 +2692,171 @@
 
 
                   <!-- ================================================================== -->
-                  <!-- [ANCLA ENTREGA 4: SECCIONES 5 Y 6 + TOUR CORTICAL 3D]              -->
+                  <!-- SECCIÓN 5: SEÑAL REPETIBLE Y PRUEBA CONTRA EL AZAR                 -->
+                  <!-- ================================================================== -->
+
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Sección 5</span>
+                    <h3>Cómo distinguir una huella real frente al ruido y al azar</h3>
+                  </div>
+
+                  <div class="distill-row">
+                    <div class="distill-main">
+                      <p>
+                        Cuando se comparan dos modelos sobre señales biológicas, obtener una resta apenas mayor que cero
+                        en algunos puntos del cerebro no prueba nada por sí mismo. Antes de dar por válida cualquier
+                        mejora, el análisis debe superar dos filtros elementales: saber <b>cuánta señal real del relato
+                          existe en cada vóxel</b> y comprobar <b>si la ganancia supera las coincidencias esperables por
+                          puro azar</b>.
+                      </p>
+
+                      <h4 class="distill-subhead">1. El techo máximo explicable a partir de escuchas repetidas</h4>
+
+                      <p>
+                        Un escáner cerebral capta al mismo tiempo la respuesta al relato y fluctuaciones ajenas a la
+                        historia: latidos, respiración, variaciones térmicas del sensor y pensamientos espontáneos de la
+                        persona. Ningún modelo lingüístico, por exacto que sea, puede adivinar ese ruido irrepetible.
+                      </p>
+
+                      <p>
+                        Para medir qué fracción de cada vóxel obedece de verdad al cuento, se aprovechó que los diez
+                        participantes escucharon exactamente la misma grabación de <i>Where There's Smoke</i> entre
+                        <b>cinco y diez veces en días distintos</b>. Si en todas las sesiones un vóxel se enciende y se
+                        apaga en los mismos pasajes del relato, posee un alto porcentaje de señal repetible; si cada día
+                        hace algo diferente, predomina el ruido. Esa proporción marca el <b>techo máximo alcanzable</b>
+                        en cada cubo de tejido: en promedio, el <b>75.45% de la corteza</b> de cada participante mostró
+                        una respuesta repetible confiable, mientras que el cuarto restante carece de señal consistente
+                        ante la historia hablada.
+                      </p>
+                    </div>
+
+                    <aside class="distill-margin">
+                      <details class="tech-note">
+                        <summary>Nota técnica 8. Techo de Sahani y Linden</summary>
+                        <div class="tech-note-body">
+                          Sobre las repeticiones individuales en HDF5 (<code>individual_repeats</code>: 10 escuchas en
+                          <code>UTS01–UTS03</code> y 5 en <code>UTS04–UTS10</code>) se aplicó el estimador de potencia
+                          de señal con corrección por muestra finita de Sahani y Linden (2003). Las métricas relativas
+                          al techo se calculan solo donde <code>r2_noise_ceiling &gt; 0.01</code>, asignando
+                          <code>N/A</code> debajo de ese umbral para evitar cocientes inestables.
+                        </div>
+                      </details>
+                    </aside>
+                  </div>
+
+                  <div class="distill-row">
+                    <div class="distill-main">
+                      <h4 class="distill-subhead">2. Diez mil barajadas de bloques y el problema de las cien mil pruebas</h4>
+
+                      <p>
+                        El segundo filtro consiste en medir cuánta ganancia produciría un modelo desincronizado por
+                        simple casualidad. Como el flujo sanguíneo dura varios segundos en subir y bajar, no sería
+                        válido desordenar instantes sueltos de dos segundos porque eso destruiría la suavidad natural de
+                        las ondas. En su lugar, la predicción del relato se divide en <b>bloques enteros de 20
+                          segundos</b> (diez capturas seguidas) y se <b>baraja el orden de esos bloques 10,000 veces</b>
+                        frente a la grabación cerebral fija. Así cada bloque conserva su forma vascular intacta, pero la
+                        historia queda desacoplada de lo que la persona estaba oyendo.
+                      </p>
+
+                      <p>
+                        Esas diez mil barajadas dibujan en cada vóxel la campana de ganancias que ocurren por azar. Por
+                        último, evaluar cerca de cien mil vóxeles a la vez equivale a lanzar cien mil monedas buscando
+                        rachas: aunque todo sea azar, cientos de vóxeles parecerán destacar si se miran uno por uno. Por
+                        eso se aplica un control de falsas alarmas (tasa de falsos descubrimientos, <b>FDR</b>) en dos
+                        versiones: primero sobre <b>toda la corteza</b>, y luego <b>restringido únicamente al 75.45% de
+                          corteza con señal confiable</b>, para que las zonas mudas no vuelvan innecesariamente severo
+                        el filtro sobre las áreas del lenguaje.
+                      </p>
+                    </div>
+
+                    <aside class="distill-margin">
+                      <details class="tech-note">
+                        <summary>Nota técnica 9. Permutaciones BLAS y doble FDR</summary>
+                        <div class="tech-note-body">
+                          Se ejecutaron <code>10,000</code> permutaciones sin reemplazo de bloques contiguos de
+                          <code>10 TRs</code> (<code>20 s</code>) aceleradas mediante productos cruzados BLAS
+                          (<code>SGEMM</code>), alcanzando una resolución empírica mínima
+                          <code>p<sub>min</sub> = 1 / 10,001 &approx; 0.00010</code>. Sobre los valores <code>p</code>
+                          crudos se aplicó Benjamini-Hochberg (<code>q &lt; 0.05</code>) tanto en corteza total
+                          (<code>p_value_fdr</code>) como dentro de la máscara confiable
+                          (<code>p_value_fdr_reliable</code>).
+                        </div>
+                      </details>
+                    </aside>
+                  </div>
+
+                  <!-- [INICIO FIGURA 6: TECHO BIOLÓGICO + BARAJADO DE BLOQUES DE 20 S] -->
+                  <div class="distill-wide">
+                    <figure class="d-fig-card" id="gv06-root" style="margin: 0;">
+                      <div class="d-fig-header">
+                        <div>
+                          <span class="d-fig-kicker">Figura 6</span>
+                          <h4 class="d-fig-title">Los dos filtros de validación: el techo de señal repetible y las
+                            10,000 barajadas por bloques</h4>
+                        </div>
+
+                        <div class="d-tabs" role="tablist" aria-label="Filtros de validación">
+                          <button type="button" class="d-tab-btn is-active" data-tab="ceiling">
+                            1. Techo por escuchas repetidas
+                          </button>
+                          <button type="button" class="d-tab-btn" data-tab="shuffle">
+                            2. Barajado de bloques (20 s)
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Controles Vista 1: Techo biológico -->
+                      <div class="gv06-subbar" id="gv06-bar-ceil">
+                        <div class="d-tabs" role="group" aria-label="Tipo de vóxel cortical">
+                          <button type="button" class="d-tab-btn is-active" data-vox="auditivo">
+                            Vóxel del lenguaje (confiable)
+                          </button>
+                          <button type="button" class="d-tab-btn" data-vox="mudo">
+                            Vóxel sin respuesta al relato
+                          </button>
+                        </div>
+                        <div class="d-tabs" role="group" aria-label="Cantidad de sesiones promediadas">
+                          <button type="button" class="d-tab-btn" data-reps="1">1 día</button>
+                          <button type="button" class="d-tab-btn" data-reps="5">5 días</button>
+                          <button type="button" class="d-tab-btn is-active" data-reps="10">10 días</button>
+                        </div>
+                      </div>
+
+                      <!-- Controles Vista 2: Barajado de bloques de 20 s -->
+                      <div class="gv06-subbar" id="gv06-bar-shuf" hidden>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                          <button type="button" class="gv06-action-btn" id="gv06-do-shuffle">
+                            Barajar bloques de 20 s al azar
+                          </button>
+                          <button type="button" class="gv06-action-btn secondary" id="gv06-do-align">
+                            Restaurar orden real del relato
+                          </button>
+                        </div>
+                        <span style="font-size:0.77em; color:#55636e;" id="gv06-shuf-counter">
+                          Estado: Orden original sincronizado
+                        </span>
+                      </div>
+
+                      <div class="gv06-canvas-wrap">
+                        <canvas id="gv06-canvas"></canvas>
+                      </div>
+
+                      <div class="d-inspector" id="gv06-inspector" data-theme="bold" style="margin-top:12px;">
+                        <span class="d-inspector-tag" id="gv06-tag"></span>
+                        <h5 class="d-inspector-title" id="gv06-title"></h5>
+                        <p class="d-inspector-desc" id="gv06-desc" style="margin-bottom:0 !important;"></p>
+                      </div>
+                    </figure>
+                  </div>
+                  <!-- [FIN FIGURA 6] -->
+
+
+                  <!-- ================================================================== -->
+                  <!-- [ANCLA SECCIÓN 6: RESULTADOS, CORPUS BALANCEADO Y TOUR 3D]         -->
                   <!-- ================================================================== -->
 
                   <!-- ================================================================== -->
-                  <!-- [FIN ANCLA ENTREGA 4]                                              -->
+                  <!-- [FIN ANCLA SECCIÓN 6]                                              -->
                   <!-- ================================================================== -->
 
 
@@ -4895,6 +5122,390 @@
           curMode = next;
           var btns = root.querySelectorAll('[data-mode]');
           for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('is-active', btns[i] === btn);
+          render();
+        }
+      });
+
+      window.addEventListener('resize', render);
+      render();
+    })();
+    /* 9. Figura 6 (gv06): Pistas por sesión + medidor de techo biológico y barajado de bloques de 20 s */
+    (function () {
+      var root = document.getElementById('gv06-root');
+      var canvas = document.getElementById('gv06-canvas');
+      var barCeil = document.getElementById('gv06-bar-ceil');
+      var barShuf = document.getElementById('gv06-bar-shuf');
+      var shufCounter = document.getElementById('gv06-shuf-counter');
+      var inspEl = document.getElementById('gv06-inspector');
+      var tagEl = document.getElementById('gv06-tag');
+      var titleEl = document.getElementById('gv06-title');
+      var descEl = document.getElementById('gv06-desc');
+      if (!root || !canvas) return;
+
+      var activeTab = 'ceiling';
+      var voxKind = 'auditivo';
+      var nReps = 10;
+
+      /* Patrón común del relato en 24 momentos + ruido fijo determinista por día */
+      var N_COLS = 24;
+      var storyPattern = [];
+      for (var c = 0; c < N_COLS; c++) {
+        storyPattern.push(Math.sin(c * 0.55) * 0.65 + Math.cos(c * 0.28 + 0.7) * 0.35);
+      }
+
+      function pseudoNoise(day, col) {
+        var x = Math.sin((day + 1) * 91.7 + (col + 1) * 37.3) * 43758.5453;
+        return (x - Math.floor(x)) * 2 - 1;
+      }
+
+      /* Estado para Pestaña 2: 12 bloques de 20 s */
+      var N_BLOCKS = 12;
+      var blockOrder = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+      var shuffleCount = 0;
+      var currentShufGain = 0.0018; /* Ganancia real típica dentro de la campana nula */
+
+      function valToHeatColor(v) {
+        /* Escala limpia: azul suave (-) -> gris neutro (0) -> coral intenso (+) */
+        var cl = Math.max(-1, Math.min(1, v));
+        if (cl >= 0) {
+          var r = Math.round(241 - cl * (241 - 217));
+          var g = Math.round(245 - cl * (245 - 72));
+          var b = Math.round(249 - cl * (249 - 43));
+          return 'rgb(' + r + ',' + g + ',' + b + ')';
+        }
+        var a = -cl;
+        var rn = Math.round(241 - a * (241 - 59));
+        var gn = Math.round(245 - a * (245 - 115));
+        var bn = Math.round(249 - a * (249 - 165));
+        return 'rgb(' + rn + ',' + gn + ',' + bn + ')';
+      }
+
+      function drawCeilingView(ctx, cssW, cssH) {
+        var stacked = (cssW < 600);
+        var leftW = stacked ? (cssW - 28) : Math.round(cssW * 0.60);
+        var leftX = 14, topY = 28;
+        var tracksH = stacked ? 138 : (cssH - 52);
+
+        ctx.fillStyle = '#1e2328';
+        ctx.font = '700 10.2px Poppins, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('Grabaciones del mismo pasaje en días distintos (' + nReps + (nReps === 1 ? ' sesión)' : ' sesiones)'), leftX, 17);
+
+        var labelPad = 56;
+        var gridX = leftX + labelPad;
+        var gridW = leftW - labelPad - 8;
+        var cellW = gridW / N_COLS;
+
+        /* Dibujar filas por día + fila inferior del promedio */
+        var avgH = 22;
+        var availRowsH = tracksH - avgH - 12;
+        var rowH = Math.min(15, Math.max(7, Math.floor(availRowsH / nReps) - 2));
+        var sigWeight = (voxKind === 'auditivo') ? 0.78 : 0.04;
+        var noiseWeight = (voxKind === 'auditivo') ? 0.62 : 0.95;
+
+        var avgArr = new Float32Array(N_COLS);
+        for (var d = 0; d < nReps; d++) {
+          var ry = topY + d * (rowH + 2);
+          if (nReps <= 5 || d % 2 === 0 || d === nReps - 1) {
+            ctx.fillStyle = '#64717a';
+            ctx.font = '500 8.8px Poppins, sans-serif';
+            ctx.textAlign = 'right';
+            ctx.fillText('Día ' + (d + 1), gridX - 6, ry + rowH * 0.78);
+          }
+          for (var col = 0; col < N_COLS; col++) {
+            var val = sigWeight * storyPattern[col] + noiseWeight * pseudoNoise(d, col);
+            avgArr[col] += val / nReps;
+            ctx.fillStyle = valToHeatColor(val);
+            ctx.fillRect(gridX + col * cellW, ry, Math.max(1, cellW - 1), rowH);
+          }
+        }
+
+        /* Fila destacada del promedio resultante */
+        var avgY = topY + nReps * (rowH + 2) + 8;
+        ctx.fillStyle = '#1e2328';
+        ctx.font = '700 9.5px Poppins, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('Promedio', gridX - 6, avgY + avgH * 0.65);
+
+        for (var ca = 0; ca < N_COLS; ca++) {
+          ctx.fillStyle = valToHeatColor(avgArr[ca] * 1.25);
+          ctx.fillRect(gridX + ca * cellW, avgY, Math.max(1, cellW - 1), avgH);
+        }
+        ctx.strokeStyle = '#1e2328';
+        ctx.lineWidth = 1.2;
+        ctx.strokeRect(gridX, avgY, gridW, avgH);
+
+        /* Panel derecho (o inferior en móvil): Medidor de capacidad / techo máximo del vóxel */
+        var gX = stacked ? 14 : (leftX + leftW + 20);
+        var gY = stacked ? 186 : 28;
+        var gW = stacked ? (cssW - 28) : (cssW - gX - 16);
+        var gH = stacked ? (cssH - gY - 14) : (cssH - 44);
+
+        ctx.fillStyle = '#1e2328';
+        ctx.font = '700 10.2px Poppins, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('Composición del vóxel (100% variación)', gX, gY - 11);
+
+        var ceilPct = (voxKind === 'auditivo')
+          ? (nReps === 10 ? 0.54 : (nReps === 5 ? 0.44 : 0.22))
+          : 0.004;
+
+        /* Barra horizontal apilada grande y legible en cualquier pantalla */
+        var barY = gY + 12;
+        var barH = 34;
+        var sigPx = Math.max(ceilPct > 0.01 ? 8 : 2, Math.round(gW * ceilPct));
+
+        /* Fondo gris = ruido irreductible */
+        ctx.fillStyle = '#e5ebf0';
+        ctx.fillRect(gX, barY, gW, barH);
+        /* Parte cálida = Techo máximo explicable por cualquier modelo */
+        ctx.fillStyle = (voxKind === 'auditivo') ? '#d9482b' : '#94a3b8';
+        ctx.fillRect(gX, barY, sigPx, barH);
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.strokeRect(gX, barY, gW, barH);
+
+        /* Línea vertical del techo */
+        var lineX = gX + sigPx;
+        ctx.strokeStyle = '#1e2328';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(lineX, barY - 5);
+        ctx.lineTo(lineX, barY + barH + 5);
+        ctx.stroke();
+
+        ctx.font = '700 9.6px Poppins, sans-serif';
+        ctx.fillStyle = (voxKind === 'auditivo') ? '#9a3412' : '#475569';
+        ctx.fillText('Techo repetible: ' + (ceilPct * 100).toFixed(1) + '%', gX, barY + barH + 18);
+
+        ctx.font = '500 9.2px Poppins, sans-serif';
+        ctx.fillStyle = '#5b6770';
+        ctx.fillText('Gris (' + ((1 - ceilPct) * 100).toFixed(1) + '%): ruido fisiológico imposible de predecir', gX, barY + barH + 34);
+
+        if (!stacked) {
+          ctx.fillStyle = (voxKind === 'auditivo') ? '#165c2b' : '#991b1b';
+          ctx.font = '600 9.2px Poppins, sans-serif';
+          var statusMsg = (voxKind === 'auditivo')
+            ? 'Entra en el 75.45% de corteza confiable'
+            : 'Cae en el 24.55% descartado (< 1% señal)';
+          ctx.fillText(statusMsg, gX, barY + barH + 54);
+        }
+
+        inspEl.setAttribute('data-theme', voxKind === 'auditivo' ? 'bold' : 'ctrl');
+        tagEl.textContent = voxKind === 'auditivo'
+          ? 'Corteza confiable (75.45% del cerebro en promedio)'
+          : 'Corteza sin respuesta repetible al relato (24.55%)';
+        titleEl.textContent = voxKind === 'auditivo'
+          ? 'Promediar ' + nReps + (nReps === 1 ? ' escucha deja mucho ruido' : ' escuchas limpia el azar diario y revela el patrón del cuento')
+          : 'Cuando cada día ocurre algo distinto, el promedio se aplana en cero';
+        descEl.textContent = voxKind === 'auditivo'
+          ? 'Observa cómo en las columnas verticales coinciden los mismos momentos cálidos y fríos todos los días. Ese patrón compartido fija el techo máximo contra el cual es justo evaluar el modelo.'
+          : 'En regiones ajenas a la audición y al lenguaje, las subidas y bajadas de un día no guardan relación con las de otro. Excluir estos vóxeles en el segundo control FDR evita dividir entre cero y mejora la sensibilidad estadística.';
+      }
+
+      function drawShuffleView(ctx, cssW, cssH) {
+        var padL = 18, padR = 18, w = cssW - padL - padR;
+
+        /* 1. Arriba: Bloques de 20 s del relato frente a la corteza fija */
+        ctx.fillStyle = '#1e2328';
+        ctx.font = '700 10px Poppins, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('Predicción cortada en bloques enteros de 20 s (10 capturas por bloque):', padL, 18);
+
+        var blkGap = 3;
+        var blkW = (w - blkGap * (N_BLOCKS - 1)) / N_BLOCKS;
+        var blkY = 25, blkH = 26;
+
+        for (var i = 0; i < N_BLOCKS; i++) {
+          var origIdx = blockOrder[i];
+          var bx = padL + i * (blkW + blkGap);
+          /* Gradiente suave por número original de bloque para ver el desorden de inmediato */
+          var ratio = origIdx / (N_BLOCKS - 1);
+          var r = Math.round(118 + ratio * (27 - 118));
+          var g = Math.round(42 + ratio * (120 - 42));
+          var b = Math.round(131 + ratio * (55 - 131));
+          ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+          ctx.fillRect(bx, blkY, blkW, blkH);
+
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '700 9.2px Poppins, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(origIdx + 1, bx + blkW / 2, blkY + 16.5);
+        }
+
+        /* Cinta fija inferior de la corteza real */
+        var fixY = 60, fixH = 20;
+        ctx.fillStyle = '#fef2ee';
+        ctx.fillRect(padL, fixY, w, fixH);
+        ctx.strokeStyle = '#efb9aa';
+        ctx.strokeRect(padL, fixY, w, fixH);
+        ctx.fillStyle = '#9a3412';
+        ctx.font = '600 9.2px Poppins, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Señal cerebral real fija en su orden original (bloque 1 → bloque 12)', padL + w / 2, fixY + 13.5);
+
+        /* 2. Abajo: Campana de las 10,000 barajadas al azar vs umbral FDR */
+        var hTop = 104, hBot = cssH - 28;
+        var hLeft = 36, hRight = cssW - 22;
+        var hW = hRight - hLeft, hH = hBot - hTop;
+
+        ctx.fillStyle = '#1e2328';
+        ctx.font = '700 10px Poppins, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('Distribución de ganancias casuales (10,000 barajadas):', hLeft, hTop - 8);
+
+        /* Escala horizontal de diferencia Global - Control: de -0.015 a +0.020 */
+        function dToX(val) {
+          return hLeft + ((val + 0.015) / 0.035) * hW;
+        }
+
+        /* Barras del histograma nulo centrado en 0.000 */
+        var nBins = 34;
+        for (var bn = 0; bn < nBins; bn++) {
+          var vCenter = -0.014 + (bn / (nBins - 1)) * 0.032;
+          var heightRatio = Math.exp(-Math.pow(vCenter / 0.0046, 2));
+          var barH = Math.max(1, heightRatio * (hH - 12));
+          var bx2 = dToX(vCenter) - (hW / nBins) * 0.42;
+          var bw2 = (hW / nBins) * 0.84;
+          ctx.fillStyle = (vCenter >= 0.0135) ? 'rgba(178, 24, 43, 0.35)' : '#cbd5e1';
+          ctx.fillRect(bx2, hBot - barH, bw2, barH);
+        }
+
+        /* Umbral FDR exigido para superar ~100,000 pruebas simultáneas */
+        var fdrX = dToX(0.0135);
+        ctx.strokeStyle = '#b2182b';
+        ctx.setLineDash([4, 3]);
+        ctx.lineWidth = 1.6;
+        ctx.beginPath();
+        ctx.moveTo(fdrX, hTop + 4);
+        ctx.lineTo(fdrX, hBot);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = '#b2182b';
+        ctx.font = '700 9px Poppins, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('Umbral tras control FDR', fdrX - 5, hTop + 14);
+        ctx.font = '500 8.6px Poppins, sans-serif';
+        ctx.fillText('(zona libre de falsas alarmas →)', fdrX - 5, hTop + 26);
+
+        /* Marcador del valor actual (orden real vs barajado actual) */
+        var isAligned = (shuffleCount === 0);
+        var markVal = isAligned ? 0.0018 : currentShufGain;
+        var markX = dToX(markVal);
+
+        ctx.strokeStyle = isAligned ? '#762a83' : '#0086b3';
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        ctx.moveTo(markX, hTop + 18);
+        ctx.lineTo(markX, hBot);
+        ctx.stroke();
+
+        ctx.fillStyle = isAligned ? '#762a83' : '#0086b3';
+        ctx.beginPath();
+        ctx.arc(markX, hBot - 16, 5.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.font = '700 9.2px Poppins, sans-serif';
+        ctx.textAlign = 'left';
+        var lblTxt = isAligned ? 'Valor real observado (+0.0018)' : ('Barajada #' + shuffleCount + ' (' + (markVal >= 0 ? '+' : '') + markVal.toFixed(4) + ')');
+        ctx.fillText(lblTxt, Math.min(markX + 7, hRight - 145), hTop + 38);
+
+        /* Eje horizontal */
+        ctx.strokeStyle = '#94a3b8';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(hLeft, hBot);
+        ctx.lineTo(hRight, hBot);
+        ctx.stroke();
+
+        ctx.fillStyle = '#55636e';
+        ctx.font = '500 9.2px Poppins, sans-serif';
+        ctx.textAlign = 'center';
+        var ticks = [-0.01, 0.00, 0.01, 0.02];
+        for (var t = 0; t < ticks.length; t++) {
+          ctx.fillText((ticks[t] > 0 ? '+' : '') + ticks[t].toFixed(2), dToX(ticks[t]), hBot + 14);
+        }
+
+        inspEl.setAttribute('data-theme', 'tense');
+        tagEl.textContent = 'Control contra coincidencias casuales en cien mil vóxeles';
+        titleEl.textContent = isAligned
+          ? 'En el orden real, las pequeñas diferencias positivas quedan dentro de la campana del azar'
+          : 'Al desordenar los bloques de 20 s aparecen por pura casualidad ganancias parecidas a las observadas';
+        descEl.textContent = 'Pulsa varias veces «Barajar bloques de 20 s»: verás que el simple encuentro casual entre olas lentas desordenadas produce valores de +0.002 o +0.005 sin ninguna relación real con el cuento. Para descartar falsas alarmas en toda la corteza (o en el 75.45% confiable), un vóxel tendría que cruzar la línea punteada roja.';
+      }
+
+      function render() {
+        var dpr = window.devicePixelRatio || 1;
+        var cssW = canvas.clientWidth || 700;
+        var cssH = canvas.clientHeight || 268;
+        if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {
+          canvas.width = Math.round(cssW * dpr);
+          canvas.height = Math.round(cssH * dpr);
+        }
+        var ctx = canvas.getContext('2d');
+        ctx.save();
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, cssW, cssH);
+
+        if (activeTab === 'ceiling') drawCeilingView(ctx, cssW, cssH);
+        else drawShuffleView(ctx, cssW, cssH);
+
+        ctx.restore();
+      }
+
+      document.getElementById('gv06-do-shuffle').addEventListener('click', function () {
+        /* Fisher-Yates sobre los 12 bloques asegurando que cambie el orden */
+        for (var i = N_BLOCKS - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var tmp = blockOrder[i]; blockOrder[i] = blockOrder[j]; blockOrder[j] = tmp;
+        }
+        shuffleCount++;
+        /* Sorteo gaussiano aproximado dentro de la campana nula */
+        var g = ((Math.random() + Math.random() + Math.random()) / 3 - 0.5) * 0.018;
+        currentShufGain = g;
+        shufCounter.textContent = 'Barajada al azar #' + shuffleCount + ' de 10,000';
+        render();
+      });
+
+      document.getElementById('gv06-do-align').addEventListener('click', function () {
+        blockOrder = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+        shuffleCount = 0;
+        shufCounter.textContent = 'Estado: Orden original sincronizado';
+        render();
+      });
+
+      root.addEventListener('click', function (e) {
+        var tabBtn = e.target.closest('[data-tab]');
+        if (tabBtn) {
+          var next = tabBtn.getAttribute('data-tab');
+          if (next && next !== activeTab) {
+            activeTab = next;
+            barCeil.hidden = (activeTab !== 'ceiling');
+            barShuf.hidden = (activeTab !== 'shuffle');
+            var tbs = root.querySelectorAll('[data-tab]');
+            for (var i = 0; i < tbs.length; i++) tbs[i].classList.toggle('is-active', tbs[i] === tabBtn);
+            render();
+          }
+          return;
+        }
+
+        var voxBtn = e.target.closest('[data-vox]');
+        if (voxBtn) {
+          voxKind = voxBtn.getAttribute('data-vox');
+          var vbs = barCeil.querySelectorAll('[data-vox]');
+          for (var v = 0; v < vbs.length; v++) vbs[v].classList.toggle('is-active', vbs[v] === voxBtn);
+          render();
+          return;
+        }
+
+        var repBtn = e.target.closest('[data-reps]');
+        if (repBtn) {
+          nReps = parseInt(repBtn.getAttribute('data-reps'), 10);
+          var rbs = barCeil.querySelectorAll('[data-reps]');
+          for (var r = 0; r < rbs.length; r++) rbs[r].classList.toggle('is-active', rbs[r] === repBtn);
           render();
         }
       });
