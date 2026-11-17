@@ -65,14 +65,14 @@
     @media only screen and (min-width: 1025px) {
       #site_header {
         transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-                    opacity 0.32s ease,
-                    box-shadow 0.32s ease;
+          opacity 0.32s ease,
+          box-shadow 0.32s ease;
         z-index: 1040;
       }
 
       .content-area.single-page-area {
         transition: max-width 0.42s cubic-bezier(0.22, 1, 0.36, 1),
-                    width 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+          width 0.42s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
       body.sidebar-collapsed #site_header {
@@ -302,20 +302,42 @@
 
     .distill-example {
       margin: 1.45em 0 1.65em 0;
-      padding: 15px 20px;
+      padding: 14px 18px 15px 18px;
       background-color: #f7fbfd;
+      border: 1px solid #e1eff5;
       border-left: 3px solid var(--ui-accent);
       border-radius: 0 8px 8px 0;
     }
 
+    .distill-example-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(0, 134, 179, 0.12);
+    }
+
     .distill-example-label {
-      display: block;
-      font-size: 0.75em;
-      font-weight: 600;
+      font-size: 0.74em;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--ui-accent-dark);
-      margin-bottom: 6px;
+    }
+
+    .distill-example-time {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.75em;
+      font-weight: 600;
+      color: #006b94;
+      background-color: #e3f4fb;
+      border: 1px solid #bce3f2;
+      padding: 2px 9px;
+      border-radius: 99px;
+      white-space: nowrap;
     }
 
     .distill-example p {
@@ -670,205 +692,103 @@
     }
 
     /* ==========================================================================
-       ESTILOS ESPECÍFICOS FIGURA 1 (gv01: 7 BANDAS PROPORCIONALES)
+       ESTILOS ESPECÍFICOS FIGURA 1 (gv01: MATRICES VERTICALES LIMPIAS)
        ========================================================================== */
-    .gv01-steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .gv01-step-btn {
-      appearance: none;
-      background-color: #f8fafc;
-      border: 1px solid #e1e8ed;
-      border-radius: 8px;
-      padding: 10px 12px;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.18s ease;
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-family: inherit;
-    }
-
-    .gv01-step-btn:hover {
-      border-color: #9ad7ea;
-      background-color: #f3fafe;
-    }
-
-    .gv01-step-btn.is-active {
-      background-color: var(--ui-accent-soft);
-      border-color: var(--ui-accent);
-      box-shadow: 0 0 0 1px var(--ui-accent);
-    }
-
-    .gv01-step-num {
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background-color: #e1eff5;
-      color: #007ea8;
-      font-size: 0.75em;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 1px;
-    }
-
-    .gv01-step-btn.is-active .gv01-step-num {
-      background-color: var(--ui-accent);
-      color: #ffffff;
-    }
-
-    .gv01-step-label {
-      display: block;
-      font-size: 0.8em;
-      font-weight: 600;
-      color: var(--ui-heading);
-      line-height: 1.3;
-      margin-bottom: 2px;
-    }
-
-    .gv01-step-sub {
-      display: block;
-      font-size: 0.72em;
-      color: #62707a;
-      line-height: 1.36;
-    }
-
-    .gv01-toolbar {
+    .gv01-controls-bar {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    .gv01-legend-inline {
+    .gv01-stage-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      font-size: 0.74em;
-      color: #536069;
+      gap: 4px 14px;
       align-items: center;
     }
 
-    .gv01-swatch {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
-      margin-right: 5px;
-      vertical-align: middle;
+    .gv01-stage-link {
+      appearance: none;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 4px 2px;
+      font-family: inherit;
+      font-size: 0.78em;
+      font-weight: 600;
+      color: #5b6872;
+      cursor: pointer;
+      transition: color 0.16s ease, border-color 0.16s ease;
+    }
+
+    .gv01-stage-link:hover {
+      color: var(--ui-heading);
+    }
+
+    .gv01-stage-link.is-active {
+      color: var(--ui-accent-dark);
+      border-bottom-color: var(--ui-accent);
+    }
+
+    .gv01-right-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .gv01-reset-link {
+      appearance: none;
+      background: none;
+      border: none;
+      padding: 4px 6px;
+      font-family: inherit;
+      font-size: 0.75em;
+      font-weight: 600;
+      color: var(--ui-accent-dark);
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .gv01-reset-link[hidden] {
+      display: none !important;
     }
 
     .gv01-stage-scroll {
       width: 100%;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      background-color: #fbfdfe;
-      border: 1px solid #e6eef3;
-      border-radius: 10px;
-      padding: 12px 10px 8px 10px;
+      padding: 6px 0 4px 0;
       margin-bottom: 12px;
     }
 
     .gv01-svg {
       display: block;
       width: 100%;
-      min-width: 650px;
+      min-width: 680px;
       height: auto;
       user-select: none;
     }
 
-    .gv01-band-group {
+    .gv01-vband {
       cursor: pointer;
       transition: opacity 0.22s ease, transform 0.2s ease;
     }
 
-    .gv01-band-group:hover {
-      filter: brightness(0.98);
+    .gv01-vband:hover {
+      transform: translateY(-3px);
     }
 
-    .gv01-pills-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .gv01-pills-label {
-      font-size: 0.75em;
-      font-weight: 600;
-      color: #55626b;
-      margin-right: 2px;
-    }
-
-    .gv01-pill {
-      appearance: none;
-      font-family: inherit;
-      border: 1px solid var(--sci-ctrl-border);
-      background-color: var(--sci-ctrl-soft);
-      color: var(--sci-ctrl);
-      font-size: 0.74em;
-      font-weight: 600;
-      padding: 5px 10px;
-      border-radius: 99px;
-      cursor: pointer;
-      transition: all 0.16s ease;
-      min-height: 32px;
-    }
-
-    .gv01-pill:hover {
-      background-color: #e2ecf4;
-      border-color: var(--sci-ctrl-mid);
-    }
-
-    .gv01-pill.is-active {
-      background-color: var(--sci-ctrl);
-      border-color: var(--sci-ctrl);
-      color: #ffffff;
-    }
-
-    .gv01-pill.tense-pill {
-      border-color: var(--sci-past-border);
-      background: linear-gradient(90deg, var(--sci-past-soft) 0%, var(--sci-nonpast-soft) 100%);
-      color: #3b2242;
-    }
-
-    .gv01-pill.tense-pill.is-active {
-      background: linear-gradient(90deg, var(--sci-past) 0%, var(--sci-nonpast) 100%);
-      border-color: var(--sci-past);
-      color: #ffffff;
-    }
-
-    .gv01-pill.reset-pill {
-      margin-left: auto;
-      border-color: #d4dfe6;
-      background-color: #ffffff;
-      color: #4f5d66;
-    }
-
-    .gv01-pill.reset-pill.is-active {
-      background-color: #1e2328;
-      border-color: #1e2328;
-      color: #ffffff;
+    .gv01-vband.is-lifted {
+      transform: translateY(-5px);
     }
 
     @media (max-width: 767px) {
       .d-fig-card {
         padding: 16px 14px;
-      }
-
-      .gv01-steps {
-        grid-template-columns: 1fr;
       }
 
       .d-tabs {
@@ -882,15 +802,302 @@
         padding: 7px 6px;
         font-size: 0.73em;
       }
+    }
 
-      .gv01-pill {
-        min-height: 36px;
-        padding: 6px 11px;
-      }
+    /* ==========================================================================
+       ESTILOS SECCIÓN 2: DIAGRAMA DEÍCTICO ANIMADO (gv02a) Y FIGURA 2 (gv02)
+       ========================================================================== */
+    .deictic-widget {
+      margin: 1.65em 0 1.85em 0;
+      padding: 16px 18px 14px 18px;
+      background-color: #ffffff;
+      border: 1px solid var(--ui-border);
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(30, 35, 40, 0.03);
+      font-family: 'Poppins', Helvetica, sans-serif;
+    }
 
-      .gv01-pill.reset-pill {
-        margin-left: 0;
-      }
+    .deictic-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .deictic-kicker {
+      font-size: 0.72em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ui-accent-dark);
+    }
+
+    .deictic-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 10px;
+    }
+
+    .deictic-svg {
+      display: block;
+      width: 100%;
+      min-width: 480px;
+      height: auto;
+      user-select: none;
+    }
+
+    .deictic-caption-box {
+      padding-top: 10px;
+      border-top: 1px solid #edf2f6;
+      font-size: 0.86em;
+      line-height: 1.58;
+    }
+
+    .deictic-quote-en {
+      font-style: italic;
+      color: var(--ui-heading);
+      font-weight: 500;
+      margin-bottom: 2px !important;
+    }
+
+    .deictic-quote-es {
+      color: #55626b !important;
+      font-size: 0.93em !important;
+      margin-bottom: 6px !important;
+    }
+
+    .deictic-explain {
+      color: #374148 !important;
+      font-size: 0.93em !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* --- Figura 2 (gv02): Extractos clicables y censo de 20,921 verbos --- */
+    .gv02-filter-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .gv02-filter-btn {
+      appearance: none;
+      font-family: inherit;
+      font-size: 0.75em;
+      font-weight: 600;
+      padding: 6px 11px;
+      border-radius: 99px;
+      border: 1px solid #d5e0e7;
+      background-color: #f8fafc;
+      color: #3d4a54;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      min-height: 34px;
+    }
+
+    .gv02-filter-btn[data-cat="past"] {
+      border-color: var(--sci-past-border);
+      background-color: var(--sci-past-soft);
+      color: var(--sci-past);
+    }
+
+    .gv02-filter-btn[data-cat="past"].is-active {
+      background-color: var(--sci-past);
+      border-color: var(--sci-past);
+      color: #ffffff;
+    }
+
+    .gv02-filter-btn[data-cat="non_past"] {
+      border-color: var(--sci-nonpast-border);
+      background-color: var(--sci-nonpast-soft);
+      color: var(--sci-nonpast);
+    }
+
+    .gv02-filter-btn[data-cat="non_past"].is-active {
+      background-color: var(--sci-nonpast);
+      border-color: var(--sci-nonpast);
+      color: #ffffff;
+    }
+
+    .gv02-filter-btn[data-cat="non_finite"].is-active {
+      background-color: var(--sci-ctrl);
+      border-color: var(--sci-ctrl);
+      color: #ffffff;
+    }
+
+    .gv02-filter-btn[data-cat="excluded"] {
+      border-style: dashed;
+      border-color: #cbd5e1;
+    }
+
+    .gv02-filter-btn[data-cat="excluded"].is-active {
+      background-color: #475569;
+      border-color: #475569;
+      border-style: solid;
+      color: #ffffff;
+    }
+
+    .gv02-passages {
+      padding: 4px 0 12px 0;
+      margin-bottom: 14px;
+      border-bottom: 1px solid #edf2f6;
+    }
+
+    .gv02-excerpt-item {
+      padding: 8px 0;
+      border-bottom: 1px dashed #eef3f6;
+    }
+
+    .gv02-excerpt-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .gv02-line-en {
+      font-size: 0.9em !important;
+      line-height: 1.95 !important;
+      color: #263038 !important;
+      margin: 0 0 2px 0 !important;
+    }
+
+    .gv02-line-es {
+      font-size: 0.8em !important;
+      line-height: 1.5 !important;
+      color: #63707a !important;
+      margin: 0 !important;
+      padding-left: 4px;
+    }
+
+    .gv02-time-pill {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.78em;
+      font-weight: 600;
+      color: #006b94;
+      background-color: #e8f5fb;
+      padding: 1px 7px;
+      border-radius: 99px;
+      margin-right: 6px;
+      vertical-align: baseline;
+    }
+
+    .gv02-tok {
+      appearance: none;
+      border-radius: 5px;
+      padding: 1px 7px;
+      margin: 0 1px;
+      font-family: inherit;
+      font-size: 0.95em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.16s ease;
+      line-height: 1.45;
+    }
+
+    .gv02-tok[data-cat="past"] {
+      background-color: var(--sci-past-soft);
+      border: 1px solid var(--sci-past-border);
+      color: var(--sci-past);
+    }
+
+    .gv02-tok[data-cat="non_past"] {
+      background-color: var(--sci-nonpast-soft);
+      border: 1px solid var(--sci-nonpast-border);
+      color: var(--sci-nonpast);
+    }
+
+    .gv02-tok[data-cat="non_finite"] {
+      background-color: var(--sci-ctrl-soft);
+      border: 1px solid var(--sci-ctrl-border);
+      color: var(--sci-ctrl);
+    }
+
+    .gv02-tok[data-cat="excluded"] {
+      background-color: #f8fafc;
+      border: 1px dashed #94a3b8;
+      color: #475569;
+    }
+
+    .gv02-tok:hover {
+      transform: translateY(-1px);
+    }
+
+    .gv02-tok.is-dimmed {
+      opacity: 0.28;
+    }
+
+    .gv02-tok.is-selected {
+      box-shadow: 0 0 0 2px #1e2328;
+      transform: translateY(-1px);
+    }
+
+    /* Barras empíricas de los 20,921 verbos */
+    .gv02-census-wrap {
+      margin-bottom: 14px;
+    }
+
+    .gv02-census-kicker {
+      display: block;
+      font-size: 0.74em;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #4b5862;
+      margin-bottom: 10px;
+    }
+
+    .gv02-bar-block {
+      margin-bottom: 11px;
+    }
+
+    .gv02-bar-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .gv02-bar-labels {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      font-size: 0.77em;
+      margin-bottom: 4px;
+      gap: 6px;
+      color: #364149;
+    }
+
+    .gv02-bar-track {
+      position: relative;
+      display: flex;
+      width: 100%;
+      height: 25px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid #d5e0e6;
+    }
+
+    .gv02-bar-midline {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1.5px;
+      background-color: rgba(255, 255, 255, 0.8);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .gv02-bar-seg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.74em;
+      font-weight: 600;
+      color: #ffffff;
+      white-space: nowrap;
+      padding: 0 6px;
     }
   </style>
 </head>
@@ -1061,8 +1268,10 @@
                   <div class="distill-row">
                     <div class="distill-main">
                       <div class="distill-example">
-                        <span class="distill-example-label">Apertura de Where There's Smoke (segundos 0.01 a
-                          9.46)</span>
+                        <div class="distill-example-head">
+                          <span class="distill-example-label">Extracto oral · Apertura de Where There's Smoke</span>
+                          <span class="distill-example-time">0.01 – 9.46 s</span>
+                        </div>
                         <p>
                           <i>«I reached over, and secretly undid my seatbelt. And when his foot hit the brake at the red
                             light, I flung open the door and I ran.»</i>
@@ -1085,15 +1294,15 @@
 
                       <p>
                         Frente a esa superposición constante, la pregunta científica debe plantearse con precisión. Más
-                        que buscar un interruptor aislado para los verbos, este trabajo evalúa si <b>incorporar
-                          explícitamente la oposición entre flexión temporal de pasado y flexión temporal de no pasado
-                          mejora la predicción de la actividad cortical una vez descontados el espectro acústico del
-                          audio, los fonemas, la estadística léxica, las clases gramaticales (incluidos los verbos
-                          auxiliares), la complejidad sintáctica y el tema semántico de cada oración</b>.
+                        que buscar un interruptor aislado para los verbos, este trabajo evalúa si <b>incorporar una
+                          séptima banda explícita para la flexión temporal de pasado y la flexión temporal de no pasado
+                          mejora la predicción de la actividad cortical una vez descontadas las seis bandas de control:
+                          espectro acústico del audio, fonemas, estadística léxica, clases gramaticales (incluidos los
+                          auxiliares), complejidad sintáctica y tema semántico de cada oración</b>.
                       </p>
 
                       <p>
-                        Para responderla sin sesgos técnicos, se construyó un modelo codificador por bandas
+                        Para responderla sin sesgos técnicos, se ajustó un modelo codificador por bandas
                         (<i>Banded Ridge</i>) de 46 predictores capaz de explicar hasta el 53% de la varianza de la
                         señal cerebral en corteza auditiva y del lenguaje. Aun con esa sensibilidad y tras aplicar diez
                         mil permutaciones por bloques y validación cruzada en historias temporalmente balanceadas, los
@@ -1102,78 +1311,71 @@
                         huella hemodinámica viaja integrada en la maquinaria léxica y sintáctica de la cláusula.
                       </p>
                     </div>
+
+                    <aside class="distill-margin">
+                      <details class="tech-note">
+                        <summary>Nota técnica 2. ¿Espacio o banda?</summary>
+                        <div class="tech-note-body">
+                          En la literatura de modelos de codificación ambos términos guardan una correspondencia exacta
+                          1 a 1. Conceptualmente, cada grupo homogéneo de variables constituye un <i>espacio de
+                            características</i> (por ejemplo, el espacio fonológico de 12 rasgos o el de tiempo
+                          gramatical de 2 rasgos). Al concatenar los siete espacios lado a lado para formar la matriz de
+                          diseño de 46 columnas, cada espacio ocupa una franja o <b>banda vertical</b> con su propio
+                          hiperparámetro de regularización en <i>Banded Ridge</i> (Dupré la Tour et al., 2022).
+                        </div>
+                      </details>
+                    </aside>
                   </div>
 
-                  <!-- [INICIO FIGURA 1: ARQUITECTURA DE 7 BANDAS A ESCALA REAL] -->
+                  <!-- [INICIO FIGURA 1: 7 BANDAS VERTICALES PROPORCIONALES] -->
                   <div class="distill-wide">
                     <figure class="d-fig-card" id="gv01-root" style="margin: 0;">
                       <div class="d-fig-header">
                         <div>
                           <span class="d-fig-kicker">Figura 1</span>
-                          <h4 class="d-fig-title">De la historia hablada a la predicción cortical: las 7 bandas a escala
-                            real de sus 46 variables</h4>
+                          <h4 class="d-fig-title">Arquitectura por bandas: las 7 matrices verticales a escala real de
+                            sus 46 columnas</h4>
                         </div>
-                        <span class="d-fig-hint">Toca cualquier banda, etapa o el interruptor de modelo para
-                          explorar</span>
+                        <span class="d-fig-hint">Haz clic sobre cualquier matriz vertical o en la corteza para
+                          inspeccionarla</span>
                       </div>
 
-                      <!-- 3 Macro-etapas del estudio -->
-                      <div class="gv01-steps" role="group" aria-label="Etapas principales del estudio">
-                        <button type="button" class="gv01-step-btn" data-select="step_sync">
-                          <span class="gv01-step-num">1</span>
-                          <span>
-                            <span class="gv01-step-label">Extracción a 100 Hz y ajuste de 12 s</span>
-                            <span class="gv01-step-sub">Espectro WAV, puntuación neuronal mmBERT, filtro vascular y
-                              sincronización a 6 TRs</span>
-                          </span>
-                        </button>
-
-                        <button type="button" class="gv01-step-btn" data-select="step_banded">
-                          <span class="gv01-step-num">2</span>
-                          <span>
-                            <span class="gv01-step-label">Banded Ridge en 943,305 vóxeles</span>
-                            <span class="gv01-step-sub">7 perillas de regularización independientes calibradas en 83
-                              relatos de entrenamiento</span>
-                          </span>
-                        </button>
-
-                        <button type="button" class="gv01-step-btn" data-select="step_eval">
-                          <span class="gv01-step-num">3</span>
-                          <span>
-                            <span class="gv01-step-label">Partición 46 − 44 y doble prueba</span>
-                            <span class="gv01-step-sub">10,000 permutaciones en historia repetida y validación 5-fold en
-                              corpus 50/50</span>
-                          </span>
-                        </button>
-                      </div>
-
-                      <!-- Barra de leyenda cromática e interruptor 46 vs 44 -->
-                      <div class="gv01-toolbar">
-                        <div class="gv01-legend-inline">
-                          <span><span class="gv01-swatch" style="background:var(--sci-ctrl);"></span>6 bandas de control
-                            (44 pistas)</span>
-                          <span><span class="gv01-swatch" style="background:var(--sci-past);"></span>Flexión de pasado
-                            (1)</span>
-                          <span><span class="gv01-swatch" style="background:var(--sci-nonpast);"></span>Flexión de no
-                            pasado (1)</span>
-                          <span><span class="gv01-swatch" style="background:var(--sci-bold);"></span>Actividad BOLD
-                            cortical</span>
-                        </div>
-
-                        <div class="d-tabs" role="group" aria-label="Comparación de arquitecturas">
-                          <button type="button" class="d-tab-btn is-active" data-arch="global">
-                            Modelo Global (46 pistas)
+                      <!-- Barra limpia sin cajas anidadas: pestañas sutiles + interruptor 46 vs 44 -->
+                      <div class="gv01-controls-bar">
+                        <div class="gv01-stage-links" role="group" aria-label="Recorrido por etapas del estudio">
+                          <button type="button" class="gv01-stage-link is-active" data-select="overview">
+                            Panorama general
                           </button>
-                          <button type="button" class="d-tab-btn" data-arch="control">
-                            Modelo Control (44 pistas)
+                          <button type="button" class="gv01-stage-link" data-select="step_sync">
+                            1. Audio y ajuste (12 s)
+                          </button>
+                          <button type="button" class="gv01-stage-link" data-select="step_banded">
+                            2. Banded Ridge
+                          </button>
+                          <button type="button" class="gv01-stage-link" data-select="step_eval">
+                            3. Prueba (46 − 44)
                           </button>
                         </div>
+
+                        <div class="gv01-right-actions">
+                          <button type="button" class="gv01-reset-link" id="gv01-reset-btn" hidden>
+                            Ver las 7 bandas
+                          </button>
+                          <div class="d-tabs" role="group" aria-label="Comparación de modelos">
+                            <button type="button" class="d-tab-btn is-active" data-arch="global">
+                              Global (46)
+                            </button>
+                            <button type="button" class="d-tab-btn" data-arch="control">
+                              Control (44)
+                            </button>
+                          </div>
+                        </div>
                       </div>
 
-                      <!-- Escenario SVG proporcional: cada fila de celda equivale a 1 predictor real -->
+                      <!-- Escenario vectorial limpio: matrices verticales de igual altura y ancho proporcional -->
                       <div class="gv01-stage-scroll">
-                        <svg class="gv01-svg" id="gv01-svg" viewBox="0 0 790 368"
-                          aria-label="Diagrama proporcional de las 7 bandas lingüísticas y acústicas hacia la corteza cerebral">
+                        <svg class="gv01-svg" id="gv01-svg" viewBox="0 0 856 298"
+                          aria-label="Siete matrices verticales proporcionales que alimentan el modelo cortical">
                           <defs>
                             <linearGradient id="gv01-inferno-grad" x1="0%" y1="0%" x2="100%" y2="0%">
                               <stop offset="0%" stop-color="#3b0f70" />
@@ -1183,72 +1385,88 @@
                             </linearGradient>
                           </defs>
 
-                          <!-- Encabezados de las 3 zonas visuales -->
-                          <text x="208" y="18" font-size="10.5" font-weight="700" fill="#41505b">
-                            7 BANDAS DEL ESTÍMULO (ALTURA REAL = N.º DE VARIABLES)
+                          <!-- Llave superior de las 6 bandas de control vs Banda 7 (sin ningún solapamiento) -->
+                          <text x="285" y="16" text-anchor="middle" font-size="10.2" font-weight="700" fill="#3b5975">
+                            6 BANDAS DE CONTROL (44 COLUMNAS)
                           </text>
-                          <text x="504" y="18" text-anchor="middle" font-size="10.5" font-weight="700" fill="#41505b">
-                            PESOS POR BANDA
+                          <path d="M 40 27 L 40 22 L 530 22 L 530 27" fill="none" stroke="#9db4c8" stroke-width="1.3" />
+
+                          <text x="565" y="16" text-anchor="middle" font-size="10.2" font-weight="700" fill="#762a83">
+                            BANDA 7
                           </text>
-                          <text x="676" y="18" text-anchor="middle" font-size="10.5" font-weight="700" fill="#41505b">
+                          <path d="M 550 27 L 550 22 L 580 22 L 580 27" fill="none" stroke="#b98bc2"
+                            stroke-width="1.3" />
+
+                          <text x="742" y="16" text-anchor="middle" font-size="10.2" font-weight="700" fill="#9a3412">
                             CORTEZA NATIVA (BOLD)
                           </text>
 
-                          <!-- Contenedores dinámicos generados por JS -->
-                          <g id="gv01-wires-layer"></g>
+                          <!-- Eje vertical de tiempo compartido -->
+                          <text x="16" y="136" text-anchor="middle" font-size="10" font-weight="600" fill="#64717a"
+                            transform="rotate(-90, 16, 136)">
+                            Tiempo del relato (TRs cada 2.0 s) ↓
+                          </text>
+
+                          <!-- Contenedor de las 7 matrices verticales generadas a escala exacta -->
                           <g id="gv01-bands-layer"></g>
-                          <g id="gv01-dials-layer"></g>
 
-                          <!-- Tarjeta derecha: Corteza y comparación predictiva -->
-                          <g id="gv01-cortex-target" class="gv01-band-group" data-select="bold">
-                            <rect x="574" y="34" width="204" height="316" rx="12" fill="#fffaf8" stroke="#efb9aa"
-                              stroke-width="1.6" />
-
-                            <text x="676" y="57" text-anchor="middle" font-size="11.5" font-weight="700" fill="#232a30">
-                              943,305 vóxeles (10 cerebros)
+                          <!-- Conector limpio hacia la corteza (sin cajas de frenos intermedias) -->
+                          <g id="gv01-connector" opacity="0.85">
+                            <text x="612" y="118" text-anchor="middle" font-size="9.2" font-weight="600" fill="#53626d">
+                              7 frenos
                             </text>
-                            <text x="676" y="72" text-anchor="middle" font-size="9.6" fill="#66737d">
-                              1 captura cada 2.0 s (TR)
+                            <line x1="594" y1="134" x2="626" y2="134" stroke="#64748b" stroke-width="1.8" />
+                            <polygon points="625,129.5 633,134 625,138.5" fill="#64748b" />
+                            <text x="612" y="150" text-anchor="middle" font-size="9" fill="#64717a">
+                              propios
+                            </text>
+                          </g>
+
+                          <!-- Ilustración abierta derecha: Corteza cerebral + onda BOLD sin recuadros anidados -->
+                          <g id="gv01-cortex-target" class="gv01-vband" data-select="bold">
+                            <!-- Área clicable invisible para tacto cómodo -->
+                            <rect x="642" y="28" width="202" height="248" rx="10" fill="transparent" />
+
+                            <text x="742" y="44" text-anchor="middle" font-size="11" font-weight="700" fill="#1e2328">
+                              943,305 vóxeles (10 sujetos)
                             </text>
 
-                            <!-- Silueta cortical lateral con focos auditivos/temporales/frontales estilo inferno -->
-                            <g transform="translate(604, 84)">
+                            <g transform="translate(670, 52)">
                               <path
                                 d="M 16 62 C 10 26, 42 4, 82 8 C 118 11, 136 36, 130 66 C 122 82, 96 98, 66 94 C 50 92, 48 72, 58 66 C 38 70, 20 72, 16 62 Z"
-                                fill="#dfe5ea" stroke="#9aa7b2" stroke-width="1.4" />
-                              <!-- Focos activos red del lenguaje -->
-                              <ellipse cx="76" cy="58" rx="28" ry="12" fill="#d9482b" opacity="0.82"
+                                fill="#e2e8ee" stroke="#9aa7b2" stroke-width="1.4" />
+                              <ellipse cx="76" cy="58" rx="28" ry="12" fill="#d9482b" opacity="0.84"
                                 transform="rotate(-10 76 58)" />
-                              <ellipse cx="74" cy="57" rx="16" ry="7" fill="#f99e3a" opacity="0.92"
+                              <ellipse cx="74" cy="57" rx="16" ry="7" fill="#f99e3a" opacity="0.94"
                                 transform="rotate(-10 74 57)" />
                               <ellipse cx="42" cy="44" rx="13" ry="9" fill="#c8384e" opacity="0.78" />
-                              <ellipse cx="102" cy="46" rx="12" ry="9" fill="#e66127" opacity="0.75" />
+                              <ellipse cx="102" cy="46" rx="12" ry="9" fill="#e66127" opacity="0.76" />
                               <path d="M 52 60 Q 74 55, 96 44" fill="none" stroke="#4c5964" stroke-width="1.3"
                                 opacity="0.55" />
                             </g>
 
-                            <rect x="616" y="191" width="120" height="6" rx="3" fill="url(#gv01-inferno-grad)" />
-                            <text x="676" y="209" text-anchor="middle" font-size="9.5" font-weight="600" fill="#7c2d12">
+                            <rect x="684" y="156" width="116" height="5.5" rx="2.8" fill="url(#gv01-inferno-grad)" />
+                            <text x="742" y="173" text-anchor="middle" font-size="9.5" font-weight="600" fill="#8c2d19">
                               Precisión Global: R² hasta 0.53
                             </text>
 
-                            <!-- Serie temporal observada vs predicha -->
-                            <rect x="590" y="220" width="172" height="58" rx="7" fill="#ffffff" stroke="#edd5ce" />
-                            <path d="M 598 254 Q 616 230, 634 252 T 670 242 T 706 256 T 754 236" fill="none"
-                              stroke="#d9482b" stroke-width="2" opacity="0.55" />
-                            <path id="gv01-pred-wave" d="M 598 253 Q 616 233, 634 250 T 670 244 T 706 254 T 754 238"
-                              fill="none" stroke="#1e2328" stroke-width="2" stroke-dasharray="4 2" />
-                            <text x="676" y="271" text-anchor="middle" font-size="8.8" font-weight="600" fill="#5b6770">
+                            <!-- Serie BOLD vs predicción limpia sobre línea base -->
+                            <line x1="658" y1="204" x2="826" y2="204" stroke="#dde5ec" stroke-width="1" />
+                            <path d="M 658 208 Q 678 184, 698 206 T 738 194 T 778 210 T 826 190" fill="none"
+                              stroke="#d9482b" stroke-width="2" opacity="0.6" />
+                            <path d="M 658 207 Q 678 187, 698 204 T 738 196 T 778 208 T 826 192" fill="none"
+                              stroke="#1e2328" stroke-width="1.9" stroke-dasharray="4 2.5" />
+                            <text x="742" y="225" text-anchor="middle" font-size="8.8" fill="#5b6770">
                               Rojo: BOLD real · Punteado: Predicción
                             </text>
 
-                            <!-- Recuadro de operación sin letras griegas -->
-                            <rect x="590" y="288" width="172" height="48" rx="7" fill="#f5f9fc" stroke="#d3e1eb" />
-                            <text x="676" y="305" text-anchor="middle" font-size="9.3" font-weight="700" fill="#1e2328"
+                            <!-- Operación comparada en texto limpio -->
+                            <line x1="672" y1="238" x2="812" y2="238" stroke="#e4ecf1" stroke-width="1" />
+                            <text x="742" y="255" text-anchor="middle" font-size="9.8" font-weight="700" fill="#1e2328"
                               id="gv01-eq-line1">
                               Global (46) − Control (44)
                             </text>
-                            <text x="676" y="322" text-anchor="middle" font-size="9" font-weight="600" fill="#762a83"
+                            <text x="742" y="271" text-anchor="middle" font-size="9.2" font-weight="600" fill="#762a83"
                               id="gv01-eq-line2">
                               = Ganancia única temporal
                             </text>
@@ -1256,22 +1474,7 @@
                         </svg>
                       </div>
 
-                      <!-- Pastillas táctiles para seleccionar cualquiera de las 7 bandas -->
-                      <div class="gv01-pills-bar" role="group" aria-label="Inspeccionar bandas del modelo">
-                        <span class="gv01-pills-label">Bandas:</span>
-                        <button type="button" class="gv01-pill" data-select="b0">1. Acústica (7)</button>
-                        <button type="button" class="gv01-pill" data-select="b1">2. Fonológica (12)</button>
-                        <button type="button" class="gv01-pill" data-select="b2">3. Léxico-estad. (4)</button>
-                        <button type="button" class="gv01-pill" data-select="b3">4. Categorial + aux. (9)</button>
-                        <button type="button" class="gv01-pill" data-select="b4">5. Sintáctica (2)</button>
-                        <button type="button" class="gv01-pill" data-select="b5">6. Semántica LSA (10)</button>
-                        <button type="button" class="gv01-pill tense-pill" data-select="b6">7. Pasado / No pasado
-                          (2)</button>
-                        <button type="button" class="gv01-pill reset-pill is-active" data-select="overview">Vista
-                          completa</button>
-                      </div>
-
-                      <!-- Tarjeta dinámica de explicación libre de fórmulas densas -->
+                      <!-- Único panel inferior de explicación guiada -->
                       <div class="d-inspector" id="gv01-inspector" data-theme="neutral" aria-live="polite">
                         <span class="d-inspector-tag" id="gv01-tag">Panorama completo</span>
                         <h5 class="d-inspector-title" id="gv01-panel-title"></h5>
@@ -1284,11 +1487,374 @@
 
 
                   <!-- ================================================================== -->
-                  <!-- [ANCLA ENTREGA 2: SECCIONES 2 Y 3]                                 -->
+                  <!-- SECCIÓN 2: TIEMPO MENTAL Y TIEMPO GRAMATICAL EN INGLÉS             -->
+                  <!-- ================================================================== -->
+
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Sección 2</span>
+                    <h3>Tiempo mental y tiempo gramatical en inglés</h3>
+                  </div>
+
+                  <div class="distill-row">
+                    <div class="distill-main">
+                      <p>
+                        Para delimitar con rigor qué mide la Banda 7 del modelo conviene separar dos nociones que en
+                        español comparten la palabra «tiempo»: la representación mental o cronológica del paso de los
+                        sucesos (en inglés, <i>time</i>) y el <b>tiempo gramatical</b> marcado en la morfología del
+                        verbo (<i>tense</i>). La primera abarca nuestra intuición general del ayer, el ahora y el
+                        mañana, apoyada en el contexto o en adverbios como <i>ayer</i> o <i>mañana</i>. El tiempo
+                        gramatical, en cambio, se restringe a las marcas flexivas que una lengua aplica sobre las
+                        <b>formas verbales personales</b> (los verbos conjugados) para situar un evento respecto al
+                        momento en que habla el narrador.
+                      </p>
+
+                      <p>
+                        En español, el propio verbo cambia su terminación para distinguir pasado (<i>llegué</i>),
+                        presente (<i>llego</i>) y futuro (<i>llegaré</i>). La morfología verbal del inglés opera bajo
+                        una arquitectura distinta: carece de una desinencia flexiva propia para el futuro. Cuando un
+                        hablante de inglés proyecta una escena posterior al momento del habla, recurre a verbos
+                        auxiliares modales (como <i>will</i>, «iré»), a perífrasis (como <i>going to</i>, «voy a») o a
+                        formas conjugadas de presente acompañadas de una pista contextual.
+                      </p>
+
+                      <div class="distill-example">
+                        <div class="distill-example-head">
+                          <span class="distill-example-label">Extracto oral · Referencia futura en Where There's
+                            Smoke</span>
+                          <span class="distill-example-time">285.35 – 286.73 s</span>
+                        </div>
+                        <p><i>«He's gonna be [nice] when I <b>get</b> home.»</i></p>
+                        <p class="translation">«Se va a portar bien cuando yo <b>llegue</b> a casa.»</p>
+                      </div>
+
+                      <p>
+                        Cuando la narradora pronuncia esa oración en plena madrugada, todavía camina lejos de su casa.
+                        En su línea de tiempo mental, esa llegada pertenece al futuro; sin embargo, la forma verbal
+                        personal <i>get</i> exhibe morfología de no pasado. Incluso ocurre el fenómeno inverso durante
+                        el llamado <i>presente histórico</i>: un episodio ocurrido años atrás se narra usando formas de
+                        no pasado para darle inmediatez dramática. Por eso, en términos estrictamente morfológicos, el
+                        sistema verbal del inglés se divide en una oposición binaria entre <span
+                          class="tag-past">flexión temporal de pasado</span> y <span class="tag-nonpast">flexión
+                          temporal de no pasado</span>.
+                      </p>
+
+                      <!-- Micro-diagrama animado de ejes de referencia del hablante -->
+                      <div class="deictic-widget" id="gv02a-root">
+                        <div class="deictic-head">
+                          <span class="deictic-kicker">Esquema interactivo · Eje del hablante vs. flexión verbal</span>
+                          <div class="d-tabs" role="tablist"
+                            aria-label="Ejemplos de desacoplamiento entre tiempo mental y flexión">
+                            <button type="button" class="d-tab-btn is-active" data-case="past_match">
+                              1. Pasado directo
+                            </button>
+                            <button type="button" class="d-tab-btn" data-case="future_nonpast">
+                              2. Futuro con no pasado
+                            </button>
+                            <button type="button" class="d-tab-btn" data-case="hist_present">
+                              3. Presente histórico
+                            </button>
+                          </div>
+                        </div>
+
+                        <div class="deictic-scroll">
+                          <svg class="deictic-svg" viewBox="0 0 580 186"
+                            aria-label="Coordenadas del punto de referencia del hablante frente a las dos casillas de flexión temporal en inglés">
+                            <defs>
+                              <marker id="gv02a-axis-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6"
+                                markerHeight="6" orient="auto-start-reverse">
+                                <polygon points="1,1.5 9,5 1,8.5" fill="#64748b" />
+                              </marker>
+                            </defs>
+
+                            <!-- Eje vertical del punto de referencia del hablante (origen deíctico) -->
+                            <text x="290" y="16" text-anchor="middle" font-size="10.8" font-weight="700" fill="#1e2328">
+                              Punto de referencia del hablante (Ahora)
+                            </text>
+                            <line x1="290" y1="24" x2="290" y2="100" stroke="#0086b3" stroke-width="1.6"
+                              stroke-dasharray="4 3" />
+                            <circle cx="290" cy="64" r="4" fill="#0086b3" />
+
+                            <!-- Eje horizontal cartesiano de tiempo mental con flechas en ambos sentidos -->
+                            <line x1="36" y1="64" x2="544" y2="64" stroke="#64748b" stroke-width="1.8"
+                              marker-start="url(#gv02a-axis-arrow)" marker-end="url(#gv02a-axis-arrow)" />
+                            <text x="148" y="48" text-anchor="middle" font-size="10.5" font-weight="600" fill="#526069">
+                              Antes del habla (Pasado mental)
+                            </text>
+                            <text x="432" y="48" text-anchor="middle" font-size="10.5" font-weight="600" fill="#526069">
+                              Después del habla (Futuro mental)
+                            </text>
+
+                            <!-- Casillas inferiores: las únicas 2 opciones morfológicas del verbo inglés -->
+                            <rect id="gv02a-box-past" x="54" y="132" width="212" height="44" rx="8" fill="#f5edf7"
+                              stroke="#762a83" stroke-width="1.8" />
+                            <text x="160" y="151" text-anchor="middle" font-size="11" font-weight="700" fill="#762a83">
+                              Flexión temporal de pasado
+                            </text>
+                            <text x="160" y="166" text-anchor="middle" font-size="9.5" fill="#5b2266">
+                              Columna: past (-ed e irregulares)
+                            </text>
+
+                            <rect id="gv02a-box-np" x="314" y="132" width="212" height="44" rx="8" fill="#ebf7ef"
+                              stroke="#1b7837" stroke-width="1.8" />
+                            <text x="420" y="151" text-anchor="middle" font-size="11" font-weight="700" fill="#1b7837">
+                              Flexión temporal de no pasado
+                            </text>
+                            <text x="420" y="166" text-anchor="middle" font-size="9.5" fill="#165c2b">
+                              Columna: non_past (forma base y -s)
+                            </text>
+
+                            <!-- Flecha curva animada y marcador del evento sobre la línea mental -->
+                            <path id="gv02a-curve" d="" fill="none" stroke="#762a83" stroke-width="2.6" />
+                            <polygon id="gv02a-tip" points="0,0 0,0 0,0" fill="#762a83" />
+                            <circle id="gv02a-dot-halo" cx="120" cy="64" r="11" fill="#762a83" opacity="0.16" />
+                            <circle id="gv02a-dot" cx="120" cy="64" r="6" fill="#762a83" stroke="#ffffff"
+                              stroke-width="1.8" />
+                          </svg>
+                        </div>
+
+                        <div class="deictic-caption-box" aria-live="polite">
+                          <p class="deictic-quote-en" id="gv02a-en"></p>
+                          <p class="deictic-quote-es" id="gv02a-es"></p>
+                          <p class="deictic-explain" id="gv02a-desc"></p>
+                        </div>
+                      </div>
+
+                      <h4 class="distill-subhead">Formas personales, auxiliares y contracciones del habla real</h4>
+
+                      <p>
+                        En la cadena hablada tampoco basta con observar las raíces verbales que nombran acciones
+                        concretas. Las <b>formas verbales no personales</b> —infinitivos como <i>to walk</i>
+                        («caminar»),
+                        gerundios como <i>crying</i> («llorando») y participios como <i>wrapped</i> («envuelto»)—
+                        describen el tipo de evento, pero carecen de flexión temporal propia. En construcciones
+                        progresivas, perfectas o negativas, toda la flexión temporal recae sobre un verbo auxiliar
+                        breve, a menudo fusionado con el pronombre en una contracción oral.
+                      </p>
+
+                      <div class="distill-example">
+                        <div class="distill-example-head">
+                          <span class="distill-example-label">Extracto oral · La misma acción en dos polos
+                            morfológicos</span>
+                          <span class="distill-example-time">12.41 s vs. 131.87 s</span>
+                        </div>
+                        <p>
+                          <i>«I <b>was</b> crying.»</i> &rarr; <span class="tag-past">Flexión temporal de
+                            pasado</span><br>
+                          <i>«She<b>'s</b> crying.»</i> &rarr; <span class="tag-nonpast">Flexión temporal de no
+                            pasado</span>
+                        </p>
+                        <p class="translation">
+                          «Yo <b>estaba</b> llorando.» / «Ella <b>está</b> llorando.» (contracción oral de <i>she
+                            is</i>)
+                        </p>
+                      </div>
+
+                      <p>
+                        En ambos pasajes el gerundio <i>crying</i> («llorando») permanece idéntico e invariable. El giro
+                        entre pasado y no pasado recae por completo sobre las formas personales del auxiliar <i>be</i>
+                        (<i>was</i> frente a <i>'s</i>), articuladas en apenas trece a dieciséis centésimas de segundo.
+                      </p>
+                    </div>
+
+                    <aside class="distill-margin">
+                      <details class="tech-note">
+                        <summary>Nota técnica 3. Extracción por char_span</summary>
+                        <div class="tech-note-body">
+                          Sobre el texto puntuado e inferido con <code>en_core_web_trf</code>, cada intervalo de palabra
+                          del <code>TextGrid</code> recupera su rango completo de sub-tokens mediante
+                          <code>doc.char_span(..., alignment_mode="expand")</code>. La Banda 7 codifica dos vectores
+                          binarios mutuamente excluyentes en Penn Treebank: <code>past</code> (etiqueta
+                          <code>VBD</code>) y <code>non_past</code> (etiquetas <code>VBP</code> y <code>VBZ</code>) en
+                          verbos léxicos (<code>VERB</code>) y auxiliares (<code>AUX</code>), descartando modales
+                          (<code>MD</code>) y la contracción sincrética <code>'d</code> (<i>had / would</i>).
+                        </div>
+                      </details>
+                    </aside>
+                  </div>
+
+                  <div class="distill-row">
+                    <div class="distill-main">
+                      <p>
+                        Al ejecutar el censo morfológico sobre las <b>84 historias validadas</b> del corpus (158,462
+                        palabras alineadas), se identificaron exactamente <b>20,921 formas verbales personales</b> con
+                        marca de tiempo gramatical. El corpus completo exhibe un equilibrio global notable: <b>10,900
+                          ocurrencias de flexión temporal de pasado (52.10%)</b> frente a <b>10,021 de flexión temporal
+                          de no pasado (47.90%)</b>.
+                      </p>
+
+                      <p>
+                        Ese mismo censo reveló dos propiedades estructurales del inglés espontáneo que guiaron el diseño
+                        de las bandas de control. Primero, más de la mitad de todas las marcas temporales del corpus
+                        (<b>51.78%</b>, 10,832 apariciones) recae sobre auxiliares y cópulas muy frecuentes derivados de
+                        <i>be</i>, <i>have</i> y <i>do</i>, frente a un <b>48.22%</b> en verbos léxicos de contenido;
+                        por ello se añadió el canal <span class="code-inline">auxiliary_modal</span> en la Banda 4 para
+                        descontar su pertenencia a una clase funcional cerrada. Segundo, casi una de cada cinco marcas
+                        temporales del corpus (<b>19.08%</b>, 3,992 casos; y el <b>25.89%</b> en la historia de prueba)
+                        aparece comprimida dentro de una contracción oral como <i>didn't</i> («no hice»), <i>don't</i>
+                        («no hago») o <i>she's</i> («ella está»), lo que hacía imprescindible inspeccionar el intervalo
+                        completo de caracteres de cada palabra hablada.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- [INICIO FIGURA 2: FILTRO MORFOLÓGICO Y CENSO DE 20,921 VERBOS] -->
+                  <div class="distill-wide">
+                    <figure class="d-fig-card" id="gv02-root" style="margin: 0;">
+                      <div class="d-fig-header">
+                        <div>
+                          <span class="d-fig-kicker">Figura 2</span>
+                          <h4 class="d-fig-title">Clasificación morfológica en el relato real y censo de las 20,921
+                            formas verbales del corpus</h4>
+                        </div>
+                        <span class="d-fig-hint">Toca cualquier verbo resaltado o filtra por categoría</span>
+                      </div>
+
+                      <!-- Filtros limpios alineados con las 2 columnas de Banda 7 y los controles -->
+                      <div class="gv02-filter-strip" role="group"
+                        aria-label="Filtrar formas verbales por destino en el modelo">
+                        <button type="button" class="gv02-filter-btn is-active" data-cat="all">
+                          Todos los ejemplos
+                        </button>
+                        <button type="button" class="gv02-filter-btn" data-cat="past">
+                          Banda 7 · Flexión de pasado (past)
+                        </button>
+                        <button type="button" class="gv02-filter-btn" data-cat="non_past">
+                          Banda 7 · Flexión de no pasado (non_past)
+                        </button>
+                        <button type="button" class="gv02-filter-btn" data-cat="non_finite">
+                          Banda 4 · Verbo no personal (control)
+                        </button>
+                        <button type="button" class="gv02-filter-btn" data-cat="excluded">
+                          Fuera de Banda 7 · Modal o ambiguo
+                        </button>
+                      </div>
+
+                      <!-- Extractos reales de Where There's Smoke con glosas en español -->
+                      <div class="gv02-passages">
+                        <div class="gv02-excerpt-item">
+                          <p class="gv02-line-en">
+                            <span class="gv02-time-pill">0.01 – 13.25 s</span>
+                            «I <button type="button" class="gv02-tok" data-cat="past"
+                              data-word="reached">reached</button> over, and secretly
+                            <button type="button" class="gv02-tok" data-cat="past" data-word="undid">undid</button> my
+                            seatbelt [...] I
+                            <button type="button" class="gv02-tok" data-cat="past" data-word="was">was</button>
+                            <button type="button" class="gv02-tok" data-cat="non_finite"
+                              data-word="crying_1">crying</button>.»
+                          </p>
+                          <p class="gv02-line-es">
+                            Glosa: «Me estiré hacia el lado y desabroché en secreto mi cinturón de seguridad [...] Yo
+                            estaba llorando.»
+                          </p>
+                        </div>
+
+                        <div class="gv02-excerpt-item">
+                          <p class="gv02-line-en">
+                            <span class="gv02-time-pill">93.10 – 109.60 s</span>
+                            «...hours I <button type="button" class="gv02-tok" data-cat="past"
+                              data-word="knew">knew</button> I<button type="button" class="gv02-tok" data-cat="excluded"
+                              data-word="id">'d</button>
+                            <button type="button" class="gv02-tok" data-cat="non_finite"
+                              data-word="have_inf">have</button> of freedom [...] I
+                            <button type="button" class="gv02-tok" data-cat="non_past" data-word="dont">don't</button>
+                            <button type="button" class="gv02-tok" data-cat="non_finite"
+                              data-word="have_neg">have</button> a light [...] I
+                            <button type="button" class="gv02-tok" data-cat="non_past" data-word="see_fin">see</button>
+                            a figure.»
+                          </p>
+                          <p class="gv02-line-es">
+                            Glosa: «...las horas de libertad que sabía que tendría [...] No tengo fuego [...] Veo una
+                            silueta.»
+                          </p>
+                        </div>
+
+                        <div class="gv02-excerpt-item">
+                          <p class="gv02-line-en">
+                            <span class="gv02-time-pill">117.92 – 132.56 s</span>
+                            «The person <button type="button" class="gv02-tok" data-cat="non_past"
+                              data-word="comes">comes</button> closer and I
+                            <button type="button" class="gv02-tok" data-cat="excluded" data-word="could">could</button>
+                            <button type="button" class="gv02-tok" data-cat="non_finite"
+                              data-word="see_inf">see</button> [...] she<button type="button" class="gv02-tok"
+                              data-cat="non_past" data-word="is_contr">'s</button>
+                            <button type="button" class="gv02-tok" data-cat="non_finite"
+                              data-word="crying_2">crying</button>.»
+                          </p>
+                          <p class="gv02-line-es">
+                            Glosa: «La persona se acerca y pude ver [...] ella está llorando.»
+                          </p>
+                        </div>
+                      </div>
+
+                      <!-- Censo empírico exacto (scripts/01d_audit_corpus_tense.py: 84 historias, n = 20,921) -->
+                      <div class="gv02-census-wrap">
+                        <span class="gv02-census-kicker">
+                          Proporciones exactas en las 84 historias del corpus (20,921 formas verbales personales · marca
+                          central en 50%)
+                        </span>
+
+                        <div class="gv02-bar-block">
+                          <div class="gv02-bar-labels">
+                            <span><b style="color:var(--sci-past);">Flexión temporal de pasado:</b> 10,900 formas
+                              (52.10%)</span>
+                            <span><b style="color:var(--sci-nonpast);">Flexión temporal de no pasado:</b> 10,021 formas
+                              (47.90%)</span>
+                          </div>
+                          <div class="gv02-bar-track">
+                            <div class="gv02-bar-midline"></div>
+                            <div class="gv02-bar-seg" style="width: 52.10%; background-color: var(--sci-past);">52.10%
+                              past</div>
+                            <div class="gv02-bar-seg" style="width: 47.90%; background-color: var(--sci-nonpast);">
+                              47.90% non_past</div>
+                          </div>
+                        </div>
+
+                        <div class="gv02-bar-block">
+                          <div class="gv02-bar-labels">
+                            <span><b>Raíces verbales léxicas (VERB):</b> 10,089 formas (48.22%)</span>
+                            <span><b>Auxiliares y cópulas (AUX: be, have, do):</b> 10,832 formas (51.78%)</span>
+                          </div>
+                          <div class="gv02-bar-track">
+                            <div class="gv02-bar-midline"></div>
+                            <div class="gv02-bar-seg" style="width: 48.22%; background-color: #4b6882;">48.22% Léxicos
+                            </div>
+                            <div class="gv02-bar-seg" style="width: 51.78%; background-color: #2f4b63;">51.78%
+                              Auxiliares (controlados en Banda 4)</div>
+                          </div>
+                        </div>
+
+                        <div class="gv02-bar-block">
+                          <div class="gv02-bar-labels">
+                            <span><b>Palabras ortográficas plenas:</b> 16,929 formas (80.92%)</span>
+                            <span><b>En contracciones habladas (didn't, she's...):</b> 3,992 formas (19.08%)</span>
+                          </div>
+                          <div class="gv02-bar-track">
+                            <div class="gv02-bar-midline"></div>
+                            <div class="gv02-bar-seg" style="width: 80.92%; background-color: #64748b;">80.92% Formas
+                              plenas</div>
+                            <div class="gv02-bar-seg" style="width: 19.08%; background-color: #0086b3;">19.08%
+                              Contraídas</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Inspector inferior -->
+                      <div class="d-inspector" id="gv02-inspector" data-theme="tense" aria-live="polite">
+                        <span class="d-inspector-tag" id="gv02-insp-tag"></span>
+                        <h5 class="d-inspector-title" id="gv02-insp-title"></h5>
+                        <p class="d-inspector-desc" id="gv02-insp-desc" style="margin-bottom:0 !important;"></p>
+                      </div>
+                    </figure>
+                  </div>
+                  <!-- [FIN FIGURA 2] -->
+
+
+                  <!-- ================================================================== -->
+                  <!-- [ANCLA ENTREGA 2B: SECCIÓN 3 Y FIGURA 3 (100 HZ · 46 COLUMNAS)]    -->
                   <!-- ================================================================== -->
 
                   <!-- ================================================================== -->
-                  <!-- [FIN ANCLA ENTREGA 2]                                              -->
+                  <!-- [FIN ANCLA ENTREGA 2B]                                             -->
                   <!-- ================================================================== -->
 
 
@@ -1465,196 +2031,179 @@
       });
     })();
 
-    /* 3. Figura 1 (gv01): Las 7 bandas en proporción exacta a sus 46 características */
+    /* 3. Figura 1 (gv01): 7 matrices verticales con ancho proporcional exacto a sus 46 columnas */
     (function () {
       var root = document.getElementById('gv01-root');
       if (!root) return;
 
       var svgNS = 'http://www.w3.org/2000/svg';
       var bandsLayer = document.getElementById('gv01-bands-layer');
-      var wiresLayer = document.getElementById('gv01-wires-layer');
-      var dialsLayer = document.getElementById('gv01-dials-layer');
       var cortexTarget = document.getElementById('gv01-cortex-target');
       var eqLine1 = document.getElementById('gv01-eq-line1');
       var eqLine2 = document.getElementById('gv01-eq-line2');
+      var resetBtn = document.getElementById('gv01-reset-btn');
 
       var BANDS_SPEC = [
-        { key: 'b0', num: '1.', name: 'Acústica Mel', count: 7, dial: 'Freno 1', kind: 'cont' },
-        { key: 'b1', num: '2.', name: 'Fonológica', count: 12, dial: 'Freno 2', kind: 'bin' },
-        { key: 'b2', num: '3.', name: 'Léxico-estadística', count: 4, dial: 'Freno 3', kind: 'cont' },
-        { key: 'b3', num: '4.', name: 'Categorial + aux.', count: 9, dial: 'Freno 4', kind: 'bin' },
-        { key: 'b4', num: '5.', name: 'Sintáctica', count: 2, dial: 'Freno 5', kind: 'disc' },
-        { key: 'b5', num: '6.', name: 'Semántica LSA', count: 10, dial: 'Freno 6', kind: 'block' },
-        { key: 'b6', num: '7.', name: 'Pasado / No pasado', count: 2, dial: 'Freno 7', kind: 'tense', isTarget: true }
+        { key: 'b0', short: '1. Acústica Mel', cols: 7, kind: 'cont' },
+        { key: 'b1', short: '2. Fonológica', cols: 12, kind: 'bin' },
+        { key: 'b2', short: '3. Léxico-estad.', cols: 4, kind: 'cont' },
+        { key: 'b3', short: '4. Categorial + aux.', cols: 9, kind: 'bin' },
+        { key: 'b4', short: '5. Sintáctica', cols: 2, kind: 'disc' },
+        { key: 'b5', short: '6. Semántica LSA', cols: 10, kind: 'block' },
+        { key: 'b6', short: '7. Pasado / No pasado', cols: 2, kind: 'tense', isTarget: true }
       ];
 
-      var ctrlShades = ['#dde7f0', '#b4c9dc', '#7d9db9', '#456785'];
-      var pastShades = ['#efe3f2', '#c89cd2', '#9b59ac', '#762a83'];
-      var nonPastShades = ['#e5f5ea', '#9ad4ad', '#43a060', '#1b7837'];
+      var ctrlShades = ['#dee8f2', '#b3c8dd', '#7899b8', '#3b5975'];
+      var pastShades = ['#f1e6f4', '#caa0d3', '#9b56ac', '#762a83'];
+      var nonPastShades = ['#e6f5ec', '#9ad4ad', '#409e5d', '#1b7837'];
 
-      function cellShadeIndex(bandIdx, rowIdx, colIdx, kind) {
+      /* Intensidad realista: filas = transcurso del tiempo (16 pasos), columnas = características */
+      function cellShadeIndex(bandIdx, timeRow, featCol, kind) {
         if (kind === 'cont') {
-          var v = Math.sin(colIdx * 0.75 + rowIdx * 0.55 + bandIdx) * 0.5 + 0.5;
+          var v = Math.sin(timeRow * 0.65 + featCol * 0.6 + bandIdx) * 0.5 + 0.5;
           return Math.min(3, Math.floor(v * 4));
         }
         if (kind === 'block') {
-          var blk = Math.floor(colIdx / 4);
-          return (blk * 3 + rowIdx * 2) % 4;
+          var clause = Math.floor(timeRow / 5);
+          return (clause * 3 + featCol * 2) % 4;
         }
         if (kind === 'disc') {
-          return (colIdx + rowIdx * 2) % 4 === 0 ? 3 : ((colIdx % 2 === 0) ? 2 : 1);
+          return (timeRow + featCol * 2) % 4 === 0 ? 3 : ((timeRow % 2 === 0) ? 2 : 1);
         }
         if (kind === 'tense') {
-          if (rowIdx === 0) {
-            return (colIdx === 1 || colIdx === 5 || colIdx === 9) ? 3 : 0;
+          if (featCol === 0) {
+            return (timeRow === 1 || timeRow === 4 || timeRow === 9 || timeRow === 13) ? 3 : 0;
           }
-          return (colIdx === 3 || colIdx === 7 || colIdx === 10 || colIdx === 11) ? 3 : 0;
+          return (timeRow === 2 || timeRow === 6 || timeRow === 7 || timeRow === 11 || timeRow === 14) ? 3 : 0;
         }
-        /* binario escaso realista */
-        var h = (rowIdx * 7 + colIdx * 13 + bandIdx * 5) % 11;
+        var h = (timeRow * 11 + featCol * 7 + bandIdx * 5) % 12;
         return h < 2 ? 3 : (h === 2 ? 2 : 0);
       }
 
-      function createSvgEl(tag, attrs) {
-        var node = document.createElementNS(svgNS, tag);
+      function svgEl(tag, attrs) {
+        var n = document.createElementNS(svgNS, tag);
         for (var k in attrs) {
           if (Object.prototype.hasOwnProperty.call(attrs, k)) {
-            node.setAttribute(k, attrs[k]);
+            n.setAttribute(k, attrs[k]);
           }
         }
-        return node;
+        return n;
       }
 
       var bandNodes = {};
-      var wireNodes = {};
-      var dialNodes = {};
+      var barNodes = {};
 
-      var curY = 32;
-      var cardX = 208;
-      var cardW = 196;
-      var nCols = 12;
-      var cellW = 13.2;
-      var cellGapX = 2;
+      var curX = 38;
+      var topY = 50;
+      var nTimeRows = 16;
+      var cellW = 7;
+      var gapX = 2;
+      var cellH = 7.4;
+      var gapY = 2.4;
+      var padX = 5;
+      var padY = 6;
+      var cardH = Math.round(nTimeRows * (cellH + gapY) - gapY + padY * 2);
 
       for (var b = 0; b < BANDS_SPEC.length; b++) {
         var sp = BANDS_SPEC[b];
-        var rowStep = sp.isTarget ? 6.5 : 4.6;
-        var cellH = sp.isTarget ? 5.0 : 3.4;
-        var padV = sp.isTarget ? 5 : 4;
-        var cardH = Math.round(sp.count * rowStep + padV * 2);
-        var midY = curY + cardH / 2;
+        if (sp.isTarget) {
+          /* Separación visual extra entre las 6 bandas de control y la Banda 7 */
+          curX += 10;
+        }
 
-        var gBand = createSvgEl('g', {
-          'class': 'gv01-band-group',
+        var effCellW = sp.isTarget ? 8.5 : cellW;
+        var cardW = Math.round(sp.cols * (effCellW + gapX) - gapX + padX * 2);
+        var cx = curX + cardW / 2;
+
+        var g = svgEl('g', {
+          'class': 'gv01-vband',
           'data-select': sp.key
         });
 
-        /* Etiqueta izquierda alineada con cada matriz */
-        var lblTxt = createSvgEl('text', {
-          x: cardX - 10,
-          y: midY + 3.5,
-          'text-anchor': 'end',
-          'font-size': sp.isTarget ? '10.8' : '10.2',
-          'font-weight': sp.isTarget ? '700' : '600',
-          fill: sp.isTarget ? '#581c66' : '#2d3a43'
+        /* Número exacto de columnas encima de cada matriz vertical */
+        var countLbl = svgEl('text', {
+          x: cx,
+          y: topY - 6,
+          'text-anchor': 'middle',
+          'font-size': '10',
+          'font-weight': '700',
+          fill: sp.isTarget ? '#762a83' : '#3b5975'
         });
-        lblTxt.textContent = sp.num + ' ' + sp.name + ' (' + sp.count + ')';
-        gBand.appendChild(lblTxt);
+        countLbl.textContent = sp.cols;
+        g.appendChild(countLbl);
 
-        /* Marco redondeado de la matriz */
-        gBand.appendChild(createSvgEl('rect', {
-          x: cardX,
-          y: curY,
+        /* Tarjeta vertical redondeada */
+        var frame = svgEl('rect', {
+          x: curX,
+          y: topY,
           width: cardW,
           height: cardH,
-          rx: 6,
-          fill: sp.isTarget ? '#fcf9fd' : '#f4f8fb',
-          stroke: sp.isTarget ? '#8e44ad' : '#7b9ab5',
-          'stroke-width': sp.isTarget ? '1.9' : '1.3'
-        }));
+          rx: 7,
+          fill: sp.isTarget ? '#fdfbfe' : '#f4f8fb',
+          stroke: sp.isTarget ? '#762a83' : '#7b9ab5',
+          'stroke-width': sp.isTarget ? '2' : '1.35'
+        });
+        g.appendChild(frame);
 
-        /* Filas exactas = número real de características */
-        for (var r = 0; r < sp.count; r++) {
-          var ry = curY + padV + r * rowStep;
-          var palette = ctrlShades;
-          if (sp.isTarget) {
-            palette = (r === 0) ? pastShades : nonPastShades;
-          }
-          for (var c = 0; c < nCols; c++) {
-            var cx = cardX + 8 + c * (cellW + cellGapX);
+        /* Celdas internas: 16 pasos temporales hacia abajo × N columnas reales de ancho */
+        for (var r = 0; r < nTimeRows; r++) {
+          var cy = topY + padY + r * (cellH + gapY);
+          for (var c = 0; c < sp.cols; c++) {
+            var cellX = curX + padX + c * (effCellW + gapX);
+            var pal = ctrlShades;
+            if (sp.isTarget) {
+              pal = (c === 0) ? pastShades : nonPastShades;
+            }
             var sIdx = cellShadeIndex(b, r, c, sp.kind);
-            gBand.appendChild(createSvgEl('rect', {
-              x: cx,
-              y: ry,
-              width: cellW,
+            g.appendChild(svgEl('rect', {
+              x: cellX,
+              y: cy,
+              width: effCellW,
               height: cellH,
-              rx: 1.4,
-              fill: palette[sIdx]
+              rx: 1.5,
+              fill: pal[sIdx]
             }));
           }
         }
 
-        bandsLayer.appendChild(gBand);
-        bandNodes[sp.key] = gBand;
-
-        /* Dial independiente de Banded Ridge y cables hacia corteza */
-        var dialX = 456;
-        var dialW = 94;
-        var dialH = 22;
-        var dialCenterY = 48 + b * 46;
-
-        var wirePath = createSvgEl('path', {
-          d: 'M ' + (cardX + cardW) + ' ' + midY +
-             ' C ' + (cardX + cardW + 24) + ' ' + midY + ', ' +
-             (dialX - 24) + ' ' + dialCenterY + ', ' +
-             dialX + ' ' + dialCenterY +
-             ' M ' + (dialX + dialW) + ' ' + dialCenterY +
-             ' C ' + (dialX + dialW + 14) + ' ' + dialCenterY + ', ' +
-             '558 190, 574 190',
-          fill: 'none',
-          stroke: sp.isTarget ? '#762a83' : '#94aec4',
-          'stroke-width': sp.isTarget ? '2.1' : '1.4'
+        /* Barra minimalista al pie = hiperparámetro propio de esa banda en Banded Ridge */
+        var penaltyBar = svgEl('rect', {
+          x: curX + 2,
+          y: topY + cardH + 6,
+          width: Math.max(8, cardW - 4),
+          height: 4.5,
+          rx: 2.2,
+          fill: sp.isTarget ? '#762a83' : '#5c7e9e'
         });
-        wiresLayer.appendChild(wirePath);
-        wireNodes[sp.key] = wirePath;
+        g.appendChild(penaltyBar);
+        barNodes[sp.key] = penaltyBar;
 
-        var gDial = createSvgEl('g', {
-          'class': 'gv01-band-group',
-          'data-select': sp.key
+        /* Etiqueta rotada -30° debajo: amplia separación geométrica garantizada */
+        var nameY = topY + cardH + 22;
+        var nameLbl = svgEl('text', {
+          x: cx + 3,
+          y: nameY,
+          'text-anchor': 'end',
+          'font-size': sp.isTarget ? '10.3' : '10',
+          'font-weight': sp.isTarget ? '700' : '600',
+          fill: sp.isTarget ? '#5b1f66' : '#2c3942',
+          transform: 'rotate(-30, ' + (cx + 3) + ', ' + nameY + ')'
         });
-        gDial.appendChild(createSvgEl('rect', {
-          x: dialX,
-          y: dialCenterY - dialH / 2,
-          width: dialW,
-          height: dialH,
-          rx: 11,
-          fill: sp.isTarget ? '#f5edf7' : '#eff4f8',
-          stroke: sp.isTarget ? '#8e44ad' : '#9ab2c7',
-          'stroke-width': sp.isTarget ? '1.6' : '1.2'
-        }));
-        var dTxt = createSvgEl('text', {
-          x: dialX + dialW / 2,
-          y: dialCenterY + 3.5,
-          'text-anchor': 'middle',
-          'font-size': '9.4',
-          'font-weight': '600',
-          fill: sp.isTarget ? '#581c66' : '#334e68'
-        });
-        dTxt.textContent = sp.dial + ' (propio)';
-        gDial.appendChild(dTxt);
+        nameLbl.textContent = sp.short;
+        g.appendChild(nameLbl);
 
-        dialsLayer.appendChild(gDial);
-        dialNodes[sp.key] = { group: gDial, label: dTxt };
+        bandsLayer.appendChild(g);
+        bandNodes[sp.key] = { group: g, frame: frame };
 
-        curY += cardH + 6;
+        curX += cardW + 9;
       }
 
       var INFO = {
         overview: {
           theme: 'neutral',
-          tag: 'Panorama completo del nuevo pipeline',
-          title: 'Siete bandas a escala real calibradas con penalización independiente en cada vóxel',
-          desc: 'Cada relato escuchado se descompone en 6 bandas de control (44 filas en azul acero) y una séptima banda de apenas 2 filas para la flexión temporal de pasado (púrpura) y de no pasado (verde). En lugar de usar un freno único que aplastaría esa banda pequeña, la regresión por bandas (Banded Ridge) asigna un freno propio a cada nivel lingüístico y compara cuánto acierto se gana al pasar de 44 a 46 pistas.',
+          tag: 'Panorama completo',
+          title: 'Siete bandas verticales a escala real: tiempo hacia abajo y 46 columnas de ancho',
+          desc: 'Cada matriz vertical representa una banda del relato a lo largo del tiempo: las 6 bandas en azul acero reúnen las 44 columnas de control y la Banda 7 añade apenas 2 columnas verticales para la flexión temporal de pasado (púrpura) y la flexión temporal de no pasado (verde). La barra al pie de cada matriz indica que Banded Ridge calibra un freno independiente por banda antes de predecir la corteza.',
           meta: [
             ['Corpus validado', '84 historias orales (83 de ajuste + 1 repetida de prueba)'],
             ['Corteza nativa', '943,305 vóxeles en 10 participantes'],
@@ -1665,7 +2214,7 @@
           theme: 'neutral',
           tag: 'Etapa 1 de 3',
           title: 'Extracción continua a 100 Hz, puntuación neuronal y ajuste físico de 12.0 segundos',
-          desc: 'El sistema extrae la envolvente y espectro del audio WAV, restaura puntuación y mayúsculas sobre las transcripciones usando un modelo neuronal bidireccional (mmBERT) y proyecta las 46 variables cada 10 milisegundos. Luego suaviza cada pista con la curva de flujo sanguíneo (32 s), muestrea cada 2.0 s y recorta los primeros 6 volúmenes (12.0 s) para sincronizar con exactitud el inicio preprocesado del escáner.',
+          desc: 'El sistema extrae el espectro acústico del archivo WAV, restaura puntuación y mayúsculas sobre las transcripciones con un modelo neuronal bidireccional (mmBERT) y proyecta las 46 columnas cada 10 milisegundos. Luego suaviza cada columna con la curva de flujo sanguíneo (32 s), muestrea cada 2.0 s y recorta los primeros 6 volúmenes (12.0 s) para sincronizar con exactitud el registro del escáner.',
           meta: [
             ['Resolución inicial', '100 muestras por segundo (10 ms)'],
             ['Sincronía estímulo-BOLD', 'Recorte óptimo unánime de 6 TRs (12.0 s) en los 10 sujetos'],
@@ -1676,7 +2225,7 @@
           theme: 'ctrl',
           tag: 'Etapa 2 de 3',
           title: 'Regresión por bandas (Banded Ridge) anidada sobre la frontera de control',
-          desc: 'Cada uno de los 943,305 vóxeles aprende de forma independiente qué combinación de las 7 bandas explica sus subidas y bajadas de oxígeno, agrupando historias completas en validación cruzada. El modelo global parte anclado en la solución de control: solo asigna peso distinto de cero a la banda verbal cuando hacerlo mejora genuinamente la predicción.',
+          desc: 'Cada uno de los 943,305 vóxeles calibra de forma independiente los 7 frenos de regularización agrupando historias completas. El modelo global parte anclado en la solución de las 6 bandas de control: solo asigna peso distinto de cero a la Banda 7 cuando hacerlo mejora genuinamente la predicción.',
           meta: [
             ['Resolución algebraica', 'Espacio primal exacto de Gram (46 × 46)'],
             ['Búsqueda por banda', '100 configuraciones Dirichlet × 20 escalas de penalización'],
@@ -1687,7 +2236,7 @@
           theme: 'bold',
           tag: 'Etapa 3 de 3',
           title: 'Doble verificación: 10,000 permutaciones en bloques y corpus balanceado 50/50',
-          desc: 'La ganancia única de la flexión temporal (acierto con 46 pistas menos acierto con 44) se evalúa tanto en la historia reservada Where There\'s Smoke (promediando de 5 a 10 escuchas para medir el techo de señal repetible) como mediante validación cruzada externa de 5 pliegues sobre las 83 historias de entrenamiento, donde pasado (52.53%) y no pasado (47.47%) están equilibrados.',
+          desc: 'La ganancia única de la Banda 7 (acierto con 46 columnas menos acierto con 44) se evalúa tanto en la historia reservada Where There\'s Smoke (promediando de 5 a 10 escuchas para medir el techo de señal repetible) como mediante validación cruzada externa de 5 pliegues sobre las 83 historias de entrenamiento, donde pasado (52.53%) y no pasado (47.47%) están equilibrados.',
           meta: [
             ['Permutaciones por bloques', '10,000 iteraciones de 10 TRs (20 s), resolución p = 0.00010'],
             ['Doble control FDR', 'Corteza completa y corteza confiable (techo > 0.01: 75.45%)'],
@@ -1707,79 +2256,79 @@
         },
         b0: {
           theme: 'ctrl',
-          tag: 'Banda de control 1 de 6 (Nueva en este pipeline)',
-          title: 'Espacio acústico espectral desde el archivo WAV (7 variables continuas)',
-          desc: 'Mide directamente la energía sonora física (envolvente RMS) y 6 bandas espectrales en escala Mel entre 80 Hz y 8,000 Hz. Ese techo coincide con la respuesta plana calibrada de los auriculares intraaurales Sensimetrics S14 del resonador y captura la fricación aguda (4,000 a 8,000 Hz) de sufijos como -s y -ed, evitando confundir timbre acústico con gramática.',
+          tag: 'Banda 1 de 7 · Control acústico (7 columnas)',
+          title: 'Espectro acústico extraído directamente del audio WAV',
+          desc: 'Mide la envolvente de energía sonora (RMS) y 6 bandas espectrales Mel entre 80 Hz y 8,000 Hz. Ese límite superior coincide con la respuesta plana calibrada de los auriculares intraaurales Sensimetrics S14 del resonador y captura la fricación aguda (4,000 a 8,000 Hz) de sufijos como -s y -ed.',
           meta: [
             ['Columnas', 'rms_energy y mel_band_0 a mel_band_5'],
             ['Rango físico', '80 Hz (voces graves) a 8,000 Hz (techo Sensimetrics S14)'],
-            ['Rol', 'Incluida tanto en el Modelo Control (44) como en el Global (46)']
+            ['Rol', 'Presente en el Modelo Control (44) y en el Modelo Global (46)']
           ]
         },
         b1: {
           theme: 'ctrl',
-          tag: 'Banda de control 2 de 6 (Rango completo)',
-          title: 'Espacio fonológico-articulatorio sin colinealidad interna (12 variables binarias)',
-          desc: 'Describe cada fonema pronunciado según sonoridad, vocalicidad y punto o modo de articulación. Se depuraron dos columnas redundantes del diseño previo (consonantal y voiceless, que eran combinaciones lineales exactas del resto) y se corrigió la fricativa glotal /h/ sin punto supralaríngeo.',
+          tag: 'Banda 2 de 7 · Control fonológico (12 columnas)',
+          title: 'Rasgos fonológico-articulatorios de rango completo',
+          desc: 'Describe cada fonema pronunciado según sonoridad, vocalicidad y punto o modo de articulación. Se depuraron dos columnas redundantes del diseño previo (consonantal y voiceless, combinaciones lineales exactas del resto) y se corrigió la fricativa glotal /h/.',
           meta: [
             ['Columnas', 'vocalic, voiced, 4 lugares y 6 modos de articulación'],
-            ['Fuente alineada', 'Intervalos de la capa phone en los TextGrids reparados'],
-            ['Rol', 'Incluida tanto en el Modelo Control (44) como en el Global (46)']
+            ['Fuente alineada', 'Intervalos de la capa phone en los TextGrids validados'],
+            ['Rol', 'Presente en el Modelo Control (44) y en el Modelo Global (46)']
           ]
         },
         b2: {
           theme: 'ctrl',
-          tag: 'Banda de control 3 de 6',
-          title: 'Espacio léxico-estadístico (4 variables continuas)',
-          desc: 'Cuantifica la presencia de cada palabra, su frecuencia de uso habitual en inglés (escala logarítmica Zipf), su longitud en letras y su duración hablada en segundos. Descuenta el bajo costo de acceso léxico de palabras ultracortas y muy frecuentes como was, is, had o don\'t.',
+          tag: 'Banda 3 de 7 · Control léxico-estadístico (4 columnas)',
+          title: 'Frecuencia de uso, longitud y duración hablada',
+          desc: 'Cuantifica la presencia de cada palabra, su frecuencia habitual en inglés (escala Zipf), su número de letras y su duración acústica en segundos. Descuenta la facilidad de acceso léxico de palabras ultracortas como was, is, had o don\'t.',
           meta: [
             ['Columnas', 'word_presence, lexical_frequency, word_length_chars, word_duration_secs'],
             ['Cobertura total', '158,462 palabras alineadas en los 84 relatos'],
-            ['Rol', 'Incluida tanto en el Modelo Control (44) como en el Global (46)']
+            ['Rol', 'Presente en el Modelo Control (44) y en el Modelo Global (46)']
           ]
         },
         b3: {
           theme: 'ctrl',
-          tag: 'Banda de control 4 de 6 (Con filtro de auxiliaridad)',
-          title: 'Espacio léxico-categorial y control explícito de auxiliares (9 variables binarias)',
-          desc: 'Clasifica 7 clases gramaticales abiertas y cerradas, reserva non_finite_verb para formas verbales no personales (infinitivos, gerundios y participios como crying) e incorpora un noveno canal clave: auxiliary_modal. Como el 51.78% de las marcas temporales recae en auxiliares y cópulas (be, have, do), este canal descuenta su función cerrada sin absorber su tiempo.',
+          tag: 'Banda 4 de 7 · Control categorial y auxiliares (9 columnas)',
+          title: 'Clases gramaticales, verbos no personales y filtro de auxiliaridad',
+          desc: 'Clasifica 7 categorías léxico-funcionales, reserva non_finite_verb para formas verbales no personales (infinitivos, gerundios y participios como crying) e incorpora auxiliary_modal. Como el 51.78% de las marcas temporales recae en auxiliares y cópulas (be, have, do), este canal descuenta su clase cerrada sin absorber su tiempo.',
           meta: [
             ['Resolución de contracciones', 'Mapeo completo por char_span (recupera didn\'t, she\'s, don\'t)'],
             ['Noveno canal añadido', 'auxiliary_modal (etiquetas AUX y MD)'],
-            ['Rol', 'Incluida tanto en el Modelo Control (44) como en el Global (46)']
+            ['Rol', 'Presente en el Modelo Control (44) y en el Modelo Global (46)']
           ]
         },
         b4: {
           theme: 'ctrl',
-          tag: 'Banda de control 5 de 6 (Depurada)',
-          title: 'Espacio sintáctico de dependencias sin proxies verbales (2 variables)',
-          desc: 'Mide en cada palabra la distancia lineal hacia el núcleo del que depende y su profundidad dentro del árbol jerárquico de la oración. Se eliminó deliberadamente el indicador is_root porque en gramática de dependencias la raíz oracional coincide casi siempre con el verbo conjugado principal, lo que antes sustraía artificialmente la señal verbal.',
+          tag: 'Banda 5 de 7 · Control sintáctico (2 columnas)',
+          title: 'Complejidad estructural de dependencias sin proxies verbales',
+          desc: 'Mide en cada palabra la distancia lineal hacia su núcleo sintáctico y su profundidad en el árbol de la oración. Se eliminó el indicador is_root porque en gramática de dependencias la raíz coincide casi siempre con el verbo conjugado matriz, lo que antes sustraía artificialmente la señal verbal.',
           meta: [
             ['Columnas', 'dependency_distance y syntactic_depth (con en_core_web_trf)'],
             ['Colinealidad eliminada', 'Exclusión de is_root para proteger la pureza del contraste'],
-            ['Rol', 'Incluida tanto en el Modelo Control (44) como en el Global (46)']
+            ['Rol', 'Presente en el Modelo Control (44) y en el Modelo Global (46)']
           ]
         },
         b5: {
           theme: 'ctrl',
-          tag: 'Banda de control 6 de 6 (Sin fuga de datos)',
-          title: 'Espacio léxico-semántico LSA sobre oraciones puntuadas con mmBERT (10 variables)',
-          desc: 'Captura el tema de cada unidad oracional delimitada con puntuación restaurada neuronalmente (Horizon-Labs) y reducida a raíces léxicas sin flexión verbal (convirtiendo reached y reaches en el lema reach). Así controla el contenido narrativo sin infiltrar marcas morfológicas de tiempo ni tocar la historia de prueba durante su ajuste.',
+          tag: 'Banda 6 de 7 · Control semántico LSA (10 columnas)',
+          title: 'Contenido temático sobre oraciones puntuadas con mmBERT y lemas sin tiempo',
+          desc: 'Captura el tema de cada unidad oracional delimitada con puntuación restaurada neuronalmente (Horizon-Labs) y reducida a raíces sin flexión verbal (convirtiendo reached y reaches en reach). Controla de qué trata la escena sin infiltrar marcas morfológicas temporales ni tocar la historia de prueba.',
           meta: [
             ['Ajuste estricto en Train', '83 historias, vocabulario de 2,828 lemas sin flexión'],
             ['Cobertura en prueba', '86.52% de los lemas de contenido en Where There\'s Smoke'],
-            ['Rol', 'Incluida tanto en el Modelo Control (44) como en el Global (46)']
+            ['Rol', 'Presente en el Modelo Control (44) y en el Modelo Global (46)']
           ]
         },
         b6: {
           theme: 'tense',
-          tag: 'Banda objetivo evaluada (Banda 7 de 7)',
-          title: 'Flexión temporal de pasado y flexión temporal de no pasado (2 variables binarias)',
-          desc: 'Representa de forma directa la oposición morfológica binaria del verbo inglés en sus formas personales: past (etiqueta VBD, en púrpura: reached, undid, was, didn\'t) frente a non_past (etiquetas VBP y VBZ, en verde: see, comes, is, don\'t), excluyendo modales (will, could) y la contracción sincrética \'d. Es la única banda omitida en el Modelo Control.',
+          tag: 'Banda 7 de 7 · Banda objetivo evaluada (2 columnas)',
+          title: 'Flexión temporal de pasado (púrpura) y flexión temporal de no pasado (verde)',
+          desc: 'Representa la oposición morfológica binaria del inglés en sus formas verbales personales: past (columna púrpura, etiqueta VBD: reached, undid, was, didn\'t) frente a non_past (columna verde, etiquetas VBP y VBZ: see, comes, is, don\'t), excluyendo modales (will, could) y la contracción ambigua \'d.',
           meta: [
             ['Censo en los 84 relatos', '20,921 verbos personales: 52.10% pasado y 47.90% no pasado'],
             ['Contracciones habladas', 'El 19.08% (3,992 casos) ocurre en contracciones resueltas con char_span'],
-            ['Rol exclusivo', 'Presente en el Modelo Global (46) y omitida en el Modelo Control (44)']
+            ['Rol exclusivo', 'Activa en el Modelo Global (46) y apagada en el Modelo Control (44)']
           ]
         }
       };
@@ -1793,65 +2342,58 @@
       var currentKey = 'overview';
       var currentArch = 'global';
 
-      function applyArchVisuals() {
+      function syncVisualState() {
         var isControlOnly = (currentArch === 'control');
-        var b6Group = bandNodes.b6;
-        var w6 = wireNodes.b6;
-        var d6 = dialNodes.b6;
+        var isBandFocus = (currentKey.indexOf('b') === 0 && currentKey.length === 2);
+
+        resetBtn.hidden = (currentKey === 'overview');
+
+        var stageLinks = root.querySelectorAll('.gv01-stage-link');
+        for (var s = 0; s < stageLinks.length; s++) {
+          stageLinks[s].classList.toggle('is-active', stageLinks[s].getAttribute('data-select') === currentKey);
+        }
+
+        for (var i = 0; i < BANDS_SPEC.length; i++) {
+          var k = BANDS_SPEC[i].key;
+          var node = bandNodes[k];
+
+          if (isControlOnly && k === 'b6') {
+            node.group.style.opacity = '0.2';
+            node.group.classList.remove('is-lifted');
+            node.frame.setAttribute('stroke-dasharray', '4 3');
+            barNodes[k].style.opacity = '0.15';
+            continue;
+          }
+
+          if (k === 'b6') {
+            node.frame.removeAttribute('stroke-dasharray');
+            barNodes[k].style.opacity = '1';
+          }
+
+          if (isBandFocus) {
+            var match = (k === currentKey);
+            node.group.style.opacity = match ? '1' : '0.28';
+            node.group.classList.toggle('is-lifted', match);
+          } else {
+            node.group.style.opacity = '1';
+            node.group.classList.remove('is-lifted');
+          }
+        }
+
+        cortexTarget.style.opacity = isBandFocus ? '0.78' : '1';
+        cortexTarget.classList.toggle('is-lifted', currentKey === 'bold');
 
         if (isControlOnly) {
-          b6Group.style.opacity = '0.22';
-          w6.setAttribute('stroke-dasharray', '4 4');
-          w6.style.opacity = '0.25';
-          d6.group.style.opacity = '0.32';
-          d6.label.textContent = 'Omitida (0)';
-          eqLine1.textContent = 'Solo Control activo (44 pistas)';
-          eqLine2.textContent = 'Banda 7 apagada para línea base';
+          eqLine1.textContent = 'Solo Control activo (44 col.)';
+          eqLine2.textContent = 'Banda 7 omitida para línea base';
           eqLine2.setAttribute('fill', '#4b5563');
         } else {
-          w6.removeAttribute('stroke-dasharray');
-          d6.label.textContent = 'Freno 7 (propio)';
           eqLine1.textContent = 'Global (46) − Control (44)';
           eqLine2.textContent = '= Ganancia única temporal';
           eqLine2.setAttribute('fill', '#762a83');
-          selectNode(currentKey);
-        }
-      }
-
-      function selectNode(key) {
-        currentKey = INFO[key] ? key : 'overview';
-        var data = INFO[currentKey];
-
-        var btns = root.querySelectorAll('[data-select]');
-        for (var i = 0; i < btns.length; i++) {
-          if (btns[i].classList.contains('gv01-step-btn') || btns[i].classList.contains('gv01-pill')) {
-            btns[i].classList.toggle('is-active', btns[i].getAttribute('data-select') === currentKey);
-          }
         }
 
-        var isBand = (currentKey.indexOf('b') === 0 && currentKey.length === 2);
-
-        for (var b = 0; b < BANDS_SPEC.length; b++) {
-          var k = BANDS_SPEC[b].key;
-          var isControlMuted = (currentArch === 'control' && k === 'b6');
-          if (isControlMuted) continue;
-
-          if (isBand) {
-            var match = (k === currentKey);
-            bandNodes[k].style.opacity = match ? '1' : '0.25';
-            bandNodes[k].style.transform = match ? 'translateX(3px)' : 'translateX(0)';
-            wireNodes[k].style.opacity = match ? '1' : '0.15';
-            dialNodes[k].group.style.opacity = match ? '1' : '0.28';
-          } else {
-            bandNodes[k].style.opacity = '1';
-            bandNodes[k].style.transform = 'translateX(0)';
-            wireNodes[k].style.opacity = '0.85';
-            dialNodes[k].group.style.opacity = '1';
-          }
-        }
-
-        cortexTarget.style.opacity = isBand ? '0.78' : '1';
-
+        var data = INFO[currentKey] || INFO.overview;
         inspectorEl.setAttribute('data-theme', data.theme);
         tagEl.textContent = data.tag;
         titleEl.textContent = data.title;
@@ -1864,6 +2406,11 @@
         metaEl.innerHTML = mHtml;
       }
 
+      resetBtn.addEventListener('click', function () {
+        currentKey = 'overview';
+        syncVisualState();
+      });
+
       root.addEventListener('click', function (e) {
         var archBtn = e.target.closest('[data-arch]');
         if (archBtn) {
@@ -1872,29 +2419,319 @@
           for (var i = 0; i < aBtns.length; i++) {
             aBtns[i].classList.toggle('is-active', aBtns[i] === archBtn);
           }
-          selectNode(currentKey);
-          applyArchVisuals();
+          if (currentArch === 'control' && currentKey === 'b6') {
+            currentKey = 'overview';
+          }
+          syncVisualState();
           return;
         }
 
         var selTarget = e.target.closest('[data-select]');
         if (selTarget) {
-          var key = selTarget.getAttribute('data-select');
-          /* Si estaba en modo Control (44) y pulsa la Banda 7, reactiva Global (46) para mostrarla */
-          if (key === 'b6' && currentArch === 'control') {
+          var nextKey = selTarget.getAttribute('data-select');
+          if (nextKey === 'b6' && currentArch === 'control') {
             currentArch = 'global';
             var gBtns = root.querySelectorAll('[data-arch]');
             for (var j = 0; j < gBtns.length; j++) {
               gBtns[j].classList.toggle('is-active', gBtns[j].getAttribute('data-arch') === 'global');
             }
-            applyArchVisuals();
           }
-          selectNode(key);
+          currentKey = nextKey;
+          syncVisualState();
         }
       });
 
-      selectNode('overview');
+      syncVisualState();
     })();
+    /* 4. Esquema interactivo animado (gv02a): Eje del hablante vs. flexión temporal */
+    (function () {
+      var root = document.getElementById('gv02a-root');
+      if (!root) return;
+
+      var dot = document.getElementById('gv02a-dot');
+      var halo = document.getElementById('gv02a-dot-halo');
+      var curve = document.getElementById('gv02a-curve');
+      var tip = document.getElementById('gv02a-tip');
+      var boxPast = document.getElementById('gv02a-box-past');
+      var boxNp = document.getElementById('gv02a-box-np');
+      var enEl = document.getElementById('gv02a-en');
+      var esEl = document.getElementById('gv02a-es');
+      var descEl = document.getElementById('gv02a-desc');
+
+      var CASES = {
+        past_match: {
+          srcX: 128,
+          dstX: 160,
+          color: '#762a83',
+          target: 'past',
+          en: '«I reached over, and secretly undid my seatbelt.» (0.14 s)',
+          es: 'Glosa: «Me estiré hacia el lado y desabroché en secreto mi cinturón de seguridad.»',
+          desc: 'El suceso ocurrió antes del momento en que habla la narradora (izquierda del eje) y los verbos reached y undid activan directamente la columna de flexión temporal de pasado (past).'
+        },
+        future_nonpast: {
+          srcX: 468,
+          dstX: 420,
+          color: '#1b7837',
+          target: 'non_past',
+          en: '«He\'s gonna be [nice] when I get home.» (285.35 s)',
+          es: 'Glosa: «Se va a portar bien cuando yo llegue a casa.»',
+          desc: 'La llegada a casa todavía no ocurre (derecha del eje: futuro mental), pero como el inglés carece de desinencia verbal futura, la forma personal get cae morfológicamente en la flexión temporal de no pasado (non_past).'
+        },
+        hist_present: {
+          srcX: 158,
+          dstX: 420,
+          color: '#1b7837',
+          target: 'non_past',
+          en: '«I see a figure up ahead.» (109.10 s)',
+          es: 'Glosa: «Veo una silueta más adelante.»',
+          desc: 'El episodio pertenece al pasado biográfico de la narradora (izquierda del eje), pero al contarlo en presente histórico la forma personal see activa la flexión temporal de no pasado (non_past).'
+        }
+      };
+
+      var animState = { srcX: 128, dstX: 160 };
+      var animFrame = null;
+
+      function drawArrowFrame(sx, dx, col) {
+        dot.setAttribute('cx', sx.toFixed(1));
+        dot.setAttribute('fill', col);
+        halo.setAttribute('cx', sx.toFixed(1));
+        halo.setAttribute('fill', col);
+
+        var startY = 71;
+        var endY = 128;
+        var ctrlY1 = 98;
+        var ctrlY2 = 104;
+        var dStr = 'M ' + sx.toFixed(1) + ' ' + startY +
+          ' C ' + sx.toFixed(1) + ' ' + ctrlY1 + ', ' +
+          dx.toFixed(1) + ' ' + ctrlY2 + ', ' +
+          dx.toFixed(1) + ' ' + endY;
+        curve.setAttribute('d', dStr);
+        curve.setAttribute('stroke', col);
+
+        /* Punta de flecha limpia apuntando a la casilla morfológica activa */
+        var p1 = (dx - 5).toFixed(1) + ',' + (endY - 6);
+        var p2 = (dx + 5).toFixed(1) + ',' + (endY - 6);
+        var p3 = dx.toFixed(1) + ',' + (endY + 2);
+        tip.setAttribute('points', p1 + ' ' + p2 + ' ' + p3);
+        tip.setAttribute('fill', col);
+      }
+
+      function selectCase(key, animate) {
+        var cfg = CASES[key] || CASES.past_match;
+
+        enEl.textContent = cfg.en;
+        esEl.textContent = cfg.es;
+        descEl.textContent = cfg.desc;
+
+        boxPast.style.opacity = (cfg.target === 'past') ? '1' : '0.38';
+        boxNp.style.opacity = (cfg.target === 'non_past') ? '1' : '0.38';
+
+        if (animFrame) cancelAnimationFrame(animFrame);
+
+        if (!animate) {
+          animState.srcX = cfg.srcX;
+          animState.dstX = cfg.dstX;
+          drawArrowFrame(cfg.srcX, cfg.dstX, cfg.color);
+          return;
+        }
+
+        var s0 = animState.srcX;
+        var d0 = animState.dstX;
+        var t0 = performance.now();
+        var dur = 380;
+
+        function step(now) {
+          var p = Math.min(1, (now - t0) / dur);
+          var ease = 1 - Math.pow(1 - p, 3);
+          animState.srcX = s0 + (cfg.srcX - s0) * ease;
+          animState.dstX = d0 + (cfg.dstX - d0) * ease;
+          drawArrowFrame(animState.srcX, animState.dstX, cfg.color);
+          if (p < 1) {
+            animFrame = requestAnimationFrame(step);
+          }
+        }
+        animFrame = requestAnimationFrame(step);
+      }
+
+      root.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-case]');
+        if (!btn) return;
+        var key = btn.getAttribute('data-case');
+        var tabs = root.querySelectorAll('[data-case]');
+        for (var i = 0; i < tabs.length; i++) {
+          tabs[i].classList.toggle('is-active', tabs[i] === btn);
+        }
+        selectCase(key, true);
+      });
+
+      selectCase('past_match', false);
+    })();
+
+    /* 5. Figura 2 (gv02): Filtro morfológico en el relato y censo de 20,921 formas verbales */
+    (function () {
+      var root = document.getElementById('gv02-root');
+      if (!root) return;
+
+      var CAT_META = {
+        all: {
+          theme: 'tense',
+          tag: 'Resumen de clasificación en el pipeline',
+          title: 'Dos columnas objetivo puras (past vs. non_past) separadas de formas no personales y modales',
+          desc: 'Pulsa cualquiera de las 15 formas verbales resaltadas arriba para ver qué etiqueta morfosintáctica recibe en spaCy (en_core_web_trf) y a qué banda exacta ingresa dentro de la matriz de 46 columnas.'
+        },
+        past: {
+          theme: 'tense',
+          tag: 'Banda 7 · Columna 45 (past)',
+          title: 'Flexión temporal de pasado en formas verbales personales (etiqueta VBD)',
+          desc: 'Agrupa en un único vector binario todas las formas personales conjugadas en pasado, tanto regulares con sufijo -ed (reached) como irregulares (undid, knew) y auxiliares en pasado (was, had, didn\'t). Aporta el 52.10% de las marcas temporales del corpus (10,900 ocurrencias).'
+        },
+        non_past: {
+          theme: 'tense',
+          tag: 'Banda 7 · Columna 46 (non_past)',
+          title: 'Flexión temporal de no pasado en formas verbales personales (etiquetas VBP y VBZ)',
+          desc: 'Reúne las formas personales de presente con sufijo -s de tercera persona singular (comes, she\'s) y sin sufijo flexivo (see, don\'t). Aporta el 47.90% del corpus (10,021 ocurrencias), equilibrando la señal frente al polo de pasado.'
+        },
+        non_finite: {
+          theme: 'ctrl',
+          tag: 'Banda 4 · Control categorial (non_finite_verb)',
+          title: 'Formas verbales no personales: infinitivos (VB), gerundios (VBG) y participios (VBN)',
+          desc: 'Palabras como crying («llorando») o los infinitivos gobernados por un auxiliar (have en don\'t have, see en could see) expresan procesos y acciones pero carecen de flexión temporal propia. Se envían a la Banda 4 para descontar el procesamiento general de acciones.'
+        },
+        excluded: {
+          theme: 'ctrl',
+          tag: 'Filtro de pureza morfológica (Fuera de Banda 7)',
+          title: 'Auxiliares modales (MD) y contracción sincrética ambigua \'d',
+          desc: 'Los verbos modales como could («podía/pude») o will activan únicamente el canal de control auxiliary_modal en la Banda 4 y quedan excluidos de la Banda 7, igual que la contracción oral \'d (que fusiona el pasado had y el condicional would).'
+        }
+      };
+
+      var WORD_META = {
+        reached: {
+          cat: 'past',
+          title: '«reached» («me estiré», 0.14 – 0.50 s) → Columna past (Banda 7)',
+          desc: 'Verbo léxico personal con flexión temporal de pasado regular (etiqueta VBD). Su terminación suena físicamente como /t/, rasgo acústico y fonológico que descuentan las Bandas 1 y 2.'
+        },
+        undid: {
+          cat: 'past',
+          title: '«undid» («desabroché», 2.42 – 2.96 s) → Columna past (Banda 7)',
+          desc: 'Verbo léxico personal con flexión temporal de pasado irregular (etiqueta VBD, derivado de undo). En el nuevo modelo se integra junto a los pasados regulares en la columna unificada past.'
+        },
+        was: {
+          cat: 'past',
+          title: '«was» («estaba», 12.53 – 12.69 s) → Columna past (Banda 7) + auxiliary_modal (Banda 4)',
+          desc: 'En «was crying», esta palabra de 0.16 s porta toda la flexión temporal de pasado (VBD). Al mismo tiempo enciende el control auxiliary_modal en la Banda 4 para descontar que pertenece a la clase cerrada del verbo be.'
+        },
+        crying_1: {
+          cat: 'non_finite',
+          title: '«crying» («llorando», 12.69 – 13.25 s) → Columna non_finite_verb (Banda 4)',
+          desc: 'Gerundio invariable (etiqueta VBG, forma no personal). Es idéntico en pasado («was crying») y en no pasado («she\'s crying»), por lo que actúa como control de acción verbal en la Banda 4.'
+        },
+        knew: {
+          cat: 'past',
+          title: '«knew» («sabía», 93.24 – 93.47 s) → Columna past (Banda 7)',
+          desc: 'Forma verbal personal irregular de know con flexión temporal de pasado (etiqueta VBD). Activa la columna past en la Banda 7.'
+        },
+        id: {
+          cat: 'excluded',
+          title: '«\'d» en «I\'d have» («tendría», 93.47 – 93.62 s) → Excluida de Banda 7',
+          desc: 'En el discurso oral, \'d puede contraer tanto had (pasado) como would (modal condicional). El extractor la descarta explícitamente de la Banda 7 para impedir contaminación morfológica.'
+        },
+        have_inf: {
+          cat: 'non_finite',
+          title: '«have» en «I\'d have» («tener», 93.62 – 93.96 s) → Columna non_finite_verb (Banda 4)',
+          desc: 'Al ir subordinado al modal contraído «\'d» (would), aparece como infinitivo sin flexión temporal (etiqueta VB) y se asigna al control categorial de la Banda 4.'
+        },
+        dont: {
+          cat: 'non_past',
+          title: '«don\'t» («no [tengo]», 102.89 – 103.03 s) → Columna non_past (Banda 7) vía char_span',
+          desc: 'Contracción oral de do + not. Gracias a la resolución por char_span se recupera el auxiliar personal do (etiqueta VBP), activando la flexión temporal de no pasado en Banda 7 y auxiliary_modal en Banda 4.'
+        },
+        have_neg: {
+          cat: 'non_finite',
+          title: '«have» en «don\'t have» (103.03 – 103.18 s) → Columna non_finite_verb (Banda 4)',
+          desc: 'En la negación inglesa con soporte do, el verbo léxico principal queda en forma base no personal (VB) mientras el auxiliar previo porta la flexión temporal.'
+        },
+        see_fin: {
+          cat: 'non_past',
+          title: '«see» en «I see a figure» («veo», 109.10 – 109.23 s) → Columna non_past (Banda 7)',
+          desc: 'Verbo léxico personal en presente (etiqueta VBP). Marca el instante exacto en que la narradora pasa al presente histórico, polo que representará el 79.08% de Where There\'s Smoke.'
+        },
+        comes: {
+          cat: 'non_past',
+          title: '«comes» («se acerca», 118.34 – 118.62 s) → Columna non_past (Banda 7)',
+          desc: 'Verbo léxico personal de tercera persona singular con sufijo -s (etiqueta VBZ), codificado en la columna non_past.'
+        },
+        could: {
+          cat: 'excluded',
+          title: '«could» («pude / podía», 119.11 – 119.27 s) → Solo control auxiliary_modal (Banda 4)',
+          desc: 'Auxiliar modal (etiqueta MD). Se registra en el noveno canal de la Banda 4 (auxiliary_modal), pero se excluye de la Banda 7 porque expresa modalidad y no flexión temporal pura.'
+        },
+        see_inf: {
+          cat: 'non_finite',
+          title: '«see» en «could see» («ver», 119.27 – 119.44 s) → Columna non_finite_verb (Banda 4)',
+          desc: 'Contrasta con «I see a figure» diez segundos antes: aquí la misma palabra acústica see va regida por could como infinitivo invariable (VB), por lo que pasa al control de la Banda 4.'
+        },
+        is_contr: {
+          cat: 'non_past',
+          title: '«\'s» en «she\'s crying» («está», 131.94 – 132.07 s) → Columna non_past (Banda 7)',
+          desc: 'Contracción oral de is (etiqueta VBZ) recuperada mediante char_span. Ejemplifica cómo el 25.89% de las marcas temporales de esta historia ocurre dentro de contracciones.'
+        },
+        crying_2: {
+          cat: 'non_finite',
+          title: '«crying» («llorando», 132.07 – 132.56 s) → Columna non_finite_verb (Banda 4)',
+          desc: 'Mismo gerundio no personal (VBG) del segundo 12.69, confirmando que el contraste temporal frente a «I was crying» depende únicamente del auxiliar conjugado previo.'
+        }
+      };
+
+      var inspEl = document.getElementById('gv02-inspector');
+      var tagEl = document.getElementById('gv02-insp-tag');
+      var titleEl = document.getElementById('gv02-insp-title');
+      var descEl = document.getElementById('gv02-insp-desc');
+      var filterBtns = root.querySelectorAll('.gv02-filter-btn');
+      var tokens = root.querySelectorAll('.gv02-tok');
+
+      function updateView(catKey, wordKey) {
+        var meta = CAT_META[catKey] || CAT_META.all;
+
+        for (var i = 0; i < filterBtns.length; i++) {
+          filterBtns[i].classList.toggle('is-active', filterBtns[i].getAttribute('data-cat') === catKey);
+        }
+
+        for (var j = 0; j < tokens.length; j++) {
+          var t = tokens[j];
+          var tCat = t.getAttribute('data-cat');
+          var tWord = t.getAttribute('data-word');
+          t.classList.toggle('is-selected', !!wordKey && tWord === wordKey);
+          t.classList.toggle('is-dimmed', catKey !== 'all' && tCat !== catKey);
+        }
+
+        inspEl.setAttribute('data-theme', meta.theme);
+        tagEl.textContent = meta.tag;
+
+        if (wordKey && WORD_META[wordKey]) {
+          titleEl.textContent = WORD_META[wordKey].title;
+          descEl.textContent = WORD_META[wordKey].desc;
+        } else {
+          titleEl.textContent = meta.title;
+          descEl.textContent = meta.desc;
+        }
+      }
+
+      root.addEventListener('click', function (e) {
+        var tok = e.target.closest('.gv02-tok');
+        if (tok) {
+          updateView(tok.getAttribute('data-cat'), tok.getAttribute('data-word'));
+          return;
+        }
+        var fBtn = e.target.closest('.gv02-filter-btn');
+        if (fBtn) {
+          updateView(fBtn.getAttribute('data-cat'), null);
+        }
+      });
+
+      updateView('all', 'was');
+    })();
+
   </script>
 
 </body>
