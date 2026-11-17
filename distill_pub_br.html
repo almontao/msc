@@ -1382,6 +1382,102 @@
         padding: 0 4px 0 6px;
       }
     }
+    /* ==========================================================================
+       ESTILOS SECCIÓN 4: FIGURA 4 (gv04) Y FIGURA 5 (gv05)
+       ========================================================================== */
+    .gv04-slider-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 14px;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      background-color: #f8fbfd;
+      border: 1px solid #e2ecf2;
+      border-radius: 8px;
+      font-size: 0.8em;
+      color: #2f3b44;
+    }
+
+    .gv04-slider-bar[hidden] {
+      display: none !important;
+    }
+
+    .gv04-range {
+      flex: 1;
+      min-width: 160px;
+      accent-color: var(--sci-bold);
+      cursor: pointer;
+    }
+
+    .gv04-canvas-wrap,
+    .gv05-canvas-wrap {
+      width: 100%;
+      border: 1px solid #e4ecf0;
+      border-radius: 9px;
+      background-color: #ffffff;
+      overflow: hidden;
+    }
+
+    #gv04-canvas {
+      display: block;
+      width: 100%;
+      height: 278px;
+      cursor: pointer;
+    }
+
+    #gv05-canvas {
+      display: block;
+      width: 100%;
+      height: 224px;
+    }
+
+    .gv05-subtraction-bar {
+      margin: 10px 0;
+      padding: 9px 14px;
+      background-color: var(--ui-surface);
+      border: 1px solid #e2eaf0;
+      border-radius: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px 14px;
+      font-size: 0.8em;
+      color: #3a4650;
+    }
+
+    .gv05-diff-pill {
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 99px;
+      font-size: 0.94em;
+    }
+
+    .gv05-diff-pill[data-tone="muted"] {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    .gv05-diff-pill[data-tone="shared"] {
+      background-color: #e6eef4;
+      color: #2c3e50;
+    }
+
+    .gv05-diff-pill[data-tone="zero"] {
+      background-color: #ebf7ef;
+      color: #165c2b;
+    }
+
+    @media (max-width: 640px) {
+      #gv04-canvas {
+        height: 256px;
+      }
+
+      #gv05-canvas {
+        height: 282px;
+      }
+    }
   </style>
 </head>
 
@@ -2334,12 +2430,198 @@
 
 
                   <!-- ================================================================== -->
-                  <!-- [ANCLA ENTREGA 3: SECCIÓN 4 (FIGURAS 4 Y 5)]                       -->
+                  <!-- SECCIÓN 4: EL RITMO DE LA SANGRE Y LAS SIETE PERILLAS DEL MODELO   -->
                   <!-- ================================================================== -->
 
-                  <!-- ================================================================== -->
-                  <!-- [FIN ANCLA ENTREGA 3]                                              -->
-                  <!-- ================================================================== -->
+                  <div class="distill-section-header">
+                    <span class="distill-section-num">Sección 4</span>
+                    <h3>El ritmo de la sangre y las siete perillas del modelo</h3>
+                  </div>
+
+                  <div class="distill-row">
+                    <div class="distill-main">
+                      <p>
+                        El habla y la resonancia magnética funcional corren en dos relojes muy distintos. Mientras las
+                        palabras y los sonidos cambian cada centésima de segundo, el escáner no mide impulsos eléctricos
+                        instantáneos, sino variaciones locales de oxígeno en la sangre (la llamada señal BOLD). Cuando
+                        una zona de la corteza trabaja al escuchar una frase, el flujo sanguíneo circundante aumenta de
+                        forma gradual, alcanza su cumbre entre <b>cinco y seis segundos después</b> del sonido y tarda
+                        cerca de treinta segundos en volver a la calma. Además, el aparato toma una fotografía completa
+                        del cerebro cada <b>dos segundos</b> (cada captura se denomina un volumen o <span
+                          class="code-inline">TR</span>).
+                      </p>
+
+                      <p>
+                        Para traducir el reloj rápido del idioma al reloj lento de la sangre, cada una de las 46
+                        columnas se suaviza desde el segundo cero con esa ola vascular de treinta y dos segundos y se
+                        lee exactamente una vez cada dos segundos. Sin embargo, quedaba un paso crítico de
+                        sincronización: igual que en el cine cuando la cámara empieza a grabar unos instantes después
+                        que el micrófono, los registros cerebrales del repositorio tienen recortados los primeros
+                        segundos de cada sesión para estabilizar el imán del resonador.
+                      </p>
+
+                      <p>
+                        En lugar de suponer a ciegas cuántos segundos recortar en el audio transformado, se probó de
+                        forma directa cada punto de arranque entre 0 y 20 segundos en los diez participantes. El
+                        resultado fue unánime: <b>los diez cerebros alcanzan su máxima nitidez exactamente al recortar
+                          los primeros 12.0 segundos (6 capturas del escáner)</b>, multiplicando casi por cinco el
+                        acierto máximo promedio frente a no aplicar recorte (de 0.09 a 0.42, y hasta 0.55 en el
+                        participante con mejor señal). Como el suavizado sanguíneo se calcula antes de ese corte, la
+                        estela de oxígeno dejada por las oraciones iniciales sigue presente en las capturas siguientes.
+                      </p>
+                    </div>
+
+                    <aside class="distill-margin">
+                      <details class="tech-note">
+                        <summary>Nota técnica 6. Convolución y recorte de 6 TRs</summary>
+                        <div class="tech-note-body">
+                          Se aplicó convolución por FFT (<code>fftconvolve</code>) con la HRF canónica de doble gamma de
+                          <code>32 s</code> (Friston et al., 1998) desde <code>t = 0.0 s</code> y remuestreo polifásico
+                          antialiasing (<code>resample_poly</code>, factor 200:1) a <code>0.5 Hz</code>
+                          (<code>TR = 2.0 s</code>). Dado el descarte inicial BIDS en <code>ds003020</code>, la ventana
+                          de integración EPI de 2 s y el pico cortical empírico (~6 s frente a 5 s del kernel), la
+                          auditoría en flujo (<code>00d_validate_tr_alignment.py</code>) confirmó en 10/10 sujetos el
+                          óptimo en <code>FMRI_TRIM_START_TRS = 6</code> (<code>12.0 s</code>).
+                        </div>
+                      </details>
+                    </aside>
+                  </div>
+
+                  <!-- [INICIO FIGURA 4: CONVOLUCIÓN Y ALINEACIÓN EMPÍRICA DE 12.0 S] -->
+                  <div class="distill-wide">
+                    <figure class="d-fig-card" id="gv04-root" style="margin: 0;">
+                      <div class="d-fig-header">
+                        <div>
+                          <span class="d-fig-kicker">Figura 4</span>
+                          <h4 class="d-fig-title">Del habla rápida al pulso cada 2.0 s y enfoque exacto de los 12.0
+                            segundos en los 10 cerebros</h4>
+                        </div>
+
+                        <div class="d-tabs" role="tablist" aria-label="Vistas de acoplamiento temporal">
+                          <button type="button" class="d-tab-btn is-active" data-tab="wave">
+                            1. Ola sanguínea y capturas (2.0 s)
+                          </button>
+                          <button type="button" class="d-tab-btn" data-tab="lag">
+                            2. Enfoque real en 10 cerebros (0 – 20 s)
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Deslizador táctil exclusivo de la Pestaña 2 -->
+                      <div class="gv04-slider-bar" id="gv04-lag-bar" hidden>
+                        <span><b>Recorte inicial probado:</b> <span id="gv04-lag-lbl">12.0 s (6 capturas TR)</span></span>
+                        <input type="range" class="gv04-range" id="gv04-lag-slider" min="0" max="10" step="1" value="6"
+                          aria-label="Seleccionar recorte inicial entre 0 y 10 capturas TR">
+                      </div>
+
+                      <div class="gv03-readout" id="gv04-readout" aria-live="polite"></div>
+
+                      <div class="gv04-canvas-wrap">
+                        <canvas id="gv04-canvas"></canvas>
+                      </div>
+
+                      <div class="gv03-foot" id="gv04-foot"></div>
+                    </figure>
+                  </div>
+                  <!-- [FIN FIGURA 4] -->
+
+                  <div class="distill-row">
+                    <div class="distill-main">
+                      <h4 class="distill-subhead">Siete perillas independientes en casi un millón de vóxeles</h4>
+
+                      <p>
+                        Cada cerebro se analizó en su propia forma anatómica, sin estirarlo ni promediarlo sobre un
+                        molde ajeno. Eso divide la corteza de cada persona en entre 81,126 y 109,469 pequeños cubos de
+                        tejido de unos dos milímetros de lado llamados <b>vóxeles</b>. En cada uno de los 943,305
+                        vóxeles totales se entrena un modelo propio que busca qué combinación de las 46 columnas
+                        anticipa mejor sus subidas y bajadas de oxígeno, estandarizando antes cada sesión por separado
+                        para eliminar variaciones del aparato entre distintos días.
+                      </p>
+
+                      <p>
+                        Como varias bandas se activan al mismo tiempo, el ajuste necesita un «freno» matemático para no
+                        memorizar coincidencias casuales. Aquí surge un problema clave: si se usa <b>una sola perilla
+                          general</b> para frenar las 46 columnas por igual, las bandas anchas y continuas (como las 12
+                        columnas fonológicas o las 10 semánticas) exigen un freno alto que termina aplastando casi por
+                        completo a la Banda 7, compuesta por apenas dos columnas binarias (<span
+                          class="code-inline">past</span> y <span class="code-inline">non_past</span>).
+                      </p>
+
+                      <p>
+                        Para darle una oportunidad justa al tiempo gramatical, el estudio emplea <b>regresión por bandas
+                          (<i>Banded Ridge</i>)</b>: el equivalente a una consola con <b>siete perillas
+                          independientes</b> en cada vóxel, una para cada banda. Además, el contraste entre modelos se
+                        construye anclado en la base de control: primero se calibra el <b>Modelo Control (44
+                          columnas)</b> agrupando relatos completos para no mezclar una historia consigo misma, y luego
+                        el <b>Modelo Global (46 columnas)</b> parte exactamente desde esa solución. Si activar la
+                        séptima perilla no mejora de verdad el acierto en relatos no vistos, el modelo mantiene la Banda
+                        7 apagada en <b>cero exacto</b>; solo la abre donde aporta predicción genuina. Restar ambos
+                        aciertos en la historia reservada (<b>Global − Control</b>) revela cuánto suma por sí sola la
+                        flexión temporal.
+                      </p>
+                    </div>
+
+                    <aside class="distill-margin">
+                      <details class="tech-note">
+                        <summary>Nota técnica 7. Banded Ridge primal y anclaje</summary>
+                        <div class="tech-note-body">
+                          Se implementó <code>GroupRidgeCV</code> en formulación primal exacta sobre matrices de Gram
+                          (<code>46 &times; 46</code> en <code>float64</code>) evaluando 100 vectores en el símplex de
+                          Dirichlet y 20 escalas <code>&alpha; &isin; [10<sup>-1</sup>, 10<sup>6</sup>]</code> con
+                          <code>GroupKFold(3)</code> por historias completas. El sorteo de 7 bandas se proyecta de forma
+                          neutral al sub-símplex de 6 bandas (Connor y Mosimann, 1969) e inicializa la búsqueda global
+                          sobre la frontera restringida (<code>&gamma;<sub>tense</sub> = 0</code>), eliminando ruido
+                          Monte Carlo entre modelos.
+                        </div>
+                      </details>
+                    </aside>
+                  </div>
+
+                  <!-- [INICIO FIGURA 5: CONSOLA BANDED RIDGE Y RESTA 46 - 44] -->
+                  <div class="distill-wide">
+                    <figure class="d-fig-card" id="gv05-root" style="margin: 0;">
+                      <div class="d-fig-header">
+                        <div>
+                          <span class="d-fig-kicker">Figura 5</span>
+                          <h4 class="d-fig-title">Por qué 7 perillas independientes y el anclaje limpio evitan tanto el
+                            aplastamiento como el ruido</h4>
+                        </div>
+
+                        <div class="d-tabs" role="tablist" aria-label="Comportamientos del modelo en un vóxel">
+                          <button type="button" class="d-tab-btn" data-mode="single_knob">
+                            1. Problema de 1 sola perilla
+                          </button>
+                          <button type="button" class="d-tab-btn is-active" data-mode="lang_shared">
+                            2. Red del lenguaje (Banded Ridge)
+                          </button>
+                          <button type="button" class="d-tab-btn" data-mode="pruned_zero">
+                            3. Apagado limpio en 0.00000
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="gv05-canvas-wrap">
+                        <canvas id="gv05-canvas"></canvas>
+                      </div>
+
+                      <div class="gv05-subtraction-bar" aria-live="polite">
+                        <div>
+                          <span style="margin-right:14px;"><b style="color:var(--sci-ctrl);">Acierto Control (44):</b>
+                            <span id="gv05-r2-ctrl"></span></span>
+                          <span><b style="color:var(--sci-past);">Acierto Global (46):</b> <span
+                              id="gv05-r2-glob"></span></span>
+                        </div>
+                        <span class="gv05-diff-pill" id="gv05-diff-pill" data-tone="shared"></span>
+                      </div>
+
+                      <div class="d-inspector" id="gv05-inspector" data-theme="ctrl">
+                        <span class="d-inspector-tag" id="gv05-tag"></span>
+                        <h5 class="d-inspector-title" id="gv05-title"></h5>
+                        <p class="d-inspector-desc" id="gv05-desc" style="margin-bottom:0 !important;"></p>
+                      </div>
+                    </figure>
+                  </div>
+                  <!-- [FIN FIGURA 5] -->
 
 
                   <!-- ================================================================== -->
@@ -3998,6 +4280,627 @@
       });
 
       renderMini();
+    })();
+    /* 7. Figura 4 (gv04): Ola sanguínea de 32 s + barrido empírico real de 0 a 20 s en los 10 sujetos */
+    (function () {
+      var root = document.getElementById('gv04-root');
+      var canvas = document.getElementById('gv04-canvas');
+      var readout = document.getElementById('gv04-readout');
+      var foot = document.getElementById('gv04-foot');
+      var lagBar = document.getElementById('gv04-lag-bar');
+      var lagSlider = document.getElementById('gv04-lag-slider');
+      var lagLbl = document.getElementById('gv04-lag-lbl');
+      if (!root || !canvas) return;
+
+      var FS = 100, DUR = 32.0, N_SAMP = 3201, TR = 2.0;
+
+      /* Verbos reales con flexión de pasado en los primeros 24 s de Where There's Smoke */
+      var PAST_VERBS = [
+        { t0: 0.14, t1: 0.50, w: 'reached', es: 'me estiré' },
+        { t0: 2.42, t1: 2.96, w: 'undid', es: 'desabroché' },
+        { t0: 5.82, t1: 5.96, w: 'hit', es: 'pisó' },
+        { t0: 7.55, t1: 7.83, w: 'flung', es: 'abrí de golpe' },
+        { t0: 9.07, t1: 9.46, w: 'ran', es: 'corrí' },
+        { t0: 10.97, t1: 11.43, w: 'had', es: 'tenía' },
+        { t0: 12.53, t1: 12.69, w: 'was', es: 'estaba' },
+        { t0: 14.52, t1: 14.74, w: 'had', es: 'había' },
+        { t0: 16.26, t1: 16.40, w: 'was', es: 'era' },
+        { t0: 17.28, t1: 17.56, w: 'had', es: 'tenía' },
+        { t0: 20.24, t1: 20.41, w: 'didn\'t', es: 'no [tenía]' },
+        { t0: 21.93, t1: 22.10, w: 'didn\'t', es: 'no [sabía]' }
+      ];
+
+      /* Kernel HRF doble gamma canónico (32 s) */
+      var hrf = new Float32Array(N_SAMP), kSum = 0;
+      for (var i = 0; i < N_SAMP; i++) {
+        var t = i / FS;
+        var v = (Math.pow(t, 5) * Math.exp(-t)) / 120.0 - (Math.pow(t, 15) * Math.exp(-t)) / (1307674368000.0 * 6.0);
+        hrf[i] = v; kSum += v;
+      }
+      for (var j = 0; j < N_SAMP; j++) hrf[j] /= kSum;
+
+      var subWaves = PAST_VERBS.map(function (vb) {
+        var out = new Float32Array(N_SAMP);
+        var s0 = Math.round(vb.t0 * FS), s1 = Math.max(s0 + 1, Math.round(vb.t1 * FS));
+        for (var s = s0; s < s1; s++) {
+          for (var k = 0; k < N_SAMP - s; k++) out[s + k] += hrf[k];
+        }
+        return out;
+      });
+
+      var sumWave = new Float32Array(N_SAMP), maxSum = 0;
+      for (var w = 0; w < subWaves.length; w++) {
+        for (var n = 0; n < N_SAMP; n++) {
+          sumWave[n] += subWaves[w][n];
+          if (sumWave[n] > maxSum) maxSum = sumWave[n];
+        }
+      }
+      for (var z = 0; z < N_SAMP; z++) sumWave[z] /= maxSum;
+      for (var sw = 0; sw < subWaves.length; sw++) {
+        for (var zn = 0; zn < N_SAMP; zn++) subWaves[sw][zn] /= maxSum;
+      }
+
+      /* Datos empíricos exactos de tr_alignment_empirical_10subjects.csv (lags 0..10 TRs = 0..20 s) */
+      var EMP_R2_MAX = [
+        [0.1011, 0.0635, 0.0960, 0.0995, 0.1264, 0.2174, 0.4825, 0.4001, 0.1596, 0.0820, 0.0638],
+        [0.0918, 0.0581, 0.0665, 0.1012, 0.1803, 0.2229, 0.4303, 0.4237, 0.1903, 0.0971, 0.0673],
+        [0.0960, 0.0862, 0.1353, 0.2399, 0.3154, 0.4380, 0.5491, 0.3953, 0.1590, 0.0739, 0.0756],
+        [0.1328, 0.0671, 0.0805, 0.0962, 0.1425, 0.1966, 0.3343, 0.2624, 0.1402, 0.0807, 0.0811],
+        [0.0738, 0.0710, 0.0773, 0.0914, 0.1275, 0.2328, 0.4617, 0.3704, 0.1595, 0.0920, 0.0648],
+        [0.0643, 0.0681, 0.0608, 0.0702, 0.1172, 0.2637, 0.4508, 0.3659, 0.1661, 0.0936, 0.0591],
+        [0.0724, 0.0586, 0.0678, 0.0878, 0.1402, 0.2174, 0.3514, 0.3193, 0.1607, 0.1026, 0.0680],
+        [0.0818, 0.0729, 0.0653, 0.1103, 0.1668, 0.2354, 0.2931, 0.1834, 0.0845, 0.0714, 0.0751],
+        [0.0882, 0.0674, 0.0652, 0.1007, 0.1924, 0.4385, 0.4017, 0.3320, 0.1418, 0.0707, 0.0456],
+        [0.1015, 0.0878, 0.0650, 0.0954, 0.1632, 0.3440, 0.4899, 0.3178, 0.1689, 0.1119, 0.0590]
+      ];
+      /* Media de los 1,000 mejores vóxeles por sujeto (pico estricto 10/10 sujetos en 6 TRs = 12.0 s) */
+      var MEAN_TOP1000 = [0.0372, 0.0303, 0.0316, 0.0405, 0.0623, 0.1019, 0.1487, 0.1117, 0.0544, 0.0301, 0.0248];
+      var MEAN_R2_MAX = [0.0904, 0.0701, 0.0780, 0.1093, 0.1672, 0.2807, 0.4245, 0.3370, 0.1531, 0.0876, 0.0659];
+
+      var activeTab = 'wave';
+      var selTR = 7;  /* 14.0 s: primera captura fuerte justo tras el recorte de 12.0 s */
+      var selLag = 6; /* 6 TRs = 12.0 s */
+
+      function drawWaveTab(ctx, cssW, cssH) {
+        var padL = 48, padR = 18, plotW = cssW - padL - padR;
+        var stimTop = 12, stimBot = 46;
+        var waveTop = 66, waveBot = cssH - 36;
+        var zeroY = waveTop + (waveBot - waveTop) * 0.82;
+        var amp = (zeroY - waveTop) * 0.92;
+
+        function tToX(sec) { return padL + (sec / DUR) * plotW; }
+        function vToY(val) { return zeroY - val * amp; }
+
+        /* Zona inicial recortada en los archivos BOLD (0 a 12.0 s = 6 TRs) */
+        var trimX = tToX(12.0);
+        ctx.fillStyle = 'rgba(100, 116, 139, 0.08)';
+        ctx.fillRect(padL, waveTop - 6, trimX - padL, waveBot - waveTop + 12);
+        ctx.strokeStyle = '#64748b';
+        ctx.setLineDash([4, 3]);
+        ctx.beginPath();
+        ctx.moveTo(trimX, stimTop);
+        ctx.lineTo(trimX, waveBot + 6);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = '#475569';
+        ctx.font = '600 9.2px Poppins, sans-serif';
+        ctx.textAlign = 'left';
+        if (cssW > 460) {
+          ctx.fillText('Recorte escáner (0–12 s)', padL + 6, waveTop + 8);
+          ctx.fillStyle = '#9a3412';
+          ctx.fillText('Inicio BOLD alineado (12.0 s) →', trimX + 6, waveTop + 8);
+        }
+
+        var trSec = selTR * TR;
+        var sIdx = Math.min(N_SAMP - 1, Math.round(trSec * FS));
+        var activeContributors = [];
+        for (var v = 0; v < PAST_VERBS.length; v++) {
+          var wVal = subWaves[v][sIdx];
+          if (wVal > 0.04) activeContributors.push({ idx: v, vb: PAST_VERBS[v], w: wVal });
+        }
+
+        /* Carril 100 Hz de verbos en pasado (púrpura) */
+        ctx.fillStyle = '#faf7fc';
+        ctx.fillRect(padL, stimTop, plotW, stimBot - stimTop);
+        ctx.strokeStyle = '#e5deeb';
+        ctx.strokeRect(padL, stimTop, plotW, stimBot - stimTop);
+        ctx.fillStyle = '#581c66';
+        ctx.font = '600 9.5px Poppins, sans-serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('100 Hz', padL - 6, (stimTop + stimBot) / 2 + 3);
+
+        for (var i = 0; i < PAST_VERBS.length; i++) {
+          var vb = PAST_VERBS[i];
+          var vx0 = tToX(vb.t0), vx1 = tToX(vb.t1), vw = Math.max(3, vx1 - vx0);
+          var feeds = activeContributors.some(function (c) { return c.idx === i; });
+          ctx.fillStyle = feeds ? '#762a83' : 'rgba(118, 42, 131, 0.30)';
+          ctx.fillRect(vx0, stimTop + 6, vw, stimBot - stimTop - 12);
+        }
+
+        /* Línea cero y olas individuales */
+        ctx.strokeStyle = '#cfd9e0';
+        ctx.beginPath();
+        ctx.moveTo(padL, zeroY);
+        ctx.lineTo(padL + plotW, zeroY);
+        ctx.stroke();
+
+        for (var sw = 0; sw < subWaves.length; sw++) {
+          var isF = activeContributors.some(function (c) { return c.idx === sw; });
+          ctx.strokeStyle = isF ? 'rgba(118, 42, 131, 0.45)' : 'rgba(118, 42, 131, 0.14)';
+          ctx.lineWidth = isF ? 1.4 : 0.9;
+          ctx.beginPath();
+          for (var k = 0; k < N_SAMP; k += 4) {
+            var sx = tToX(k / FS), sy = vToY(subWaves[sw][k]);
+            if (k === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+          }
+          ctx.stroke();
+        }
+
+        /* Curva sumada y muestras cada 2.0 s */
+        ctx.strokeStyle = '#3b5975';
+        ctx.lineWidth = 2.3;
+        ctx.beginPath();
+        for (var m = 0; m < N_SAMP; m += 3) {
+          var cx = tToX(m / FS), cy = vToY(sumWave[m]);
+          if (m === 0) ctx.moveTo(cx, cy); else ctx.lineTo(cx, cy);
+        }
+        ctx.stroke();
+
+        for (var tr = 0; tr <= 16; tr++) {
+          var ts = tr * TR;
+          var idx = Math.min(N_SAMP - 1, Math.round(ts * FS));
+          var px = tToX(ts), py = vToY(sumWave[idx]);
+          var isSel = (tr === selTR);
+          var isTrimmed = (tr < 6);
+
+          ctx.fillStyle = isSel ? '#b8321a' : (isTrimmed ? '#94a3b8' : '#d9482b');
+          ctx.beginPath();
+          ctx.arc(px, py, isSel ? 6 : 4, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 1.4;
+          ctx.stroke();
+        }
+
+        var axY = cssH - 22;
+        ctx.strokeStyle = '#cfd9e0';
+        ctx.beginPath();
+        ctx.moveTo(padL, axY);
+        ctx.lineTo(padL + plotW, axY);
+        ctx.stroke();
+
+        ctx.fillStyle = '#64717a';
+        ctx.font = '500 9.6px Poppins, sans-serif';
+        ctx.textAlign = 'center';
+        var step = cssW < 500 ? 4 : 2;
+        for (var tick = 0; tick <= 32; tick += step * 2) {
+          var tx = tToX(tick);
+          ctx.fillText(tick + ' s', tx, axY + 13);
+        }
+
+        var statusTxt = (selTR < 6)
+          ? '<span style="color:#64748b;"><b>Captura descartada (' + trSec.toFixed(1) + ' s):</b> recortada al inicio del escáner, pero su ola sanguínea viaja hacia adelante.</span>'
+          : '<span><b style="color:#b8321a;">Captura conservada (' + trSec.toFixed(1) + ' s):</b> amplitud = ' + sumWave[sIdx].toFixed(2) + '</span>';
+
+        if (activeContributors.length > 0) {
+          activeContributors.sort(function (a, b) { return b.w - a.w; });
+          var vList = activeContributors.slice(0, 3).map(function (c) {
+            return '«' + c.vb.w + '» («' + c.vb.es + '», ' + c.vb.t0.toFixed(1) + ' s)';
+          });
+          statusTxt += '<span><b>Recoge el eco sanguíneo de:</b> ' + vList.join(', ') + '</span>';
+        }
+        readout.innerHTML = statusTxt;
+        foot.innerHTML = '<span>Puntos grises (0 – 10 s): primeros 6 volúmenes recortados · Puntos rojos (desde 12 s): serie alineada con el escáner.</span>' +
+                         '<span>Toca cualquier punto cada 2.0 s</span>';
+      }
+
+      function drawLagTab(ctx, cssW, cssH) {
+        var padL = 50, padR = 20, padT = 24, padB = 34;
+        var plotW = cssW - padL - padR, plotH = cssH - padT - padB;
+        var maxY = 0.58;
+
+        function lToX(lagIdx) { return padL + (lagIdx / 10) * plotW; }
+        function rToY(val) { return padT + plotH - (val / maxY) * plotH; }
+
+        /* Guías horizontales */
+        ctx.strokeStyle = '#edf2f6';
+        ctx.fillStyle = '#64717a';
+        ctx.font = '500 9.5px Poppins, sans-serif';
+        ctx.textAlign = 'right';
+        var yTicks = [0.0, 0.2, 0.4, 0.55];
+        for (var yt = 0; yt < yTicks.length; yt++) {
+          var gy = rToY(yTicks[yt]);
+          ctx.beginPath();
+          ctx.moveTo(padL, gy);
+          ctx.lineTo(padL + plotW, gy);
+          ctx.stroke();
+          ctx.fillText(yTicks[yt].toFixed(2), padL - 7, gy + 3);
+        }
+
+        /* Franja vertical en el óptimo empírico de 6 TRs (12.0 s) */
+        var optX = lToX(6);
+        ctx.fillStyle = 'rgba(217, 72, 43, 0.08)';
+        ctx.fillRect(optX - plotW * 0.045, padT, plotW * 0.09, plotH);
+
+        /* Las 10 curvas individuales reales (sub-UTS01 a sub-UTS10) */
+        for (var s = 0; s < 10; s++) {
+          ctx.strokeStyle = 'rgba(59, 89, 117, 0.26)';
+          ctx.lineWidth = 1.3;
+          ctx.beginPath();
+          for (var l = 0; l <= 10; l++) {
+            var sx = lToX(l), sy = rToY(EMP_R2_MAX[s][l]);
+            if (l === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+          }
+          ctx.stroke();
+        }
+
+        /* Curva gruesa del promedio de los 10 cerebros */
+        ctx.strokeStyle = '#d9482b';
+        ctx.lineWidth = 2.8;
+        ctx.beginPath();
+        for (var m = 0; m <= 10; m++) {
+          var mx = lToX(m), my = rToY(MEAN_R2_MAX[m]);
+          if (m === 0) ctx.moveTo(mx, my); else ctx.lineTo(mx, my);
+        }
+        ctx.stroke();
+
+        for (var p = 0; p <= 10; p++) {
+          var px = lToX(p), py = rToY(MEAN_R2_MAX[p]);
+          var isCur = (p === selLag);
+          ctx.fillStyle = isCur ? '#1e2328' : '#d9482b';
+          ctx.beginPath();
+          ctx.arc(px, py, isCur ? 6.2 : 3.8, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = '#ffffff';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+
+        /* Línea vertical del recorte actualmente seleccionado */
+        var selX = lToX(selLag);
+        ctx.strokeStyle = '#1e2328';
+        ctx.setLineDash([3, 3]);
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(selX, padT);
+        ctx.lineTo(selX, padT + plotH);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        /* Eje horizontal de segundos de recorte */
+        var axY = padT + plotH;
+        ctx.strokeStyle = '#cfd9e0';
+        ctx.beginPath();
+        ctx.moveTo(padL, axY);
+        ctx.lineTo(padL + plotW, axY);
+        ctx.stroke();
+
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#4b5862';
+        for (var k = 0; k <= 10; k++) {
+          if (cssW < 480 && k % 2 !== 0) continue;
+          ctx.font = (k === 6 ? '700 ' : '500 ') + '9.6px Poppins, sans-serif';
+          ctx.fillStyle = (k === 6) ? '#b8321a' : '#5b6770';
+          ctx.fillText((k * 2) + ' s', lToX(k), axY + 14);
+        }
+
+        var sec = selLag * 2;
+        lagLbl.textContent = sec.toFixed(1) + ' s (' + selLag + ' capturas TR)';
+        readout.innerHTML =
+          '<span><b>Recorte probado:</b> ' + sec + ' s (' + selLag + ' TRs)</span>' +
+          '<span><b style="color:#b8321a;">Acierto máximo medio (10 cerebros):</b> R² = ' + MEAN_R2_MAX[selLag].toFixed(4) + '</span>' +
+          '<span><b>Media de los 1,000 mejores vóxeles:</b> ' + MEAN_TOP1000[selLag].toFixed(4) +
+          (selLag === 6 ? ' (óptimo unánime en 10 de 10 sujetos)' : '') + '</span>';
+
+        foot.innerHTML =
+          '<span>Líneas azules suaves: cada uno de los 10 participantes reales · Línea roja: promedio de la cohorte.</span>' +
+          '<span>Mueve el deslizador o haz clic en la gráfica</span>';
+      }
+
+      function render() {
+        var dpr = window.devicePixelRatio || 1;
+        var cssW = canvas.clientWidth || 700;
+        var cssH = canvas.clientHeight || 278;
+        if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {
+          canvas.width = Math.round(cssW * dpr);
+          canvas.height = Math.round(cssH * dpr);
+        }
+        var ctx = canvas.getContext('2d');
+        ctx.save();
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, cssW, cssH);
+
+        if (activeTab === 'wave') drawWaveTab(ctx, cssW, cssH);
+        else drawLagTab(ctx, cssW, cssH);
+
+        ctx.restore();
+      }
+
+      function onCanvasPointer(clientX) {
+        var rect = canvas.getBoundingClientRect();
+        if (activeTab === 'wave') {
+          var plotW = rect.width - 48 - 18;
+          if (plotW <= 0) return;
+          var r = Math.min(1, Math.max(0, (clientX - rect.left - 48) / plotW));
+          var nextTR = Math.min(16, Math.max(0, Math.round((r * DUR) / TR)));
+          if (nextTR !== selTR) { selTR = nextTR; render(); }
+        } else {
+          var plotW2 = rect.width - 50 - 20;
+          if (plotW2 <= 0) return;
+          var r2 = Math.min(1, Math.max(0, (clientX - rect.left - 50) / plotW2));
+          var nextLag = Math.min(10, Math.max(0, Math.round(r2 * 10)));
+          if (nextLag !== selLag) {
+            selLag = nextLag;
+            lagSlider.value = selLag;
+            render();
+          }
+        }
+      }
+
+      canvas.addEventListener('click', function (e) { onCanvasPointer(e.clientX); });
+      canvas.addEventListener('mousemove', function (e) { if (activeTab === 'wave') onCanvasPointer(e.clientX); });
+
+      lagSlider.addEventListener('input', function () {
+        selLag = parseInt(lagSlider.value, 10) || 0;
+        render();
+      });
+
+      root.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-tab]');
+        if (!btn) return;
+        var next = btn.getAttribute('data-tab');
+        if (next && next !== activeTab) {
+          activeTab = next;
+          lagBar.hidden = (activeTab !== 'lag');
+          var tabs = root.querySelectorAll('[data-tab]');
+          for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle('is-active', tabs[i] === btn);
+          render();
+        }
+      });
+
+      window.addEventListener('resize', render);
+      render();
+    })();
+
+    /* 8. Figura 5 (gv05): Consola de 7 perillas Banded Ridge y resta Global (46) - Control (44) */
+    (function () {
+      var root = document.getElementById('gv05-root');
+      var canvas = document.getElementById('gv05-canvas');
+      if (!root || !canvas) return;
+
+      var r2CtrlEl = document.getElementById('gv05-r2-ctrl');
+      var r2GlobEl = document.getElementById('gv05-r2-glob');
+      var diffPill = document.getElementById('gv05-diff-pill');
+      var inspEl = document.getElementById('gv05-inspector');
+      var tagEl = document.getElementById('gv05-tag');
+      var titleEl = document.getElementById('gv05-title');
+      var descEl = document.getElementById('gv05-desc');
+
+      var BAND_SHORT = ['1. Acústica', '2. Fonológ.', '3. Léxico', '4. Categ.', '5. Sintaxis', '6. Semánt.', '7. Tiempo'];
+      var N_PTS = 42;
+      var baseSig = [], noiseSig = [];
+      for (var i = 0; i < N_PTS; i++) {
+        baseSig.push(0.75 * Math.sin(2 * Math.PI * i / 14.0) + 0.48 * Math.cos(2 * Math.PI * i / 8.8 + 0.5));
+        noiseSig.push(0.36 * Math.sin(i * 1.8 + 0.4) + 0.28 * Math.cos(i * 2.9 + 1.2));
+      }
+
+      var MODES = {
+        single_knob: {
+          bars: [0.68, 0.76, 0.55, 0.64, 0.48, 0.78, 0.08],
+          r2Ctrl: '0.284',
+          r2Glob: '0.282',
+          diffTxt: 'Global − Control = −0.002 (aplastada)',
+          tone: 'muted',
+          theme: 'bold',
+          tag: 'Limitación de usar 1 sola perilla común',
+          title: 'El freno fuerte que piden las bandas grandes silencia a las 2 columnas de tiempo',
+          desc: 'Si las 7 bandas comparten un mismo freno general, estabilizar 12 columnas fonológicas y 10 semánticas obliga a frenar tanto que la Banda 7 queda comprimida casi a cero incluso antes de competir en igualdad de condiciones.',
+          waves: function () {
+            var b = [], c = [], g = [];
+            for (var k = 0; k < N_PTS; k++) {
+              b.push(baseSig[k] + noiseSig[k] * 0.65);
+              c.push(baseSig[k] * 0.68);
+              g.push(baseSig[k] * 0.67 - 0.06 * Math.sin(k * 1.4));
+            }
+            return { bold: b, ctrl: c, glob: g };
+          }
+        },
+        lang_shared: {
+          bars: [0.62, 0.72, 0.68, 0.74, 0.58, 0.86, 0.64],
+          r2Ctrl: '0.428',
+          r2Glob: '0.430',
+          diffTxt: 'Global − Control = +0.002 (señal compartida)',
+          tone: 'shared',
+          theme: 'tense',
+          tag: 'Comportamiento observado en la corteza del lenguaje',
+          title: 'Ambas curvas siguen con alta fidelidad la señal cerebral porque la información viaja unida',
+          desc: 'Con 7 perillas independientes la Banda 7 recibe peso propio, pero al entrenar las 6 bandas de control solas (con frecuencia léxica, auxiliares y sintaxis), estas ya logran anticipar casi exactamente la misma subida y bajada de oxígeno.',
+          waves: function () {
+            var b = [], c = [], g = [];
+            for (var k = 0; k < N_PTS; k++) {
+              b.push(baseSig[k] + noiseSig[k] * 0.52);
+              c.push(baseSig[k] * 0.88);
+              g.push(baseSig[k] * 0.89 + 0.04 * Math.cos(k * 0.8));
+            }
+            return { bold: b, ctrl: c, glob: g };
+          }
+        },
+        pruned_zero: {
+          bars: [0.35, 0.28, 0.30, 0.22, 0.18, 0.42, 0.0],
+          r2Ctrl: '0.031',
+          r2Glob: '0.031',
+          diffTxt: 'Global − Control = 0.00000 (poda exacta)',
+          tone: 'zero',
+          theme: 'ctrl',
+          tag: 'Efecto del anclaje sobre la solución de control (~83% de la corteza)',
+          title: 'Donde la Banda 7 no aporta mejora genuina, el modelo mantiene su perilla en cero exacto',
+          desc: 'Como el Modelo Global arranca anclado en el resultado del Modelo Control, en los vóxeles donde añadir pasado y no pasado solo metería ruido la séptima perilla permanece cerrada. Por eso la mediana de toda la corteza es exactamente 0.00000.',
+          waves: function () {
+            var b = [], c = [], g = [];
+            for (var k = 0; k < N_PTS; k++) {
+              b.push(0.32 * baseSig[k] + noiseSig[k] * 1.15);
+              var pred = 0.28 * baseSig[k];
+              c.push(pred);
+              g.push(pred);
+            }
+            return { bold: b, ctrl: c, glob: g };
+          }
+        }
+      };
+
+      var curMode = 'lang_shared';
+
+      function drawCurve(ctx, arr, xFn, yFn, col, lw, dash) {
+        ctx.save();
+        ctx.strokeStyle = col;
+        ctx.lineWidth = lw;
+        if (dash) ctx.setLineDash(dash);
+        ctx.beginPath();
+        for (var i = 0; i < arr.length; i++) {
+          var x = xFn(i), y = yFn(arr[i]);
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function render() {
+        var m = MODES[curMode];
+        var dpr = window.devicePixelRatio || 1;
+        var cssW = canvas.clientWidth || 700;
+        var stacked = (cssW < 640);
+        var cssH = canvas.clientHeight || (stacked ? 282 : 224);
+
+        if (canvas.width !== Math.round(cssW * dpr) || canvas.height !== Math.round(cssH * dpr)) {
+          canvas.width = Math.round(cssW * dpr);
+          canvas.height = Math.round(cssH * dpr);
+        }
+
+        var ctx = canvas.getContext('2d');
+        ctx.save();
+        ctx.scale(dpr, dpr);
+        ctx.clearRect(0, 0, cssW, cssH);
+
+        /* Panel izquierdo (o superior en móvil): las 7 perillas / pesos preservados por banda */
+        var bLeft = 14, bTop = 28;
+        var bW = stacked ? (cssW - 28) : Math.round(cssW * 0.36);
+        var bH = stacked ? 96 : (cssH - 42);
+
+        ctx.fillStyle = '#26323b';
+        ctx.font = '700 10px Poppins, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('Peso permitido por perilla (7 bandas)', bLeft, 17);
+
+        var rowStep = bH / 7;
+        for (var b = 0; b < 7; b++) {
+          var ry = bTop + b * rowStep;
+          var isT = (b === 6);
+          ctx.fillStyle = isT ? '#581c66' : '#4a5864';
+          ctx.font = (isT ? '700 ' : '500 ') + '9.4px Poppins, sans-serif';
+          ctx.textAlign = 'left';
+          ctx.fillText(BAND_SHORT[b], bLeft, ry + rowStep * 0.62);
+
+          var trackX = bLeft + 74, trackW = bW - 78, trackH = Math.min(12, rowStep - 3);
+          var trackY = ry + (rowStep - trackH) / 2;
+          ctx.fillStyle = '#edf2f6';
+          ctx.fillRect(trackX, trackY, trackW, trackH);
+
+          var fillW = Math.round(trackW * m.bars[b]);
+          if (fillW > 0) {
+            if (isT) {
+              var half = Math.round(fillW / 2);
+              ctx.fillStyle = '#762a83';
+              ctx.fillRect(trackX, trackY, half, trackH);
+              ctx.fillStyle = '#1b7837';
+              ctx.fillRect(trackX + half, trackY, fillW - half, trackH);
+            } else {
+              ctx.fillStyle = '#4c7091';
+              ctx.fillRect(trackX, trackY, fillW, trackH);
+            }
+          } else if (isT) {
+            ctx.fillStyle = '#165c2b';
+            ctx.font = '600 8.8px Poppins, sans-serif';
+            ctx.fillText('Cerrada (0)', trackX + 6, trackY + trackH - 2);
+          }
+        }
+
+        /* Panel derecho (o inferior en móvil): BOLD vs predicciones 44 y 46 */
+        var wLeft = stacked ? 32 : (bLeft + bW + 28);
+        var wRight = cssW - 16;
+        var wTop = stacked ? 148 : 30;
+        var wBot = cssH - 24;
+        var wPlotW = wRight - wLeft, wPlotH = wBot - wTop;
+        var midY = wTop + wPlotH / 2;
+
+        function xFn(idx) { return wLeft + (idx / (N_PTS - 1)) * wPlotW; }
+        function yFn(val) { return midY - (val / 2.1) * (wPlotH / 2); }
+
+        /* Leyenda limpia sobre la curva */
+        ctx.font = '600 9.6px Poppins, sans-serif';
+        ctx.fillStyle = '#d9482b';
+        ctx.fillRect(wLeft, wTop - 16, 11, 2.5);
+        ctx.fillStyle = '#374148';
+        ctx.fillText('BOLD real', wLeft + 15, wTop - 12);
+
+        ctx.fillStyle = '#3b5975';
+        ctx.fillRect(wLeft + 84, wTop - 16, 11, 2.5);
+        ctx.fillText('Control (44)', wLeft + 99, wTop - 12);
+
+        ctx.fillStyle = '#762a83';
+        ctx.fillRect(wLeft + 178, wTop - 16, 11, 2.5);
+        ctx.fillText('Global (46)', wLeft + 193, wTop - 12);
+
+        ctx.strokeStyle = '#e5edf2';
+        ctx.beginPath();
+        ctx.moveTo(wLeft, midY);
+        ctx.lineTo(wRight, midY);
+        ctx.stroke();
+
+        var series = m.waves();
+        drawCurve(ctx, series.bold, xFn, yFn, 'rgba(217, 72, 43, 0.48)', 1.8, null);
+        drawCurve(ctx, series.glob, xFn, yFn, '#762a83', 2.4, null);
+        drawCurve(ctx, series.ctrl, xFn, yFn, '#2d4b66', 2.0, [5, 4]);
+
+        ctx.strokeStyle = '#cfd9e0';
+        ctx.beginPath();
+        ctx.moveTo(wLeft, wBot);
+        ctx.lineTo(wRight, wBot);
+        ctx.stroke();
+
+        ctx.fillStyle = '#64717a';
+        ctx.font = '500 9.3px Poppins, sans-serif';
+        ctx.textAlign = 'center';
+        for (var t = 0; t < N_PTS; t += 10) {
+          ctx.fillText((t * 2) + ' s', xFn(t), wBot + 13);
+        }
+
+        ctx.restore();
+
+        r2CtrlEl.textContent = m.r2Ctrl;
+        r2GlobEl.textContent = m.r2Glob;
+        diffPill.textContent = m.diffTxt;
+        diffPill.setAttribute('data-tone', m.tone);
+        inspEl.setAttribute('data-theme', m.theme);
+        tagEl.textContent = m.tag;
+        titleEl.textContent = m.title;
+        descEl.textContent = m.desc;
+      }
+
+      root.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-mode]');
+        if (!btn) return;
+        var next = btn.getAttribute('data-mode');
+        if (next && MODES[next] && next !== curMode) {
+          curMode = next;
+          var btns = root.querySelectorAll('[data-mode]');
+          for (var i = 0; i < btns.length; i++) btns[i].classList.toggle('is-active', btns[i] === btn);
+          render();
+        }
+      });
+
+      window.addEventListener('resize', render);
+      render();
     })();
   </script>
 
