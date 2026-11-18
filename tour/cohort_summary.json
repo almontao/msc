@@ -1,0 +1,102 @@
+[
+  {
+    "subject_id": "sub-UTS01",
+    "short_id": "UTS01",
+    "voxels": 81126,
+    "r2_max": 0.48,
+    "sqrt_r2_max": 0.693,
+    "past_pct": 60.8,
+    "nonpast_pct": 39.2,
+    "sig_voxels": 0
+  },
+  {
+    "subject_id": "sub-UTS02",
+    "short_id": "UTS02",
+    "voxels": 94251,
+    "r2_max": 0.413,
+    "sqrt_r2_max": 0.642,
+    "past_pct": 45.7,
+    "nonpast_pct": 54.3,
+    "sig_voxels": 0
+  },
+  {
+    "subject_id": "sub-UTS03",
+    "short_id": "UTS03",
+    "voxels": 95556,
+    "r2_max": 0.532,
+    "sqrt_r2_max": 0.729,
+    "past_pct": 37.7,
+    "nonpast_pct": 62.3,
+    "sig_voxels": 0
+  },
+  {
+    "subject_id": "sub-UTS04",
+    "short_id": "UTS04",
+    "voxels": 109469,
+    "r2_max": 0.425,
+    "sqrt_r2_max": 0.652,
+    "past_pct": 78.3,
+    "nonpast_pct": 21.7,
+    "sig_voxels": 0
+  },
+  {
+    "subject_id": "sub-UTS05",
+    "short_id": "UTS05",
+    "voxels": 99322,
+    "r2_max": 0.47,
+    "sqrt_r2_max": 0.685,
+    "past_pct": 38.3,
+    "nonpast_pct": 61.7,
+    "sig_voxels": 0
+  },
+  {
+    "subject_id": "sub-UTS06",
+    "short_id": "UTS06",
+    "voxels": 92198,
+    "r2_max": 0.455,
+    "sqrt_r2_max": 0.675,
+    "past_pct": 43.0,
+    "nonpast_pct": 57.0,
+    "sig_voxels": 0
+  },
+  {
+    "subject_id": "sub-UTS07",
+    "short_id": "UTS07",
+    "voxels": 94395,
+    "r2_max": 0.371,
+    "sqrt_r2_max": 0.609,
+    "past_pct": 22.5,
+    "nonpast_pct": 77.5,
+    "sig_voxels": 0
+  },
+  {
+    "subject_id": "sub-UTS08",
+    "short_id": "UTS08",
+    "voxels": 97023,
+    "r2_max": 0.29,
+    "sqrt_r2_max": 0.538,
+    "past_pct": 34.9,
+    "nonpast_pct": 65.1,
+    "sig_voxels": 0
+  },
+  {
+    "subject_id": "sub-UTS09",
+    "short_id": "UTS09",
+    "voxels": 98336,
+    "r2_max": 0.39,
+    "sqrt_r2_max": 0.625,
+    "past_pct": 48.5,
+    "nonpast_pct": 51.5,
+    "sig_voxels": 0
+  },
+  {
+    "subject_id": "sub-UTS10",
+    "short_id": "UTS10",
+    "voxels": 81629,
+    "r2_max": 0.479,
+    "sqrt_r2_max": 0.692,
+    "past_pct": 34.5,
+    "nonpast_pct": 65.5,
+    "sig_voxels": 0
+  }
+]
